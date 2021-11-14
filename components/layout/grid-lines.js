@@ -1,60 +1,125 @@
+import { useEffect } from 'react'
 import styles from './styles.module.scss'
-import cx from 'classnames'
-import { motion } from 'framer-motion'
-
-const top_variants = {
-  hidden: { opacity: 0, y: "50vh" },
-  enter: { opacity: 1, y: "80px" }
-}
-
-const bottom_variants = {
-  hidden: { opacity: 0, y: "50vh" },
-  enter: { opacity: 1, y: "calc(100vh - 80px)" }
-}
-
-const left_variants = {
-  hidden: { opacity: 0, x: "50vw" },
-  enter: { opacity: 1, x: "calc(100vw/5)" }
-}
-
-const right_variants = {
-  hidden: { opacity: 0, x: "50vw" },
-  enter: { opacity: 1, x: "calc(400vw/5)" }
-}
+import { motion, useAnimation } from 'framer-motion'
+import useMousePosition from '../hooks/useMousePosition'
 
 export default function GridLines({home}) {
+  const { x, y } = useMousePosition();
+  const hasMovedCursor = typeof x === "number" && typeof y === "number";
+
+  const top_line_loading = useAnimation();
+  const bottom_line_loading = useAnimation();
+  const left_line_loading = useAnimation();
+  const right_line_loading = useAnimation();
+
+  const horizontal = {
+    initial: { opacity: 0, y: "50vh", width: 0 },
+    cross: { opacity: 1, width: "100vw", transition: { duration: 1.5 } },
+  } 
+
+  const vertical = {
+    initial: { opacity: 0, x: "50vw", height: 0 },
+    cross: { opacity: 1, height: "100vh", transition: { duration: 1.5 } },
+  } 
+
+  const spring_transition = {
+    transition: { type: "spring",
+      damping: 50,
+      stiffness: 100,
+      mass: 1, duration: 1.5
+    }
+  }
+
+  const top_line_loading_variants = {
+    ...horizontal,
+    expand: { 
+      y: "80px", 
+      ...spring_transition
+    }
+  }
+
+  const bottom_line_loading_variants = {
+    ...horizontal,
+    expand: { 
+      y: "calc(100vh - 80px)", 
+      ...spring_transition
+    }
+  }
+
+  const left_line_loading_variants = {
+    ...vertical,
+    expand: {
+      x: "calc(100vw/5)",
+      ...spring_transition
+    }
+  }
+
+  const right_line_loading_variants = {
+    ...vertical,
+    expand: {
+      x: "calc(400vw/5)",
+      ...spring_transition
+    }
+  }
+
+  async function top_line_loading_sequence() {
+    await top_line_loading.start("cross")
+    return top_line_loading.start("expand")
+  }
+
+  async function bottom_line_loading_sequence() {
+    await bottom_line_loading.start("cross")
+    return bottom_line_loading.start("expand")
+  }
+
+  async function left_line_loading_sequence() {
+    await left_line_loading.start("cross")
+    return left_line_loading.start("expand")
+  }
+
+  async function right_line_loading_sequence() {
+    await right_line_loading.start("cross")
+    return right_line_loading.start("expand")
+  }
+
+  useEffect(() => {
+    top_line_loading_sequence()
+    bottom_line_loading_sequence()
+    left_line_loading_sequence()
+    right_line_loading_sequence()
+  }, [top_line_loading, bottom_line_loading, left_line_loading, right_line_loading])
+
   return (
-    <div className={cx({
-      [styles.intro]: home,
-      [styles.grid_lines_container]: true
-    })}>
+    <div className={styles.grid_lines_container}>
       <motion.div 
-        variants={top_variants}
-        initial="hidden"
-        animate="enter"
-        transition={{ ease: [.25,.8,.25,1], duration: 3 }}
+        variants={top_line_loading_variants}
+        initial="initial"
+        animate={top_line_loading}
         className={styles.line_top}
       ></motion.div>
       <motion.div 
-        variants={bottom_variants}
-        initial="hidden"
-        animate="enter"
-        transition={{ ease: [.25,.8,.25,1], duration: 3 }}
+        variants={bottom_line_loading_variants}
+        initial="initial"
+        animate={bottom_line_loading}
         className={styles.line_bottom}
       ></motion.div>
       <motion.div 
-        variants={left_variants}
-        initial="hidden"
-        animate="enter"
-        transition={{ ease: [.25,.8,.25,1], duration: 3 }}
+        variants={left_line_loading_variants}
+        initial="initial"
+        animate={left_line_loading}
         className={styles.line_left}
       ></motion.div><motion.div 
-      variants={right_variants}
-      initial="hidden"
-      animate="enter"
-      transition={{ ease: [.25,.8,.25,1], duration: 3 }}
-      className={styles.line_right}
-    ></motion.div>
+        variants={right_line_loading_variants}
+        initial="initial"
+        animate={right_line_loading}
+        className={styles.line_right}
+      ></motion.div>
+
+      <pre style={{position: 'fixed', bottom: 0, left: 0}}>
+        {hasMovedCursor
+          ? `Your cursor is at ${x}, ${y}.`
+          : "Move your mouse around."}
+      </pre>
     </div>
   )
 }

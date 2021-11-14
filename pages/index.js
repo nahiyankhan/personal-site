@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { Layout } from '../components'
 import cx from 'classnames'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue } from 'framer-motion'
 import utils from '../styles/utils.module.scss'
 
 const siteTitle = 'Nahiyan Khan - Portfolio'
@@ -10,14 +10,19 @@ const tagline = 'UX Engineer | Design Systems'
 const intro = 'I am passionate about creating inclusive, engaging, and enjoyable team environments that allow designers, engineers, and product managers to do their best work together.'
 
 const anim_variants = {
-  hidden: { opacity: 0, scale: 0.95, x: -10 },
+  hidden: { opacity: 0, scale: 0.90, x: 10 },
   enter: { opacity: 1, scale: 1, x: 0 }
 }
 
 export default function Home() {
+  const y = useMotionValue(0)
+
   return (
     <Layout 
       home
+      onScroll={function() {
+        console.log(y.get())
+      }}
       left={
         <motion.div
           variants={anim_variants}
@@ -36,7 +41,8 @@ export default function Home() {
 
           <p className={utils.paragraphXL}>Say hello at nahiyan.khan@gmail.com</p>
         </motion.div>
-      }>
+      }
+      >
       <Head>
         <title>{siteTitle}</title>
       </Head>
