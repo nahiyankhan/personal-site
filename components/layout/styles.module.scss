@@ -11,11 +11,15 @@
   grid-row-start: 2;
   grid-column-start: 2;
   grid-column-end: 2;
+
+  z-index: 10;
 }
 
 .container_right {
   grid-column-start: 3;
   grid-column-end: 3;
+
+  z-index: 10;
 }
 
 // -- grid lines

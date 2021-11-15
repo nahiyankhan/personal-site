@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import cx from 'classnames'
 import utils from '../../styles/utils.module.scss'
+import Header from '../typography/header'
 
 export default function Hero() {
   const name = 'Nahiyan Khan'
@@ -22,12 +23,11 @@ export default function Hero() {
         [utils.vertical_align_center]: true,
         [utils.pb_5]: true
       })}
-    > 
-      <h1 className={utils.heading3Xl}>{name}</h1>
-      <h2 className={utils.heading2Xl}>{tagline}</h2>
+    >
+      <Header h="1" label={name} size="3XL" />
+      <Header h="2" label={tagline} size="2XL" />
 
       <p className={utils.paragraphXL}>{intro}</p>
-
       <p className={utils.paragraphXL}>Say hello at nahiyan.khan@gmail.com</p>
     </motion.div>
   )

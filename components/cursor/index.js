@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import useMousePosition from '../hooks/useMousePosition'
+import useMouse from "@react-hook/mouse-position";
 import styles from './styles.module.scss'
 
 export default function Cursor() {
