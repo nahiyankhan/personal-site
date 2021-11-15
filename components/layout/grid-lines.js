@@ -1,11 +1,9 @@
 import { useEffect } from 'react'
-import styles from './styles.module.scss'
 import { motion, useAnimation } from 'framer-motion'
-import useMousePosition from '../hooks/useMousePosition'
+import styles from './styles.module.scss'
+import Cursor from '../cursor'
 
 export default function GridLines({home}) {
-  const { x, y } = useMousePosition();
-  const hasMovedCursor = typeof x === "number" && typeof y === "number";
 
   const top_line_loading = useAnimation();
   const bottom_line_loading = useAnimation();
@@ -90,36 +88,34 @@ export default function GridLines({home}) {
   }, [top_line_loading, bottom_line_loading, left_line_loading, right_line_loading])
 
   return (
-    <div className={styles.grid_lines_container}>
-      <motion.div 
-        variants={top_line_loading_variants}
-        initial="initial"
-        animate={top_line_loading}
-        className={styles.line_top}
-      ></motion.div>
-      <motion.div 
-        variants={bottom_line_loading_variants}
-        initial="initial"
-        animate={bottom_line_loading}
-        className={styles.line_bottom}
-      ></motion.div>
-      <motion.div 
-        variants={left_line_loading_variants}
-        initial="initial"
-        animate={left_line_loading}
-        className={styles.line_left}
-      ></motion.div><motion.div 
-        variants={right_line_loading_variants}
-        initial="initial"
-        animate={right_line_loading}
-        className={styles.line_right}
-      ></motion.div>
+    <>
+      <div className={styles.grid_lines_container}>
+        <motion.div 
+          variants={top_line_loading_variants}
+          initial="initial"
+          animate={top_line_loading}
+          className={styles.line_top}
+        ></motion.div>
+        <motion.div 
+          variants={bottom_line_loading_variants}
+          initial="initial"
+          animate={bottom_line_loading}
+          className={styles.line_bottom}
+        ></motion.div>
+        <motion.div 
+          variants={left_line_loading_variants}
+          initial="initial"
+          animate={left_line_loading}
+          className={styles.line_left}
+        ></motion.div><motion.div 
+          variants={right_line_loading_variants}
+          initial="initial"
+          animate={right_line_loading}
+          className={styles.line_right}
+        ></motion.div>
+      </div>
 
-      <pre style={{position: 'fixed', bottom: 0, left: 0}}>
-        {hasMovedCursor
-          ? `Your cursor is at ${x}, ${y}.`
-          : "Move your mouse around."}
-      </pre>
-    </div>
+      <Cursor />
+    </>
   )
 }

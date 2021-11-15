@@ -29,6 +29,8 @@ export default function Layout({ left, right, home }) {
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
 
+        <GridLines home/>
+
         <div className={styles.container_left}>
           {left}
         </div>
@@ -36,8 +38,6 @@ export default function Layout({ left, right, home }) {
           {right}
         </div>
       </div>
-
-      <GridLines home/>
     </>
   )
 }

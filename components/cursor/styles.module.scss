@@ -1,0 +1,15 @@
+.cursor {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #C3CFD7;
+  border-radius: 100%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  // mix-blend-mode: difference;
+}
+
+.pulse {
+  @extend .cursor;
+}
