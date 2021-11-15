@@ -12,12 +12,12 @@ export default function GridLines({home}) {
 
   const horizontal = {
     initial: { opacity: 0, y: "50vh", width: 0 },
-    cross: { opacity: 1, width: "100vw", transition: { duration: 1.5 } },
+    cross: { opacity: 1, width: "100vw", height: 2, transition: { duration: 1.5 } },
   } 
 
   const vertical = {
     initial: { opacity: 0, x: "50vw", height: 0 },
-    cross: { opacity: 1, height: "100vh", transition: { duration: 1.5 } },
+    cross: { opacity: 1, height: "100vh", width: 2, transition: { duration: 1.5 } },
   } 
 
   const spring_transition = {
@@ -40,6 +40,7 @@ export default function GridLines({home}) {
     ...horizontal,
     expand: { 
       y: "calc(100vh - 80px)", 
+      height: 1,
       ...spring_transition
     }
   }
@@ -48,6 +49,7 @@ export default function GridLines({home}) {
     ...vertical,
     expand: {
       x: "calc(100vw/5)",
+      width: 1,
       ...spring_transition
     }
   }

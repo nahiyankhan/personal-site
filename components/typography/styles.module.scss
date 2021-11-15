@@ -3,31 +3,17 @@
   position: relative;
 }
 
-.markup_container {
-  --maskX: 0;
-  --maskY: 0;
-  position: absolute;
-  cursor: default;
-  user-select:none;
-
-  position: absolute;
-  width: 40px;
-  height: 100%;
-  left: -39px;
-}
-
 .markup {
   font-size: 0.8rem;
   font-weight: 500;
   color: #858690;
+  position: absolute;
   width: 40px;
   height: 100%;
+  left: -39px;
   border: 1px solid #dce6ef;
   display: flex;
   align-items: center;
   justify-content: center;
-  clip-path: circle(20px at var(--maskX) var(--maskY));
-  transition: all 0.4s ease-out;
-
-  background: black;
+  opacity: 0;
 }
