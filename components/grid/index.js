@@ -3,7 +3,7 @@ import { motion, useAnimation } from 'framer-motion'
 import styles from './styles.module.scss'
 import Cursor from '../cursor'
 
-export default function GridLines({home}) {
+export default function GridLines() {
 
   const top_line_loading = useAnimation();
   const bottom_line_loading = useAnimation();

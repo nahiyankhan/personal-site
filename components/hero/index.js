@@ -1,4 +1,10 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import {
+  motion,
+  useSpring,
+  useTransform,
+  useViewportScroll
+} from "framer-motion";
 import cx from 'classnames'
 import utils from '../../styles/utils.module.scss'
 import Header from '../typography/header'
@@ -7,6 +13,12 @@ export default function Hero() {
   const name = 'Nahiyan Khan'
   const tagline = 'UX Engineer | Design Systems'
   const intro = 'I am passionate about design systems, and creating inclusive team environments where everyone is able to do their best work together.'
+
+  // Vertical scroll distance in pixels.
+  const { scrollY } = useViewportScroll();
+  // Transforms scroll and image height values to opacity values
+  const yRange = useTransform(scrollY, [300, 0], [0, 1]);
+  const opacity = useSpring(yRange, { stiffness: 400, damping: 40 });
 
   const containerMotion = {
     hidden: { 
@@ -43,6 +55,8 @@ export default function Hero() {
         [utils.vertical_align_center]: true,
         [utils.pb_5]: true
       })}
+
+      style={opacity}
     >
       <motion.div variants={childMotion}>
         <Header 

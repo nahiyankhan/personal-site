@@ -1,0 +1,30 @@
+.container {
+  display: grid;
+  grid-template-columns: 20% 3fr 2fr 20%;
+  grid-template-rows: 80px 300px auto 80px;
+
+  height: 100vh;
+  width: 100vw;
+}
+
+.container_left {
+  grid-row-start: 2;
+  grid-column-start: 2;
+  grid-column-end: 2;
+
+  z-index: 10;
+}
+
+.container_right {
+  grid-column-start: 3;
+  grid-column-end: 3;
+
+  z-index: 10;
+}
+
+.home {
+  @extend .container;
+
+  grid-template-columns: 20% auto 30%;
+  grid-template-rows: 80px auto 80px;
+}

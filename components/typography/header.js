@@ -24,7 +24,10 @@ const textMotion = {
     textShadow: '0px 0px 0px rgba(255, 255, 255, 1)'
   },
   hover: {
-    textShadow: '0px 5px 20px rgba(0, 0, 0, 0.1)'
+    textShadow: '0px 5px 20px rgba(0, 0, 0, 0.1)',
+    transition: {
+      duration: 1
+    }
   }
 }
 

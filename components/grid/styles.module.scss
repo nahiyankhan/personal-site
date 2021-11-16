@@ -1,0 +1,54 @@
+// -- grid lines
+
+.grid_lines_container {
+  height: 100vh;
+  width: 100vw;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.line {
+  background-color: #dce6ef;
+  position: absolute;
+}
+
+.line_vertical {
+  @extend .line;
+
+  width: 1px;
+  height: 100vh;
+}
+
+.line_horizontal {
+  @extend .line;
+
+  width: 100vw;
+  height: 1px;
+}
+
+.line_top, .line_bottom {
+  @extend .line_horizontal;
+}
+
+.line_left, .line_right {
+  @extend .line_vertical;
+}
+
+// .line_top {
+//   top: 80px;
+// }
+
+// .line_bottom {
+//   bottom: 80px;
+// }
+
+// .line_left {
+//   left: 20%;
+// }
+
+// .line_right {
+//   right: 20%;
+// }
