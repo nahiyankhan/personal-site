@@ -1,7 +1,34 @@
 import { useEffect } from 'react'
-import { motion, useAnimation } from 'framer-motion'
-import styles from './styles.module.scss'
-import Cursor from '../cursor'
+import { motion, useAnimation } from "framer-motion"
+import styled from 'styled-components'
+
+const GridLinesContainer = styled.div`
+  height: 100vh;
+  width: 100vw;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+`
+
+const line = `
+  background-color: #322d38;
+  position: absolute;
+`
+
+const LineVertical = styled(motion.div)`
+  ${line}
+  width: 1px;
+  height: 100vh;
+`
+
+const LineHorizontal = styled(motion.div)`
+  ${line}
+  width: 100vw;
+  height: 1px;
+`
 
 export default function GridLines() {
 
@@ -24,14 +51,15 @@ export default function GridLines() {
     transition: { type: "spring",
       damping: 50,
       stiffness: 100,
-      mass: 1, duration: 1.5
+      mass: 1, 
+      duration: 1.5
     }
   }
 
   const top_line_loading_variants = {
     ...horizontal,
     expand: { 
-      y: "80px", 
+      y: "140px", 
       ...spring_transition
     }
   }
@@ -39,8 +67,7 @@ export default function GridLines() {
   const bottom_line_loading_variants = {
     ...horizontal,
     expand: { 
-      y: "calc(100vh - 80px)", 
-      height: 1,
+      y: "100vh", 
       ...spring_transition
     }
   }
@@ -48,8 +75,7 @@ export default function GridLines() {
   const left_line_loading_variants = {
     ...vertical,
     expand: {
-      x: "calc(100vw/5)",
-      width: 1,
+      x: "140px",
       ...spring_transition
     }
   }
@@ -57,7 +83,7 @@ export default function GridLines() {
   const right_line_loading_variants = {
     ...vertical,
     expand: {
-      x: "calc(400vw/5)",
+      x: "calc(100vw - 140px)",
       ...spring_transition
     }
   }
@@ -91,33 +117,28 @@ export default function GridLines() {
 
   return (
     <>
-      <div className={styles.grid_lines_container}>
-        <motion.div 
+      <GridLinesContainer>
+        <LineHorizontal 
           variants={top_line_loading_variants}
           initial="initial"
           animate={top_line_loading}
-          className={styles.line_top}
-        ></motion.div>
-        <motion.div 
+        />
+        <LineHorizontal 
           variants={bottom_line_loading_variants}
           initial="initial"
           animate={bottom_line_loading}
-          className={styles.line_bottom}
-        ></motion.div>
-        <motion.div 
+        />
+        <LineVertical 
           variants={left_line_loading_variants}
           initial="initial"
           animate={left_line_loading}
-          className={styles.line_left}
-        ></motion.div><motion.div 
+        />
+        <LineVertical 
           variants={right_line_loading_variants}
           initial="initial"
           animate={right_line_loading}
-          className={styles.line_right}
-        ></motion.div>
-      </div>
-
-      <Cursor />
+        />
+      </GridLinesContainer>
     </>
   )
 }
