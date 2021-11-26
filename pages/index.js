@@ -1,5 +1,9 @@
 import Head from 'next/head'
-import { Layout, Hero, Projects, Section, Grid } from '../components'
+import Layout from '../components/layout'
+import Intro from '../components/intro'
+import Projects from '../components/projects'
+import About from '../components/about'
+import Contact from '../components/contact'
 
 export default function Home() {
   const siteTitle = 'Nahiyan Khan - Portfolio'
@@ -10,23 +14,10 @@ export default function Home() {
         <title>{siteTitle}</title>
       </Head>
 
-      <Section
-        left={
-          <Hero />
-        }
-      >
-        <Grid />
-      </Section>
-
-      <Section
-        left={
-          <Projects />
-        }
-      >
-
-      </Section>
-
-
+      <Intro />
+      <About />
+      <Projects />
+      <Contact />
     </Layout>
   )
 }

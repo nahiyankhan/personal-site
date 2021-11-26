@@ -1,4 +1,8 @@
 import Head from 'next/head'
+import Container from './container'
+import Cursor from './cursor'
+import Header from './header'
+import GridLines from './gridLines'
 
 const siteTitle = 'Nahiyan Khan - Portfolio'
 
@@ -21,7 +25,14 @@ export default function Layout({ home, children }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
-      {children}
+      <Cursor />
+      <Header />
+
+      <GridLines />
+
+      <Container>
+        {children}
+      </Container>
     </>
   )
 }
