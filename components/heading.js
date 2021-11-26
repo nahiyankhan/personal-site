@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import styled from 'styled-components';
+import Markup from './markup';
 
 const StyledHeader = styled.div`
   ${(props) => {
@@ -12,21 +13,33 @@ const StyledHeader = styled.div`
         `
       case '2XL':
         return `
-          font-size: 3.4rem; 
+          font-size: 4.5rem; 
           line-height: 1.2; 
-          font-weight: 700
+          font-weight: 800
         `
       case 'XL':
         return `
-          font-size: 1.7rem; 
+          font-size: 3.2rem; 
           line-height: 1.2; 
-          font-weight: 600
+          font-weight: 500
+        `
+      case 'L':
+        return `
+          font-size: 2.2rem; 
+          line-height: 1.2; 
+          font-weight: 400
         `
       default:
         return ''
     }
   }};
-  letter-spacing: -0.05rem;
+  ${(props) => props.variation === 'uppercase' && `
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+  `};
+  ${(props) => props.color === 'slate' && `
+    color: #777;
+  `};
   margin: 1rem 0;
 `;
 
@@ -35,48 +48,14 @@ const TypographyHeader = styled(motion.div)`
   position: relative;
 `
 
-const Markup = styled(motion.div)`
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #858690;
-  position: absolute;
-  width: 40px;
-  height: 100%;
-  left: -39px;
-  border: 1px solid #322d38;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-`
-
-const markupMotion = {
-  rest: { 
-    opacity: 0, 
-    ease: "easeOut", 
-    duration: 0.2, 
-    type: "tween" 
-  },
-  hover: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      type: "tween",
-      ease: "easeIn"
-    }
-  }
-}
-
-export default function Header({h, label, size}) {
+export default function Header({h, label, size, variation, color}) {
   const tag = `h${h}`
 
   return (
     <TypographyHeader initial="rest" whileHover="hover" animate="rest">
-      <Markup variants={markupMotion}>
-        {tag}
-      </Markup>
+      <Markup tag={tag} />
       <motion.div>
-        <StyledHeader size={size} as={tag}>
+        <StyledHeader size={size} variation={variation} color={color} as={tag}>
           {label}
         </StyledHeader>
       </motion.div>

@@ -1,15 +1,15 @@
 import { useEffect } from 'react'
 import { motion, useAnimation } from "framer-motion"
 import styled from 'styled-components'
+import useMousePosition from './hooks/useMousePosition'
 
 const GridLinesContainer = styled.div`
   height: 100vh;
   width: 100vw;
-
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 15;
   pointer-events: none;
 `
 
@@ -31,6 +31,7 @@ const LineHorizontal = styled(motion.div)`
 `
 
 export default function GridLines() {
+  const { x, y } = useMousePosition();
 
   const top_line_loading = useAnimation();
   const bottom_line_loading = useAnimation();

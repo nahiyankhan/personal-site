@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { motion } from "framer-motion"
 import useMousePosition from './hooks/useMousePosition'
 import styled from 'styled-components';
