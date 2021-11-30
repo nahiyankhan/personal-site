@@ -1,18 +1,9 @@
-import styled from 'styled-components'
-import Header from './heading'
-import Grid from './grid'
-import Section from './section'
 import Title from './title'
+import Section from './section'
+import Grid from './grid'
+import Project from './project'
 
-const HeroImage = styled.div`
-  width: 800px;
-  height: 400px;
-  background: #858690;
-
-  grid-column-start: none;
-`
-
-export default function() {
+export default function Projects() {
   return (
     <Section fullpage>
       <Section>
@@ -21,38 +12,20 @@ export default function() {
         </Grid>
       </Section>
 
-      <Section>
-        <Grid>
-        <Header 
-            h="3" 
-            label={'Design Tokens Implementation'} 
-            size="2XL"
-          />
-          <HeroImage />
-        </Grid>
-      </Section>
+      <Project 
+        title="Design Tokens"
+        tagline="Building a multi-device multi-technology styles infrastructure"
+      />
 
-      <Section>
-        <Grid>
-          <Header 
-            h="3" 
-            label={'Product Color Palette'} 
-            size="2XL"
-          />
-          <HeroImage />
-        </Grid>
-      </Section>
+      <Project 
+        title="Color Palette"
+        tagline="Designing a predictably accessible brand-aligned product color palette"
+      />
 
-      <Section>
-        <Grid>
-          <Header 
-            h="3" 
-            label={'Design System Site'} 
-            size="2XL"
-          />
-          <HeroImage />
-        </Grid>
-      </Section>
+      <Project 
+        title="Design Systems Documentation"
+        tagline="Building a design systems documentation site"
+      />
     </Section>
   )
 }

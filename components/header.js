@@ -9,14 +9,14 @@ const HeaderContainer = styled(motion.div)`
   height: 140px;
   padding: 0 140px;
   overflow: hidden;
-  z-index: 1;
+  z-index: 10;
 `
 
 const HeaderBackground = styled.div`
   background: radial-gradient(farthest-corner at 40px 40px, #18181a 0%, #151216 100%);
   position: absolute;
   top: 0;
-  left: 142px;
+  left: 0;
   height: 100vh;
   width: 100vw;
 `
@@ -50,7 +50,7 @@ const tagline = 'UX Engineer | Design Systems'
 
 export default function Header() {
   const { scrollY } = useViewportScroll();
-  const moveUp = useTransform(scrollY, [0, 720], [152, 0])
+  const moveUp = useTransform(scrollY, [0, 780], [170, 0])
 
   return (
     <HeaderContainer>
@@ -65,7 +65,9 @@ export default function Header() {
 
           <Paragraph 
             label={tagline} 
-            size="M"
+            size="S"
+            variation="uppercase"
+            color="slate"
           />
         </LogoContainer>
 
