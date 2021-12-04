@@ -4,8 +4,6 @@ import styled from 'styled-components';
 
 const StyledCursorContainer = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
   z-index: 9999;
 `
 
@@ -27,6 +25,10 @@ export default function Cursor() {
   return (
     <StyledCursorContainer>
       <StyledCursor
+        initial={{
+          x: '50%',
+          y: '50%'
+        }}
         animate={{
           x: x-16,
           y: y-16

@@ -76,7 +76,9 @@ export default function GridLines() {
   const left_line_loading_variants = {
     ...vertical,
     expand: {
-      x: "140px",
+      x: "-108px",
+      y: "-100px",
+      rotate: 35,
       ...spring_transition
     }
   }
@@ -84,7 +86,9 @@ export default function GridLines() {
   const right_line_loading_variants = {
     ...vertical,
     expand: {
-      x: "calc(100vw - 140px)",
+      x: "calc(100vw + 108px)",
+      y: "100px",
+      rotate: 35,
       ...spring_transition
     }
   }

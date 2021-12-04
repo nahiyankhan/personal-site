@@ -29,7 +29,7 @@ const HeaderContent = styled(motion.div)`
 `
 
 const LogoContainer = styled.div`
-
+  margin-left: 1px;
 `
 
 const MenuContainer = styled.div`
@@ -61,7 +61,7 @@ export default function Header() {
         }}
       >
         <LogoContainer>
-          <Khan small/>
+          <Khan small={true}/>
 
           <Paragraph 
             label={tagline} 
