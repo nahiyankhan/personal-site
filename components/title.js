@@ -2,7 +2,7 @@ import { motion, useAnimation } from 'framer-motion'
 import styled from 'styled-components'
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react'
-import Markup from './markup'
+// import Markup from './markup'
 
 const WordMotion = {
   show: {
@@ -20,7 +20,7 @@ const FirstHalfMotion = {
     x: -40
   },
   show: {
-    opacity: 0.5,
+    opacity: 0.8,
     x: 0,
     transition: {
       duration: 2,
@@ -35,7 +35,7 @@ const SecondHalfMotion = {
     x: -40
   },
   show: {
-    opacity: 0.8,
+    opacity: 1,
     x: 0,
     transition: {
       duration: 1.5,
@@ -120,7 +120,7 @@ export default function Title({ title }) {
       ref={ref}
       whileHover="hover"
     >
-      <Markup tag="h2" />
+      {/* <Markup tag="h2" /> */}
       {getTitle(title)}
     </Container>
   )

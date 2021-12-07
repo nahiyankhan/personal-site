@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-import Markup from './markup';
+// import Markup from './markup';
 
 const Paragraph = styled.div`
   ${(props) => {
@@ -51,7 +51,7 @@ export default function Header({label, size, variation, color}) {
 
   return (
     <ParagraphContainer initial="rest" whileHover="hover" animate="rest">
-      <Markup tag="p" />
+      {/* <Markup tag="p" /> */}
       <Paragraph size={size} variation={variation} color={color}>
         {label}
       </Paragraph>

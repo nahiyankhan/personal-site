@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
-import Markup from './markup'
+// import Markup from './markup'
 
 const Khantainer = styled(motion.div)`
   display: flex;
@@ -25,7 +25,7 @@ const FirstHalfMotion = {
     x: -40
   },
   show: {
-    opacity: 0.5,
+    opacity: 0.8,
     x: 0,
     transition: {
       duration: 2,
@@ -40,7 +40,7 @@ const SecondHalfMotion = {
     x: -40
   },
   show: {
-    opacity: 0.8,
+    opacity: 1,
     x: 0,
     transition: {
       duration: 1.5,
@@ -72,7 +72,7 @@ export default function Khan({small}) {
           animate="show"
           whileHover="hover"
         >
-          <Markup tag="h1" />
+          {/* <Markup tag="h1" /> */}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 215.38 56.73">
             <motion.g id="kh" fill="#FFF" variants={FirstHalfMotion}>
               <path id="h" d="M96.86 38H78.22v18.6H59.9V.06h18.32v20h18.64v-20h18.32v26.13L96.86 51.43Z"/>

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import styled from 'styled-components';
-import Markup from './markup';
+// import Markup from './markup';
 
 const StyledHeader = styled.div`
   ${(props) => {
@@ -21,7 +21,7 @@ const StyledHeader = styled.div`
         return `
           font-size: 3.2rem; 
           line-height: 1.2; 
-          font-weight: 500
+          font-weight: 600
         `
       case 'L':
         return `
@@ -53,7 +53,7 @@ export default function Header({h, label, size, variation, color}) {
 
   return (
     <TypographyHeader initial="rest" whileHover="hover" animate="rest">
-      <Markup tag={tag} />
+      {/* <Markup tag={tag} /> */}
       <motion.div>
         <StyledHeader size={size} variation={variation} color={color} as={tag}>
           {label}

@@ -1,15 +1,17 @@
 import styled from 'styled-components'
 
 const StyledSection = styled.div`
+  position: relative;
   ${(props) => props.fullpage ? `
-    min-height: calc(100vh - 140px);
+    min-height: 956px;
   ` : `
-    margin: 140px 0;
+    padding: 140px 0;
   `};
   ${(props) => props.centered && `
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
   `};
 `
 

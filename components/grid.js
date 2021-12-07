@@ -8,11 +8,14 @@ const StyledGrid = styled.div`
   max-width: calc(100vw - 280px);
   position: relative;
   width: 100%;
+  ${(props) => props.center && `
+    align-items: center;
+  `}
 `
 
-export default function Grid({ children }) {
+export default function Grid({ children, center }) {
   return (
-    <StyledGrid>
+    <StyledGrid center={center}>
       {children}
     </StyledGrid>
   )
