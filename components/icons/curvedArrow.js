@@ -69,8 +69,3 @@ export default function CurvedArrow() {
     </IconContainer>
   )
 }
-
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2 8H47C52 8 62 10.6667 62 21.3333C62 32 52 34.6667 47 34.6667H26.1785C20.9351 34.6667 16.0244 37.2358 13.0346 41.5433L3 56" stroke="black" stroke-width="2" stroke-linecap="round"/>
-
-</svg>
