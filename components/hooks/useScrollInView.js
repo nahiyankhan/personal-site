@@ -1,4 +1,4 @@
-import { useRef, useState, useLayoutEffect } from 'react'
+import { useState, useLayoutEffect } from 'react'
 // import { useInView } from "react-intersection-observer";
 
 // export function useScrollInView() {
@@ -23,7 +23,7 @@ import { useRef, useState, useLayoutEffect } from 'react'
 // }
 
 export default function useScrollInView(inputRef) {
-  const ref = inputRef || useRef();
+  const ref = inputRef;
   const [start, setStart] = useState(null);
   const [end, setEnd] = useState(null);
   useLayoutEffect(() => {
