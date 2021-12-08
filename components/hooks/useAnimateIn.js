@@ -6,6 +6,7 @@ export default function useAnimateIn({
   customVars,
   delay,
   distance,
+  endpoint,
   duration,
   repeat,
   threshold,
@@ -26,10 +27,13 @@ export default function useAnimateIn({
   }, [ctrls, inView]);
 
   const vars = customVars || {
-    hidden: { opacity: 0, x: distance || `5rem` },
+    hidden: { 
+      opacity: 0, 
+      x: distance || `5rem` 
+    },
     visible: {
       opacity: 1,
-      x: 0,
+      x: endpoint || 0,
       transition: {
         delay: delay || 0,
         duration: duration || 1,
