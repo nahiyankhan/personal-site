@@ -1,3 +1,4 @@
+import { useRef, useState, useLayoutEffect } from 'react'
 import styled from 'styled-components'
 import { motion, useViewportScroll, useTransform } from 'framer-motion'
 import useScrollInView from './hooks/useScrollInView'
@@ -25,14 +26,25 @@ const LineDiagonal = styled(motion.div)`
 `
 
 export default function DiagonalLine({ reverse }) {
+  const lineRef = useRef();
+  const [scrollStart, setScrollStart] = useState(null);
+  const [scrollEnd, setScrollEnd] = useState(null);
+
   const { scrollYProgress } = useViewportScroll();
-  const {
-    ref: lineRef,
-    start: scrollStart,
-    end: scrollEnd
-  } = useScrollInView();
   const range = [0, 3400];
   const height = useTransform(scrollYProgress, [scrollStart, scrollEnd], range);
+
+  useLayoutEffect(() => {
+    if (!lineRef.current) {
+      return;
+    } else {
+      const rect = lineRef.current.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const offsetTop = rect.top + scrollTop;
+      setScrollStart(offsetTop / document.body.clientHeight);
+      setScrollEnd((offsetTop + rect.height) / document.body.clientHeight);
+    }
+  });
 
   return (
     <LinesContainer

@@ -12,7 +12,7 @@ const IntroContainer = styled(motion.div)`
   margin-bottom: 5rem;
 `
 
-const tagline = 'UX Engineer | Design Systems'
+const tagline = 'UX | Front-End | Design Systems'
 
 export default function Intro() {
 

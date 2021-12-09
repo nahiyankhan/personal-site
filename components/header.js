@@ -46,7 +46,7 @@ const MenuItem = styled.li`
   margin-right: 80px;
 `
 
-const tagline = 'UX Engineer | Design Systems'
+const tagline = 'UX | Front-End | Design Systems'
 
 export default function Header() {
   const { scrollY } = useViewportScroll();

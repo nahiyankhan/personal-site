@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { motion, useAnimation } from "framer-motion"
+import { motion, useAnimation, useViewportScroll, useTransform } from "framer-motion"
 import styled from 'styled-components'
 import useMousePosition from './hooks/useMousePosition'
 
@@ -31,7 +31,8 @@ const LineHorizontal = styled(motion.div)`
 `
 
 export default function GridLines() {
-  const { x, y } = useMousePosition();
+  const { scrollYProgress } = useViewportScroll();
+  const moveUp = useTransform(scrollYProgress, [0.9, 1], ['100vh', '85vh'])
 
   const top_line_loading = useAnimation();
   const bottom_line_loading = useAnimation();
@@ -132,6 +133,9 @@ export default function GridLines() {
           variants={bottom_line_loading_variants}
           initial="initial"
           animate={bottom_line_loading}
+          style={{
+            y: moveUp
+          }}
         />
         <LineVertical 
           variants={left_line_loading_variants}
