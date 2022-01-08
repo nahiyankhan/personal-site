@@ -7,7 +7,7 @@ import Khan from './khan'
 
 const IntroContainer = styled(motion.div)`
   grid-column-start: 1;
-  grid-column-end: 15;
+  grid-column-end: 24;
 
   margin-bottom: 5rem;
 `
@@ -47,7 +47,6 @@ export default function Intro() {
               label={tagline} 
               size="L"
               variation="uppercase"
-              color="slate"
             />
           </motion.div>
         </IntroContainer>

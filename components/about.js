@@ -21,7 +21,7 @@ const TitleContainer = styled.div`
 
 const HelloContainer = styled.div`
   grid-column-start: 1;
-  grid-column-end: 12;
+  grid-column-end: 24;
   margin-bottom: 120px;
 `
 
@@ -29,15 +29,34 @@ const AboutPicture = styled(motion.div)`
   grid-row-start: 1;
   grid-row-end: 5;
   grid-column-start: 1;
-  grid-column-end: 9;
+  grid-column-end: 14;
+
+  ${({ theme }) => theme.medium`
+    grid-column-start: 1;
+    grid-column-end: 9;
+  `}
+
   clip-path: polygon(33.5% 0,100% 0,100% 56%,53% 100%,0 100%,0% 31%);
+  filter: grayscale(0.2);
 `
 
 const AboutText = styled(Parallax)`
-  grid-row-start: 1;
-  grid-row-end: 3;
-  grid-column-start: 8;
-  grid-column-end: 16;
+  grid-row-start: 4;
+  grid-row-end: 6;
+  grid-column-start: 2;
+  grid-column-end: 24;
+
+  ${({ theme }) => theme.medium`
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 8;
+    grid-column-end: 22;
+  `}
+
+  ${({ theme }) => theme.large`
+    grid-column-start: 8;
+    grid-column-end: 16;
+  `}
 `
 
 const DesigningIdeasContainer = styled(Parallax)`
@@ -58,16 +77,33 @@ const And = styled(motion.div)`
 
 const FreyjaText = styled(Parallax)`
   grid-row-start: 6;
-  grid-column-start: 10;
-  grid-column-end: 18;
+  grid-column-start: 2;
+  grid-column-end: 24;
+
+  ${({ theme }) => theme.medium`
+    grid-column-start: 10;
+    grid-column-end: 18;
+  `}
 `
 
 const FreyjaPicture = styled(motion.div)`
-  grid-row-start: 5;
-  grid-row-end: 7;
-  grid-column-start: 15;
+  grid-row-start: 7;
+  grid-row-end: 9;
+  grid-column-start: 8;
   grid-column-end: 24;
+
+  ${({ theme }) => theme.medium`
+    grid-column-start: 15;  
+    grid-row-start: 5;
+    grid-row-end: 7;
+  `}
+
+  ${({ theme }) => theme.large`
+    
+  `}
+
   clip-path: polygon(27.5% 0,100% 0,100% 45%,46% 100%,0 100%,0% 31%);
+  filter: grayscale(0.2);
 `
 
 const about = 'I am a designer coder with a passion for design systems, scalable front-ends and snazzy interfaces with just the right feel.'
@@ -135,7 +171,7 @@ export default function About() {
           <HelloContainer>
             <Heading 
               h="3"
-              label="Hi, I am Khan."
+              label="I am Khan."
               size="2XL"
             />
           </HelloContainer>

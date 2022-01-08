@@ -9,20 +9,22 @@ import useAnimateIn from './hooks/useAnimateIn'
 
 const HeroImage = styled(motion.div)`
   width: 1000px;
-  height: 600px;
+  height: 800px;
   background: #858690;
 
   grid-row-start: 1;
-  grid-column-start: -1;
+  grid-column-start: 12;
   grid-row-end: 1;
-  grid-column-end: -19;
+  grid-column-end: 24;
   z-index: 4;
+
+  position: absolute;
 `
 
 const ProjectTitle = styled(Parallax)`
   grid-row-start: 1;
   grid-column-start: 1;
-  grid-column-end: -16;
+  grid-column-end: 14;
   z-index: 5;
 `
 
@@ -41,7 +43,9 @@ export default function Project({ title, tagline }) {
     ctrls: imageCtrls,
     vars: imageVars,
   } = useAnimateIn({
-    threshold: 0.5
+    threshold: 0.5,
+    distance: '15rem',
+    endpoint: '10rem'
   });
   
   return (

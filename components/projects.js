@@ -54,7 +54,7 @@ export default function Projects() {
             label="My proudest work includes" 
             size="2XL"
           />
-          <CurvedArrow />
+          {/* <CurvedArrow /> */}
         </HighlightsContainer>
       </Grid>
 

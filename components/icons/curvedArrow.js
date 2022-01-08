@@ -49,20 +49,20 @@ export default function CurvedArrow() {
         <motion.path 
           variants={arrowTailVars}
           d="M2 8H47C52 8 62 10.6667 62 21.3333C62 32 52 34.6667 47 34.6667H26.1785C20.9351 34.6667 16.0244 37.2358 13.0346 41.5433L3 56" 
-          stroke="#fff" 
+          stroke="#FF52BF" 
           strokeWidth="4" 
           strokeLinecap="round" />
 
         <motion.path 
           variants={arrowHeadVars}
           d="M2.00006 57.2651L2.00006 34.6453" 
-          stroke="#fff" 
+          stroke="#FF52BF" 
           strokeWidth="4" 
           strokeLinecap="round"/>
         <motion.path 
           variants={arrowHeadVars}
           d="M2 57.2651L23.6198 57.2651" 
-          stroke="#fff" 
+          stroke="#FF52BF" 
           strokeWidth="4" 
           strokeLinecap="round"/>
       </motion.svg>
