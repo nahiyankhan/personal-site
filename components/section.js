@@ -2,10 +2,16 @@ import styled from 'styled-components'
 
 const StyledSection = styled.div`
   position: relative;
-  ${(props) => props.fullpage ? `
-    min-height: 956px;
-  ` : `
+  padding: 80px 0;
+
+  ${({ theme }) => theme.medium`
     padding: 140px 0;
+  `};
+
+  ${(props) => props.fullpage ? `
+    min-height: calc(100vh - 140px);
+  ` : `
+    min-height: 400px;
   `};
   ${(props) => props.centered && `
     display: flex;

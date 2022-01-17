@@ -22,12 +22,12 @@ const line = `
 const LineVertical = styled(motion.div)`
   ${line}
   width: 1px;
-  height: 100vh;
+  height: 100%;
 `
 
 const LineHorizontal = styled(motion.div)`
   ${line}
-  width: 100vw;
+  width: 100%;
   height: 1px;
 `
 
@@ -79,12 +79,12 @@ export default function GridLines() {
 
   const horizontal = {
     initial: { opacity: 0, y: "50vh", width: 0 },
-    cross: { opacity: 1, width: "100vw", height: 2, transition: { duration: 1.5 } },
+    cross: { opacity: 1, width: "100%", height: 2, transition: { duration: 1.5 } },
   } 
 
   const vertical = {
     initial: { opacity: 0, x: "50vw", height: 0 },
-    cross: { opacity: 1, height: "100vh", width: 2, transition: { duration: 1.5 } },
+    cross: { opacity: 1, height: "100%", width: 2, transition: { duration: 1.5 } },
   } 
 
   const spring_transition = {

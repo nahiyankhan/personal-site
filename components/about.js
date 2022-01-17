@@ -157,13 +157,11 @@ export default function About() {
 
   return (
     <Section fullpage>
-      <Section>
-        <Grid>
-          <TitleContainer>
-            <Title title={'about'} />
-          </TitleContainer>
-        </Grid>
-      </Section>
+      <Grid>
+        <TitleContainer>
+          <Title title={'about'} />
+        </TitleContainer>
+      </Grid>
 
       <Section>
         <DiagonalLine />

@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import { motion, useViewportScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 import Heading from './heading'
 import Title from './title'
+import Paragraph from './paragraph'
 import Section from "./section"
 import Grid from "./grid"
 import useAnimateIn from './hooks/useAnimateIn'
@@ -16,8 +17,12 @@ const HelloContainer = styled(motion.div)`
   margin-bottom: 140px;
 `
 
+const Divider = styled.div`
+  width: 100%;
+  height: 80px;
+`
+
 export default function Contact() {
-  const { scrollYProgress } = useViewportScroll();
 
   const {
     ref: helloRef,
@@ -32,11 +37,9 @@ export default function Contact() {
     <Section fullpage>
       <DiagonalLine reverse={true} />
       
-      <Section>
-        <Grid>
-          <Title title={'contact'} />
-        </Grid>
-      </Section>
+      <Grid>
+        <Title title={'contact'} />
+      </Grid>
 
       <Grid>
         <HelloContainer
@@ -46,17 +49,26 @@ export default function Contact() {
         >
           <Heading
             h="3" 
-            label="Say hello at nahiyan.khan@gmail.com" 
+            label="Say hello at" 
+            size="2XL"
+          />
+          <Paragraph 
+            label="nahiyan.khan@gmail.com"
             size="2XL"
           />
 
-          <Section>
+          <Divider />
+
           <Heading
             h="3" 
-            label="Connect at linkedin.com/in/nahiyankhan" 
+            label="Connect at" 
             size="2XL"
           />
-          </Section>
+          <Paragraph 
+            label="linkedin.com/in/nahiyankhan"
+            size="2XL"
+          />
+
         </HelloContainer>
       </Grid>
 

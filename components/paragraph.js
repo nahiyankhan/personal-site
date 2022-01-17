@@ -19,7 +19,7 @@ const Paragraph = styled.div`
         `
       case 'S':
         return `
-          font-size: 0.8rem; 
+          font-size: 0.7rem; 
           line-height: 1;
           margin: 0.5rem 0;
         `
@@ -34,6 +34,15 @@ const Paragraph = styled.div`
     margin: 1rem 0;
     ${({ theme }) => theme.large`
       font-size: 1.7rem; 
+    `};
+  `};
+
+  ${(props) => props.size === '2XL' && css`
+    font-size: 1.9rem; 
+    line-height: 1.5;
+    margin: 1rem 0;
+    ${({ theme }) => theme.large`
+      font-size: 2.4rem; 
     `};
   `};
 
