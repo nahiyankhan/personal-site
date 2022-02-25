@@ -35,13 +35,11 @@ export default function Projects() {
 
   return (
     <Section fullpage>
-      <Section>
-        <Grid>
-          <TitleContainer>
-            <Title title={'projects'} />
-          </TitleContainer>
-        </Grid>
-      </Section>
+      <Grid>
+        <TitleContainer>
+          <Title title={'projects'} />
+        </TitleContainer>
+      </Grid>
 
       <Grid>
         <HighlightsContainer
