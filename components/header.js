@@ -6,8 +6,9 @@ import Khan from './khan'
 import { useIsMedium, useIsLarge } from './hooks/useMediaQuery'
 
 const HeaderContainer = styled(motion.div)`
-  position: sticky;
+  position: fixed;
   top: 0;
+  width: 100%;
   height: 100px;
   padding: 0 40px;
   overflow: hidden;
