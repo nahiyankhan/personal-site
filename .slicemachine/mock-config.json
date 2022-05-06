@@ -1,0 +1,12 @@
+{
+  "_cts": {
+    "homepage": {
+      "tagline": {
+        "config": {
+          "patternType": "PARAGRAPH",
+          "blocks": 1
+        }
+      }
+    }
+  }
+}
