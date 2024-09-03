@@ -31,8 +31,17 @@ export default {
 					},
 					"@apply underline underline-offset-2": {},
 				},
-				".title": {
-					"@apply text-2xl font-semibold text-accent-2": {},
+				".container": {
+					"@apply mx-auto flex max-w-7xl flex-col antialiased": {},
+				},
+				".header-xlarge": {
+					"@apply text-6xl font-extrabold text-textProminent": {}
+				},
+				".header-standard": {
+					"@apply text-2xl font-bold text-textProminent": {},
+				},
+				".subtitle-large": {
+					"@apply text-2xl font-normal text-textStandard": {},
 				},
 			});
 		}),
@@ -46,11 +55,16 @@ export default {
 				link: "hsl(var(--theme-link) / <alpha-value>)",
 				quote: "hsl(var(--theme-quote) / <alpha-value>)",
 				textColor: "hsl(var(--theme-text) / <alpha-value>)",
+
+				textProminent: "hsl(var(--text-prominent) / <alpha-value>)",
+				textStandard: "hsl(var(--text-standard) / <alpha-value>)",
+				textSubtle: "hsl(var(--text-subtle) / <alpha-value>)",
+
+				borderDivider: "hsl(var(--border-divider) / <alpha-value>)",
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: ['Plus Jakarta Sans Variable',...fontFamily.sans],
-				serif: [...fontFamily.serif],
+				sans: ['Plus Jakarta Sans Variable',...fontFamily.sans]
 			},
 			transitionProperty: {
 				height: "height",

@@ -1,6 +1,6 @@
 {
-	"name": "proto-plasma",
-	"version": "4.9.0",
+	"name": "nahiyan-khan-personal-site",
+	"version": "0.1.0",
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
