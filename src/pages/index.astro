@@ -1,9 +1,11 @@
 ---
 import PostPreview from "@/components/blog/PostPreview.astro";
+import { menuLinks } from "@/site-config";
 import Column from "@/components/layout/Column.astro";
 import { getAllPosts, sortMDByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
+import SocialList from "@/components/SocialList.astro";
 
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
@@ -56,7 +58,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 <PageLayout meta={{ title: "Home" }}>
 	<Column>
 		<div class="column-left">
-			<div class="mb-8 mt-16 w-full text-textProminent">
+			<div class="mb-8 w-11/12 text-textProminent">
 				<Fragment set:html={NahiyanKhanLogo} />
 			</div>
 			<p class="subtitle-large mb-8 w-11/12 text-4xl">
@@ -66,21 +68,29 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 			</p>
 		</div>
 
-		<div class="column-right"></div>
+		<div class="column-right">
+			<SocialList />
+		</div>
 	</Column>
 
 	<Column>
-		<div class="column-left h-80"></div>
+		<div class="column-left h-80">
+			<h2 class="header-large">Experience</h2>
+		</div>
 		<div class="column-right h-80"></div>
 	</Column>
 
 	<Column>
-		<div class="column-left h-80"></div>
+		<div class="column-left h-80">
+			<h2 class="header-large">Projects</h2>
+		</div>
 		<div class="column-right h-80"></div>
 	</Column>
 
 	<Column>
-		<div class="column-left h-80"></div>
+		<div class="column-left h-80">
+			<h2 class="header-large">Musings</h2>
+		</div>
 		<div class="column-right h-80"></div>
 	</Column>
 

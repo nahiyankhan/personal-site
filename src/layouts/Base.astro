@@ -25,7 +25,10 @@ const {
 		<ThemeProvider />
 		<SkipLink />
 		<Header />
-		<main id="main" class="container min-h-screen px-0 pt-[100px] text-sm">
+		<main
+			id="main"
+			class="container min-h-screen px-0 pt-[100px] text-sm [&>.grid:first-child>*]:pt-44"
+		>
 			<slot />
 		</main>
 		<Footer />

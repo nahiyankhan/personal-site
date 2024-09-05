@@ -11,15 +11,18 @@ const url = new URL(Astro.request.url);
 <header
 	id="main-header"
 	class="border-borderDivider fixed w-full overflow-hidden border-b bg-bgColor"
-	x-data="{ inPlace: false, scroll: 0 }"
-	:class="{ 'bg-black': inPlace }"
-	@scroll.window="inPlace = (window.pageYOffset > 64 ? true : false)"
+	x-data="{ start: false, end: false, scroll: 64 }"
+	@scroll.window="start = (window.pageYOffset > 64 ? true : false); scroll = 64 - (window.pageYOffset - 64) * 0.357; end = (scroll < 0 ? true : false)"
 >
 	<div
 		class="border-borderDivider group container grid flex-row gap-y-16 border-l border-r sm:grid-cols-[3fr_2fr]"
 	>
-		<div class="flex py-8 sm:flex-col">
-			<div class="w-4/12 translate-y-[68px] transform text-textProminent transition-all">
+		<div class="flex justify-center sm:flex-col">
+			<div
+				class="w-4/12 transform text-textProminent"
+				:class="{ 'translate-y-[-64px]': !end, 'translate-y-0': end }"
+				:style="(start && !end) && { transform: `translateY(${scroll}px)` }"
+			>
 				<Fragment set:html={NahiyanKhanLogo} />
 			</div>
 			<!-- <Intro home={url.pathname === "/"} /> -->

@@ -37,6 +37,9 @@ export default {
 				".header-xlarge": {
 					"@apply text-6xl font-extrabold text-textProminent": {}
 				},
+				".header-large": {
+					"@apply text-4xl font-extrabold text-textProminent": {}
+				},
 				".header-standard": {
 					"@apply text-2xl font-bold text-textProminent": {},
 				},
@@ -44,10 +47,10 @@ export default {
 					"@apply text-2xl font-normal text-textStandard": {},
 				},
 				".column-left": {
-					"@apply border-borderDivider border-l": {},
+					"@apply border-borderDivider border-l py-16": {},
 				},
 				".column-right": {
-					"@apply border-borderDivider border-l border-r": {},
+					"@apply border-borderDivider border-l border-r py-16": {},
 				},
 			});
 		}),
