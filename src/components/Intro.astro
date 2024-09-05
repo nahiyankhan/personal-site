@@ -1,18 +1,22 @@
 ---
 import SocialList from "@/components/SocialList.astro";
+import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
 
 const { home } = Astro.props;
 ---
 
 <div class="antialiased">
 	<a
-		class="inline-flex items-center grayscale hover:filter-none sm:relative sm:inline-block"
+		class="inline-flex items-center hover:filter-none sm:relative sm:inline-block"
 		href="/"
 	>
-		<h1 class:list={[{"header-xlarge mb-6": home }, { "header-standard mb-3": !home }]}>Nahiyan Khan</h1>
+		<!-- <h1 class:list={[{"header-xlarge mb-6": home }, { "header-standard mb-3": !home }]}>Nahiyan Khan</h1> -->
+    <div class="w-10/12 text-textProminent">
+      <Fragment set:html={NahiyanKhanLogo}/>
+    </div>
 	</a>
   {home && (
-    <p class="subtitle-large mb-4">
+    <p class="subtitle-large mb-4 w-11/12">
       Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
       crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement craft
       at scale.

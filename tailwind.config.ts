@@ -43,6 +43,12 @@ export default {
 				".subtitle-large": {
 					"@apply text-2xl font-normal text-textStandard": {},
 				},
+				".column-left": {
+					"@apply border-borderDivider border-l": {},
+				},
+				".column-right": {
+					"@apply border-borderDivider border-l border-r": {},
+				},
 			});
 		}),
 	],

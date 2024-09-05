@@ -3,17 +3,27 @@ import { menuLinks } from "@/site-config";
 import Intro from "../Intro.astro";
 import Search from "../Search.astro";
 import ThemeToggle from "../ThemeToggle.astro";
+import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
 
 const url = new URL(Astro.request.url);
 ---
 
-<header id="main-header" class="border-borderDivider border-b">
+<header
+	id="main-header"
+	class="border-borderDivider fixed w-full overflow-hidden border-b bg-bgColor"
+	x-data="{ inPlace: false, scroll: 0 }"
+	:class="{ 'bg-black': inPlace }"
+	@scroll.window="inPlace = (window.pageYOffset > 64 ? true : false)"
+>
 	<div
-		class="border-borderDivider group container grid flex-row gap-y-16 border-l sm:grid-cols-[3fr_2fr]"
+		class="border-borderDivider group container grid flex-row gap-y-16 border-l border-r sm:grid-cols-[3fr_2fr]"
 	>
 		<div class="flex py-8 sm:flex-col">
-			<Intro home={url.pathname === "/"} />
-			<nav
+			<div class="w-4/12 translate-y-[68px] transform text-textProminent transition-all">
+				<Fragment set:html={NahiyanKhanLogo} />
+			</div>
+			<!-- <Intro home={url.pathname === "/"} /> -->
+			<!-- <nav
 				aria-label="Main menu"
 				class="absolute -inset-x-4 top-14 hidden flex-col items-end gap-y-4 rounded-md bg-bgColor/[.85] py-4 text-accent shadow backdrop-blur group-[.menu-open]:z-50 group-[.menu-open]:flex sm:static sm:z-auto sm:-ms-4 sm:mt-1 sm:flex sm:flex-row sm:items-center sm:divide-x sm:divide-dashed sm:divide-accent sm:rounded-none sm:bg-transparent sm:py-0 sm:shadow-none sm:backdrop-blur-none"
 				id="navigation-menu"
@@ -30,11 +40,11 @@ const url = new URL(Astro.request.url);
 						</a>
 					))
 				}
-			</nav>
+			</nav> -->
 		</div>
 
 		<div class="border-borderDivider flex items-center border-l py-8 sm:flex-row">
-			<Search />
+			<!-- <Search /> -->
 			<ThemeToggle />
 			<mobile-button>
 				<button
