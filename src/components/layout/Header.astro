@@ -12,41 +12,23 @@ const url = new URL(Astro.request.url);
 	id="main-header"
 	class="border-borderDivider fixed w-full overflow-hidden border-b bg-bgColor"
 	x-data="{ start: false, end: false, scroll: 64 }"
-	@scroll.window="start = (window.pageYOffset > 64 ? true : false); scroll = 64 - (window.pageYOffset - 64) * 0.357; end = (scroll < 0 ? true : false)"
+	@scroll.window="start = (window.pageYOffset > 176 ? true : false); scroll = 64 - (window.pageYOffset - 176) * 0.357; end = (scroll < 0 ? true : false);"
 >
 	<div
-		class="border-borderDivider group container grid flex-row gap-y-16 border-l border-r sm:grid-cols-[3fr_2fr]"
+		class="border-borderDivider container grid flex-row gap-y-16 border-l border-r sm:grid-cols-[3fr_2fr]"
 	>
 		<div class="flex justify-center sm:flex-col">
 			<div
-				class="w-4/12 transform text-textProminent"
+				class="w-4/12 text-textProminent"
 				:class="{ 'translate-y-[-64px]': !end, 'translate-y-0': end }"
 				:style="(start && !end) && { transform: `translateY(${scroll}px)` }"
+				x-cloak
 			>
 				<Fragment set:html={NahiyanKhanLogo} />
 			</div>
-			<!-- <Intro home={url.pathname === "/"} /> -->
-			<!-- <nav
-				aria-label="Main menu"
-				class="absolute -inset-x-4 top-14 hidden flex-col items-end gap-y-4 rounded-md bg-bgColor/[.85] py-4 text-accent shadow backdrop-blur group-[.menu-open]:z-50 group-[.menu-open]:flex sm:static sm:z-auto sm:-ms-4 sm:mt-1 sm:flex sm:flex-row sm:items-center sm:divide-x sm:divide-dashed sm:divide-accent sm:rounded-none sm:bg-transparent sm:py-0 sm:shadow-none sm:backdrop-blur-none"
-				id="navigation-menu"
-			>
-				{
-					menuLinks.map((link) => (
-						<a
-							aria-current={url.pathname === link.path ? "page" : false}
-							class="px-4 py-4 underline-offset-2 sm:py-0 sm:hover:underline"
-							data-astro-prefetch
-							href={link.path}
-						>
-							{link.title}
-						</a>
-					))
-				}
-			</nav> -->
 		</div>
 
-		<div class="border-borderDivider flex items-center border-l py-8 sm:flex-row">
+		<div class="border-borderDivider flex items-center justify-end border-l px-8 py-8 sm:flex-row">
 			<!-- <Search /> -->
 			<ThemeToggle />
 			<mobile-button>
@@ -90,6 +72,26 @@ const url = new URL(Astro.request.url);
 			</mobile-button>
 		</div>
 	</div>
+
+	<div
+		aria-label="Main menu"
+		class="absolute bottom-0 w-full translate-y-[84px] transition-all"
+		id="navigation-menu"
+		:style="{ transform:`translateY(${$store.section.getTransform()})` }"
+	>
+		<div class="[&>span]:section-tracker container">
+			<!-- {menuLinks.map((link) => <span class="font-mono text-xl font-bold">{link.title}</span>)} -->
+			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '56px' }"
+				>Experiences</span
+			>
+			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '28px' }"
+				>Projects</span
+			>
+			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '0px' }"
+				>Musings</span
+			>
+		</div>
+	</div>
 </header>
 
 <script>
@@ -112,3 +114,9 @@ const url = new URL(Astro.request.url);
 
 	customElements.define("mobile-button", MobileNavBtn);
 </script>
+
+<style>
+	[x-cloak] {
+		display: none !important;
+	}
+</style>

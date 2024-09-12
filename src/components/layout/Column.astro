@@ -1,3 +1,19 @@
-<div class="grid sm:grid-cols-[3fr_2fr]">
-	<slot />
+---
+const { class: className, title, gy, gt, gb, gbxs, gtxs, gyxs, by, bb, bt, ...rest } = Astro.props;
+---
+
+<div
+	x-data
+	class:list={["border-borderDivider grid border-x divide-x sm:grid-cols-[3fr_2fr]", { "[&>div]:py-44": gy }, { "[&>div]:pt-44": gt }, { "[&>div]:pb-44": gb }, { "[&>div]:pb-8": gbxs }, 
+	{ "[&>div]:pt-8": gtxs }, { "[&>div]:py-8": gyxs }, { "[&>div]:border-y": by }, { "[&>div]:border-t": bt }, { "[&>div]:border-b": bb }, className]}
+	{...rest}
+>
+	{title ? (
+		<div class="border-borderDivider" x-ref={title} @scroll.window=`$store.section.${title} = $refs.${title}.getBoundingClientRect().top`>
+			<h2 class="header-large">{title}</h2>
+		</div>
+		<div class="border-borderDivider"></div>
+	) : (
+		<slot />
+	)}
 </div>

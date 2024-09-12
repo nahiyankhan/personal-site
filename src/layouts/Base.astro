@@ -1,5 +1,6 @@
 ---
-import "@fontsource/plus-jakarta-sans";
+import "@fontsource/inter";
+import "@fontsource/ibm-plex-mono";
 import BaseHead from "@/components/BaseHead.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
@@ -27,7 +28,7 @@ const {
 		<Header />
 		<main
 			id="main"
-			class="container min-h-screen px-0 pt-[100px] text-sm [&>.grid:first-child>*]:pt-44"
+			class="text-normal container min-h-screen px-0 pt-[100px] leading-8 tracking-wider"
 		>
 			<slot />
 		</main>

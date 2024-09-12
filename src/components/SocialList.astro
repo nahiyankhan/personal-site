@@ -31,19 +31,21 @@ const socialLinks: {
 ---
 
 <div class="flex flex-col">
-	<p class="mb-8 h-[74px] content-end text-2xl font-extrabold">Say hello at</p>
+	<!-- <p class="mb-7 h-[76px] content-end font-mono text-2xl font-extrabold">Say hello at</p> -->
 	<ul class="">
 		{
 			socialLinks.map(({ friendlyName, isWebmention, link, name }) => (
-				<li class="mb-2 flex">
+				<li class="flex">
 					<a
-						class="flex sm:hover:text-link"
+						class="flex items-center justify-center sm:hover:text-link"
 						href={link}
 						rel={`noreferrer ${isWebmention ? "me authn" : ""}`}
 						target="_blank"
 					>
-						<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
-						<p class="subtitle-large pl-2">{friendlyName}</p>
+						<div class="full flex h-8 w-8 items-center justify-start rounded-full">
+							<Icon aria-hidden="true" class="h-5 w-5" focusable="false" name={name} />
+						</div>
+						<p class="subtitle-large">{friendlyName}</p>
 					</a>
 				</li>
 			))

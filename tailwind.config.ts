@@ -34,23 +34,23 @@ export default {
 				".container": {
 					"@apply mx-auto flex max-w-7xl flex-col antialiased": {},
 				},
-				".header-xlarge": {
-					"@apply text-6xl font-extrabold text-textProminent": {}
-				},
 				".header-large": {
-					"@apply text-4xl font-extrabold text-textProminent": {}
+					"@apply text-7xl font-bold font-mono text-textProminent": {}
 				},
 				".header-standard": {
-					"@apply text-2xl font-bold text-textProminent": {},
+					"@apply text-2xl font-bold text-textProminent font-mono tracking-tight": {},
 				},
 				".subtitle-large": {
-					"@apply text-2xl font-normal text-textStandard": {},
+					"@apply text-xl leading-10 font-normal text-textStandard tracking-wider": {},
 				},
 				".column-left": {
-					"@apply border-borderDivider border-l py-16": {},
+					"@apply border-borderDivider": {},
 				},
 				".column-right": {
-					"@apply border-borderDivider border-l border-r py-16": {},
+					"@apply border-borderDivider": {},
+				},
+				".section-tracker": {
+					"@apply font-mono text-xl font-bold transition-all": {},
 				},
 			});
 		}),
@@ -73,7 +73,8 @@ export default {
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: ['Plus Jakarta Sans Variable',...fontFamily.sans]
+				sans: ['Inter',...fontFamily.sans],
+				mono: ['IBM Plex Mono',...fontFamily.mono]
 			},
 			transitionProperty: {
 				height: "height",

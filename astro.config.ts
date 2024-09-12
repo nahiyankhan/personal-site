@@ -29,7 +29,7 @@ export default defineConfig({
 			applyBaseStyles: false,
 			nesting: true,
 		}),
-		alpine(),
+		alpine({ entrypoint: '/src/alpine' }),
 		sitemap(),
 		mdx(),
 	],

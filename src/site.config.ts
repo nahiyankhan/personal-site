@@ -30,17 +30,17 @@ export const siteConfig: SiteConfig = {
 };
 
 // Used to generate links in both the Header & Footer.
-export const menuLinks: { path: string; title: string }[] = [
+export const menuLinks: { ref: string; title: string }[] = [
 	{
-		path: "/",
-		title: "Home",
+		ref: "experiences",
+		title: "Experiences",
 	},
 	{
-		path: "/work/",
-		title: "Work",
+		ref: "projects",
+		title: "Projects",
 	},
 	{
-		path: "/posts/",
+		ref: "musings",
 		title: "Musings",
 	},
 ];
