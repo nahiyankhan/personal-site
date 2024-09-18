@@ -1,5 +1,7 @@
 ---
-import { menuLinks, siteConfig } from "@/site-config";
+import { siteConfig } from "@/site-config";
+import { socialLinks } from "@/site-config";
+import { Icon } from "astro-icon/components";
 
 const year = new Date().getFullYear();
 ---
@@ -19,9 +21,16 @@ const year = new Date().getFullYear();
 			class="flex gap-x-2 sm:gap-x-0 sm:divide-x sm:divide-gray-500"
 		>
 			{
-				menuLinks.map((link) => (
-					<a class="px-4 py-2 sm:py-0 sm:hover:text-textColor sm:hover:underline" href={link.path}>
-						{link.title}
+				socialLinks.map(({ friendlyName, isWebmention, link, name }) => (
+					<a
+						class="flex items-center px-4 py-2 sm:py-0 sm:hover:text-textColor sm:hover:underline"
+						href={link}
+						target="_blank"
+					>
+						<div class="full flex h-7 w-7 items-center justify-start rounded-full">
+							<Icon aria-hidden="true" class="h-5 w-5" focusable="false" name={name} />
+						</div>
+						{friendlyName}
 					</a>
 				))
 			}

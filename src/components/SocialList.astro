@@ -1,33 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-
-/** 
-	Uses https://www.astroicon.dev/getting-started/
-	Find icons via guide: https://www.astroicon.dev/guides/customization/#open-source-icon-sets
-	Only installed pack is: @iconify-json/mdi
-*/
-const socialLinks: {
-	friendlyName: string;
-	isWebmention?: boolean;
-	link: string;
-	name: string;
-}[] = [
-	{
-		friendlyName: "Email",
-		link: "nahiyan.khan@gmail.com",
-		name: "mdi:email",
-	},
-	{
-		friendlyName: "LinkedIn",
-		link: "https://www.linkedin.com/in/nahiyankhan/",
-		name: "mdi:linkedin",
-	},
-	{
-		friendlyName: "Github",
-		link: "https://github.com/nahiyankhan",
-		name: "mdi:github",
-	},
-];
+import { socialLinks } from "@/site-config";
 ---
 
 <div class="flex flex-col">
@@ -39,7 +12,6 @@ const socialLinks: {
 					<a
 						class="flex items-center justify-center sm:hover:text-link"
 						href={link}
-						rel={`noreferrer ${isWebmention ? "me authn" : ""}`}
 						target="_blank"
 					>
 						<div class="full flex h-8 w-8 items-center justify-start rounded-full">

@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
 import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
+import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
 
 interface Props {
 	meta: SiteMeta;
@@ -26,6 +27,16 @@ const {
 		<ThemeProvider />
 		<SkipLink />
 		<Header />
+		<!-- <div class="mx-auto flex w-11/12 flex-col antialiased">
+			<div class="mb-8 text-textProminent">
+				<Fragment set:html={NahiyanKhanLogo} />
+			</div>
+			<p class="subtitle-large mb-8">
+				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+				crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
+				craft at scale.
+			</p>
+		</div> -->
 		<main
 			id="main"
 			class="text-normal container min-h-screen px-0 pt-[100px] leading-8 tracking-wider"

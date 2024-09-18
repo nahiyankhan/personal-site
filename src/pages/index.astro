@@ -59,26 +59,32 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<Column gy bb>
-		<div class="column-left">
-			<div class="mb-8 w-11/12 text-textProminent">
-				<Fragment set:html={NahiyanKhanLogo} />
-			</div>
-			<p class="subtitle-large mb-8 w-11/12">
-				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
-				crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
-				craft at scale.
-			</p>
+	<div class="flex h-[80vh] w-full flex-col justify-center border-x border-b">
+		<div class="mb-8 text-textProminent">
+			<Fragment set:html={NahiyanKhanLogo} />
 		</div>
+		<p class="subtitle-large mb-8 text-4xl leading-[1.75]">
+			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
+			craft at scale.
+		</p>
+	</div>
 
+	<!-- <Column gy bb>
 		<div class="column-right">
-			<p class="mb-7 h-[76px] content-end text-2xl font-extrabold">(na-he-yahn)</p>
+			<p class="mb-7 h-[76px] content-end font-mono text-2xl">(na-he-yahn)</p>
 			<SocialList />
 		</div>
+	</Column> -->
+
+	<Column title="Experiences" tagline="some cheeky tagline" gy />
+
+	<Column gbxs>
+		<div class="column-left">
+			<h3 class="font-mono text-2xl font-bold">Current</h3>
+		</div>
+		<div class="column-right"></div>
 	</Column>
-
-	<Column title="Experiences" gy />
-
 	<Column gbxs>
 		<div class="column-left">
 			<div class="py-8">
@@ -111,6 +117,12 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column>
 
+	<Column gbxs>
+		<div class="column-left">
+			<h3 class="font-mono text-2xl font-bold">Past</h3>
+		</div>
+		<div class="column-right"></div>
+	</Column>
 	<Column gbxs>
 		<div class="column-left">
 			<div class="py-8">
@@ -168,6 +180,12 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column>
 
+	<Column gbxs>
+		<div class="column-left">
+			<h3 class="font-mono text-2xl font-bold">Other</h3>
+		</div>
+		<div class="column-right"></div>
+	</Column>
 	<Column gbxs bb>
 		<div class="column-left">
 			<div class="py-8">
@@ -197,7 +215,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column>
 
-	<Column title="Projects" gy />
+	<Column title="Projects" tagline="some cheeky tagline" gy />
 
 	<Column>
 		<div class="column-left h-96"></div>
@@ -209,7 +227,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		<div class="column-right h-96"></div>
 	</Column>
 
-	<Column title="Musings" gy />
+	<Column title="Musings" tagline="some cheeky tagline" gy />
 
 	<Column>
 		<div class="column-left h-96"></div>

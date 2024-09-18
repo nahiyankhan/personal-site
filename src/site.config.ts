@@ -32,7 +32,7 @@ export const siteConfig: SiteConfig = {
 // Used to generate links in both the Header & Footer.
 export const menuLinks: { ref: string; title: string }[] = [
 	{
-		ref: "experiences",
+		ref: "Experiences",
 		title: "Experiences",
 	},
 	{
@@ -42,6 +42,29 @@ export const menuLinks: { ref: string; title: string }[] = [
 	{
 		ref: "musings",
 		title: "Musings",
+	},
+];
+
+export const socialLinks: {
+	friendlyName: string;
+	isWebmention?: boolean;
+	link: string;
+	name: string;
+}[] = [
+	{
+		friendlyName: "Email",
+		link: "nahiyan.khan@gmail.com",
+		name: "mdi:email",
+	},
+	{
+		friendlyName: "LinkedIn",
+		link: "https://www.linkedin.com/in/nahiyankhan/",
+		name: "mdi:linkedin",
+	},
+	{
+		friendlyName: "Github",
+		link: "https://github.com/nahiyankhan",
+		name: "mdi:github",
 	},
 ];
 
