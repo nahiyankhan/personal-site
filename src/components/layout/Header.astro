@@ -12,7 +12,7 @@ const url = new URL(Astro.request.url);
 	id="main-header"
 	class="border-borderDivider fixed w-full overflow-hidden border-b bg-bgColor"
 	x-data="{ start: false, end: false, scroll: 64 }"
-	@scroll.window="start = (window.pageYOffset > 261 ? true : false); scroll = 64 - (window.pageYOffset - 261) * 0.2; end = (scroll < 0 ? true : false);"
+	@scroll.window="start = (window.pageYOffset > 273 ? true : false); scroll = 64 - (window.pageYOffset - 273) * 0.22; end = (scroll < 0 ? true : false);"
 >
 	<div
 		class="border-borderDivider container grid flex-row gap-y-16 border-l border-r sm:grid-cols-[3fr_2fr]"

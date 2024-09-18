@@ -59,11 +59,11 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<div class="flex h-[80vh] w-full flex-col justify-center border-x border-b">
-		<div class="mb-8 text-textProminent">
+	<div class="border-borderDivider flex h-[80vh] w-full flex-col justify-center border-x border-b">
+		<div class="mb-8 w-11/12 text-textProminent">
 			<Fragment set:html={NahiyanKhanLogo} />
 		</div>
-		<p class="subtitle-large mb-8 text-4xl leading-[1.75]">
+		<p class="subtitle-large mb-8 w-11/12 text-[2.1rem] leading-[1.75]">
 			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
 			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
 			craft at scale.
@@ -77,11 +77,11 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column> -->
 
-	<Column title="Experiences" tagline="some cheeky tagline" gy />
+	<Column title="Experiences" tagline="Cheeky tagline" gy />
 
 	<Column gbxs>
 		<div class="column-left">
-			<h3 class="font-mono text-2xl font-bold">Current</h3>
+			<h3 class="font-mono text-3xl font-bold">Current</h3>
 		</div>
 		<div class="column-right"></div>
 	</Column>
@@ -91,7 +91,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 				<div class="flex [&>svg]:w-16">
 					<Fragment set:html={CashAppLogo} />
 					<div class="ml-4">
-						<p class="header-standard text-3xl leading-10">Tech Lead, Design Systems</p>
+						<p class="header-standard text-2xl leading-10">Engineering Lead, Design Systems</p>
 						<p class="header-standard text-xl">
 							Cash App <span class="text-textSubtle"> | April 2022 - Current</span>
 						</p>
@@ -117,9 +117,9 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column>
 
-	<Column gbxs>
+	<Column gbxs gt>
 		<div class="column-left">
-			<h3 class="font-mono text-2xl font-bold">Past</h3>
+			<h3 class="font-mono text-3xl font-bold">Past</h3>
 		</div>
 		<div class="column-right"></div>
 	</Column>
@@ -129,7 +129,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 				<div class="flex [&>svg]:w-16">
 					<Fragment set:html={ADPLogo} />
 					<div class="ml-4">
-						<p class="header-standard text-3xl leading-10">Lead UX Engineer, Design Systems</p>
+						<p class="header-standard text-2xl leading-10">Lead UX Engineer, Design Systems</p>
 						<p class="header-standard text-xl">
 							ADP <span class="text-textSubtle"> | March 2018 - April 2022</span>
 						</p>
@@ -158,7 +158,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 				<div class="flex [&>svg]:w-16">
 					<Fragment set:html={PearsonLogo} />
 					<div class="ml-4">
-						<p class="header-standard text-3xl leading-10">Product Designer</p>
+						<p class="header-standard text-2xl leading-10">Product Designer</p>
 						<p class="header-standard text-xl">
 							Pearson <span class="text-textSubtle"> | May 2013 - March 2018</span>
 						</p>
@@ -180,9 +180,9 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column>
 
-	<Column gbxs>
+	<Column gbxs gt>
 		<div class="column-left">
-			<h3 class="font-mono text-2xl font-bold">Other</h3>
+			<h3 class="font-mono text-3xl font-bold">Other</h3>
 		</div>
 		<div class="column-right"></div>
 	</Column>
@@ -192,7 +192,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 				<div class="flex [&>svg]:w-16">
 					<Fragment set:html={PearsonLogo} />
 					<div class="ml-4">
-						<p class="header-standard text-3xl leading-10">Graphic Designer</p>
+						<p class="header-standard text-2xl leading-10">Graphic Designer</p>
 						<p class="header-standard text-xl">
 							Macalester College
 							<span class="text-textSubtle"> | September 2010 - May 2013</span>
@@ -215,7 +215,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column>
 
-	<Column title="Projects" tagline="some cheeky tagline" gy />
+	<Column title="Projects" tagline="Cheeky tagline" gy />
 
 	<Column>
 		<div class="column-left h-96"></div>
@@ -227,7 +227,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		<div class="column-right h-96"></div>
 	</Column>
 
-	<Column title="Musings" tagline="some cheeky tagline" gy />
+	<Column title="Musings" tagline="Cheeky tagline" gy />
 
 	<Column>
 		<div class="column-left h-96"></div>
