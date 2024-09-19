@@ -15,9 +15,10 @@ interface ThemeStore {
 }
 
 interface SectionTracker {
-  Experiences: number;
-  Projects: number;
-  Musings: number;
+  experiences: number;
+  projects: number;
+  musings: number;
+  sayHello: number;
   getTransform: () => string;
 }
 
@@ -52,19 +53,22 @@ export default (Alpine: Alpine) => {
   } as ThemeStore);
   
   Alpine.store('section', {
-    Experiences: 999,
-    Projects: 999,
-    Musings: 999,
+    experiences: 999,
+    projects: 999,
+    musings: 999,
+    sayHello: 999,
 
     getTransform() {
-      if (this.Musings < 100) {
+      if (this.sayHello < 100) {
         return `0px`;
-      } else if (this.Projects < 100) {
+      } else if (this.musings < 100) {
         return `28px`;
-      } else if (this.Experiences < 100) {
+      } else if (this.projects < 100) {
         return `56px`;
-      } else {
+      } else if (this.experiences < 100) {
         return `84px`;
+      } else {
+        return `112px`;
       }
     }
   } as SectionTracker);

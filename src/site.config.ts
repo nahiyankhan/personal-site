@@ -32,7 +32,7 @@ export const siteConfig: SiteConfig = {
 // Used to generate links in both the Header & Footer.
 export const menuLinks: { ref: string; title: string }[] = [
 	{
-		ref: "Experiences",
+		ref: "experiences",
 		title: "Experiences",
 	},
 	{
@@ -42,6 +42,10 @@ export const menuLinks: { ref: string; title: string }[] = [
 	{
 		ref: "musings",
 		title: "Musings",
+	},
+	{
+		ref: "say-hello",
+		title: "Say hello",
 	},
 ];
 

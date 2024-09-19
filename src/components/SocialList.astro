@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 import { socialLinks } from "@/site-config";
 ---
 
-<div class="flex flex-col">
+<div class="flex h-[50vh] flex-col">
 	<!-- <p class="mb-7 h-[76px] content-end font-mono text-2xl font-extrabold">Say hello at</p> -->
 	<ul class="">
 		{
@@ -14,10 +14,10 @@ import { socialLinks } from "@/site-config";
 						href={link}
 						target="_blank"
 					>
-						<div class="full flex h-8 w-8 items-center justify-start rounded-full">
-							<Icon aria-hidden="true" class="h-5 w-5" focusable="false" name={name} />
+						<div class="full flex h-16 w-16 items-center justify-start rounded-full">
+							<Icon aria-hidden="true" class="h-12 w-12" focusable="false" name={name} />
 						</div>
-						<p class="subtitle-large">{friendlyName}</p>
+						<p class="text-4xl">{friendlyName}</p>
 					</a>
 				</li>
 			))
