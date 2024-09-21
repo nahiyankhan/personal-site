@@ -1,0 +1,125 @@
+---
+import { menuLinks } from "@/site-config";
+import Intro from "../Intro.astro";
+import Search from "../Search.astro";
+import ThemeToggle from "../ThemeToggle.astro";
+import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
+
+const url = new URL(Astro.request.url);
+---
+
+<header
+	id="main-header"
+	class="border-borderDivider fixed w-full overflow-hidden border-b bg-bgColor"
+	x-data="{ start: false, end: false, scroll: 64 }"
+	@scroll.window="start = (window.pageYOffset > 273 ? true : false); scroll = 64 - (window.pageYOffset - 273) * 0.22; end = (scroll < 0 ? true : false);"
+>
+	<div
+		class="border-borderDivider container grid flex-row gap-y-16 border-l border-r sm:grid-cols-[3fr_2fr]"
+	>
+		<div class="flex justify-center sm:flex-col">
+			<div
+				class="w-4/12 text-textProminent"
+				:class="{ 'translate-y-[-64px]': !end, 'translate-y-0': end }"
+				:style="(start && !end) && { transform: `translateY(${scroll}px)` }"
+				x-cloak
+			>
+				<Fragment set:html={NahiyanKhanLogo} />
+			</div>
+		</div>
+
+		<div class="border-borderDivider flex items-center justify-end border-l px-8 py-8 sm:flex-row">
+			<!-- <Search /> -->
+			<ThemeToggle />
+			<mobile-button>
+				<button
+					aria-expanded="false"
+					aria-haspopup="menu"
+					aria-label="Open main menu"
+					class="group relative ms-4 h-7 w-7 sm:invisible sm:hidden"
+					id="toggle-navigation-menu"
+					type="button"
+				>
+					<svg
+						aria-hidden="true"
+						class="absolute start-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 transition-all group-aria-expanded:scale-0 group-aria-expanded:opacity-0"
+						fill="none"
+						focusable="false"
+						id="line-svg"
+						stroke="currentColor"
+						stroke-width="1.5"
+						viewBox="0 0 24 24"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path d="M3.75 9h16.5m-16.5 6.75h16.5" stroke-linecap="round" stroke-linejoin="round"
+						></path>
+					</svg>
+					<svg
+						aria-hidden="true"
+						class="absolute start-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 scale-0 text-accent opacity-0 transition-all group-aria-expanded:scale-100 group-aria-expanded:opacity-100"
+						class="text-accent"
+						fill="none"
+						focusable="false"
+						id="cross-svg"
+						stroke="currentColor"
+						stroke-width="1.5"
+						viewBox="0 0 24 24"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+				</button>
+			</mobile-button>
+		</div>
+	</div>
+
+	<div
+		aria-label="Main menu"
+		class="absolute bottom-0 w-full translate-y-[84px] transition-all"
+		id="navigation-menu"
+		:style="{ transform:`translateY(${$store.section.getTransform()})` }"
+	>
+		<div class="[&>span]:section-tracker container">
+			<!-- {menuLinks.map((link) => <span class="font-mono text-xl font-bold">{link.title}</span>)} -->
+			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '84px' }"
+				>Experiences</span
+			>
+			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '56px' }"
+				>Projects</span
+			>
+			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '28px' }"
+				>Musings</span
+			>
+			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '0px' }"
+				>Say hello</span
+			>
+		</div>
+	</div>
+</header>
+
+<script>
+	import { toggleClass } from "@/utils/domElement";
+
+	class MobileNavBtn extends HTMLElement {
+		#menuOpen: boolean = false;
+
+		connectedCallback() {
+			const headerEl = document.getElementById("main-header")!;
+			const mobileButtonEl = this.querySelector<HTMLButtonElement>("button");
+
+			mobileButtonEl?.addEventListener("click", () => {
+				if (headerEl) toggleClass(headerEl, "menu-open");
+				this.#menuOpen = !this.#menuOpen;
+				mobileButtonEl.setAttribute("aria-expanded", this.#menuOpen.toString());
+			});
+		}
+	}
+
+	customElements.define("mobile-button", MobileNavBtn);
+</script>
+
+<style>
+	[x-cloak] {
+		display: none !important;
+	}
+</style>

@@ -1,0 +1,39 @@
+---
+import { siteConfig } from "@/site-config";
+import { socialLinks } from "@/site-config";
+import { Icon } from "astro-icon/components";
+
+const year = new Date().getFullYear();
+---
+
+<footer
+	class="border-borderDivider mt-auto flex w-full flex-col items-center justify-center gap-y-2 border-t align-top font-semibold antialiased"
+>
+	<div
+		class="border-borderDivider container border-l border-r px-0 py-8 text-sm font-normal sm:flex-row sm:justify-between sm:text-xs"
+	>
+		<div class="me-0 sm:me-4">
+			&copy; {siteConfig.author}
+			{year}
+		</div>
+		<!-- <nav
+			aria-label="More on this site"
+			class="flex gap-x-2 sm:gap-x-0 sm:divide-x sm:divide-gray-500"
+		>
+			{
+				socialLinks.map(({ friendlyName, isWebmention, link, name }) => (
+					<a
+						class="flex items-center px-4 py-2 sm:py-0 sm:hover:text-textColor sm:hover:underline"
+						href={link}
+						target="_blank"
+					>
+						<div class="full flex h-7 w-7 items-center justify-start rounded-full">
+							<Icon aria-hidden="true" class="h-5 w-5" focusable="false" name={name} />
+						</div>
+						{friendlyName}
+					</a>
+				))
+			}
+		</nav> -->
+	</div>
+</footer>

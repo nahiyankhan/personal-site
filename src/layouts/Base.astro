@@ -1,0 +1,48 @@
+---
+import "@fontsource/inter";
+import "@fontsource/ibm-plex-mono";
+import BaseHead from "@/components/BaseHead.astro";
+import SkipLink from "@/components/SkipLink.astro";
+import ThemeProvider from "@/components/ThemeProvider.astro";
+import Footer from "@/components/layout/Footer.astro";
+import Header from "@/components/layout/Header.astro";
+import { siteConfig } from "@/site-config";
+import type { SiteMeta } from "@/types";
+import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
+
+interface Props {
+	meta: SiteMeta;
+}
+
+const {
+	meta: { articleDate, description = siteConfig.description, ogImage, title },
+} = Astro.props;
+---
+
+<html class="scroll-smooth" lang={siteConfig.lang}>
+	<head>
+		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
+	</head>
+	<body class="bg-bgColor">
+		<ThemeProvider />
+		<SkipLink />
+		<Header />
+		<!-- <div class="mx-auto flex w-11/12 flex-col antialiased">
+			<div class="mb-8 text-textProminent">
+				<Fragment set:html={NahiyanKhanLogo} />
+			</div>
+			<p class="subtitle-large mb-8">
+				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+				crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
+				craft at scale.
+			</p>
+		</div> -->
+		<main
+			id="main"
+			class="text-normal container min-h-screen px-0 pt-[100px] leading-8 tracking-wider"
+		>
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>
