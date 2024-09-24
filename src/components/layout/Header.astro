@@ -82,7 +82,7 @@ const url = new URL(Astro.request.url);
 		<div class="[&>span]:section-tracker container">
 			<!-- {menuLinks.map((link) => <span class="font-mono text-xl font-bold">{link.title}</span>)} -->
 			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '84px' }"
-				>Experiences</span
+				>About</span
 			>
 			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '56px' }"
 				>Projects</span
@@ -91,7 +91,7 @@ const url = new URL(Astro.request.url);
 				>Musings</span
 			>
 			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '0px' }"
-				>Say hello</span
+				>Contact</span
 			>
 		</div>
 	</div>
