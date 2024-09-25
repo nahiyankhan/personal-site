@@ -10,20 +10,21 @@ import PearsonLogo from "@/assets/pearson.svg?raw";
 	<div></div>
 
 	<div
-		class="grid h-[80vh] divide-x divide-y transition-all [&>div]:border-borderDivider"
-		x-data="{ cash: false, adp: false, pearson: false, isHover() { return this.cash || this.adp || this.pearson } }"
-		:style="{ 'grid-template': `${cash ? '3fr 1fr / 3fr 1fr' : adp ? '3fr 1fr / 1fr 3fr' : pearson ? '1fr 3fr / 3fr 1fr' : '1fr 1fr / 1fr 1fr'}` }"
+		class="transition-all"
+		x-data="{ cash: false, adp: false, pearson: false, macalester: false, isHover() { return this.cash || this.adp || this.pearson || this.macalester } }"
 	>
+		<h3 class="mb-12 mt-24 font-mono text-3xl font-bold">Current</h3>
+
 		<div
-			class="bg-[#00D64F]x flex items-center justify-center"
+			class="bg-[#00D64F]x flex h-[500px] items-center transition-all"
 			@mouseover="cash = true"
 			@mouseover.away="cash = false"
 		>
-			<div class="h-56 w-56 transition-all" :class="{ 'scale-50': isHover() && !cash }">
+			<!-- <div class="h-56 w-56 transition-all">
 				<Fragment set:html={CashAppLogo} />
-			</div>
+			</div> -->
 
-			<!-- <div class="py-8 pr-8">
+			<div class="w-1/2 py-8 pr-8">
 				<div class="flex [&>svg]:w-16">
 					<Fragment set:html={CashAppLogo} />
 					<div class="ml-4">
@@ -43,26 +44,87 @@ import PearsonLogo from "@/assets/pearson.svg?raw";
 						across 145+ flows which cover 85% of app traffic.
 					</p>
 				</div>
-			</div> -->
+			</div>
 		</div>
 
+		<h3 class="mb-12 mt-24 font-mono text-3xl font-bold">Past</h3>
+
 		<div
-			class="flex items-center justify-center !border-t-0 bg-[#ed1a2d]"
+			class="bg-[#ed1a2d]x flex h-[500px] items-center !border-t-0 transition-all"
 			@mouseover="adp = true"
 			@mouseover.away="adp = false"
 		>
-			<div class="h-56 w-56 transition-all" :class="{ 'scale-50': isHover() && !adp }">
-				<Fragment set:html={ADPLogo} />
+			<div class="w-1/2 py-8 pr-8">
+				<div class="flex [&>svg]:w-16">
+					<Fragment set:html={ADPLogo} />
+					<div class="ml-4">
+						<p class="header-standard text-2xl leading-9">Lead UX Engineer, Design Systems</p>
+						<p class="header-standard text-xl">
+							Cash App <span class="text-textSubtle"> | March 2018 - April 2022</span>
+						</p>
+					</div>
+				</div>
+
+				<div class="py-6 pr-10">
+					<p class="text-normal subtitle-large">
+						Helped overhaul the design system of ADP's next generation suite of HR tools and built
+						and launched a custom responsive design system documentation site with fuzzy search,
+						demos, and content graphs.
+					</p>
+				</div>
 			</div>
 		</div>
 
 		<div
-			class="flex items-center justify-center !border-l-0 bg-[#027fa3]"
+			class="bg-[#027fa3]x flex h-[500px] items-center !border-l-0 transition-all"
 			@mouseover="pearson = true"
 			@mouseover.away="pearson = false"
 		>
-			<div class="h-56 w-56 transition-all" :class="{ 'scale-50': isHover() && !pearson }">
-				<Fragment set:html={PearsonLogo} />
+			<div class="w-1/2 py-8 pr-8">
+				<div class="flex [&>svg]:w-16">
+					<Fragment set:html={PearsonLogo} />
+					<div class="ml-4">
+						<p class="header-standard text-2xl leading-9">Product Designer</p>
+						<p class="header-standard text-xl">
+							Cash App <span class="text-textSubtle"> | May 2013 - March 2018</span>
+						</p>
+					</div>
+				</div>
+
+				<div class="py-6 pr-10">
+					<p class="text-normal subtitle-large">
+						Functioned as a code-first product designer and specialized in authoring the
+						front-of-the-front-end of Pearson's certifications focused tooling.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<h3 class="mb-12 mt-24 font-mono text-3xl font-bold">Other</h3>
+
+		<div
+			class="flex h-[500px] items-center !border-l-0 transition-all"
+			@mouseover="macalester = true"
+			@mouseover.away="macalester = false"
+		>
+			<div class="w-1/2py-8 pr-8">
+				<div class="flex [&>svg]:w-16">
+					<Fragment set:html={PearsonLogo} />
+					<div class="ml-4">
+						<p class="header-standard text-2xl leading-9">Graphic Designer</p>
+						<p class="header-standard text-xl">
+							Macalester College
+							<span class="text-textSubtle"> | September 2010 - May 2013</span>
+						</p>
+					</div>
+				</div>
+
+				<div class="py-6 pr-10">
+					<p class="subtitle-large mb-4">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+						incididunt.
+					</p>
+				</div>
 			</div>
 		</div>
 
