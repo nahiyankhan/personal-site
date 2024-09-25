@@ -1,6 +1,7 @@
 ---
 import PostPreview from "@/components/blog/PostPreview.astro";
 import { menuLinks } from "@/site-config";
+import Intro from "@/components/Intro.astro";
 import Column from "@/components/layout/Column.astro";
 import { getAllPosts, sortMDByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
@@ -62,16 +63,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<div class="border-borderDivider flex h-[80vh] w-full flex-col justify-center border-x border-b">
-		<div class="mb-8 w-11/12 text-textProminent">
-			<Fragment set:html={NahiyanKhanLogo} />
-		</div>
-		<p class="subtitle-large mb-20 w-11/12 text-[2.1rem] leading-[1.75]">
-			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
-			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
-			craft at scale.
-		</p>
-	</div>
+	<Intro />
 
 	<!-- <Column gy bb>
 		<div class="column-right">
@@ -81,11 +73,10 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 	</Column> -->
 
 	<Column gy>
-		<div class="column-left">
+		<div class="column-left" x-ref={"about"}>
 			<div
 				class="mb-8 w-11/12 text-textProminent"
-				x-ref={"experiences"}
-				@scroll.window=`$store.section.experiences = $refs.experiences.getBoundingClientRect().top`
+				@scroll.window=`$store.state.about = $refs.about.getBoundingClientRect().top;`
 			>
 				<Fragment set:html={About} />
 			</div>
@@ -232,11 +223,10 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 	</Column>
 
 	<Column gy>
-		<div class="column-left">
+		<div class="column-left" x-ref={"projects"}>
 			<div
 				class="mb-8 w-11/12 text-textProminent"
-				x-ref={"projects"}
-				@scroll.window=`$store.section.projects = $refs.projects.getBoundingClientRect().top`
+				@scroll.window=`$store.state.projects = $refs.projects.getBoundingClientRect().top`
 			>
 				<Fragment set:html={Projects} />
 			</div>
@@ -254,7 +244,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		<div class="column-right h-96"></div>
 	</Column>
 
-	<Column title="Musings" gy />
+	<!-- <Column title="Musings" gy />
 
 	<Column>
 		<div class="column-left h-96"></div>
@@ -264,16 +254,15 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 	<Column bb>
 		<div class="column-left h-96"></div>
 		<div class="column-right h-96"></div>
-	</Column>
+	</Column> -->
 
 	<!-- <Column title="Say hello" gy /> -->
 
 	<Column gy>
-		<div class="column-left">
+		<div class="column-left" x-ref={"contact"}>
 			<div
 				class="mb-8 w-11/12 text-textProminent"
-				x-ref={"Contact"}
-				@scroll.window=`$store.section.Contact = $refs.Contact.getBoundingClientRect().top`
+				@scroll.window=`$store.state.contact = $refs.contact.getBoundingClientRect().top`
 			>
 				<Fragment set:html={Contact} />
 			</div>

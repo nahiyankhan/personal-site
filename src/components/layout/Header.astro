@@ -1,6 +1,5 @@
 ---
 import { menuLinks } from "@/site-config";
-import Intro from "../Intro.astro";
 import Search from "../Search.astro";
 import ThemeToggle from "../ThemeToggle.astro";
 import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
@@ -10,17 +9,17 @@ const url = new URL(Astro.request.url);
 
 <header
 	id="main-header"
-	class="border-borderDivider fixed w-full overflow-hidden border-b bg-bgColor"
+	class="fixed w-full overflow-hidden border-b border-borderDivider bg-bgColor"
 	x-data="{ start: false, end: false, scroll: 64 }"
-	@scroll.window="start = (window.pageYOffset > 273 ? true : false); scroll = 64 - (window.pageYOffset - 273) * 0.22; end = (scroll < 0 ? true : false);"
+	@scroll.window="start = ($store.state.nahiyankhan < 101 ? true : false); scroll = 64 - ($store.state.nahiyankhanHeight - $store.state.nahiyankhan) * 0.22; end = (scroll < 0 ? true : false);"
 >
 	<div
-		class="border-borderDivider container grid flex-row gap-y-16 border-l border-r sm:grid-cols-[3fr_2fr]"
+		class="container grid flex-row gap-y-16 border-l border-r border-borderDivider sm:grid-cols-[3fr_2fr]"
 	>
 		<div class="flex justify-center sm:flex-col">
 			<div
 				class="w-4/12 text-textProminent"
-				:class="{ 'translate-y-[-64px]': !end, 'translate-y-0': end }"
+				:class="{ 'translate-y-[64px]': !end, 'translate-y-0': end }"
 				:style="(start && !end) && { transform: `translateY(${scroll}px)` }"
 				x-cloak
 			>
@@ -28,7 +27,7 @@ const url = new URL(Astro.request.url);
 			</div>
 		</div>
 
-		<div class="border-borderDivider flex items-center justify-end border-l px-8 py-8 sm:flex-row">
+		<div class="flex items-center justify-end border-l border-borderDivider px-8 py-8 sm:flex-row">
 			<!-- <Search /> -->
 			<ThemeToggle />
 			<mobile-button>
@@ -77,20 +76,20 @@ const url = new URL(Astro.request.url);
 		aria-label="Main menu"
 		class="absolute bottom-0 w-full translate-y-[84px] transition-all"
 		id="navigation-menu"
-		:style="{ transform:`translateY(${$store.section.getTransform()})` }"
+		:style="{ transform:`translateY(${$store.state.getTransform()})` }"
 	>
-		<div class="[&>span]:section-tracker container">
+		<div class="container [&>span]:section-tracker">
 			<!-- {menuLinks.map((link) => <span class="font-mono text-xl font-bold">{link.title}</span>)} -->
-			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '84px' }"
+			<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '56px' }"
 				>About</span
 			>
-			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '56px' }"
+			<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '28px' }"
 				>Projects</span
 			>
-			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '28px' }"
+			<!-- <span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '28px' }"
 				>Musings</span
-			>
-			<span class="opacity-0" :class="{ 'opacity-100': $store.section.getTransform() === '0px' }"
+			> -->
+			<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '0px' }"
 				>Contact</span
 			>
 		</div>
