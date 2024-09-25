@@ -8,7 +8,7 @@ import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
 import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
-import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
 	meta: SiteMeta;
@@ -22,6 +22,7 @@ const {
 <html class="scroll-smooth" lang={siteConfig.lang}>
 	<head>
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
+		<ViewTransitions />
 	</head>
 	<body class="bg-bgColor">
 		<ThemeProvider />
