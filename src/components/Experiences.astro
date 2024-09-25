@@ -12,8 +12,30 @@ import PearsonLogo from "@/assets/pearson.svg?raw";
 		class="grid h-[100vh] grid-cols-[1fr_1fr] grid-rows-[1fr_1fr] divide-x divide-y [&>div]:border-borderDivider"
 	>
 		<div class="bg-[#00D64F]x flex items-center justify-center">
-			<div class="h-56 w-56">
+			<!-- <div class="h-56 w-56">
 				<Fragment set:html={CashAppLogo} />
+			</div> -->
+
+			<div class="py-8 pr-8">
+				<div class="flex [&>svg]:w-16">
+					<Fragment set:html={CashAppLogo} />
+					<div class="ml-4">
+						<p class="header-standard text-2xl leading-9">Engineering Lead, Design Systems</p>
+						<p class="header-standard text-xl">
+							Cash App <span class="text-textSubtle"> | April 2022 - Current</span>
+						</p>
+					</div>
+				</div>
+
+				<div class="py-6 pr-10">
+					<p class="text-normal subtitle-large">
+						Brought design's high bar of craft to code and stood up Cash App's design system
+						function. Set up cross-platform design infrastructures, brought parity between design
+						and code vernacular closer, evangelized modular development, and supported 40+
+						components being built and tested. Kicked off migration efforts to adopt the new system
+						across 145+ flows which cover 85% of app traffic.
+					</p>
+				</div>
 			</div>
 		</div>
 		<div class="flex items-center justify-center !border-t-0">

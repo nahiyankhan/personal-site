@@ -16,14 +16,30 @@ const url = new URL(Astro.request.url);
 	<div></div>
 
 	<div class="flex flex-row justify-between">
-		<div class="self-center">
-			<div
-				class="text-textProminent"
-				:class="{ 'translate-y-[64px]': !end, 'translate-y-0': end }"
-				:style="(start && !end) && { transform: `translateY(${scroll}px)` }"
-				x-cloak
-			>
-				<Fragment set:html={NahiyanKhanLogo} />
+		<div
+			class="flex items-center"
+			:class="{ 'translate-y-[64px]': !end, 'translate-y-0': end }"
+			:style="(start && !end) && { transform: `translateY(${scroll}px)` }"
+			x-cloak
+		>
+			<!-- <Fragment set:html={NahiyanKhanLogo} /> -->
+			<p class="text-3xl font-bold text-textProminent">NAHIYAN KHAN</p>
+			<div class="relative flex h-[36px] flex-row pl-4 [&>span]:section-tracker">
+				<span
+					class="translate-x-[-100%] opacity-0"
+					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '0px' }"
+					>CONTACT</span
+				>
+				<span
+					class="translate-x-[-100%] opacity-0"
+					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '28px' }"
+					>PROJECTS</span
+				>
+				<span
+					class="translate-x-[-100%] opacity-0"
+					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '56px' }"
+					>ABOUT</span
+				>
 			</div>
 			<!-- <div
 				aria-label="Main menu"
@@ -31,17 +47,7 @@ const url = new URL(Astro.request.url);
 				id="navigation-menu"
 				:style="{ transform:`translateY(${$store.state.getTransform()})` }"
 			>
-				<div class="flex flex-col [&>span]:section-tracker">
-					<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '56px' }"
-						>About</span
-					>
-					<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '28px' }"
-						>Projects</span
-					>
-					<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '0px' }"
-						>Contact</span
-					>
-				</div> -->
+			</div> -->
 		</div>
 		<div class="self-center pr-8">
 			<ThemeToggle />
@@ -49,9 +55,7 @@ const url = new URL(Astro.request.url);
 	</div>
 
 	<div></div>
-</header>
-
-<!-- <div class="flex items-center justify-end border-l border-borderDivider px-8 py-8 sm:flex-row">
+	<!-- <div class="flex items-center justify-end border-l border-borderDivider px-8 py-8 sm:flex-row">
 		<mobile-button>
 			<button
 				aria-expanded="false"
@@ -93,31 +97,30 @@ const url = new URL(Astro.request.url);
 		</mobile-button>
 	</div> -->
 
-<div></div>
+	<script>
+		import { toggleClass } from "@/utils/domElement";
 
-<script>
-	import { toggleClass } from "@/utils/domElement";
+		class MobileNavBtn extends HTMLElement {
+			#menuOpen: boolean = false;
 
-	class MobileNavBtn extends HTMLElement {
-		#menuOpen: boolean = false;
+			connectedCallback() {
+				const headerEl = document.getElementById("main-header")!;
+				const mobileButtonEl = this.querySelector<HTMLButtonElement>("button");
 
-		connectedCallback() {
-			const headerEl = document.getElementById("main-header")!;
-			const mobileButtonEl = this.querySelector<HTMLButtonElement>("button");
-
-			mobileButtonEl?.addEventListener("click", () => {
-				if (headerEl) toggleClass(headerEl, "menu-open");
-				this.#menuOpen = !this.#menuOpen;
-				mobileButtonEl.setAttribute("aria-expanded", this.#menuOpen.toString());
-			});
+				mobileButtonEl?.addEventListener("click", () => {
+					if (headerEl) toggleClass(headerEl, "menu-open");
+					this.#menuOpen = !this.#menuOpen;
+					mobileButtonEl.setAttribute("aria-expanded", this.#menuOpen.toString());
+				});
+			}
 		}
-	}
 
-	customElements.define("mobile-button", MobileNavBtn);
-</script>
+		customElements.define("mobile-button", MobileNavBtn);
+	</script>
 
-<style>
-	[x-cloak] {
-		display: none !important;
-	}
-</style>
+	<style>
+		[x-cloak] {
+			display: none !important;
+		}
+	</style>
+</header>

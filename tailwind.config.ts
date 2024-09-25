@@ -47,7 +47,7 @@ export default {
 					"@apply border-borderDivider": {},
 				},
 				".section-tracker": {
-					"@apply font-mono text-xl font-bold transition-all": {},
+					"@apply text-3xl font-bold transition-all text-textSubtle absolute": {},
 				},
 			});
 		}),
@@ -77,7 +77,6 @@ export default {
 				height: "height",
 			},
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-expect-error
 			// Remove above once tailwindcss exposes theme type
 			typography: (theme) => ({
 				DEFAULT: {
