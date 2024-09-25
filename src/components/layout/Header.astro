@@ -9,92 +9,91 @@ const url = new URL(Astro.request.url);
 
 <header
 	id="main-header"
-	class="fixed w-full overflow-hidden border-b border-borderDivider bg-bgColor"
+	class="fixed z-10 grid h-[100px] w-full grid-cols-[1fr_24fr_1fr] divide-x overflow-hidden border-b border-borderDivider bg-bgColor [&>div]:border-borderDivider"
 	x-data="{ start: false, end: false, scroll: 64 }"
-	@scroll.window="start = ($store.state.nahiyankhan < 101 ? true : false); scroll = 64 - ($store.state.nahiyankhanHeight - $store.state.nahiyankhan) * 0.22; end = (scroll < 0 ? true : false);"
+	@scroll.window="start = ($store.state.nahiyankhan < 101 ? true : false); scroll = 74 - ($store.state.nahiyankhanHeight - $store.state.nahiyankhan) * (28/$store.state.nahiyankhanHeight); end = (scroll < 0 ? true : false);"
 >
-	<div
-		class="container grid flex-row gap-y-16 border-l border-r border-borderDivider sm:grid-cols-[3fr_2fr]"
-	>
-		<div class="flex justify-center sm:flex-col">
+	<div></div>
+
+	<div class="flex flex-row justify-between">
+		<div class="self-center">
 			<div
-				class="w-4/12 text-textProminent"
+				class="text-textProminent"
 				:class="{ 'translate-y-[64px]': !end, 'translate-y-0': end }"
 				:style="(start && !end) && { transform: `translateY(${scroll}px)` }"
 				x-cloak
 			>
 				<Fragment set:html={NahiyanKhanLogo} />
 			</div>
+			<!-- <div
+				aria-label="Main menu"
+				class="absolute bottom-0 w-full translate-y-[56px] transition-all"
+				id="navigation-menu"
+				:style="{ transform:`translateY(${$store.state.getTransform()})` }"
+			>
+				<div class="flex flex-col [&>span]:section-tracker">
+					<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '56px' }"
+						>About</span
+					>
+					<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '28px' }"
+						>Projects</span
+					>
+					<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '0px' }"
+						>Contact</span
+					>
+				</div> -->
 		</div>
-
-		<div class="flex items-center justify-end border-l border-borderDivider px-8 py-8 sm:flex-row">
-			<!-- <Search /> -->
+		<div class="self-center pr-8">
 			<ThemeToggle />
-			<mobile-button>
-				<button
-					aria-expanded="false"
-					aria-haspopup="menu"
-					aria-label="Open main menu"
-					class="group relative ms-4 h-7 w-7 sm:invisible sm:hidden"
-					id="toggle-navigation-menu"
-					type="button"
-				>
-					<svg
-						aria-hidden="true"
-						class="absolute start-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 transition-all group-aria-expanded:scale-0 group-aria-expanded:opacity-0"
-						fill="none"
-						focusable="false"
-						id="line-svg"
-						stroke="currentColor"
-						stroke-width="1.5"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path d="M3.75 9h16.5m-16.5 6.75h16.5" stroke-linecap="round" stroke-linejoin="round"
-						></path>
-					</svg>
-					<svg
-						aria-hidden="true"
-						class="absolute start-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 scale-0 text-accent opacity-0 transition-all group-aria-expanded:scale-100 group-aria-expanded:opacity-100"
-						class="text-accent"
-						fill="none"
-						focusable="false"
-						id="cross-svg"
-						stroke="currentColor"
-						stroke-width="1.5"
-						viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
-					</svg>
-				</button>
-			</mobile-button>
 		</div>
 	</div>
 
-	<div
-		aria-label="Main menu"
-		class="absolute bottom-0 w-full translate-y-[84px] transition-all"
-		id="navigation-menu"
-		:style="{ transform:`translateY(${$store.state.getTransform()})` }"
-	>
-		<div class="container [&>span]:section-tracker">
-			<!-- {menuLinks.map((link) => <span class="font-mono text-xl font-bold">{link.title}</span>)} -->
-			<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '56px' }"
-				>About</span
-			>
-			<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '28px' }"
-				>Projects</span
-			>
-			<!-- <span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '28px' }"
-				>Musings</span
-			> -->
-			<span class="opacity-0" :class="{ 'opacity-100': $store.state.getTransform() === '0px' }"
-				>Contact</span
-			>
-		</div>
-	</div>
+	<div></div>
 </header>
+
+<!-- <div class="flex items-center justify-end border-l border-borderDivider px-8 py-8 sm:flex-row">
+		<mobile-button>
+			<button
+				aria-expanded="false"
+				aria-haspopup="menu"
+				aria-label="Open main menu"
+				class="group relative ms-4 h-7 w-7 sm:invisible sm:hidden"
+				id="toggle-navigation-menu"
+				type="button"
+			>
+				<svg
+					aria-hidden="true"
+					class="absolute start-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 transition-all group-aria-expanded:scale-0 group-aria-expanded:opacity-0"
+					fill="none"
+					focusable="false"
+					id="line-svg"
+					stroke="currentColor"
+					stroke-width="1.5"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path d="M3.75 9h16.5m-16.5 6.75h16.5" stroke-linecap="round" stroke-linejoin="round"
+					></path>
+				</svg>
+				<svg
+					aria-hidden="true"
+					class="absolute start-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 scale-0 text-accent opacity-0 transition-all group-aria-expanded:scale-100 group-aria-expanded:opacity-100"
+					class="text-accent"
+					fill="none"
+					focusable="false"
+					id="cross-svg"
+					stroke="currentColor"
+					stroke-width="1.5"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+				</svg>
+			</button>
+		</mobile-button>
+	</div> -->
+
+<div></div>
 
 <script>
 	import { toggleClass } from "@/utils/domElement";

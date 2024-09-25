@@ -4,10 +4,12 @@ import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
 
 <div
 	x-data
-	class="flex h-screen w-full flex-col justify-center border-x border-b border-borderDivider"
+	class="grid grid-cols-[1fr_24fr_1fr] divide-x border-b border-borderDivider [&>div]:border-borderDivider"
 >
-	<div class="mb-8 w-11/12 text-textProminent">
+	<div></div>
+	<div class="flex h-[80vh] flex-col justify-center">
 		<div
+			class="mb-8 w-11/12 text-textProminent"
 			x-ref={"nahiyankhan"}
 			x-init="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
 			@scroll.window="$store.state.nahiyankhan = $refs.nahiyankhan.getBoundingClientRect().top"
@@ -15,10 +17,11 @@ import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
 		>
 			<Fragment set:html={NahiyanKhanLogo} />
 		</div>
+		<p class="subtitle-large mb-20 w-6/12 leading-[1.75]">
+			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
+			craft at scale.
+		</p>
 	</div>
-	<p class="subtitle-large mb-20 w-11/12 text-[2.1rem] leading-[1.75]">
-		Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
-		crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement craft
-		at scale.
-	</p>
+	<div></div>
 </div>

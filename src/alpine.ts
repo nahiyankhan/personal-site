@@ -18,7 +18,6 @@ interface ThemeStore {
 interface SectionTracker {
   about: number;
   projects: number;
-  musings: number;
   contact: number;
   getTransform: () => string;
 }
@@ -59,7 +58,6 @@ export default (Alpine: Alpine) => {
     nahiyankhanHeight: 0,
     about: 999,
     projects: 999,
-    musings: 999,
     contact: 999,
 
     getTransform() {

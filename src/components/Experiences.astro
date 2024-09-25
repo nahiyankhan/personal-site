@@ -1,0 +1,32 @@
+---
+import CashAppLogo from "@/assets/cash_app.svg?raw";
+import ADPLogo from "@/assets/adp.svg?raw";
+import PearsonLogo from "@/assets/pearson.svg?raw";
+---
+
+<div
+	class="grid grid-cols-[1fr_24fr_1fr] divide-x border-b border-borderDivider [&>div]:border-borderDivider"
+>
+	<div></div>
+	<div
+		class="grid h-[100vh] grid-cols-[1fr_1fr] grid-rows-[1fr_1fr] divide-x divide-y [&>div]:border-borderDivider"
+	>
+		<div class="bg-[#00D64F]x flex items-center justify-center">
+			<div class="h-56 w-56">
+				<Fragment set:html={CashAppLogo} />
+			</div>
+		</div>
+		<div class="flex items-center justify-center !border-t-0">
+			<div class="h-56 w-56">
+				<Fragment set:html={ADPLogo} />
+			</div>
+		</div>
+		<div class="flex items-center justify-center !border-l-0">
+			<div class="h-56 w-56">
+				<Fragment set:html={PearsonLogo} />
+			</div>
+		</div>
+		<div></div>
+	</div>
+	<div></div>
+</div>

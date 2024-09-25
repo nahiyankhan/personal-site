@@ -1,0 +1,31 @@
+---
+import About from "@/assets/about.svg?raw";
+import Projects from "@/assets/Projects.svg?raw";
+import Contact from "@/assets/contact.svg?raw";
+
+const { title, subtitle, ...rest } = Astro.props;
+---
+
+<div
+	x-data
+	class="grid grid-cols-[1fr_24fr_1fr] divide-x border-b border-borderDivider [&>div]:border-borderDivider"
+>
+	<div></div>
+	<div class="flex h-[50vh] flex-col justify-center" x-ref={title}>
+		<div
+			class="mb-8 h-[150px] text-textProminent"
+			@scroll.window=`$store.state.${title} = $refs.${title}.getBoundingClientRect().top;`
+		>
+			<Fragment set:html={title === "about" ? About : title === "projects" ? Projects : Contact} />
+		</div>
+
+		{
+			subtitle && (
+				<div class="w-6/12">
+					<p class="subtitle-large leading-[1.75]">{subtitle}</p>
+				</div>
+			)
+		}
+	</div>
+	<div></div>
+</div>

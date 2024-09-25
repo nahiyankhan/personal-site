@@ -31,9 +31,6 @@ export default {
 					},
 					"@apply underline underline-offset-2": {},
 				},
-				".container": {
-					"@apply mx-auto flex max-w-7xl flex-col antialiased": {},
-				},
 				".header-large": {
 					"@apply text-7xl font-bold font-mono text-textProminent": {}
 				},

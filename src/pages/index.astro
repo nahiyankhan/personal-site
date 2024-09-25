@@ -2,6 +2,7 @@
 import PostPreview from "@/components/blog/PostPreview.astro";
 import { menuLinks } from "@/site-config";
 import Intro from "@/components/Intro.astro";
+import Experiences from "@/components/Experiences.astro";
 import Column from "@/components/layout/Column.astro";
 import { getAllPosts, sortMDByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
@@ -13,6 +14,7 @@ import CashAppLogo from "@/assets/cash_app.svg?raw";
 import ADPLogo from "@/assets/adp.svg?raw";
 import PearsonLogo from "@/assets/pearson.svg?raw";
 import SocialList from "@/components/SocialList.astro";
+import SectionTitle from "@/components/SectionTitle.astro";
 
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
@@ -72,7 +74,12 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column> -->
 
-	<Column gy>
+	<SectionTitle
+		title="about"
+		subtitle="And 5 to 9, I read science fiction, tinker a bunch, and ocasionally rock climb. I am also going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so far. But you know how Jake from Adventure Time says it, sucking at something is the first step to being sorta good at something."
+	/>
+
+	<!-- <Column gy>
 		<div class="column-left" x-ref={"about"}>
 			<div
 				class="mb-8 w-11/12 text-textProminent"
@@ -82,9 +89,11 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 			</div>
 		</div>
 		<div class="column-right"></div>
-	</Column>
+	</Column> -->
 
 	<!-- <Column title="Experiences" gy /> -->
+
+	<Experiences />
 
 	<Column gbxs>
 		<div class="column-left">
@@ -106,14 +115,16 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 				</div>
 
 				<div class="py-6 pr-10">
-					<p class="mb-4">
+					<p class="text-normal subtitle-large">
 						Brought design's high bar of craft to code and stood up Cash App's design system
 						function. Set up cross-platform design infrastructures, brought parity between design
 						and code vernacular closer, evangelized modular development, supported 40+ components
 						being built and tested, and kicked off migration efforts to adopt the new system across
 						145+ flows that cover 85% of app traffic.
 					</p>
-					<p>Exploring the intersection of AI and design tooling during down times.</p>
+					<p class="subtitle-large">
+						Exploring the intersection of AI and design tooling during down times.
+					</p>
 				</div>
 			</div>
 		</div>
@@ -144,7 +155,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 				</div>
 
 				<div class="py-6 pr-10">
-					<p class="mb-4">
+					<p class="subtitle-large mb-4">
 						Helped overhaul the design system of ADP's next generation suite of HR tools and built
 						and launched a custom responsive design system documentation site with fuzzy search,
 						demos, and content graphs.
@@ -173,7 +184,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 				</div>
 
 				<div class="py-6 pr-10">
-					<p class="mb-4">
+					<p class="subtitle-large mb-4">
 						Functioned as a code-first product designer and specialized in authoring the
 						front-of-the-front-end of Pearson's certifications focused tooling.
 					</p>
@@ -208,7 +219,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 				</div>
 
 				<div class="py-6 pr-10">
-					<p class="mb-4">
+					<p class="subtitle-large mb-4">
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
 						incididunt.
 					</p>
@@ -222,17 +233,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column>
 
-	<Column gy>
-		<div class="column-left" x-ref={"projects"}>
-			<div
-				class="mb-8 w-11/12 text-textProminent"
-				@scroll.window=`$store.state.projects = $refs.projects.getBoundingClientRect().top`
-			>
-				<Fragment set:html={Projects} />
-			</div>
-		</div>
-		<div class="column-right"></div>
-	</Column>
+	<SectionTitle title="projects" />
 
 	<Column>
 		<div class="column-left h-96"></div>
@@ -258,17 +259,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 
 	<!-- <Column title="Say hello" gy /> -->
 
-	<Column gy>
-		<div class="column-left" x-ref={"contact"}>
-			<div
-				class="mb-8 w-11/12 text-textProminent"
-				@scroll.window=`$store.state.contact = $refs.contact.getBoundingClientRect().top`
-			>
-				<Fragment set:html={Contact} />
-			</div>
-		</div>
-		<div class="column-right"></div>
-	</Column>
+	<SectionTitle title="contact" />
 
 	<Column>
 		<div class="column-left">
