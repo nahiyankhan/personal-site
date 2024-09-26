@@ -1,0 +1,73 @@
+---
+import CashAppLogo from "@/assets/cash_app.svg?raw";
+import ADPLogo from "@/assets/adp.svg?raw";
+import PearsonLogo from "@/assets/pearson.svg?raw";
+---
+
+<div
+	class="grid grid-cols-[1fr_24fr_1fr] divide-x border-b border-borderDivider [&>div]:border-borderDivider"
+>
+	<div></div>
+
+	<div
+		class="grid h-[80vh] divide-x divide-y transition-all [&>div]:border-borderDivider"
+		x-data="{ cash: false, adp: false, pearson: false, isHover() { return this.cash || this.adp || this.pearson } }"
+		:style="{ 'grid-template': `${cash ? '3fr 1fr / 3fr 1fr' : adp ? '3fr 1fr / 1fr 3fr' : pearson ? '1fr 3fr / 3fr 1fr' : '1fr 1fr / 1fr 1fr'}` }"
+	>
+		<div
+			class="bg-[#00D64F]x flex items-center justify-center"
+			@mouseover="cash = true"
+			@mouseover.away="cash = false"
+		>
+			<div class="h-56 w-56 transition-all" :class="{ 'scale-50': isHover() && !cash }">
+				<Fragment set:html={CashAppLogo} />
+			</div>
+
+			<!-- <div class="py-8 pr-8">
+				<div class="flex [&>svg]:w-16">
+					<Fragment set:html={CashAppLogo} />
+					<div class="ml-4">
+						<p class="header-standard text-2xl leading-9">Engineering Lead, Design Systems</p>
+						<p class="header-standard text-xl">
+							Cash App <span class="text-textSubtle"> | April 2022 - Current</span>
+						</p>
+					</div>
+				</div>
+
+				<div class="py-6 pr-10">
+					<p class="text-normal subtitle-large">
+						Brought design's high bar of craft to code and stood up Cash App's design system
+						function. Set up cross-platform design infrastructures, brought parity between design
+						and code vernacular closer, evangelized modular development, and supported 40+
+						components being built and tested. Kicked off migration efforts to adopt the new system
+						across 145+ flows which cover 85% of app traffic.
+					</p>
+				</div>
+			</div> -->
+		</div>
+
+		<div
+			class="flex items-center justify-center !border-t-0 bg-[#ed1a2d]"
+			@mouseover="adp = true"
+			@mouseover.away="adp = false"
+		>
+			<div class="h-56 w-56 transition-all" :class="{ 'scale-50': isHover() && !adp }">
+				<Fragment set:html={ADPLogo} />
+			</div>
+		</div>
+
+		<div
+			class="flex items-center justify-center !border-l-0 bg-[#027fa3]"
+			@mouseover="pearson = true"
+			@mouseover.away="pearson = false"
+		>
+			<div class="h-56 w-56 transition-all" :class="{ 'scale-50': isHover() && !pearson }">
+				<Fragment set:html={PearsonLogo} />
+			</div>
+		</div>
+
+		<!-- <div></div> -->
+	</div>
+
+	<div></div>
+</div>
