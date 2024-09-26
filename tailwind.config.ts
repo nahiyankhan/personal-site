@@ -31,14 +31,11 @@ export default {
 					},
 					"@apply underline underline-offset-2": {},
 				},
-				".container": {
-					"@apply mx-auto flex max-w-7xl flex-col antialiased": {},
-				},
 				".header-large": {
-					"@apply text-7xl font-bold font-mono text-textProminent": {}
+					"@apply text-7xl font-bold text-textProminent": {}
 				},
 				".header-standard": {
-					"@apply text-2xl font-bold text-textProminent font-mono tracking-tight": {},
+					"@apply text-2xl font-bold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
 					"@apply text-xl leading-10 font-normal text-textStandard tracking-wider": {},
@@ -50,7 +47,7 @@ export default {
 					"@apply border-borderDivider": {},
 				},
 				".section-tracker": {
-					"@apply font-mono text-xl font-bold transition-all": {},
+					"@apply text-3xl font-bold transition-all text-textSubtle absolute": {},
 				},
 			});
 		}),
@@ -80,7 +77,6 @@ export default {
 				height: "height",
 			},
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-expect-error
 			// Remove above once tailwindcss exposes theme type
 			typography: (theme) => ({
 				DEFAULT: {

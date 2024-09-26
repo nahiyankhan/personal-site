@@ -1,26 +1,27 @@
 ---
-import SocialList from "@/components/SocialList.astro";
-import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
-
-const { home } = Astro.props;
+import NahiyanKhanLogo from "@/assets/nahiyankhan_chunky.svg?raw";
 ---
 
-<div class="antialiased">
-	<a
-		class="inline-flex items-center hover:filter-none sm:relative sm:inline-block"
-		href="/"
-	>
-		<!-- <h1 class:list={[{"header-xlarge mb-6": home }, { "header-standard mb-3": !home }]}>Nahiyan Khan</h1> -->
-    <div class="w-10/12 text-textProminent">
-      <Fragment set:html={NahiyanKhanLogo}/>
-    </div>
-	</a>
-  {home && (
-    <p class="subtitle-large mb-4 w-11/12">
-      Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
-      crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement craft
-      at scale.
-    </p>
-    <SocialList />
-  )}
+<div
+	x-data
+	class="grid grid-cols-[1fr_24fr_1fr] divide-x border-b border-borderDivider transition-all [&>div]:border-borderDivider"
+>
+	<div></div>
+	<div class="flex h-[80vh] flex-col justify-center">
+		<div
+			class="mb-8 w-11/12 text-textProminent"
+			x-ref={"nahiyankhan"}
+			x-init="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
+			@scroll.window="$store.state.nahiyankhan = $refs.nahiyankhan.getBoundingClientRect().top"
+			x-on:resize.window="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
+		>
+			<Fragment set:html={NahiyanKhanLogo} />
+		</div>
+		<!-- <p class="subtitle-large mb-20 w-6/12 leading-[1.75]">
+			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
+			craft at scale.
+		</p> -->
+	</div>
+	<div></div>
 </div>

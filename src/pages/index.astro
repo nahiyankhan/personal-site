@@ -1,14 +1,14 @@
 ---
-import PostPreview from "@/components/blog/PostPreview.astro";
-import { menuLinks } from "@/site-config";
+import Intro from "@/components/Intro.astro";
+import Experiences from "@/components/Experiences.astro";
 import Column from "@/components/layout/Column.astro";
 import { getAllPosts, sortMDByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
-import NahiyanKhanLogo from "@/assets/nahiyan_khan.svg?raw";
 import CashAppLogo from "@/assets/cash_app.svg?raw";
 import ADPLogo from "@/assets/adp.svg?raw";
 import PearsonLogo from "@/assets/pearson.svg?raw";
 import SocialList from "@/components/SocialList.astro";
+import SectionTitle from "@/components/SectionTitle.astro";
 
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
@@ -59,16 +59,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<div class="border-borderDivider flex h-[80vh] w-full flex-col justify-center border-x border-b">
-		<div class="mb-8 w-11/12 text-textProminent">
-			<Fragment set:html={NahiyanKhanLogo} />
-		</div>
-		<p class="subtitle-large mb-20 w-11/12 text-[2.1rem] leading-[1.75]">
-			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
-			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
-			craft at scale.
-		</p>
-	</div>
+	<Intro />
 
 	<!-- <Column gy bb>
 		<div class="column-right">
@@ -77,145 +68,29 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</div>
 	</Column> -->
 
-	<Column title="Experiences" gy />
+	<SectionTitle title="about" subtitle />
 
-	<Column gbxs>
-		<div class="column-left">
-			<h3 class="font-mono text-3xl font-bold">Current</h3>
+	<!-- <Column gy>
+		<div class="column-left" x-ref={"about"}>
+			<div
+				class="mb-8 w-11/12 text-textProminent"
+				@scroll.window=`$store.state.about = $refs.about.getBoundingClientRect().top;`
+			>
+				<Fragment set:html={About} />
+			</div>
 		</div>
 		<div class="column-right"></div>
-	</Column>
-	<Column gbxs>
-		<div class="column-left">
-			<div class="py-8">
-				<div class="flex [&>svg]:w-16">
-					<Fragment set:html={CashAppLogo} />
-					<div class="ml-4">
-						<p class="header-standard text-2xl leading-9">Engineering Lead, Design Systems</p>
-						<p class="header-standard text-xl">
-							Cash App <span class="text-textSubtle"> | April 2022 - Current</span>
-						</p>
-					</div>
-				</div>
+	</Column> -->
 
-				<div class="py-6 pr-10">
-					<p class="mb-4">
-						Brought design's high bar of craft to code and stood up Cash App's design system
-						function. Set up cross-platform design infrastructures, brought parity between design
-						and code vernacular closer, evangelized modular development, supported 40+ components
-						being built and tested, and kicked off migration efforts to adopt the new system across
-						145+ flows that cover 85% of app traffic.
-					</p>
-					<p>Exploring the intersection of AI and design tooling during down times.</p>
-				</div>
-			</div>
-		</div>
-		<div class="column-right">
-			<div class="flex h-full w-full items-center">
-				<div class="w-full bg-gray-100" style="aspect-ratio: 3/2;"></div>
-			</div>
-		</div>
-	</Column>
+	<!-- <Column title="Experiences" gy /> -->
 
-	<Column gbxs gt>
-		<div class="column-left">
-			<h3 class="font-mono text-3xl font-bold">Past</h3>
-		</div>
-		<div class="column-right"></div>
-	</Column>
-	<Column gbxs>
-		<div class="column-left">
-			<div class="py-8">
-				<div class="flex [&>svg]:w-16">
-					<Fragment set:html={ADPLogo} />
-					<div class="ml-4">
-						<p class="header-standard text-2xl leading-9">Lead UX Engineer, Design Systems</p>
-						<p class="header-standard text-xl">
-							ADP <span class="text-textSubtle"> | March 2018 - April 2022</span>
-						</p>
-					</div>
-				</div>
+	<SectionTitle title="experience" />
 
-				<div class="py-6 pr-10">
-					<p class="mb-4">
-						Helped overhaul the design system of ADP's next generation suite of HR tools and built
-						and launched a custom responsive design system documentation site with fuzzy search,
-						demos, and content graphs.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="column-right">
-			<div class="flex h-full w-full items-center">
-				<div class="w-full bg-gray-100" style="aspect-ratio: 3/2;"></div>
-			</div>
-		</div>
-	</Column>
+	<Experiences />
 
-	<Column gbxs>
-		<div class="column-left">
-			<div class="py-8">
-				<div class="flex [&>svg]:w-16">
-					<Fragment set:html={PearsonLogo} />
-					<div class="ml-4">
-						<p class="header-standard text-2xl leading-9">Product Designer</p>
-						<p class="header-standard text-xl">
-							Pearson <span class="text-textSubtle"> | May 2013 - March 2018</span>
-						</p>
-					</div>
-				</div>
+	<SectionTitle title="projects" />
 
-				<div class="py-6 pr-10">
-					<p class="mb-4">
-						Functioned as a code-first product designer and specialized in authoring the
-						front-of-the-front-end of Pearson's certifications focused tooling.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="column-right">
-			<div class="flex h-full w-full items-center">
-				<div class="w-full bg-gray-100" style="aspect-ratio: 3/2;"></div>
-			</div>
-		</div>
-	</Column>
-
-	<Column gbxs gt>
-		<div class="column-left">
-			<h3 class="font-mono text-3xl font-bold">Other</h3>
-		</div>
-		<div class="column-right"></div>
-	</Column>
-	<Column gb bb>
-		<div class="column-left">
-			<div class="py-8">
-				<div class="flex [&>svg]:w-16">
-					<Fragment set:html={PearsonLogo} />
-					<div class="ml-4">
-						<p class="header-standard text-2xl leading-9">Graphic Designer</p>
-						<p class="header-standard text-xl">
-							Macalester College
-							<span class="text-textSubtle"> | September 2010 - May 2013</span>
-						</p>
-					</div>
-				</div>
-
-				<div class="py-6 pr-10">
-					<p class="mb-4">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-						incididunt.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="column-right">
-			<div class="flex h-full w-full items-center">
-				<div class="w-full bg-gray-100" style="aspect-ratio: 3/2;"></div>
-			</div>
-		</div>
-	</Column>
-
-	<Column title="Projects" gy />
+	<!-- <Column title="Musings" gy />
 
 	<Column>
 		<div class="column-left h-96"></div>
@@ -225,26 +100,11 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 	<Column bb>
 		<div class="column-left h-96"></div>
 		<div class="column-right h-96"></div>
-	</Column>
+	</Column> -->
 
-	<Column title="Musings" gy />
+	<!-- <Column title="Say hello" gy /> -->
 
-	<Column>
-		<div class="column-left h-96"></div>
-		<div class="column-right h-96"></div>
-	</Column>
+	<SectionTitle title="contact" />
 
-	<Column bb>
-		<div class="column-left h-96"></div>
-		<div class="column-right h-96"></div>
-	</Column>
-
-	<Column title="Say hello" gy />
-
-	<Column>
-		<div class="column-left">
-			<SocialList />
-		</div>
-		<div class="column-right"></div>
-	</Column>
+	<SocialList />
 </PageLayout>

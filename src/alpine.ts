@@ -1,5 +1,6 @@
 import type { Alpine } from 'alpinejs'
 import persist from '@alpinejs/persist'
+import overlap from 'alpinejs-overlap'
 
 enum MODE {
   SYSTEM = "system",
@@ -15,15 +16,16 @@ interface ThemeStore {
 }
 
 interface SectionTracker {
-  experiences: number;
+  about: number;
   projects: number;
-  musings: number;
-  sayHello: number;
+  experience: number,
+  contact: number;
   getTransform: () => string;
 }
 
 export default (Alpine: Alpine) => {
-  Alpine.plugin(persist);
+  Alpine.plugin(persist)
+  Alpine.plugin(overlap)
   
   Alpine.store('theme', {
     mode: Alpine.$persist(MODE.SYSTEM).as("mode") as unknown as MODE,
@@ -52,20 +54,22 @@ export default (Alpine: Alpine) => {
     },
   } as ThemeStore);
   
-  Alpine.store('section', {
-    experiences: 999,
+  Alpine.store('state', {
+    nahiyankhan: 999,
+    nahiyankhanHeight: 0,
+    about: 999,
+    experience: 999,
     projects: 999,
-    musings: 999,
-    sayHello: 999,
+    contact: 999,
 
     getTransform() {
-      if (this.sayHello < 100) {
+      if (this.contact < 100) {
         return `0px`;
-      } else if (this.musings < 100) {
-        return `28px`;
       } else if (this.projects < 100) {
+        return `28px`;
+      } else if (this.experience < 100) {
         return `56px`;
-      } else if (this.experiences < 100) {
+      } else if (this.about < 100) {
         return `84px`;
       } else {
         return `112px`;
