@@ -13,6 +13,9 @@
 		"format:imports": "biome check --formatter-enabled=false --write",
 		"check": "astro check"
 	},
+	"engines": {
+    "node": "20.x"
+  },
 	"dependencies": {
 		"@alpinejs/intersect": "^3.14.1",
 		"@alpinejs/persist": "^3.14.1",
