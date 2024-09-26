@@ -13,16 +13,16 @@ import { socialLinks } from "@/site-config";
 		<ul class="">
 			{
 				socialLinks.map(({ friendlyName, isWebmention, link, name }) => (
-					<li class="flex">
+					<li class="mb-2 flex">
 						<a
 							class="flex items-center justify-center sm:hover:text-link"
 							href={link}
 							target="_blank"
 						>
-							<div class="full flex h-16 w-16 items-center justify-start rounded-full">
-								<Icon aria-hidden="true" class="h-12 w-12" focusable="false" name={name} />
+							<div class="full justify-left flex items-center">
+								<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
 							</div>
-							<p class="text-4xl">{friendlyName}</p>
+							<p class="pl-4 text-2xl">{friendlyName}</p>
 						</a>
 					</li>
 				))

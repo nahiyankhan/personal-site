@@ -32,10 +32,10 @@ export default {
 					"@apply underline underline-offset-2": {},
 				},
 				".header-large": {
-					"@apply text-7xl font-bold font-mono text-textProminent": {}
+					"@apply text-7xl font-bold text-textProminent": {}
 				},
 				".header-standard": {
-					"@apply text-2xl font-bold text-textProminent font-mono tracking-tight": {},
+					"@apply text-2xl font-bold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
 					"@apply text-xl leading-10 font-normal text-textStandard tracking-wider": {},
