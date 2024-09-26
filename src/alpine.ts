@@ -18,6 +18,7 @@ interface ThemeStore {
 interface SectionTracker {
   about: number;
   projects: number;
+  experience: number,
   contact: number;
   getTransform: () => string;
 }
@@ -57,6 +58,7 @@ export default (Alpine: Alpine) => {
     nahiyankhan: 999,
     nahiyankhanHeight: 0,
     about: 999,
+    experience: 999,
     projects: 999,
     contact: 999,
 
@@ -65,10 +67,12 @@ export default (Alpine: Alpine) => {
         return `0px`;
       } else if (this.projects < 100) {
         return `28px`;
-      } else if (this.about < 100) {
+      } else if (this.experience < 100) {
         return `56px`;
-      } else {
+      } else if (this.about < 100) {
         return `84px`;
+      } else {
+        return `112px`;
       }
     }
   } as SectionTracker);

@@ -1,6 +1,7 @@
 ---
 import About from "@/assets/about.svg?raw";
-import Projects from "@/assets/Projects.svg?raw";
+import Experience from "@/assets/experience.svg?raw";
+import Projects from "@/assets/projects.svg?raw";
 import Contact from "@/assets/contact.svg?raw";
 
 const { title, subtitle, ...rest } = Astro.props;
@@ -11,19 +12,47 @@ const { title, subtitle, ...rest } = Astro.props;
 	class="grid grid-cols-[1fr_24fr_1fr] divide-x border-b border-borderDivider [&>div]:border-borderDivider"
 >
 	<div></div>
-	<div class="flex h-[50vh] flex-col justify-center" x-ref={title}>
+	<div class="flex min-h-[50vh] flex-col justify-center" x-ref={title}>
+
+		{
+			subtitle && (
+			<div class="mt-32"></div>
+		)
+		}
+
 		<div
-			class="mb-8 h-[150px] text-textProminent"
+			class="[&>svg]:h-[120px] text-textProminent"
 			@scroll.window=`$store.state.${title} = $refs.${title}.getBoundingClientRect().top;`
 		>
-			<Fragment set:html={title === "about" ? About : title === "projects" ? Projects : Contact} />
+			<Fragment
+				set:html={title === "about"
+					? About
+					: title === "experience"
+						? Experience
+						: title === "projects"
+							? Projects
+							: Contact}
+			/>
 		</div>
 
 		{
 			subtitle && (
-				<div class="w-6/12">
-					<p class="subtitle-large leading-[1.75]">{subtitle}</p>
+				<div class="w-6/12 mt-8">
+					<p class="subtitle-large mb-8 leading-[1.75]">
+						Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary.
+						Existential crisis is real. But 9 to 5, I lead design systems strategy and
+						infrastructure to implement craft at scale.
+					</p>
+
+					<p class="subtitle-large leading-[1.75]">
+						And 5 to 9, I read science fiction, tinker a bunch, and ocasionally rock climb. I am
+						also going down an espresso rabbit hole and am attempting latte art. Result: Sucking at
+						it so far. But you know how Jake from Adventure Time says it, sucking at something is
+						the first step to being sorta good at something.
+					</p>
 				</div>
+
+				<div class="mb-32"></div>
 			)
 		}
 	</div>

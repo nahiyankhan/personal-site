@@ -7,10 +7,11 @@ const year = new Date().getFullYear();
 ---
 
 <footer
-	class="border-borderDivider mt-auto flex w-full flex-col items-center justify-center gap-y-2 border-t align-top font-semibold antialiased"
+	class="grid grid-cols-[1fr_24fr_1fr] divide-x border-b border-borderDivider [&>div]:border-borderDivider"
 >
+	<div></div>
 	<div
-		class="border-borderDivider container border-l border-r px-0 py-8 text-sm font-normal sm:flex-row sm:justify-between sm:text-xs"
+		class="container border-l border-r border-borderDivider px-0 py-8 text-sm font-normal sm:flex-row sm:justify-between sm:text-xs"
 	>
 		<div class="me-0 sm:me-4">
 			&copy; {siteConfig.author}
@@ -36,4 +37,5 @@ const year = new Date().getFullYear();
 			}
 		</nav> -->
 	</div>
+	<div></div>
 </footer>
