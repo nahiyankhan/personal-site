@@ -4,12 +4,12 @@ import NahiyanKhanLogo from "@/assets/nahiyankhan_chunky.svg?raw";
 
 <div
 	x-data
-	class="grid grid-cols-[1fr_24fr_1fr] divide-x border-b border-borderDivider transition-all [&>div]:border-borderDivider"
+	class="grid grid-cols-[100px_1fr_100px] divide-x border-b border-borderDivider transition-all [&>div]:border-borderDivider"
 >
 	<div></div>
 	<div class="flex h-[80vh] flex-col justify-center">
 		<div
-			class="mb-8 w-11/12 text-textProminent"
+			class="mb-8 w-11/12 text-textProminent [&>svg]:transition-colors [&>svg]:duration-75"
 			x-ref={"nahiyankhan"}
 			x-init="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
 			@scroll.window="$store.state.nahiyankhan = $refs.nahiyankhan.getBoundingClientRect().top"

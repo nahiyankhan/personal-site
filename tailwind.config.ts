@@ -73,6 +73,13 @@ export default {
 				sans: ['Inter',...fontFamily.sans],
 				mono: ['IBM Plex Mono',...fontFamily.mono]
 			},
+			keyframes: {
+				wiggle: {
+					'0%, 100%': { transform: 'rotate(0deg)' },
+					'25%': { transform: 'rotate(-8deg)' },
+					'75%': { transform: 'rotate(8deg)' },
+				}
+			},
 			transitionProperty: {
 				height: "height",
 			},

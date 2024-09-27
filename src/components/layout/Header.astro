@@ -4,7 +4,7 @@ import ThemeToggle from "../ThemeToggle.astro";
 
 <header
 	id="main-header"
-	class="fixed z-10 grid h-[100px] w-full grid-cols-[1fr_24fr_1fr] divide-x overflow-hidden border-b border-borderDivider bg-bgColor [&>div]:border-borderDivider"
+	class="fixed z-10 grid h-[100px] w-full grid-cols-[100px_1fr_100px] divide-x overflow-hidden border-b border-borderDivider bg-bgColor transition-colors duration-300 [&>div]:border-borderDivider"
 	x-data="{ start: false, end: false, scroll: 64 }"
 	@scroll.window="start = ($store.state.nahiyankhan < 101 ? true : false); scroll = 74 - ($store.state.nahiyankhanHeight - $store.state.nahiyankhan) * (28/$store.state.nahiyankhanHeight); end = (scroll < 0 ? true : false);"
 >

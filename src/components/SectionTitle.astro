@@ -4,12 +4,13 @@ import Experience from "@/assets/experience_chunky.svg?raw";
 import Projects from "@/assets/projects_chunky.svg?raw";
 import Contact from "@/assets/contact_chunky.svg?raw";
 
-const { title, subtitle } = Astro.props;
+const { title, subtitle, class: className, ...rest } = Astro.props;
 ---
 
 <div
 	x-data
-	class="grid grid-cols-[1fr_24fr_1fr] divide-x border-b border-borderDivider [&>div]:border-borderDivider"
+	class:list={['grid grid-cols-[100px_1fr_100px] divide-x border-b border-borderDivider [&>div]:border-borderDivider', className]}
+	{...rest}
 >
 	<div></div>
 	<div class="flex min-h-[50vh] flex-col justify-center" x-ref={title}>
@@ -21,7 +22,7 @@ const { title, subtitle } = Astro.props;
 		}
 
 		<div
-			class="[&>svg]:h-[120px] text-textProminent"
+			class="[&>svg]:h-[120px] text-textProminent [&>svg]:transition-colors [&>svg]:duration-75"
 			@scroll.window=`$store.state.${title} = $refs.${title}.getBoundingClientRect().top;`
 		>
 			<Fragment
