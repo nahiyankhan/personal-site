@@ -35,7 +35,7 @@ export default {
 					"@apply text-7xl font-bold text-textProminent": {}
 				},
 				".header-standard": {
-					"@apply text-2xl font-bold text-textProminent tracking-tight": {},
+					"@apply text-2xl font-semibold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
 					"@apply text-xl leading-10 font-normal text-textStandard tracking-wider": {},
@@ -70,8 +70,8 @@ export default {
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: ['Inter',...fontFamily.sans],
-				mono: ['IBM Plex Mono',...fontFamily.mono]
+				sans: ['Inter Variable',...fontFamily.sans],
+				mono: ['Rubik Mono One',...fontFamily.mono]
 			},
 			keyframes: {
 				wiggle: {

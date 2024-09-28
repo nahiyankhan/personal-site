@@ -25,7 +25,10 @@ const { title, subtitle, class: className, ...rest } = Astro.props;
 			class="[&>svg]:h-[120px] text-textProminent [&>svg]:transition-colors [&>svg]:duration-75"
 			@scroll.window=`$store.state.${title} = $refs.${title}.getBoundingClientRect().top;`
 		>
-			<Fragment
+			<h2 class="text-[9rem] font-mono tracking-tighter text-textProminent">
+				/{title}
+			</h2>
+			<!-- <Fragment
 				set:html={title === "about"
 					? About
 					: title === "experience"
@@ -33,12 +36,12 @@ const { title, subtitle, class: className, ...rest } = Astro.props;
 						: title === "projects"
 							? Projects
 							: Contact}
-			/>
+			/> -->
 		</div>
 
 		{
 			subtitle && (
-				<div class="w-6/12 mt-8">
+				<div class="w-6/12 mt-32">
 					<p class="subtitle-large mb-8 leading-[1.75]">
 						Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary.
 						Existential crisis is real. But 9 to 5, I lead design systems strategy and

@@ -18,26 +18,29 @@ import ThemeToggle from "../ThemeToggle.astro";
 			x-cloak
 		>
 			<!-- <Fragment set:html={NahiyanKhanLogo} /> -->
-			<p class="text-3xl font-bold text-textProminent">NAHIYAN KHAN</p>
-			<div class="relative flex h-[36px] flex-row pl-4 [&>span]:section-tracker">
+			<p class="font-mono text-3xl tracking-tighter text-textProminent">NAHIYAN KHAN</p>
+			<div
+				class="relative flex h-[36px] flex-row pl-4 font-mono tracking-tighter [&>span]:section-tracker"
+			>
+				<span class="">/</span>
 				<span
 					class="translate-x-[-100%] opacity-0"
-					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '0px' }"
+					:class="{ 'opacity-100 translate-x-[38px]': $store.state.getTransform() === '0px' }"
 					>CONTACT</span
 				>
 				<span
 					class="translate-x-[-100%] opacity-0"
-					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '28px' }"
+					:class="{ 'opacity-100 translate-x-[38px]': $store.state.getTransform() === '28px' }"
 					>PROJECTS</span
 				>
 				<span
 					class="translate-x-[-100%] opacity-0"
-					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '56px' }"
-					>EXPERIENCE</span
+					:class="{ 'opacity-100 translate-x-[38px]': $store.state.getTransform() === '56px' }"
+					>EXPERIENCES</span
 				>
 				<span
 					class="translate-x-[-100%] opacity-0"
-					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '84px' }"
+					:class="{ 'opacity-100 translate-x-[38px]': $store.state.getTransform() === '84px' }"
 					>ABOUT</span
 				>
 			</div>
