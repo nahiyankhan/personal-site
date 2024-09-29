@@ -1,6 +1,6 @@
 ---
-import "@fontsource/inter";
-import "@fontsource/ibm-plex-mono";
+import "@fontsource-variable/inter";
+import "@fontsource/rubik-mono-one";
 import BaseHead from "@/components/BaseHead.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
@@ -24,7 +24,7 @@ const {
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 		<ViewTransitions />
 	</head>
-	<body class="bg-bgColor">
+	<body class="bg-bgColor transition-colors duration-300">
 		<ThemeProvider />
 		<SkipLink />
 		<Header />

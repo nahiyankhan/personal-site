@@ -29,26 +29,6 @@ export const siteConfig: SiteConfig = {
 	},
 };
 
-// Used to generate links in both the Header & Footer.
-export const menuLinks: { ref: string; title: string }[] = [
-	{
-		ref: "experiences",
-		title: "Experiences",
-	},
-	{
-		ref: "projects",
-		title: "Projects",
-	},
-	{
-		ref: "musings",
-		title: "Musings",
-	},
-	{
-		ref: "say-hello",
-		title: "Say hello",
-	},
-];
-
 export const socialLinks: {
 	friendlyName: string;
 	isWebmention?: boolean;

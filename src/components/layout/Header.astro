@@ -4,7 +4,7 @@ import ThemeToggle from "../ThemeToggle.astro";
 
 <header
 	id="main-header"
-	class="fixed z-10 grid h-[100px] w-full grid-cols-[1fr_24fr_1fr] divide-x overflow-hidden border-b border-borderDivider bg-bgColor [&>div]:border-borderDivider"
+	class="fixed z-10 grid h-[100px] w-full grid-cols-[100px_1fr_100px] divide-x overflow-hidden border-b border-borderDivider bg-bgColor transition-colors duration-300 [&>div]:border-borderDivider"
 	x-data="{ start: false, end: false, scroll: 64 }"
 	@scroll.window="start = ($store.state.nahiyankhan < 101 ? true : false); scroll = 74 - ($store.state.nahiyankhanHeight - $store.state.nahiyankhan) * (28/$store.state.nahiyankhanHeight); end = (scroll < 0 ? true : false);"
 >
@@ -18,29 +18,32 @@ import ThemeToggle from "../ThemeToggle.astro";
 			x-cloak
 		>
 			<!-- <Fragment set:html={NahiyanKhanLogo} /> -->
-			<p class="text-3xl font-bold text-textProminent">NAHIYAN KHAN</p>
-			<div class="relative flex h-[36px] flex-row pl-4 [&>span]:section-tracker">
+			<p class="font-mono text-3xl tracking-tighter text-textProminent">NAHIYAN KHAN</p>
+			<!-- <div
+				class="relative flex h-[36px] flex-row pl-4 font-mono tracking-tighter [&>span]:section-tracker"
+			>
+				<span class="">/</span>
 				<span
 					class="translate-x-[-100%] opacity-0"
-					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '0px' }"
+					:class="{ 'opacity-100 translate-x-[38px]': $store.state.getTransform() === '0px' }"
 					>CONTACT</span
 				>
 				<span
 					class="translate-x-[-100%] opacity-0"
-					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '28px' }"
+					:class="{ 'opacity-100 translate-x-[38px]': $store.state.getTransform() === '28px' }"
 					>PROJECTS</span
 				>
 				<span
 					class="translate-x-[-100%] opacity-0"
-					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '56px' }"
-					>EXPERIENCE</span
+					:class="{ 'opacity-100 translate-x-[38px]': $store.state.getTransform() === '56px' }"
+					>EXPERIENCES</span
 				>
 				<span
 					class="translate-x-[-100%] opacity-0"
-					:class="{ 'opacity-100 translate-x-[0]': $store.state.getTransform() === '84px' }"
+					:class="{ 'opacity-100 translate-x-[38px]': $store.state.getTransform() === '84px' }"
 					>ABOUT</span
 				>
-			</div>
+			</div> -->
 			<!-- <div
 				aria-label="Main menu"
 				class="absolute bottom-0 w-full translate-y-[56px] transition-all"
