@@ -15,7 +15,8 @@ import NahiyanKhanLogo from "@/assets/nahiyankhan_chunky.svg?raw";
 			@scroll.window="$store.state.nahiyankhan = $refs.nahiyankhan.getBoundingClientRect().top"
 			x-on:resize.window="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
 		>
-			<Fragment set:html={NahiyanKhanLogo} />
+			<!-- <Fragment set:html={NahiyanKhanLogo} /> -->
+			<h2 class="font-mono text-[9rem] leading-[8rem] tracking-tighter">Nahiyan Khan</h2>
 		</div>
 		<!-- <p class="subtitle-large mb-20 w-6/12 leading-[1.75]">
 			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential

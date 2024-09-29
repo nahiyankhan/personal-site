@@ -23,6 +23,7 @@ export default {
 	plugins: [
 		require("@tailwindcss/typography"),
 		require("@tailwindcss/aspect-ratio"),
+		require('tailwind-clip-path'),
 		plugin(({ addComponents }) => {
 			addComponents({
 				".cactus-link": {
@@ -35,7 +36,7 @@ export default {
 					"@apply text-7xl font-bold text-textProminent": {}
 				},
 				".header-standard": {
-					"@apply text-2xl font-bold text-textProminent tracking-tight": {},
+					"@apply text-2xl font-semibold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
 					"@apply text-xl leading-10 font-normal text-textStandard tracking-wider": {},
@@ -48,6 +49,11 @@ export default {
 				},
 				".section-tracker": {
 					"@apply text-3xl font-bold transition-all text-textSubtle absolute": {},
+				},
+				".title-clip": {
+					clipPath: `path("M82 0.5L0.5 183H1841.5V0.5H82Z")`,
+					marginLeft: "-1ch",
+					paddingLeft: "1ch",
 				},
 			});
 		}),
@@ -70,8 +76,8 @@ export default {
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: ['Inter',...fontFamily.sans],
-				mono: ['IBM Plex Mono',...fontFamily.mono]
+				sans: ['Inter Variable',...fontFamily.sans],
+				mono: ['Rubik Mono One',...fontFamily.mono]
 			},
 			keyframes: {
 				wiggle: {
