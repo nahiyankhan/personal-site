@@ -1,6 +1,6 @@
 import type { Alpine } from 'alpinejs'
 import persist from '@alpinejs/persist'
-import overlap from 'alpinejs-overlap'
+import intersect from '@alpinejs/intersect'
 
 enum MODE {
   SYSTEM = "system",
@@ -25,7 +25,7 @@ interface SectionTracker {
 
 export default (Alpine: Alpine) => {
   Alpine.plugin(persist)
-  Alpine.plugin(overlap)
+  Alpine.plugin(intersect)
   
   Alpine.store('theme', {
     mode: Alpine.$persist(MODE.SYSTEM).as("mode") as unknown as MODE,

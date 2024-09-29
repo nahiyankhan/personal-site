@@ -23,6 +23,7 @@ export default {
 	plugins: [
 		require("@tailwindcss/typography"),
 		require("@tailwindcss/aspect-ratio"),
+		require('tailwind-clip-path'),
 		plugin(({ addComponents }) => {
 			addComponents({
 				".cactus-link": {
@@ -48,6 +49,11 @@ export default {
 				},
 				".section-tracker": {
 					"@apply text-3xl font-bold transition-all text-textSubtle absolute": {},
+				},
+				".title-clip": {
+					clipPath: `path("M82 0.5L0.5 183H1841.5V0.5H82Z")`,
+					marginLeft: "-1ch",
+					paddingLeft: "1ch",
 				},
 			});
 		}),

@@ -9,7 +9,24 @@ import SectionTitle from "@/components/SectionTitle.astro";
 <PageLayout meta={{ title: "Home" }}>
 	<Intro />
 
-	<SectionTitle title="about" subtitle />
+	<SectionTitle title="about" subtitle>
+		<div class="mt-8 w-6/12">
+			<p class="subtitle-large mb-8 leading-[1.75]">
+				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+				crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
+				craft at scale.
+			</p>
+
+			<p class="subtitle-large leading-[1.75]">
+				And 5 to 9, I read science fiction, tinker a bunch, and ocasionally rock climb. I am also
+				going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so
+				far. But you know how Jake from Adventure Time says it, sucking at something is the first
+				step to being sorta good at something.
+			</p>
+		</div>
+
+		<div class="mb-32"></div>
+	</SectionTitle>
 
 	<SectionTitle title="experiences" />
 
@@ -17,7 +34,15 @@ import SectionTitle from "@/components/SectionTitle.astro";
 
 	<SectionTitle title="projects" />
 
-	<SectionTitle title="contact" />
+	<SectionTitle title="contact" subtitle>
+		<div class="mt-8 w-6/12">
+			<p class="subtitle-large mb-8 leading-[1.75]">
+				Say hello. Send a science fiction book recommendation.
+			</p>
+		</div>
+
+		<div class="mb-32"></div>
+	</SectionTitle>
 
 	<SocialList />
 </PageLayout>
