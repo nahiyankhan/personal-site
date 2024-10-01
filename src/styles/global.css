@@ -45,4 +45,8 @@
 
 		--border-divider: var(--slate-40)
 	}
+
+	* {
+		@apply border-borderDivider;
+	}
 }

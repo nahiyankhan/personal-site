@@ -1,7 +1,7 @@
-<div x-data class="w-full border-b border-borderDivider transition-all">
-	<div class="mx-5 flex h-[80vh] flex-col justify-center border-x border-borderDivider sm:mx-24">
+<div x-data class="w-full border-b transition-all">
+	<div class="mx-5 flex h-[80vh] flex-col justify-center border-x sm:mx-24">
 		<h2
-			class="font-mono text-[9rem] leading-[8rem] tracking-tighter"
+			class="mb-8 font-mono text-[9rem] leading-[8rem] tracking-tighter"
 			x-ref={"nahiyankhan"}
 			x-init="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
 			@scroll.window="$store.state.nahiyankhan = $refs.nahiyankhan.getBoundingClientRect().top"
@@ -9,5 +9,7 @@
 		>
 			Nahiyan Khan
 		</h2>
+
+		<p class="subtitle-large leading-[1.75]">(na-he-yahn)</p>
 	</div>
 </div>

@@ -4,12 +4,9 @@ import { siteConfig } from "@/site-config";
 const year = new Date().getFullYear();
 ---
 
-<footer
-	class="grid-cols-[100px_1fr_100px] grid-cols-[24px_1fr_24px] divide-x border-b border-borderDivider sm:grid [&>div]:border-borderDivider"
->
-	<div></div>
+<footer class="border-b">
 	<div
-		class="container border-l border-r border-borderDivider px-0 py-8 text-sm font-normal sm:flex-row sm:justify-between sm:text-xs"
+		class="mx-5 border-x border-l border-r px-0 py-8 text-sm font-normal sm:mx-24 sm:flex-row sm:justify-between sm:text-xs"
 	>
 		<div class="me-0 sm:me-4">
 			&copy; {siteConfig.author}
@@ -35,5 +32,4 @@ const year = new Date().getFullYear();
 			}
 		</nav> -->
 	</div>
-	<div></div>
 </footer>

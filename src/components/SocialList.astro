@@ -3,12 +3,8 @@ import { Icon } from "astro-icon/components";
 import { socialLinks } from "@/site-config";
 ---
 
-<div
-	class="grid-cols-[100px_1fr_100px] grid-cols-[24px_1fr_24px] divide-x border-b border-borderDivider sm:grid [&>div]:border-borderDivider"
->
-	<div></div>
-
-	<div class="flex h-[45vh] flex-col justify-center">
+<div class="border-b">
+	<div class="mx-5 flex h-[45vh] flex-col justify-center border-x sm:mx-24">
 		<!-- <p class="mb-7 h-[76px] content-end font-mono text-2xl font-extrabold">Say hello at</p> -->
 		<ul class="">
 			{
@@ -29,6 +25,4 @@ import { socialLinks } from "@/site-config";
 			}
 		</ul>
 	</div>
-
-	<div></div>
 </div>

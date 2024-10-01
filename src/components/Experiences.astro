@@ -2,33 +2,24 @@
 import CashAppLogo from "@/assets/cash_app.svg?raw";
 import ADPLogo from "@/assets/adp.svg?raw";
 import PearsonLogo from "@/assets/pearson.svg?raw";
-import Current from "@/assets/current_chunky.svg?raw";
-import Past from "@/assets/past_chunky.svg?raw";
-import Other from "@/assets/other_chunky.svg?raw";
 ---
 
-<div
-	class="grid-cols-[24px_1fr_24px] divide-x border-b border-borderDivider sm:grid sm:grid-cols-[100px_1fr_100px] [&>div]:border-borderDivider"
->
-	<div></div>
-
+<div class="w-full border-b">
 	<div
-		class=""
+		class="mx-5 border-x sm:mx-24"
 		x-data="{ cash: false, adp: false, pearson: false, macalester: false, isHover() { return this.cash || this.adp || this.pearson || this.macalester } }"
 	>
 		<!-- <h3 class="mb-12 mt-24 text-3xl font-bold">Current</h3> -->
 
 		<div
-			class="mt-24 text-textProminent [&>svg]:h-[60px] [&>svg]:transition-colors [&>svg]:duration-75"
+			class="text-textProminent sm:mb-28 sm:pt-40 [&>svg]:h-[60px] [&>svg]:transition-colors [&>svg]:duration-75"
 		>
 			<!-- <Fragment set:html={Current} /> -->
-			<h3 class="mb-12 mt-24 font-mono text-2xl font-bold text-textStandard sm:text-6xl">
-				#Current
-			</h3>
+			<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Current</h3>
 		</div>
 
 		<div
-			class="bg-[#00D64F]x mb-12 mt-16 flex items-center"
+			class="bg-[#00D64F]x mb-12 flex items-center"
 			@mouseover="cash = true"
 			@mouseover.away="cash = false"
 		>
@@ -62,14 +53,14 @@ import Other from "@/assets/other_chunky.svg?raw";
 		<!-- <h3 class="mb-12 mt-24 text-3xl font-bold">Past</h3> -->
 
 		<div
-			class="mt-16 text-textProminent [&>svg]:h-[60px] [&>svg]:transition-colors [&>svg]:duration-75"
+			class="pt-16 text-textProminent sm:mb-28 [&>svg]:h-[60px] [&>svg]:transition-colors [&>svg]:duration-75"
 		>
 			<!-- <Fragment set:html={Past} /> -->
-			<h3 class="mb-12 mt-24 font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Past</h3>
+			<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Past</h3>
 		</div>
 
 		<div
-			class="bg-[#ed1a2d]x my-20 flex items-center"
+			class="bg-[#ed1a2d]x mb-20 flex items-center"
 			@mouseover="adp = true"
 			@mouseover.away="adp = false"
 		>
@@ -122,14 +113,14 @@ import Other from "@/assets/other_chunky.svg?raw";
 		<!-- <h3 class="mb-12 mt-24 text-3xl font-bold">Other</h3> -->
 
 		<div
-			class="mt-16 text-textProminent [&>svg]:h-[60px] [&>svg]:transition-colors [&>svg]:duration-75"
+			class="pt-16 text-textProminent sm:mb-28 [&>svg]:h-[60px] [&>svg]:transition-colors [&>svg]:duration-75"
 		>
 			<!-- <Fragment set:html={Other} /> -->
 			<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Other</h3>
 		</div>
 
 		<div
-			class="my-20 flex items-center"
+			class="flex items-center pb-20"
 			@mouseover="macalester = true"
 			@mouseover.away="macalester = false"
 		>
@@ -156,6 +147,4 @@ import Other from "@/assets/other_chunky.svg?raw";
 
 		<!-- <div></div> -->
 	</div>
-
-	<div></div>
 </div>
