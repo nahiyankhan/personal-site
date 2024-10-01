@@ -1,28 +1,15 @@
----
-import NahiyanKhanLogo from "@/assets/nahiyankhan_chunky.svg?raw";
----
-
-<div
-	x-data
-	class="grid grid-cols-[100px_1fr_100px] divide-x border-b border-borderDivider transition-all [&>div]:border-borderDivider"
->
-	<div></div>
-	<div class="flex h-[80vh] flex-col justify-center">
-		<div
-			class="mb-8 w-11/12 text-textProminent [&>svg]:transition-colors [&>svg]:duration-75"
+<div x-data class="w-full border-b transition-all">
+	<div class="mx-5 flex h-[80vh] flex-col justify-center border-x sm:mx-24">
+		<h2
+			class="mb-8 font-mono text-[9rem] leading-[8rem] tracking-tighter"
 			x-ref={"nahiyankhan"}
 			x-init="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
 			@scroll.window="$store.state.nahiyankhan = $refs.nahiyankhan.getBoundingClientRect().top"
 			x-on:resize.window="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
 		>
-			<!-- <Fragment set:html={NahiyanKhanLogo} /> -->
-			<h2 class="font-mono text-[9rem] leading-[8rem] tracking-tighter">Nahiyan Khan</h2>
-		</div>
-		<!-- <p class="subtitle-large mb-20 w-6/12 leading-[1.75]">
-			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
-			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
-			craft at scale.
-		</p> -->
+			Nahiyan Khan
+		</h2>
+
+		<p class="subtitle-large leading-[1.75]">(na-he-yahn)</p>
 	</div>
-	<div></div>
 </div>

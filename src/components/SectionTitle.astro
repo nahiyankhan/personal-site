@@ -4,58 +4,26 @@ import Experience from "@/assets/experience_chunky.svg?raw";
 import Projects from "@/assets/projects_chunky.svg?raw";
 import Contact from "@/assets/contact_chunky.svg?raw";
 
-const { title, subtitle, class: className, ...rest } = Astro.props;
+const { title, subtitle, ...rest } = Astro.props;
 ---
 
-<div
-	x-data="{ shown: false }"
-	class:list={[
-		"grid grid-cols-[100px_1fr_100px] divide-x border-b border-borderDivider [&>div]:border-borderDivider",
-		className,
-	]}
-	{...rest}
->
-	<div></div>
-	<div class="flex min-h-[50vh] flex-col justify-center" x-ref={title}>
+<div x-data class="border-b" {...rest}>
+	<div class="mx-5 flex min-h-[50vh] flex-col justify-center border-x sm:mx-24" x-ref={title}>
 		{subtitle && <div class="mt-32" />}
 
 		<div
 			class="inline-flex text-textProminent [&>svg]:h-[120px] [&>svg]:transition-colors [&>svg]:duration-75"
 			@scroll.window=`$store.state.${title} = $refs.${title}.getBoundingClientRect().top;`
-			x-intersect.full="shown = true"
 		>
-			<span
-				class="font-mono text-[9rem] tracking-tighter [line-height:initial]"
-				x-show="shown"
-				x-transition:enter="transition ease-out duration-300"
-				x-transition:enter-start="opacity-0"
-				x-transition:enter-end="opacity-100"
-			>
+			<span class="font-mono text-4xl tracking-tighter [line-height:initial] sm:text-[9rem]">
 				/
 			</span>
-			<div class="title-clip text-[9rem]">
-				<!-- clip-path-polygon-[`calc(tan()*100%)`_0,_100%_0,_100%_100%,_0_100%] -->
-				<h2
-					class="font-mono text-[9rem] tracking-tighter text-textProminent [line-height:initial]"
-					x-show="shown"
-					x-transition:enter="transition ease-in-out duration-[300ms]"
-					x-transition:enter-start="translate-x-[-100%]"
-					x-transition-enter-end="translate-x-0"
-				>
-					{title}
-				</h2>
-			</div>
-			<!-- <Fragment
-				set:html={title === "about"
-					? About
-					: title === "experience"
-						? Experience
-						: title === "projects"
-							? Projects
-							: Contact}
-			/> -->
+			<h2
+				class="font-mono text-4xl tracking-tighter text-textProminent [line-height:initial] sm:text-[9rem]"
+			>
+				{title}
+			</h2>
 		</div>
 		<slot />
 	</div>
-	<div></div>
 </div>

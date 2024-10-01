@@ -21,6 +21,7 @@ interface SectionTracker {
   experiences: number,
   contact: number;
   getTransform: () => string;
+  getCurrent: () => string;
 }
 
 export default (Alpine: Alpine) => {
@@ -73,6 +74,20 @@ export default (Alpine: Alpine) => {
         return `84px`;
       } else {
         return `112px`;
+      }
+    },
+
+    getCurrent() {
+      if (this.contact < 100) {
+        return `contact`;
+      } else if (this.projects < 100) {
+        return `projects`;
+      } else if (this.experiences < 100) {
+        return `experiences`;
+      } else if (this.about < 100) {
+        return `about`;
+      } else {
+        return ``;
       }
     }
   } as SectionTracker);
