@@ -39,7 +39,7 @@ export default {
 					"@apply text-2xl font-semibold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
-					"@apply text-xl leading-10 font-normal text-textStandard tracking-wider": {},
+					"@apply text-base sm:text-xl leading-8 sm:leading-10 font-normal text-textStandard tracking-wider": {},
 				},
 				".column-left": {
 					"@apply border-borderDivider": {},
@@ -48,7 +48,7 @@ export default {
 					"@apply border-borderDivider": {},
 				},
 				".section-tracker": {
-					"@apply text-3xl font-bold transition-all text-textSubtle absolute": {},
+					"@apply text-base sm:text-3xl font-bold transition-all text-textSubtle absolute sm:left-14": {},
 				},
 				".title-clip": {
 					clipPath: `path("M82 0.5L0.5 183H1841.5V0.5H82Z")`,

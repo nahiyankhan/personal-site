@@ -6,15 +6,15 @@ const ref = _.camelCase(title)
 ---
 <div
 	x-data
-	class:list={["border-borderDivider grid border-x divide-x sm:grid-cols-[3fr_2fr]", { "[&>div]:py-44": gy }, { "[&>div]:pt-44": gt }, { "[&>div]:pb-44": gb }, { "[&>div]:pb-8": gbxs }, 
+	class:list={[" grid border-x divide-x sm:grid-cols-[3fr_2fr]", { "[&>div]:py-44": gy }, { "[&>div]:pt-44": gt }, { "[&>div]:pb-44": gb }, { "[&>div]:pb-8": gbxs }, 
 	{ "[&>div]:pt-8": gtxs }, { "[&>div]:py-8": gyxs }, { "[&>div]:border-y": by }, { "[&>div]:border-t": bt }, { "[&>div]:border-b": bb }, className]}
 	{...rest}
 >
 	{title ? (
-		<div class="border-borderDivider" x-ref={ref} @scroll.window=`$store.state.${ref} = $refs.${ref}.getBoundingClientRect().top`>
+		<div class="" x-ref={ref} @scroll.window=`$store.state.${ref} = $refs.${ref}.getBoundingClientRect().top`>
 			<h2 class="header-large mb-4">{title}</h2>
 		</div>
-		<div class="border-borderDivider">
+		<div class="">
 		</div>
 	) : (
 		<slot />
