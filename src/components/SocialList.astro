@@ -10,11 +10,7 @@ import { socialLinks } from "@/site-config";
 			{
 				socialLinks.map(({ friendlyName, link, name }) => (
 					<li class="mb-2 flex">
-						<a
-							class="flex items-center justify-center sm:hover:text-link"
-							href={link}
-							target="_blank"
-						>
+						<a class="link relative flex items-center justify-center" href={link} target="_blank">
 							<div class="full justify-left flex items-center">
 								<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
 							</div>

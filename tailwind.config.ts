@@ -47,13 +47,16 @@ export default {
 				".column-right": {
 					"@apply border-borderDivider": {},
 				},
+				".link": {
+					"&::after": {
+						"@apply content-[''] absolute left-0 w-full bg-white h-full top-0 mix-blend-difference origin-left scale-x-0 duration-300 ease-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
+					},
+					"&:hover::after": {
+						"@apply scale-x-100": {},
+					},
+				},
 				".section-tracker": {
 					"@apply text-base sm:text-3xl font-bold transition-all text-textSubtle absolute sm:left-14": {},
-				},
-				".title-clip": {
-					clipPath: `path("M82 0.5L0.5 183H1841.5V0.5H82Z")`,
-					marginLeft: "-1ch",
-					paddingLeft: "1ch",
 				},
 			});
 		}),
@@ -76,7 +79,7 @@ export default {
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: ['Inter Variable',...fontFamily.sans],
+				sans: ['JetBrains Mono Variable',...fontFamily.sans],
 				mono: ['Rubik Mono One',...fontFamily.mono]
 			},
 			keyframes: {
