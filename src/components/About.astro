@@ -1,39 +1,46 @@
 ---
 import { Icon } from "astro-icon/components";
 import Section from "./Section.astro";
+import AboutSneak from "@/assets/about.gif";
 import CashAppLogo from "@/assets/cash_app.svg?raw";
 ---
 
-<Section title="about" subtitle>
-	<div class="mb-32 mt-8 w-1/2">
-		<p class="mb-8 leading-[1.75]">
-			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
-			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
-			craft at scale.
-		</p>
+<Section title="about">
+	<div class="mb-32 mt-8 flex">
+		<div class="w-1/2">
+			<p class="mb-8 leading-[1.75]">
+				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+				crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
+				craft at scale.
+			</p>
 
-		<p class="mb-8 leading-[1.75]">
-			And 5 to 9, I read science fiction, tinker a bunch, and ocasionally rock climb. I am also
-			going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so far.
-			But you know how Jake from Adventure Time says it, sucking at something is the first step to
-			being sorta good at something.
-		</p>
+			<p class="mb-8 leading-[1.75]">
+				And 5 to 9, I read science fiction, tinker a bunch, and ocasionally rock climb. I am also
+				going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so
+				far. But you know how Jake from Adventure Time says it, sucking at something is the first
+				step to being sorta good at something.
+			</p>
 
-		<a
-			class="link relative ml-2 flex w-fit items-center underline"
-			href="/nahiyankhan_resume.pdf"
-			target="_blank"
-		>
-			<div class="full justify-left inline-flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-8 w-8"
-					focusable="false"
-					name="mdi:file-document-outline"
-				/>
-			</div>
-			<p class="pl-4">Download Resume</p>
-		</a>
+			<a
+				class="link relative ml-2 flex w-fit items-center underline"
+				href="/nahiyankhan_resume.pdf"
+				target="_blank"
+			>
+				<div class="full justify-left inline-flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-8 w-8"
+						focusable="false"
+						name="mdi:file-document-outline"
+					/>
+				</div>
+				<p class="pl-4">Download Resume</p>
+			</a>
+		</div>
+
+		<div class="relative flex w-1/2 justify-end">
+			<img src={AboutSneak.src} class="w-4/5" height={AboutSneak.height} alt="" />
+		</div>
 	</div>
 
 	<div class="text-textProminent">
