@@ -1,0 +1,55 @@
+---
+import { Icon } from "astro-icon/components";
+import { link } from "node_modules/mdast-util-to-markdown/lib/handle/link";
+import Section from "./Section.astro";
+---
+
+<Section title="about" subtitle>
+	<div class="mb-32 mt-8 w-1/2">
+		<p class="mb-8 leading-[1.75]">
+			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
+			craft at scale.
+		</p>
+
+		<p class="mb-8 leading-[1.75]">
+			And 5 to 9, I read science fiction, tinker a bunch, and ocasionally rock climb. I am also
+			going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so far.
+			But you know how Jake from Adventure Time says it, sucking at something is the first step to
+			being sorta good at something.
+		</p>
+
+		<p class="leading-[1.75]">
+			<a class="link relative underline" href="/nahiyankhan_resume.pdf" target="_blank">
+				Download Resume
+			</a>
+		</p>
+	</div>
+
+	<div class="mb-7 text-textProminent">
+		<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Mantras</h3>
+	</div>
+
+	<ul class="mb-32">
+		<li class="mb-2 flex">
+			<div class="full justify-left flex items-center">
+				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:blinds-open" />
+			</div>
+			<p class="pl-4">Work in the open</p>
+		</li>
+
+		<li class="mb-2 flex">
+			<div class="full justify-left flex items-center">
+				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:handshake-outline" />
+			</div>
+			<p class="pl-4">Trust by default</p>
+		</li>
+
+		<li class="mb-2 flex">
+			<div class="full justify-left flex items-center">
+				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:emoticon-outline" />
+			</div>
+			<p class="pl-4">Impact people</p>
+		</li>
+	</ul>
+</Section>

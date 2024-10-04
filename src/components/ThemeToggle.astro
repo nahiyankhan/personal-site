@@ -1,9 +1,14 @@
-<theme-toggle class="">
-	<button class="link relative h-9 w-9 p-2" type="button" x-data @click="$store.theme.toggleMode()">
+<theme-toggle class="flex items-center justify-center">
+	<button
+		class="link relative h-5 w-5 sm:h-9 sm:w-9 sm:p-2"
+		type="button"
+		x-data
+		@click="$store.theme.toggleMode()"
+	>
 		<span class="sr-only">Dark Theme</span>
 		<svg
 			aria-hidden="true"
-			class="absolute start-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 opacity-100 duration-0 dark:opacity-0"
+			class="absolute start-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 opacity-100 duration-0 dark:opacity-0 sm:h-7 sm:w-7"
 			fill="none"
 			focusable="false"
 			id="sun-svg"
@@ -34,7 +39,7 @@
 		</svg>
 		<svg
 			aria-hidden="true"
-			class="absolute start-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 opacity-0 duration-0 dark:opacity-100"
+			class="absolute start-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 opacity-0 duration-0 dark:opacity-100 sm:h-7 sm:w-7"
 			fill="none"
 			focusable="false"
 			id="moon-svg"

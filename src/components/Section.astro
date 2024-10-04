@@ -1,0 +1,20 @@
+---
+const { title, ...rest } = Astro.props;
+---
+
+<div x-data class="border-b" {...rest}>
+	<div class="mx-5 flex min-h-[50vh] flex-col justify-center border-x sm:mx-24" x-ref={title}>
+		<div
+			class="inline-flex text-textProminent sm:mt-32"
+			@scroll.window=`$store.state.${title} = $refs.${title}.getBoundingClientRect().top;`
+		>
+			<span class="font-mono text-4xl tracking-tighter [line-height:initial] sm:text-9xl"> / </span>
+			<h2
+				class="font-mono text-4xl tracking-tighter text-textProminent [line-height:initial] sm:text-9xl"
+			>
+				{title}
+			</h2>
+		</div>
+		<slot />
+	</div>
+</div>
