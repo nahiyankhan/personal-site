@@ -2,10 +2,9 @@
 import Intro from "@/components/Intro.astro";
 import Experiences from "@/components/Experiences.astro";
 import PageLayout from "@/layouts/Base.astro";
-import SocialList from "@/components/SocialList.astro";
 import Section from "@/components/Section.astro";
-import Education from "@/components/Education.astro";
 import About from "@/components/About.astro";
+import Contact from "@/components/Contact.astro";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
@@ -22,14 +21,5 @@ import About from "@/components/About.astro";
 		</div>
 	</Section>
 
-	<Section title="contact">
-		<div class="mb-32 mt-8 w-9/12">
-			<p class="mb-8">
-				Say hello. Recommend a science fiction book. Let's go rock climbing. Let's work on something
-				together.
-			</p>
-		</div>
-	</Section>
-
-	<SocialList />
+	<Contact />
 </PageLayout>

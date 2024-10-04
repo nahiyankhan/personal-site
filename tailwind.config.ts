@@ -49,7 +49,7 @@ export default {
 				},
 				".redact": {
 					"&::after": {
-						"@apply content-[''] absolute left-[-4px] w-[calc(100%+8px)] bg-white h-[calc(100%+8px)] top-[-4px] mix-blend-difference origin-left scale-x-0 duration-300 ease-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
+						"@apply content-[''] absolute left-[-8px] w-[calc(100%+16px)] bg-white h-[calc(100%+8px)] top-[-4px] mix-blend-difference origin-left scale-x-0 duration-300 ease-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
 					},
 				},
 				".link": {
