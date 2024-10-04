@@ -2,57 +2,24 @@
 import Intro from "@/components/Intro.astro";
 import Experiences from "@/components/Experiences.astro";
 import PageLayout from "@/layouts/Base.astro";
-import SocialList from "@/components/SocialList.astro";
-import SectionTitle from "@/components/SectionTitle.astro";
-import Education from "@/components/Education.astro";
+import Section from "@/components/Section.astro";
+import About from "@/components/About.astro";
+import Contact from "@/components/Contact.astro";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
 	<Intro />
-
-	<SectionTitle title="about" subtitle>
-		<div class="mb-32 mt-8 w-6/12">
-			<p class="subtitle-large mb-8 leading-[1.75]">
-				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
-				crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
-				craft at scale.
-			</p>
-
-			<p class="subtitle-large mb-8 leading-[1.75]">
-				And 5 to 9, I read science fiction, tinker a bunch, and ocasionally rock climb. I am also
-				going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so
-				far. But you know how Jake from Adventure Time says it, sucking at something is the first
-				step to being sorta good at something.
-			</p>
-
-			<p class="subtitle-large leading-[1.75]">
-				<a class="underline sm:hover:text-link" href="/nahiyankhan_resume.pdf" target="_blank">
-					Download Resume
-				</a>
-			</p>
-		</div>
-	</SectionTitle>
-
-	<SectionTitle title="experiences" subtitle>
-		<div class="mb-32 mt-8 w-6/12">
-			<p class="subtitle-large mb-8 leading-[1.75]">
-				A.K.A The friends I've made along the way in the places I've been and the things I've done.
-			</p>
-		</div>
-	</SectionTitle>
-
+	<About />
 	<Experiences />
 
-	<SectionTitle title="projects" />
-
-	<SectionTitle title="contact" subtitle>
-		<div class="mb-32 mt-8 w-6/12">
-			<p class="subtitle-large mb-8 leading-[1.75]">
-				Say hello. Recommend a science fiction book. Let's go rock climbing. Let's work on something
-				together.
+	<Section title="projects">
+		<div class="mb-32 mt-8 w-9/12">
+			<p class="mb-8">
+				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, alias, iste ex, quas nesciunt
+				reiciendis accusamus nam nemo consectetur.
 			</p>
 		</div>
-	</SectionTitle>
+	</Section>
 
-	<SocialList />
+	<Contact />
 </PageLayout>

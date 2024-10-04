@@ -1,0 +1,101 @@
+---
+import { Icon } from "astro-icon/components";
+import Section from "./Section.astro";
+import CashAppLogo from "@/assets/cash_app.svg?raw";
+---
+
+<Section title="about" subtitle>
+	<div class="mb-32 mt-8 w-1/2">
+		<p class="mb-8 leading-[1.75]">
+			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+			crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
+			craft at scale.
+		</p>
+
+		<p class="mb-8 leading-[1.75]">
+			And 5 to 9, I read science fiction, tinker a bunch, and ocasionally rock climb. I am also
+			going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so far.
+			But you know how Jake from Adventure Time says it, sucking at something is the first step to
+			being sorta good at something.
+		</p>
+
+		<a
+			class="link relative ml-2 flex w-fit items-center underline"
+			href="/nahiyankhan_resume.pdf"
+			target="_blank"
+		>
+			<div class="full justify-left inline-flex items-center">
+				<Icon
+					aria-hidden="true"
+					class="h-8 w-8"
+					focusable="false"
+					name="mdi:file-document-outline"
+				/>
+			</div>
+			<p class="pl-4">Download Resume</p>
+		</a>
+	</div>
+
+	<div class="text-textProminent">
+		<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Education</h3>
+	</div>
+
+	<div class="pb-8 pt-20 sm:w-1/2">
+		<div class="flex [&>svg]:w-16">
+			<Fragment set:html={CashAppLogo} />
+			<div class="ml-4">
+				<p class="header-standard text-2xl leading-9">Masters in Computer Science</p>
+				<p class="text-xl font-medium">
+					Johns Hopkins University <span class="text-textSubtle"> | 2019 - 2022</span>
+				</p>
+			</div>
+		</div>
+
+		<div class="py-6 pr-10">
+			<p class="text-normal subtitle-large">Software Engineering and Enterprise Web Development.</p>
+		</div>
+	</div>
+
+	<div class="pb-24 pt-8 sm:w-1/2">
+		<div class="flex [&>svg]:w-16">
+			<Fragment set:html={CashAppLogo} />
+			<div class="ml-4">
+				<p class="header-standard text-2xl leading-9">Bachelor of Arts</p>
+				<p class="text-xl font-medium">
+					Macalester College <span class="text-textSubtle"> | 2009 - 2013</span>
+				</p>
+			</div>
+		</div>
+
+		<div class="py-6 pr-10">
+			<p class="text-normal subtitle-large">Math Major, Computer Science and Art Minors</p>
+		</div>
+	</div>
+
+	<div class="text-textProminent">
+		<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Mantras</h3>
+	</div>
+
+	<ul class="mb-8 ml-2 py-20">
+		<li class="mb-2 flex">
+			<div class="full justify-left flex items-center">
+				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:blinds-open" />
+			</div>
+			<p class="pl-4">Work in the open</p>
+		</li>
+
+		<li class="mb-2 flex">
+			<div class="full justify-left flex items-center">
+				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:handshake-outline" />
+			</div>
+			<p class="pl-4">Trust by default</p>
+		</li>
+
+		<li class="mb-2 flex">
+			<div class="full justify-left flex items-center">
+				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:emoticon-outline" />
+			</div>
+			<p class="pl-4">Impact people</p>
+		</li>
+	</ul>
+</Section>

@@ -1,28 +1,35 @@
 ---
-import { Icon } from "astro-icon/components";
 import { socialLinks } from "@/site-config";
+import { Icon } from "astro-icon/components";
+import Section from "./Section.astro";
 ---
 
-<div class="border-b">
-	<div class="mx-5 flex h-[45vh] flex-col justify-center border-x sm:mx-24">
+<Section title="contact">
+	<div class="mb-12 mt-8 w-9/12">
+		<p class="mb-8">
+			Say hello. Recommend a science fiction book. Let's go rock climbing. Let's work on something
+			together.
+		</p>
+	</div>
+	<div class="mb-24">
 		<!-- <p class="mb-7 h-[76px] content-end font-mono text-2xl font-extrabold">Say hello at</p> -->
 		<ul class="">
 			{
 				socialLinks.map(({ friendlyName, link, name }) => (
-					<li class="mb-2 flex">
+					<li class="mb-2 ml-2 flex">
 						<a
-							class="flex items-center justify-center sm:hover:text-link"
+							class="link relative flex items-center justify-center underline"
 							href={link}
 							target="_blank"
 						>
 							<div class="full justify-left flex items-center">
 								<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
 							</div>
-							<p class="pl-4 text-2xl">{friendlyName}</p>
+							<p class="pl-4">{friendlyName}</p>
 						</a>
 					</li>
 				))
 			}
 		</ul>
 	</div>
-</div>
+</Section>

@@ -49,4 +49,8 @@
 	* {
 		@apply border-borderDivider;
 	}
+
+	.redact-hover:hover .redact::after {
+		@apply scale-x-100
+	}
 }
