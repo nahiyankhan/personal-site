@@ -4,7 +4,7 @@ import ThemeToggle from "../ThemeToggle.astro";
 
 <header
 	id="main-header"
-	class="fixed z-10 w-full overflow-hidden border-y bg-bgColor transition-colors duration-300 sm:h-24"
+	class="fixed z-10 h-24 w-full overflow-hidden border-y bg-bgColor transition-colors duration-300"
 	x-data="{ start: false, end: false, scroll: 64, sections: ['about', 'experiences', 'projects', 'contact'] }"
 	@scroll.window="start = ($store.state.nahiyankhan < 101 ? true : false); scroll = 74 - ($store.state.nahiyankhanHeight - $store.state.nahiyankhan) * (28/$store.state.nahiyankhanHeight); end = (scroll < 0 ? true : false);"
 >
@@ -48,7 +48,7 @@ import ThemeToggle from "../ThemeToggle.astro";
 				<span x-show="$store.state.getCurrent() === 'about'" class="section-tracker">ABOUT</span> -->
 			</div>
 		</div>
-		<div class="self-center pr-8">
+		<div class="self-center pr-2 sm:pr-8">
 			<ThemeToggle />
 		</div>
 	</div>

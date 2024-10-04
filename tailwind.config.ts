@@ -47,13 +47,19 @@ export default {
 				".column-right": {
 					"@apply border-borderDivider": {},
 				},
+				".redact": {
+					"&::after": {
+						"@apply content-[''] absolute left-[-8px] w-[calc(100%+16px)] bg-white h-[calc(100%+8px)] top-[-4px] mix-blend-difference origin-left scale-x-0 duration-300 ease-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
+					},
+				},
+				".link": {
+					"@apply redact": {},
+					"&:hover::after": {
+						"@apply scale-x-100": {},
+					},
+				},
 				".section-tracker": {
 					"@apply text-base sm:text-3xl font-bold transition-all text-textSubtle absolute sm:left-14": {},
-				},
-				".title-clip": {
-					clipPath: `path("M82 0.5L0.5 183H1841.5V0.5H82Z")`,
-					marginLeft: "-1ch",
-					paddingLeft: "1ch",
 				},
 			});
 		}),
@@ -76,7 +82,7 @@ export default {
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: ['Inter Variable',...fontFamily.sans],
+				sans: ['JetBrains Mono Variable',...fontFamily.sans],
 				mono: ['Rubik Mono One',...fontFamily.mono]
 			},
 			keyframes: {

@@ -1,7 +1,7 @@
 <div x-data class="w-full border-b transition-all">
 	<div class="mx-5 flex h-[80vh] flex-col justify-center border-x sm:mx-24">
 		<h2
-			class="mb-8 font-mono text-[9rem] leading-[8rem] tracking-tighter"
+			class="mb-0 font-mono text-4xl leading-[4rem] tracking-tighter sm:mb-8 sm:text-9xl sm:leading-[8rem]"
 			x-ref={"nahiyankhan"}
 			x-init="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
 			@scroll.window="$store.state.nahiyankhan = $refs.nahiyankhan.getBoundingClientRect().top"
