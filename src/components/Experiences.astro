@@ -2,107 +2,163 @@
 import CashAppLogo from "@/assets/cash_app.svg?raw";
 import ADPLogo from "@/assets/adp.svg?raw";
 import PearsonLogo from "@/assets/pearson.svg?raw";
+import MacalesterLogo from "@/assets/macalester.svg?raw";
+import DesignXLogoWhite from "@/assets/designx_white.svg?raw";
+import DesignXLogoDark from "@/assets/designx_dark.svg?raw";
 import Section from "./Section.astro";
+import { Icon } from "astro-icon/components";
 ---
 
-<Section title="experiences" subtitle>
-	<div class="mb-24 mt-8 w-1/2">
-		<p class="mb-8">
-			A.K.A The friends I've made along the way in the places I've been and the things I've done.
-		</p>
+<Section title="experiences">
+	<div class="mb-12 mt-4 sm:mb-24 sm:mt-8 sm:w-1/2">
+		<p class="leading-[1.6] sm:leading-[1.75]">A.K.A The things I am more than sorta good at.</p>
 	</div>
 
-	<div class="text-textProminent">
-		<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Current</h3>
+	<div class="mb-12 inline-flex text-textProminent sm:mb-24" x-data="{ show: false }">
+		<h3
+			class="redact subsection-title relative"
+			:class="{ 'redact-show': show }"
+			x-ref="current"
+			@scroll.window=`show = $refs.current.getBoundingClientRect().top <= (window.innerHeight/2)`
+		>
+			#Current
+		</h3>
 	</div>
 
-	<div class="redact-hover py-20">
-		<div class="flex [&>svg]:w-16">
+	<div class="mb-12 sm:mb-20 sm:w-1/2">
+		<div class="mb-4 flex flex-col sm:mb-8 sm:flex-row [&>svg]:w-16">
 			<Fragment set:html={CashAppLogo} />
-			<div class="redact relative ml-4">
-				<p class="header-standard text-2xl leading-9">Engineering Lead, Design Systems</p>
-				<p class="text-xl font-medium">
+			<div class="mt-3 sm:ml-4 sm:mt-0">
+				<p class="header-standard">Engineering Lead, Design Systems</p>
+				<p class="text-base font-medium leading-[1.5rem] sm:text-xl">
 					Cash App <span class="text-textSubtle"> | April 2022 - Current</span>
 				</p>
 			</div>
 		</div>
 
-		<div class="mt-8 sm:w-1/2">
-			<p class="">
-				Brought design's high bar of craft to code and stood up Cash App's design system function.
-				Set up cross-platform design infrastructures, brought parity between design and code
-				vernacular, evangelized modular development, and supported 40+ components being built and
-				tested. Kicked off migration efforts to adopt the new system across 145+ flows covering 85%
-				of app traffic.
-			</p>
-		</div>
+		<p class="leading-[1.6] sm:leading-[1.75]">
+			Brought design's high bar of craft to code and stood up Cash App's design system function. Set
+			up cross-platform design infrastructures, brought parity between design and code vernacular,
+			evangelized modular development, and supported 40+ components being built and tested. Kicked
+			off migration efforts to adopt the new system across 145+ flows covering 85% of app traffic.
+		</p>
 	</div>
 
-	<div class="text-textProminent">
-		<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Past</h3>
+	<div class="mb-12 inline-flex text-textProminent sm:mb-24" x-data="{ show: false }">
+		<h3
+			class="redact subsection-title relative"
+			:class="{ 'redact-show': show }"
+			x-ref="past"
+			@scroll.window=`show = $refs.past.getBoundingClientRect().top <= (window.innerHeight/2)`
+		>
+			#Past
+		</h3>
 	</div>
 
-	<div class="redact-hover py-20">
-		<div class="flex [&>svg]:w-16">
+	<div class="mb-12 sm:mb-20 sm:w-1/2">
+		<div class="mb-4 flex flex-col sm:mb-8 sm:flex-row [&>svg]:w-16">
 			<Fragment set:html={ADPLogo} />
-			<div class="redact relative ml-4">
-				<p class="header-standard text-2xl leading-9">Lead UX Engineer, Design Systems</p>
-				<p class="text-xl font-medium">
+			<div class="mt-3 sm:ml-4 sm:mt-0">
+				<p class="header-standard">Lead UX Engineer, Design Systems</p>
+				<p class="text-base font-medium leading-[1.5rem] sm:text-xl">
 					ADP <span class="text-textSubtle"> | March 2018 - April 2022</span>
 				</p>
 			</div>
 		</div>
 
-		<div class="mt-8 sm:w-1/2">
-			<p class="">
-				Helped overhaul the design system of ADP's next generation suite of HR tools and built and
-				launched a custom responsive design system documentation site with fuzzy search, demos, and
-				content graphs.
-			</p>
-		</div>
+		<p class="leading-[1.6] sm:leading-[1.75]">
+			Helped overhaul the design system powering ADP's next generation suite of HR tools. Built and
+			launched a custom responsive design system documentation site with fuzzy search, demos, and
+			content graphs.
+		</p>
 	</div>
 
-	<div class="redact-hover pb-20 pt-4">
-		<div class="flex [&>svg]:w-16">
+	<div class="mb-12 sm:mb-20 sm:w-1/2">
+		<div class="mb-4 flex flex-col sm:mb-8 sm:flex-row [&>svg]:w-16">
 			<Fragment set:html={PearsonLogo} />
-			<div class="redact relative ml-4">
-				<p class="header-standard text-2xl leading-9">Product Designer</p>
-				<p class="text-xl font-medium">
+			<div class="mt-3 sm:ml-4 sm:mt-0">
+				<p class="header-standard">Product Designer</p>
+				<p class="text-base font-medium leading-[1.5rem] sm:text-xl">
 					Pearson <span class="text-textSubtle"> | May 2013 - March 2018</span>
 				</p>
 			</div>
 		</div>
 
-		<div class="mt-8 sm:w-1/2">
-			<p class="">
-				Functioned as a code-first product designer and specialized in authoring the
-				front-of-the-front-end of Pearson's certifications focused tooling.
-			</p>
-		</div>
+		<p class="leading-[1.6] sm:leading-[1.75]">
+			Functioned as a code-first product designer and authored the front-of-the-front-end of
+			Pearson's certifications focused suite of applications.
+		</p>
 	</div>
 
-	<!-- <h3 class="mb-12 mt-24 text-3xl font-bold">Other</h3> -->
-
-	<div class="text-textProminent">
-		<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Other</h3>
-	</div>
-
-	<div class="redact-hover mb-24 py-20">
-		<div class="flex [&>svg]:w-16">
-			<Fragment set:html={PearsonLogo} />
-			<div class="redact relative ml-4">
-				<p class="header-standard text-2xl leading-9">Graphic Designer</p>
-				<p class="text-xl font-medium">
+	<div class="mb-12 sm:mb-20 sm:w-1/2">
+		<div class="mb-4 flex flex-col sm:mb-8 sm:flex-row [&>svg]:w-16">
+			<Fragment set:html={MacalesterLogo} />
+			<div class="mt-3 sm:ml-4 sm:mt-0">
+				<p class="header-standard">Graphic Designer</p>
+				<p class="text-base font-medium leading-[1.5rem] sm:text-xl">
 					Macalester College
 					<span class="text-textSubtle"> | September 2010 - May 2013</span>
 				</p>
 			</div>
 		</div>
 
-		<div class="mt-8 sm:w-1/2">
-			<p class="">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+		<p class="leading-[1.6] sm:leading-[1.75]">
+			Designed newsletters, brochures, advertisements, posters, logos for both online and print
+			mediums.
+		</p>
+	</div>
+
+	<div class="mb-12 inline-flex text-textProminent sm:mb-24" x-data="{ show: false }">
+		<h3
+			class="redact subsection-title relative"
+			:class="{ 'redact-show': show }"
+			x-ref="other"
+			@scroll.window=`show = $refs.other.getBoundingClientRect().top <= (window.innerHeight/2)`
+		>
+			#Community
+		</h3>
+	</div>
+
+	<div class="mb-12 sm:mb-20 sm:w-1/2">
+		<div class="mb-4 flex flex-col sm:mb-8 sm:flex-row">
+			<div class="block dark:hidden [&>svg]:w-16">
+				<Fragment set:html={DesignXLogoWhite} />
+			</div>
+			<div class="hidden dark:block [&>svg]:w-16">
+				<Fragment set:html={DesignXLogoDark} />
+			</div>
+			<div class="mt-3 sm:ml-4 sm:mt-0">
+				<p class="header-standard">Speaker</p>
+				<p class="text-base font-medium leading-[1.5rem] sm:text-xl">
+					Remote Design Week
+					<span class="text-textSubtle"> | October 2021</span>
+				</p>
+			</div>
+		</div>
+
+		<div class="mt-8">
+			<iframe
+				class="mb-4 w-full [aspect-ratio:16/9]"
+				src="https://www.youtube.com/embed/wLSKcR7uAGE"
+				title="Nahiyan Khan (Lead UX Engineer of Design Systems, Lifion by ADP)- Visualizing Design Tokens at Scale"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				referrerpolicy="strict-origin-when-cross-origin"
+				allowfullscreen></iframe>
+
+			<p class="mb-4 leading-[1.6] sm:leading-[1.75]">
+				Topic: “Visualizing Design Tokens at Scale”
 			</p>
+
+			<a
+				class="link relative flex w-fit items-center text-textProminent underline"
+				href="https://designx.community/talks/nahiyan-khan-visualizing-design-tokens-at-scale/"
+				target="_blank"
+			>
+				<div class="full justify-left inline-flex items-center">
+					<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:open-in-new" />
+				</div>
+				<p class="pl-4">Talk details</p>
+			</a>
 		</div>
 	</div>
 </Section>
