@@ -2,12 +2,17 @@
 import { Icon } from "astro-icon/components";
 import Section from "./Section.astro";
 import AboutSneak from "@/assets/about.gif";
-import CashAppLogo from "@/assets/cash_app.svg?raw";
+import JHULogo from "@/assets/jhu.svg?raw";
+import MacalesterLogo from "@/assets/macalester.svg?raw";
 ---
 
 <Section title="about">
 	<div class="mb-32 mt-8 flex">
 		<div class="w-1/2">
+			<div class="mb-16 mt-10">
+				<img src={AboutSneak.src} class="" height={AboutSneak.height} alt="" />
+			</div>
+
 			<p class="mb-8 leading-[1.75]">
 				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
 				crisis is real. But 9 to 5, I lead design systems strategy and infrastructure to implement
@@ -22,7 +27,7 @@ import CashAppLogo from "@/assets/cash_app.svg?raw";
 			</p>
 
 			<a
-				class="link relative ml-2 flex w-fit items-center underline"
+				class="link relative flex w-fit items-center text-textProminent underline"
 				href="/nahiyankhan_resume.pdf"
 				target="_blank"
 			>
@@ -38,52 +43,66 @@ import CashAppLogo from "@/assets/cash_app.svg?raw";
 			</a>
 		</div>
 
-		<div class="relative flex w-1/2 justify-end">
+		<!-- <div class="relative flex w-1/2 justify-end">
 			<img src={AboutSneak.src} class="w-4/5" height={AboutSneak.height} alt="" />
-		</div>
+		</div> -->
 	</div>
 
-	<div class="text-textProminent">
-		<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Education</h3>
+	<div class="inline-flex text-textProminent" x-data="{ show: false }">
+		<h3
+			class="redact subsection-title relative"
+			:class="{ 'redact-show': show }"
+			x-ref="education"
+			@scroll.window=`show = $refs.education.getBoundingClientRect().top <= (window.innerHeight/2)`
+		>
+			#Education
+		</h3>
 	</div>
 
 	<div class="pb-8 pt-20 sm:w-1/2">
 		<div class="flex [&>svg]:w-16">
-			<Fragment set:html={CashAppLogo} />
+			<Fragment set:html={JHULogo} />
 			<div class="ml-4">
-				<p class="header-standard text-2xl leading-9">Masters in Computer Science</p>
+				<p class="header-standard">Masters in Computer Science</p>
 				<p class="text-xl font-medium">
 					Johns Hopkins University <span class="text-textSubtle"> | 2019 - 2022</span>
 				</p>
 			</div>
 		</div>
 
-		<div class="py-6 pr-10">
-			<p class="text-normal subtitle-large">Software Engineering and Enterprise Web Development.</p>
+		<div class="mt-8">
+			<p>Software Engineering and Enterprise Web Development.</p>
 		</div>
 	</div>
 
 	<div class="pb-24 pt-8 sm:w-1/2">
 		<div class="flex [&>svg]:w-16">
-			<Fragment set:html={CashAppLogo} />
+			<Fragment set:html={MacalesterLogo} />
 			<div class="ml-4">
-				<p class="header-standard text-2xl leading-9">Bachelor of Arts</p>
+				<p class="header-standard">Bachelor of Arts</p>
 				<p class="text-xl font-medium">
 					Macalester College <span class="text-textSubtle"> | 2009 - 2013</span>
 				</p>
 			</div>
 		</div>
 
-		<div class="py-6 pr-10">
-			<p class="text-normal subtitle-large">Math Major, Computer Science and Art Minors</p>
+		<div class="mt-8">
+			<p class="">Math Major, Computer Science and Art Minors</p>
 		</div>
 	</div>
 
-	<div class="text-textProminent">
-		<h3 class="font-mono text-2xl font-bold text-textStandard sm:text-6xl">#Mantras</h3>
+	<div class="inline-flex text-textProminent" x-data="{ show: false }">
+		<h3
+			class="redact subsection-title relative"
+			:class="{ 'redact-show': show }"
+			x-ref="mantras"
+			@scroll.window=`show = $refs.mantras.getBoundingClientRect().top <= (window.innerHeight/2)`
+		>
+			#Mantras
+		</h3>
 	</div>
 
-	<ul class="mb-8 ml-2 py-20">
+	<ul class="mb-8 py-20">
 		<li class="mb-2 flex">
 			<div class="full justify-left flex items-center">
 				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:blinds-open" />
@@ -93,16 +112,21 @@ import CashAppLogo from "@/assets/cash_app.svg?raw";
 
 		<li class="mb-2 flex">
 			<div class="full justify-left flex items-center">
-				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:handshake-outline" />
+				<Icon
+					aria-hidden="true"
+					class="h-8 w-8"
+					focusable="false"
+					name="mdi:file-document-edit-outline"
+				/>
 			</div>
-			<p class="pl-4">Trust by default</p>
+			<p class="pl-4">Document it all</p>
 		</li>
 
 		<li class="mb-2 flex">
 			<div class="full justify-left flex items-center">
-				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:emoticon-outline" />
+				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:handshake-outline" />
 			</div>
-			<p class="pl-4">Impact people</p>
+			<p class="pl-4">Trust by default</p>
 		</li>
 	</ul>
 </Section>

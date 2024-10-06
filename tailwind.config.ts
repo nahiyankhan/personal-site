@@ -32,30 +32,44 @@ export default {
 					},
 					"@apply underline underline-offset-2": {},
 				},
-				".header-large": {
-					"@apply text-7xl font-bold text-textProminent": {}
-				},
 				".header-standard": {
-					"@apply text-2xl font-semibold text-textProminent tracking-tight": {},
+					"@apply text-2xl leading-9 font-semibold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
 					"@apply text-base sm:text-xl leading-8 sm:leading-10 font-normal text-textStandard tracking-wider": {},
 				},
-				".column-left": {
-					"@apply border-borderDivider": {},
+				".section-title": {
+					"@apply font-mono text-4xl tracking-tighter text-textProminent [line-height:initial] sm:text-9xl": {},
 				},
-				".column-right": {
-					"@apply border-borderDivider": {},
+				".subsection-title": {
+					"@apply font-mono text-2xl font-bold text-textStandard sm:text-6xl": {},
 				},
 				".redact": {
 					"&::after": {
-						"@apply content-[''] absolute left-[-8px] w-[calc(100%+16px)] bg-white h-[calc(100%+8px)] top-[-4px] mix-blend-difference origin-left scale-x-0 duration-300 ease-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
+						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+16px)] bg-white h-[calc(100%+8px)] top-[-4px] mix-blend-difference origin-left scale-x-0 duration-500 ease-in-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
+					},
+					"&.redact-show": {
+						"&::after": {
+							"@apply scale-x-100": {},
+						},
 					},
 				},
 				".link": {
 					"@apply redact": {},
+					"&::after": {
+						"@apply duration-300": {},
+					},
 					"&:hover::after": {
 						"@apply scale-x-100": {},
+					},
+				},
+				"theme-toggle button": {
+					"@apply redact": {},
+					"&::after": {
+						"@apply translate-x-[100%] w-full duration-300": {},
+					},
+					"&:hover::after": {
+						"@apply scale-x-100 translate-x-0": {},
 					},
 				},
 				".section-tracker": {
