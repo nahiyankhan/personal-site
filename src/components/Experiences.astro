@@ -5,6 +5,9 @@ import PearsonLogo from "@/assets/pearson.svg?raw";
 import MacalesterLogo from "@/assets/macalester.svg?raw";
 import DesignXLogoWhite from "@/assets/designx_white.svg?raw";
 import DesignXLogoDark from "@/assets/designx_dark.svg?raw";
+import Current from "@/assets/current.svg?raw";
+import Past from "@/assets/past.svg?raw";
+import Community from "@/assets/community.svg?raw";
 import Section from "./Section.astro";
 import { Icon } from "astro-icon/components";
 ---
@@ -14,15 +17,8 @@ import { Icon } from "astro-icon/components";
 		<p class="leading-[1.6] sm:leading-[1.75]">A.K.A The things I am more than sorta good at.</p>
 	</div>
 
-	<div class="mb-12 inline-flex text-textProminent sm:mb-24" x-data="{ show: false }">
-		<h3
-			class="redact subsection-title relative"
-			:class="{ 'redact-show': show }"
-			x-ref="current"
-			@scroll.window=`show = $refs.current.getBoundingClientRect().top <= (window.innerHeight/2)`
-		>
-			#Current
-		</h3>
+	<div class="mb-12 inline-flex text-textProminent sm:mb-24 sm:[&>svg]:h-12">
+		<Fragment set:html={Current} />
 	</div>
 
 	<div class="mb-12 sm:mb-20 sm:w-1/2">
@@ -44,15 +40,8 @@ import { Icon } from "astro-icon/components";
 		</p>
 	</div>
 
-	<div class="mb-12 inline-flex text-textProminent sm:mb-24" x-data="{ show: false }">
-		<h3
-			class="redact subsection-title relative"
-			:class="{ 'redact-show': show }"
-			x-ref="past"
-			@scroll.window=`show = $refs.past.getBoundingClientRect().top <= (window.innerHeight/2)`
-		>
-			#Past
-		</h3>
+	<div class="mb-12 inline-flex text-textProminent sm:mb-24 sm:[&>svg]:h-12">
+		<Fragment set:html={Past} />
 	</div>
 
 	<div class="mb-12 sm:mb-20 sm:w-1/2">
@@ -108,15 +97,8 @@ import { Icon } from "astro-icon/components";
 		</p>
 	</div>
 
-	<div class="mb-12 inline-flex text-textProminent sm:mb-24" x-data="{ show: false }">
-		<h3
-			class="redact subsection-title relative"
-			:class="{ 'redact-show': show }"
-			x-ref="other"
-			@scroll.window=`show = $refs.other.getBoundingClientRect().top <= (window.innerHeight/2)`
-		>
-			#Community
-		</h3>
+	<div class="mb-12 inline-flex text-textProminent sm:mb-24 sm:[&>svg]:h-12">
+		<Fragment set:html={Community} />
 	</div>
 
 	<div class="mb-12 sm:mb-20 sm:w-1/2">

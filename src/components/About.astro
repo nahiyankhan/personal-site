@@ -48,15 +48,8 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 		</div> -->
 	</div>
 
-	<div class="mb-12 inline-flex text-textProminent sm:mb-24" x-data="{ show: false }">
-		<h3
-			class="redact subsection-title relative"
-			:class="{ 'redact-show': show }"
-			x-ref="education"
-			@scroll.window=`show = $refs.education.getBoundingClientRect().top <= (window.innerHeight/2)`
-		>
-			#Education
-		</h3>
+	<div class="mb-12 inline-flex text-textProminent sm:mb-24">
+		<h3 class="subsection-title">#Education</h3>
 	</div>
 
 	<div class="mb-2 sm:mb-8 sm:w-1/2">
@@ -89,15 +82,8 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 		<p class="leading-[1.6] sm:leading-[1.75]">Math Major, Computer Science and Art Minors</p>
 	</div>
 
-	<div class="mb-14 inline-flex text-textProminent sm:mb-24" x-data="{ show: false }">
-		<h3
-			class="redact subsection-title relative"
-			:class="{ 'redact-show': show }"
-			x-ref="mantras"
-			@scroll.window=`show = $refs.mantras.getBoundingClientRect().top <= (window.innerHeight/2)`
-		>
-			#Mantras
-		</h3>
+	<div class="mb-14 inline-flex text-textProminent sm:mb-24">
+		<h3 class="subsection-title">#Mantras</h3>
 	</div>
 
 	<ul class="mb-16 sm:mb-24">
