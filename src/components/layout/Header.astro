@@ -9,13 +9,19 @@ import ThemeToggle from "../ThemeToggle.astro";
 	@scroll.window="start = ($store.state.nahiyankhan < 101 ? true : false); scroll = 74 - ($store.state.nahiyankhanHeight - $store.state.nahiyankhan) * (28/$store.state.nahiyankhanHeight); end = (scroll < 0 ? true : false);"
 >
 	<div class="container mx-auto flex h-full flex-row justify-between border-x">
-		<div
-			class="flex items-center"
-			:class="{ 'translate-y-[64px]': !end, 'translate-y-0': end }"
-			:style="(start && !end) && { transform: `translateY(${scroll}px)` }"
-			x-cloak
-		>
-			<p class="font-mono text-xl tracking-tighter text-textProminent sm:text-3xl">NAHIYAN KHAN</p>
+		<div class="">
+			<div
+				class="absolute flex h-full items-center"
+				:class="{ 'top-[100%]': !end, 'top-0': end }"
+				:style="(start && !end) && { top: `${scroll}px` }"
+				x-cloak
+			>
+				<div
+					class="redact redact-show relative font-mono text-xl tracking-tighter text-textProminent sm:text-3xl"
+				>
+					NAHIYAN KHAN
+				</div>
+			</div>
 		</div>
 		<ThemeToggle />
 	</div>
