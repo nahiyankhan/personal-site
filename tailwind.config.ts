@@ -26,14 +26,8 @@ export default {
 		require('tailwind-clip-path'),
 		plugin(({ addComponents }) => {
 			addComponents({
-				".cactus-link": {
-					"&:hover": {
-						"@apply decoration-link decoration-2": {},
-					},
-					"@apply underline underline-offset-2": {},
-				},
 				".header-standard": {
-					"@apply text-2xl leading-9 font-semibold text-textProminent tracking-tight": {},
+					"@apply text-lg sm:text-2xl leading-9 font-semibold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
 					"@apply text-base sm:text-xl leading-8 sm:leading-10 font-normal text-textStandard tracking-wider": {},
@@ -74,6 +68,9 @@ export default {
 				},
 				".section-tracker": {
 					"@apply text-base sm:text-3xl font-bold transition-all text-textSubtle absolute sm:left-14": {},
+				},
+				".container": {
+					"@apply mx-4 w-[calc(100%-32px)] sm:w-full overflow-hidden": {},
 				},
 			});
 		}),

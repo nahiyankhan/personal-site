@@ -1,8 +1,10 @@
 <div x-data class="w-full border-b transition-all">
-	<div class="container mx-auto flex h-[80vh] flex-col justify-center border-x">
+	<div
+		class="container flex h-[50vh] flex-col justify-center overflow-hidden border-x sm:mx-auto sm:h-[80vh]"
+	>
 		<div class="inline-flex">
 			<h2
-				class="redact redact-show relative mb-0 font-mono text-4xl leading-[4rem] tracking-tighter sm:mb-8 sm:text-9xl sm:leading-[8rem]"
+				class="redact redact-show section-title relative mb-2 sm:mb-8"
 				x-ref={"nahiyankhan"}
 				x-init="$store.state.nahiyankhanHeight = $refs.nahiyankhan.getBoundingClientRect().height"
 				@scroll.window="$store.state.nahiyankhan = $refs.nahiyankhan.getBoundingClientRect().top"
