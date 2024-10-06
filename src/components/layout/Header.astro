@@ -4,53 +4,26 @@ import ThemeToggle from "../ThemeToggle.astro";
 
 <header
 	id="main-header"
-	class="fixed z-10 h-24 w-full overflow-hidden border-y bg-bgColor transition-colors duration-300"
-	x-data="{ start: false, end: false, scroll: 64, sections: ['about', 'experiences', 'projects', 'contact'] }"
+	class="fixed z-10 h-16 w-full overflow-hidden border-y bg-bgColor transition-colors duration-300 sm:h-24"
+	x-data="{ start: false, end: false, scroll: 64 }"
 	@scroll.window="start = ($store.state.nahiyankhan < 101 ? true : false); scroll = 74 - ($store.state.nahiyankhanHeight - $store.state.nahiyankhan) * (28/$store.state.nahiyankhanHeight); end = (scroll < 0 ? true : false);"
 >
-	<div class="mx-5 flex h-full flex-row justify-between border-x sm:mx-24">
-		<div
-			class="flex items-center"
-			:class="{ 'translate-y-[64px]': !end, 'translate-y-0': end }"
-			:style="(start && !end) && { transform: `translateY(${scroll}px)` }"
-			x-cloak
-		>
-			<p class="font-mono text-base tracking-tighter text-textProminent sm:text-3xl">
-				NAHIYAN KHAN
-			</p>
-			<div class="relative flex flex-row pl-4 font-mono tracking-tighter">
-				<span class="text-base font-bold text-textSubtle transition-all sm:text-3xl">/</span>
-				<!-- <span x-text="$store.state.getCurrent()"></span> -->
-
-				<template x-for="section in sections">
-					<span
-						x-show="$store.state.getCurrent() === section"
-						class="section-tracker"
-						x-text="section"
-						x-transition:enter="transition ease-in duration-150"
-						x-transition:enter-start="opacity-0 translate-x-[-100%]"
-						x-transition:enter-end="opacity-100 translate-x-0"
-						x-transition:leave="transition ease-out duration-150"
-						x-transition:leave-start="opacity-100 translate-x-0"
-						x-transition:leave-end="opacity-0 translate-x-[100%]"
-					>
-					</span>
-				</template>
-
-				<!-- <span x-show="$store.state.getCurrent() === 'contact'" class="section-tracker">CONTACT</span
+	<div class="container mx-auto flex h-full flex-row justify-between border-x">
+		<div class="">
+			<div
+				class="absolute flex h-full items-center"
+				:class="{ 'top-[100%]': !end, 'top-0': end }"
+				:style="(start && !end) && { top: `${scroll}px` }"
+				x-cloak
+			>
+				<div
+					class="redact redact-show relative font-mono text-xl tracking-tighter text-textProminent sm:text-3xl"
 				>
-				<span x-show="$store.state.getCurrent() === 'projects'" class="section-tracker"
-					>PROJECTS</span
-				>
-				<span x-show="$store.state.getCurrent() === 'experiences'" class="section-tracker"
-					>EXPERIENCES</span
-				>
-				<span x-show="$store.state.getCurrent() === 'about'" class="section-tracker">ABOUT</span> -->
+					NAHIYAN KHAN
+				</div>
 			</div>
 		</div>
-		<div class="self-center pr-2 sm:pr-8">
-			<ThemeToggle />
-		</div>
+		<ThemeToggle />
 	</div>
 
 	<style>

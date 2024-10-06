@@ -2,8 +2,8 @@
 import Intro from "@/components/Intro.astro";
 import Experiences from "@/components/Experiences.astro";
 import PageLayout from "@/layouts/Base.astro";
-import Section from "@/components/Section.astro";
 import About from "@/components/About.astro";
+import Projects from "@/components/Projects.astro";
 import Contact from "@/components/Contact.astro";
 ---
 
@@ -11,15 +11,6 @@ import Contact from "@/components/Contact.astro";
 	<Intro />
 	<About />
 	<Experiences />
-
-	<Section title="projects">
-		<div class="mb-32 mt-8 w-9/12">
-			<p class="mb-8">
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, alias, iste ex, quas nesciunt
-				reiciendis accusamus nam nemo consectetur.
-			</p>
-		</div>
-	</Section>
-
+	<Projects />
 	<Contact />
 </PageLayout>

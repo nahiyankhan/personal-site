@@ -16,12 +16,12 @@ interface ThemeStore {
 }
 
 interface SectionTracker {
-  about: number;
-  projects: number;
-  experiences: number,
-  contact: number;
-  getTransform: () => string;
-  getCurrent: () => string;
+  // about: number;
+  // projects: number;
+  // experiences: number,
+  // contact: number;
+  // getTransform: () => string;
+  // getCurrent: () => string;
 }
 
 export default (Alpine: Alpine) => {
@@ -58,37 +58,37 @@ export default (Alpine: Alpine) => {
   Alpine.store('state', {
     nahiyankhan: 999,
     nahiyankhanHeight: 0,
-    about: 999,
-    experiences: 999,
-    projects: 999,
-    contact: 999,
+    // about: 999,
+    // experiences: 999,
+    // projects: 999,
+    // contact: 999,
 
-    getTransform() {
-      if (this.contact < 100) {
-        return `0px`;
-      } else if (this.projects < 100) {
-        return `28px`;
-      } else if (this.experiences < 100) {
-        return `56px`;
-      } else if (this.about < 100) {
-        return `84px`;
-      } else {
-        return `112px`;
-      }
-    },
+    // getTransform() {
+    //   if (this.contact < 100) {
+    //     return `0px`;
+    //   } else if (this.projects < 100) {
+    //     return `28px`;
+    //   } else if (this.experiences < 100) {
+    //     return `56px`;
+    //   } else if (this.about < 100) {
+    //     return `84px`;
+    //   } else {
+    //     return `112px`;
+    //   }
+    // },
 
-    getCurrent() {
-      if (this.contact < 100) {
-        return `contact`;
-      } else if (this.projects < 100) {
-        return `projects`;
-      } else if (this.experiences < 100) {
-        return `experiences`;
-      } else if (this.about < 100) {
-        return `about`;
-      } else {
-        return ``;
-      }
-    }
+    // getCurrent() {
+    //   if (this.contact < 100) {
+    //     return `contact`;
+    //   } else if (this.projects < 100) {
+    //     return `projects`;
+    //   } else if (this.experiences < 100) {
+    //     return `experiences`;
+    //   } else if (this.about < 100) {
+    //     return `about`;
+    //   } else {
+    //     return ``;
+    //   }
+    // }
   } as SectionTracker);
 }
