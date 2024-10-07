@@ -27,7 +27,7 @@ export default {
 		plugin(({ addComponents }) => {
 			addComponents({
 				".header-standard": {
-					"@apply text-xl sm:text-2xl leading-9 font-semibold text-textProminent tracking-tight": {},
+					"@apply text-xl sm:text-2xl leading-6 sm:leading-9 font-semibold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
 					"@apply text-base sm:text-xl leading-8 sm:leading-10 font-normal text-textStandard tracking-wider": {},
@@ -93,7 +93,7 @@ export default {
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: ['JetBrains Mono Variable',...fontFamily.sans],
+				sans: ['Inter Variable',...fontFamily.sans],
 				mono: ['Rubik Mono One',...fontFamily.mono]
 			},
 			keyframes: {

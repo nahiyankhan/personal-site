@@ -9,19 +9,19 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 ---
 
 <Section title="about">
-	<div class="mb-16 flex sm:mb-32 sm:mt-8">
+	<div class="mb-12 flex sm:mb-20 sm:mt-8">
 		<div class="sm:w-1/2">
 			<div class="mb-8 mt-10 sm:mb-16">
 				<img src={AboutSneak.src} class="" height={AboutSneak.height} alt="" />
 			</div>
 
-			<p class="mb-4 leading-[1.6] sm:mb-8 sm:leading-[1.75]">
+			<p class="mb-4 leading-[1.6] sm:mb-6 sm:leading-[1.75]">
 				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
 				crisis is real. But 9 to 5, I lead design system strategy and infrastructure to implement
 				craft at scale.
 			</p>
 
-			<p class="mb-8 leading-[1.6] sm:mb-8 sm:leading-[1.75]">
+			<p class="mb-4 leading-[1.6] sm:mb-6 sm:leading-[1.75]">
 				And 5 to 9, I read science fiction, tinker a bunch, and ocasionally rock climb. I am also
 				going down an espresso rabbit hole and am attempting latte art. Result: Let's say I won't be
 				winning any medals. But you know how Jake in Adventure Time says it, sucking at something is
@@ -44,63 +44,62 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 				<p class="pl-4">Download Resume</p>
 			</a>
 		</div>
-
-		<!-- <div class="relative flex w-1/2 justify-end">
-			<img src={AboutSneak.src} class="w-4/5" height={AboutSneak.height} alt="" />
-		</div> -->
 	</div>
 
-	<div class="mb-12 inline-flex text-textProminent sm:mb-24 sm:[&>svg]:h-12">
+	<div class="mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12">
 		<Fragment set:html={Education} />
 	</div>
 
 	<div class="mb-2 sm:mb-8 sm:w-1/2">
-		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row [&>svg]:w-16">
+		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 			<Fragment set:html={JHULogo} />
 			<div class="mt-3 sm:ml-4 sm:mt-0">
 				<p class="header-standard">Masters in Computer Science</p>
-				<p class="text-base font-medium leading-[1.6rem] sm:text-xl">
+				<p class="font-medium sm:text-xl">
 					Johns Hopkins University <span class="text-textSubtle"> | 2019 - 2022</span>
 				</p>
 			</div>
 		</div>
 
-		<p class="leading-[1.6] sm:leading-[1.75]">
-			Software Engineering and Enterprise Web Development.
-		</p>
+		<p class="">Software Engineering and Enterprise Web Development.</p>
 	</div>
 
-	<div class="mb-12 pt-8 sm:mb-24 sm:w-1/2">
-		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row [&>svg]:w-16">
+	<div class="mb-12 pt-8 sm:mb-20 sm:w-1/2">
+		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 			<Fragment set:html={MacalesterLogo} />
 			<div class="mt-3 sm:ml-4 sm:mt-0">
 				<p class="header-standard">Bachelor of Arts</p>
-				<p class="text-base font-medium leading-[1.6] sm:text-xl">
+				<p class="text-sm font-medium leading-[1.6] sm:text-xl">
 					Macalester College <span class="text-textSubtle"> | 2009 - 2013</span>
 				</p>
 			</div>
 		</div>
 
-		<p class="leading-[1.6] sm:leading-[1.75]">Math Major, Computer Science and Art Minors</p>
+		<p class="">Math Major, Computer Science and Art Minors</p>
 	</div>
 
-	<div class="mb-12 inline-flex text-textProminent sm:mb-24 sm:[&>svg]:h-12">
+	<div class="mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12">
 		<Fragment set:html={Mantras} />
 	</div>
 
 	<ul class="mb-16 sm:mb-24">
-		<li class="mb-2 flex">
+		<li class="mb-1 flex items-center sm:mb-2">
 			<div class="full justify-left flex items-center">
-				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:blinds-open" />
+				<Icon
+					aria-hidden="true"
+					class="h-4 w-4 sm:h-8 sm:w-8"
+					focusable="false"
+					name="mdi:blinds-open"
+				/>
 			</div>
 			<p class="pl-4">Work in the open</p>
 		</li>
 
-		<li class="mb-2 flex">
+		<li class="mb-1 flex items-center sm:mb-2">
 			<div class="full justify-left flex items-center">
 				<Icon
 					aria-hidden="true"
-					class="h-8 w-8"
+					class="h-4 w-4 sm:h-8 sm:w-8"
 					focusable="false"
 					name="mdi:file-document-edit-outline"
 				/>
@@ -108,9 +107,14 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 			<p class="pl-4">Document it all</p>
 		</li>
 
-		<li class="mb-2 flex">
+		<li class="mb-1 flex items-center sm:mb-2">
 			<div class="full justify-left flex items-center">
-				<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name="mdi:handshake-outline" />
+				<Icon
+					aria-hidden="true"
+					class="h-4 w-4 sm:h-8 sm:w-8"
+					focusable="false"
+					name="mdi:handshake-outline"
+				/>
 			</div>
 			<p class="pl-4">Trust by default</p>
 		</li>

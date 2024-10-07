@@ -2,9 +2,14 @@
 import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 ---
 
-<div x-data="{ show: false }" class="w-full border-b transition-all">
+<div x-data class="w-full border-b transition-all">
 	<div class="container flex h-[50vh] flex-col overflow-hidden border-x sm:mx-auto sm:h-[80vh]">
-		<div class="mb-2 text-textProminent sm:mb-4 [&>svg]:h-[100px]">
+		<div
+			class="mb-2 text-textProminent sm:mb-4 [&>svg]:h-7 sm:[&>svg]:h-24"
+			x-ref="introNK"
+			x-init="$store.header.introNKHeight = $refs.introNK.getBoundingClientRect().height"
+			x-resize="$store.header.introNKHeight = $height"
+		>
 			<Fragment set:html={NahiyanKhan} />
 		</div>
 		<p class="subtitle-large">(na-he-yahn)</p>
