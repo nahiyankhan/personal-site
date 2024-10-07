@@ -25,14 +25,11 @@ const {
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 		<ViewTransitions />
 	</head>
-	<body class="bg-bgColor transition-colors duration-300">
+	<body class="bg-bgColor text-sm transition-colors duration-300 sm:text-base sm:leading-[1.75]">
 		<ThemeProvider />
 		<SkipLink />
 		<Header />
-		<main
-			id="main"
-			class="text-normal flex grid min-h-screen flex-row px-0 pt-16 leading-8 tracking-wider sm:pt-24"
-		>
+		<main id="main" class="flex grid min-h-screen flex-row px-0 pt-12 tracking-wider sm:pt-24">
 			<slot />
 		</main>
 		<Footer />

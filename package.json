@@ -19,6 +19,7 @@
 	"dependencies": {
 		"@alpinejs/intersect": "^3.14.1",
 		"@alpinejs/persist": "^3.14.1",
+		"@alpinejs/resize": "^3.14.1",
 		"@astrojs/alpinejs": "^0.4.0",
 		"@astrojs/check": "^0.9.3",
 		"@astrojs/mdx": "3.1.7",

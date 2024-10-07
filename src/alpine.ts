@@ -1,6 +1,7 @@
 import type { Alpine } from 'alpinejs'
 import persist from '@alpinejs/persist'
 import intersect from '@alpinejs/intersect'
+import resize from '@alpinejs/resize'
 
 enum MODE {
   SYSTEM = "system",
@@ -18,6 +19,7 @@ interface ThemeStore {
 export default (Alpine: Alpine) => {
   Alpine.plugin(persist)
   Alpine.plugin(intersect)
+  Alpine.plugin(resize)
   
   Alpine.store('theme', {
     mode: Alpine.$persist(MODE.SYSTEM).as("mode") as unknown as MODE,
@@ -45,4 +47,12 @@ export default (Alpine: Alpine) => {
       });
     },
   } as ThemeStore);
+
+  Alpine.store('header', {
+    headerHeight: 0,
+    headerNKHeight: 0,
+    introNKHeight: 0,
+
+    
+  })
 }
