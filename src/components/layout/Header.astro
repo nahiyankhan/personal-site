@@ -1,26 +1,23 @@
 ---
 import ThemeToggle from "../ThemeToggle.astro";
+import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 ---
 
 <header
 	id="main-header"
 	class="fixed z-10 h-16 w-full overflow-hidden border-y bg-bgColor transition-colors duration-300 sm:h-24"
-	x-data="{ start: false, end: false, scroll: 64 }"
-	@scroll.window="start = ($store.state.nahiyankhan < 101 ? true : false); scroll = 74 - ($store.state.nahiyankhanHeight - $store.state.nahiyankhan) * (28/$store.state.nahiyankhanHeight); end = (scroll < 0 ? true : false);"
+	x-data="{ endScroll: false, scroll: 59 }"
+	@scroll.window="scroll = 59 - (window.scrollY*24/100); endScroll = window.scrollY >= (100 + 35/(24/100))"
 >
 	<div class="container mx-auto flex h-full flex-row justify-between border-x">
-		<div class="">
-			<div
-				class="absolute flex h-full items-center"
-				:class="{ 'top-[100%]': !end, 'top-0': end }"
-				:style="(start && !end) && { top: `${scroll}px` }"
-				x-cloak
-			>
-				<div
-					class="redact redact-show relative font-mono text-xl tracking-tighter text-textProminent sm:text-3xl"
-				>
-					NAHIYAN KHAN
-				</div>
+		<div
+			class="flex h-full items-center"
+			:class="{ 'translate-y-[59px]': !endScroll, 'translate-y-0': endScroll }"
+			:style="!endScroll && { transform: `translateY(${scroll}px)` }"
+			x-cloak
+		>
+			<div class="relative text-textProminent [&>svg]:h-6">
+				<Fragment set:html={NahiyanKhan} />
 			</div>
 		</div>
 		<ThemeToggle />

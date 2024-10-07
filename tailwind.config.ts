@@ -33,14 +33,14 @@ export default {
 					"@apply text-base sm:text-xl leading-8 sm:leading-10 font-normal text-textStandard tracking-wider": {},
 				},
 				".section-title": {
-					"@apply font-mono text-4xl tracking-tighter text-textProminent [line-height:initial] sm:text-9xl": {},
+					"@apply text-4xl tracking-tighter text-textProminent [line-height:initial] sm:text-9xl": {},
 				},
 				".subsection-title": {
-					"@apply font-mono text-2xl font-bold text-textStandard sm:text-6xl": {},
+					"@apply text-2xl font-extrabold text-textProminent sm:text-6xl uppercase": {},
 				},
 				".redact": {
 					"&::after": {
-						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+16px)] bg-white h-[calc(100%+8px)] top-[-4px] mix-blend-difference origin-left scale-x-0 duration-500 ease-in-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
+						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+16px)] bg-white h-[calc(100%+16px)] top-[-8px] mix-blend-difference origin-left scale-x-0 duration-500 ease-in-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
 					},
 					"&.redact-show": {
 						"&::after": {
@@ -51,7 +51,7 @@ export default {
 				".link": {
 					"@apply redact": {},
 					"&::after": {
-						"@apply duration-300": {},
+						"@apply duration-300 h-[calc(100%+8px)] top-[-4px]": {},
 					},
 					"&:hover::after": {
 						"@apply scale-x-100": {},
