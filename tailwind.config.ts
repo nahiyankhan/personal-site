@@ -27,7 +27,7 @@ export default {
 		plugin(({ addComponents }) => {
 			addComponents({
 				".header-standard": {
-					"@apply text-xl sm:text-2xl leading-6 sm:leading-9 font-semibold text-textProminent tracking-tight": {},
+					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-semibold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
 					"@apply text-base sm:text-xl leading-8 sm:leading-10 font-normal text-textStandard tracking-wider": {},
@@ -57,7 +57,7 @@ export default {
 						"@apply scale-x-100": {},
 					},
 				},
-				"theme-toggle button": {
+				"theme-toggle button, footer button": {
 					"@apply redact": {},
 					"&::after": {
 						"@apply translate-x-[100%] w-full h-full top-0 duration-300": {},
