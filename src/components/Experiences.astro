@@ -10,20 +10,19 @@ import Past from "@/assets/past.svg?raw";
 import Community from "@/assets/community.svg?raw";
 import Section from "./Section.astro";
 import { Icon } from "astro-icon/components";
+import ExperienceSneak from "@/assets/experience.gif";
 ---
 
 <Section title="experiences">
 	<div class="mb-12 mt-2 sm:mb-24 sm:mt-4 sm:w-3/5">
 		<p class="leading-[1.6] sm:leading-[1.75]">A.K.A The things I am more than sorta good at.</p>
+
+		<div class="mt-10">
+			<img src={ExperienceSneak.src} class="" height={ExperienceSneak.height} alt="" />
+		</div>
 	</div>
 
-	<div
-		class="redact relative mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
-		x-ref="current"
-		x-data="{ show: false }"
-		@scroll.window=`show = $refs.current.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
-		:class="{ 'redact-show': show }"
-	>
+	<div class="mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12">
 		<Fragment set:html={Current} />
 	</div>
 
@@ -46,13 +45,7 @@ import { Icon } from "astro-icon/components";
 		</p>
 	</div>
 
-	<div
-		class="redact relative mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
-		x-ref="past"
-		x-data="{ show: false }"
-		@scroll.window=`show = $refs.past.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
-		:class="{ 'redact-show': show }"
-	>
+	<div class="mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12">
 		<Fragment set:html={Past} />
 	</div>
 
@@ -109,13 +102,7 @@ import { Icon } from "astro-icon/components";
 		</p>
 	</div>
 
-	<div
-		class="redact relative mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
-		x-ref="community"
-		x-data="{ show: false }"
-		@scroll.window=`show = $refs.community.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
-		:class="{ 'redact-show': show }"
-	>
+	<div class="mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12">
 		<Fragment set:html={Community} />
 	</div>
 

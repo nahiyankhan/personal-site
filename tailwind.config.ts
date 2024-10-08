@@ -40,7 +40,7 @@ export default {
 				},
 				".redact": {
 					"&::after": {
-						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+16px)] bg-white h-full top-0 mix-blend-difference origin-left scale-x-0 duration-500 ease-in-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
+						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+16px)] bg-white h-full top-0 mix-blend-difference origin-left scale-x-0 duration-500 bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
 					},
 					"&.redact-show": {
 						"&::after": {
@@ -54,7 +54,7 @@ export default {
 						"@apply duration-300 h-[calc(100%+8px)] top-[-4px]": {},
 					},
 					"&:hover::after": {
-						"@apply scale-x-100": {},
+						"@apply md:scale-x-100": {},
 					},
 				},
 				"button": {
@@ -63,7 +63,7 @@ export default {
 						"@apply translate-x-[100%] w-full h-full duration-300": {},
 					},
 					"&:hover::after": {
-						"@apply scale-x-100 translate-x-0": {},
+						"@apply md:scale-x-100 md:translate-x-0": {},
 					},
 				},
 				".section-tracker": {
@@ -101,7 +101,11 @@ export default {
 					'0%, 100%': { transform: 'rotate(0deg)' },
 					'25%': { transform: 'rotate(-8deg)' },
 					'75%': { transform: 'rotate(8deg)' },
-				}
+				},
+				redact: {
+					'0%, 100%': { background: 'repeating-linear-gradient(transparent, transparent 3px, #00000054 4px)' },
+					'50%': { background: 'repeating-linear-gradient(transparent, transparent 2px, #00000054 3px)' },
+				},
 			},
 			transitionProperty: {
 				height: "height",
