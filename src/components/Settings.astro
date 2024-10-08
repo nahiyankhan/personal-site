@@ -5,6 +5,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 
 <settings
 	x-data
+	x-cloak
 	class="fixed right-0 top-0 z-20 h-full w-80 border-l bg-bgColor transition-all"
 	:class="{ 'translate-x-0': $store.settings.open, 'translate-x-[100%]': !$store.settings.open }"
 >
@@ -36,4 +37,9 @@ import ThemeToggle from "./ThemeToggle.astro";
 			</div>
 		</div>
 	</div>
+	<style>
+		[x-cloak] {
+			display: none !important;
+		}
+	</style>
 </settings>
