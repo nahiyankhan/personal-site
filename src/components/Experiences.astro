@@ -17,7 +17,13 @@ import { Icon } from "astro-icon/components";
 		<p class="leading-[1.6] sm:leading-[1.75]">A.K.A The things I am more than sorta good at.</p>
 	</div>
 
-	<div class="mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12">
+	<div
+		class="redact relative mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
+		x-ref="current"
+		x-data="{ show: false }"
+		@scroll.window=`show = $refs.current.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
+		:class="{ 'redact-show': show }"
+	>
 		<Fragment set:html={Current} />
 	</div>
 
@@ -40,7 +46,13 @@ import { Icon } from "astro-icon/components";
 		</p>
 	</div>
 
-	<div class="mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12">
+	<div
+		class="redact relative mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
+		x-ref="past"
+		x-data="{ show: false }"
+		@scroll.window=`show = $refs.past.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
+		:class="{ 'redact-show': show }"
+	>
 		<Fragment set:html={Past} />
 	</div>
 
@@ -97,7 +109,13 @@ import { Icon } from "astro-icon/components";
 		</p>
 	</div>
 
-	<div class="mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12">
+	<div
+		class="redact relative mb-12 inline-flex border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
+		x-ref="community"
+		x-data="{ show: false }"
+		@scroll.window=`show = $refs.community.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
+		:class="{ 'redact-show': show }"
+	>
 		<Fragment set:html={Community} />
 	</div>
 

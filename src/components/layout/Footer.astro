@@ -5,7 +5,11 @@ import Icon from "node_modules/astro-icon/components/Icon.astro";
 const year = new Date().getFullYear();
 ---
 
-<footer class="h-12 border-b sm:h-24">
+<footer
+	class="h-12 border-b transition-all sm:h-24"
+	x-data
+	:style="$store.settings.open ? { marginLeft: `-640px` } : { marginLeft: `0px` }"
+>
 	<div
 		class="container mx-auto flex h-full items-end justify-between border-x border-l border-r text-sm font-normal"
 	>
