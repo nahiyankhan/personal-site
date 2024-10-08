@@ -1,17 +1,50 @@
 ---
 import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
+import { Icon } from "astro-icon/components";
+import AboutSneak from "@/assets/about.gif";
 ---
 
 <div x-data class="w-full border-b transition-all">
-	<div class="container flex h-[50vh] flex-col overflow-hidden border-x sm:mx-auto sm:h-[80vh]">
+	<div class="container flex min-h-[50vh] flex-col overflow-hidden border-x sm:mx-auto">
 		<div
-			class="mb-2 text-textProminent sm:mb-4 [&>svg]:h-7 sm:[&>svg]:h-24"
+			class="redact redact-show relative mb-2 text-textProminent sm:mb-4 [&>svg]:h-7 sm:[&>svg]:h-24"
 			x-ref="introNK"
 			x-init="$store.header.introNKHeight = $refs.introNK.getBoundingClientRect().height"
 			x-resize="$store.header.introNKHeight = $height"
 		>
 			<Fragment set:html={NahiyanKhan} />
 		</div>
-		<p class="subtitle-large">(na-he-yahn)</p>
+		<p class="subtitle-large">(na-he-yahn). Or Khan. 🖖🏽</p>
+
+		<div class="mb-16 sm:mb-24 sm:w-3/5">
+			<div class="mb-8 mt-10 sm:mb-16">
+				<img src={AboutSneak.src} class="" height={AboutSneak.height} alt="" />
+			</div>
+
+			<p class="subtitle-large mb-4 sm:mb-6">
+				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
+				crisis is real.
+			</p>
+
+			<p class="subtitle-large mb-4 sm:mb-6">
+				But 9 to 5, I am in my zone leading design system strategy and building out design infras.
+			</p>
+
+			<a
+				class="link relative flex w-fit items-center text-textProminent underline"
+				href="/nahiyankhan_resume.pdf"
+				target="_blank"
+			>
+				<div class="full justify-left inline-flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-8 w-8"
+						focusable="false"
+						name="mdi:file-document-outline"
+					/>
+				</div>
+				<p class="pl-4">Resume</p>
+			</a>
+		</div>
 	</div>
 </div>

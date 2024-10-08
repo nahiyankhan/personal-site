@@ -30,7 +30,7 @@ export default {
 					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-semibold text-textProminent tracking-tight": {},
 				},
 				".subtitle-large": {
-					"@apply text-base sm:text-xl leading-8 sm:leading-10 font-normal text-textStandard tracking-wider": {},
+					"@apply leading-[1.6] sm:leading-[1.75] text-textStandard tracking-wider": {},
 				},
 				".section-title": {
 					"@apply text-4xl tracking-tighter text-textProminent [line-height:initial] sm:text-9xl": {},
@@ -40,7 +40,7 @@ export default {
 				},
 				".redact": {
 					"&::after": {
-						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+16px)] bg-white h-[calc(100%+16px)] top-[-8px] mix-blend-difference origin-left scale-x-0 duration-500 ease-in-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
+						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+16px)] bg-white h-full top-0 mix-blend-difference origin-left scale-x-0 duration-500 ease-in-out bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)]": {},
 					},
 					"&.redact-show": {
 						"&::after": {
@@ -57,10 +57,10 @@ export default {
 						"@apply scale-x-100": {},
 					},
 				},
-				"theme-toggle button, footer button": {
+				"button": {
 					"@apply redact": {},
 					"&::after": {
-						"@apply translate-x-[100%] w-full h-full top-0 duration-300": {},
+						"@apply translate-x-[100%] w-full h-full duration-300": {},
 					},
 					"&:hover::after": {
 						"@apply scale-x-100 translate-x-0": {},
@@ -93,7 +93,7 @@ export default {
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: ['Inter Variable',...fontFamily.sans],
+				sans: ['JetBrains Mono Variable',...fontFamily.sans],
 				mono: ['Rubik Mono One',...fontFamily.mono]
 			},
 			keyframes: {

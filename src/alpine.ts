@@ -16,6 +16,11 @@ interface ThemeStore {
   init: () => void;
 }
 
+interface Settings {
+  open: boolean;
+  toggle: () => void;
+}
+
 export default (Alpine: Alpine) => {
   Alpine.plugin(persist)
   Alpine.plugin(intersect)
@@ -52,7 +57,13 @@ export default (Alpine: Alpine) => {
     headerHeight: 0,
     headerNKHeight: 0,
     introNKHeight: 0,
-
-    
   })
+
+  Alpine.store('settings', {
+    open: false,
+
+    toggle() {
+      this.open = !this.open
+    },
+  } as Settings)
 }

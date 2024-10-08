@@ -35,11 +35,11 @@ export const socialLinks: {
 	link: string;
 	name: string;
 }[] = [
-	{
-		friendlyName: "Email",
-		link: "nahiyan.khan@gmail.com",
-		name: "mdi:email",
-	},
+	// {
+	// 	friendlyName: "Email",
+	// 	link: "mailto:nahiyan.khan@gmail.com?subject=Saying%20hello",
+	// 	name: "mdi:email",
+	// },
 	{
 		friendlyName: "LinkedIn",
 		link: "https://www.linkedin.com/in/nahiyankhan/",
