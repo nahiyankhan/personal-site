@@ -10,6 +10,7 @@ import Header from "@/components/layout/Header.astro";
 import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
 import { ViewTransitions } from "astro:transitions";
+import Settings from "@/components/Settings.astro";
 
 interface Props {
 	meta: SiteMeta;
@@ -31,9 +32,15 @@ const {
 		<ThemeProvider />
 		<SkipLink />
 		<Header />
-		<main id="main" class="flex grid min-h-screen flex-row px-0 pt-12 tracking-wider sm:pt-24">
+		<main
+			x-data
+			id="main"
+			class="flex grid min-h-screen flex-row px-0 pt-12 tracking-wider transition-all sm:pt-24"
+			:style="$store.settings.open ? { marginLeft: `-640px` } : { marginLeft: `0px` }"
+		>
 			<slot />
 		</main>
+		<Settings />
 		<Footer />
 	</body>
 </html>
