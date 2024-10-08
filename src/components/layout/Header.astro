@@ -8,7 +8,7 @@ import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 	x-ref="header"
 	x-data="{ endScroll: false, headerHeight: $refs.header.getBoundingClientRect().height, headerNKHeight: $refs.headerNK.getBoundingClientRect().height, scroll: this.headerHeight }"
 	x-resize="headerHeight = $height"
-	@scroll.window="scroll = headerHeight - (window.scrollY*headerNKHeight/$store.header.introNKHeight); endScroll = window.scrollY >= (headerHeight + (headerHeight - headerNKHeight)/(headerNKHeight/$store.header.introNKHeight))"
+	@scroll.window="scroll = headerHeight - (window.scrollY*headerNKHeight/$store.header.introNKHeight); endScroll = scroll < 0"
 >
 	<div class="container mx-auto flex h-full flex-row justify-between border-x">
 		<div
@@ -18,7 +18,7 @@ import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 			x-cloak
 		>
 			<div
-				class="relative text-textProminent [&>svg]:h-4 sm:[&>svg]:h-6"
+				class="relative text-textProminent [&>svg]:h-5 sm:[&>svg]:h-6"
 				x-ref="headerNK"
 				x-resize="headerNKHeight = $height"
 			>
@@ -29,7 +29,6 @@ import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 			<ThemeToggle />
 		</div>
 	</div>
-
 	<style>
 		[x-cloak] {
 			display: none !important;
