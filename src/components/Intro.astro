@@ -5,9 +5,9 @@ import AboutSneak from "@/assets/about.gif";
 ---
 
 <div x-data class="w-full border-b transition-all">
-	<div class="container flex min-h-[50vh] flex-col overflow-hidden border-x sm:mx-auto">
+	<div class="container flex min-h-[50vh] flex-col border-x sm:mx-auto">
 		<div
-			class="mb-2 text-textProminent sm:mb-4 [&>svg]:h-7 sm:[&>svg]:h-24"
+			class="redact redact-show relative mb-2 w-[fit-content] pt-2 text-textProminent sm:mb-4 [&>svg]:h-7 sm:[&>svg]:h-24"
 			x-ref="introNK"
 			x-init="$store.header.introNKHeight = $refs.introNK.getBoundingClientRect().height"
 			x-resize="$store.header.introNKHeight = $height"
