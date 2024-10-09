@@ -12,13 +12,15 @@ import Section from "./Section.astro";
 import { Icon } from "astro-icon/components";
 import ExperienceSneak from "@/assets/experience.gif";
 import Subtitle from "./Subtitle.astro";
+import BoxLines from "./BoxLines.astro";
 ---
 
 <Section title="experiences">
 	<div class="mb-12 mt-2 sm:mb-24 sm:mt-4 sm:w-3/5">
 		<p class="leading-[1.6] sm:leading-[1.75]">A.K.A The things I am more than sorta good at.</p>
 
-		<div class="mt-10">
+		<div class="relative mt-10 w-max">
+			<BoxLines />
 			<img src={ExperienceSneak.src} class="" height={ExperienceSneak.height} alt="" />
 		</div>
 	</div>

@@ -2,9 +2,14 @@
 import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 import { Icon } from "astro-icon/components";
 import AboutSneak from "@/assets/about.gif";
+import BoxLines from "./BoxLines.astro";
 ---
 
-<div x-data class="transition-all">
+<div
+	x-data
+	class="border-x border-transparent [transition:border-color_.3s_.7s]"
+	:style="{ borderColor: `hsl(var(--border-divider))` }"
+>
 	<div class="flex min-h-[50vh] flex-col">
 		<div class="w-full">
 			<div
@@ -19,7 +24,8 @@ import AboutSneak from "@/assets/about.gif";
 		<p class="subtitle-large">(na-he-yahn). Or Khan. 🖖🏽</p>
 
 		<div class="mb-16 sm:mb-24 sm:w-3/5">
-			<div class="mb-8 mt-10 sm:mb-16">
+			<div class="relative mb-8 mt-10 w-max sm:mb-16">
+				<BoxLines />
 				<img src={AboutSneak.src} class="" height={AboutSneak.height} alt="" />
 			</div>
 

@@ -8,6 +8,7 @@ const year = new Date().getFullYear();
 <footer
 	class="h-12 w-full border-b duration-700 ease-[cubic-bezier(0.95,0.05,0.795,0.035)] sm:h-24"
 	x-data
+	x-cloak
 	:style="$store.settings.open ? { marginLeft: `-320px` } : { marginLeft: `0px` }"
 >
 	<div
@@ -34,3 +35,9 @@ const year = new Date().getFullYear();
 		</div>
 	</div>
 </footer>
+
+<style>
+	[x-cloak] {
+		display: none !important;
+	}
+</style>

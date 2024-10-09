@@ -1,0 +1,28 @@
+---
+const random = Math.floor(Math.random() * 10000);
+const boxLineRef = `boxLines${random}`;
+---
+
+<div
+	x-data="{ inview: false }"
+	x-ref={boxLineRef}
+	@scroll.window=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
+	x-init=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
+	class="absolute h-full w-full"
+>
+	<div
+		class="absolute right-0 top-0 h-full w-[1px] bg-divider transition-all duration-1000"
+		:style="inview && { height: `calc(100% + 64px)`, transform: `translateY(-32px)` }"
+	>
+	</div>
+	<div
+		class="absolute left-0 top-0 h-[1px] w-full bg-divider transition-all duration-1000"
+		:style="inview && { width: `calc(100% + 32px)` }"
+	>
+	</div>
+	<div
+		class="absolute bottom-0 left-0 h-[1px] w-full bg-divider transition-all duration-1000"
+		:style="inview && { width: `calc(100% + 32px)` }"
+	>
+	</div>
+</div>

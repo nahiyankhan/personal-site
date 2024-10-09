@@ -6,8 +6,13 @@ import Projects from "@/assets/projects.svg?raw";
 import Contact from "@/assets/contact.svg?raw";
 ---
 
-<div class="border-t" {...rest}>
-	<div class="flex min-h-[50vh] flex-col" x-ref={title}>
+<div
+	x-data
+	class="border-x border-transparent [transition:border-color_.3s_.7s]"
+	:style="{ borderColor: `hsl(var(--border-divider))` }"
+	{...rest}
+>
+	<div class="flex min-h-[50vh] flex-col border-t" x-ref={title}>
 		<div class="w-[fit-content] text-textProminent [&>svg]:h-8 sm:[&>svg]:h-24">
 			<Fragment
 				set:html={title === "about"
