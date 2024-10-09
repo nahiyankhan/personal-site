@@ -18,13 +18,13 @@ import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 		:style="{ borderColor: `hsl(var(--border-divider))` }"
 	>
 		<div
-			class="h-full"
+			class="h-full bg-white pr-2 pt-2"
 			:class="{ 'translate-y-[100%]': !endScroll, 'translate-y-0': endScroll }"
 			:style="!endScroll && { transform: `translateY(${scroll}px)` }"
 			x-cloak
 		>
 			<div
-				class="text-textProminent [&>svg]:h-5 sm:[&>svg]:h-6"
+				class="redact redact-show relative text-textProminent [&>svg]:h-5 sm:[&>svg]:h-6"
 				x-ref="headerNK"
 				x-resize="headerNKHeight = $height"
 			>
