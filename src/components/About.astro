@@ -6,6 +6,7 @@ import Education from "@/assets/education.svg?raw";
 import Mantras from "@/assets/mantras.svg?raw";
 import JHULogo from "@/assets/jhu.svg?raw";
 import MacalesterLogo from "@/assets/macalester.svg?raw";
+import Subtitle from "./Subtitle.astro";
 ---
 
 <Section title="about">
@@ -19,12 +20,8 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 			step to being sorta good at something.
 		</p>
 	</div>
-
-	<div
-		class="redact redact-show relative mb-12 inline-flex w-[fit-content] border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
-	>
-		<Fragment set:html={Education} />
-	</div>
+  
+	<Subtitle title="education" />
 
 	<div class="mb-2 sm:mb-8 sm:w-1/2">
 		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
@@ -54,16 +51,24 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 		<p class="">Math Major, Computer Science and Art Minors</p>
 	</div>
 
-	<div
-		class="redact redact-show relative mb-12 inline-flex w-[fit-content] border-t text-textProminent sm:mb-16 [&>svg]:h-5 sm:[&>svg]:h-12"
-	>
-		<Fragment set:html={Mantras} />
-	</div>
+	<Subtitle title="mantras" />
 
 	<div class="mb-2 text-base font-medium sm:text-xl">Work</div>
 
 	<ul class="mb-4 sm:mb-8 sm:w-1/2">
-		<li class="mb-1 flex items-center sm:mb-2">
+		<li class="flex items-center">
+			<div class="full justify-left flex items-center">
+				<Icon
+					aria-hidden="true"
+					class="h-4 w-4 sm:h-8 sm:w-8"
+					focusable="false"
+					name="mdi:circle-small"
+				/>
+			</div>
+			<p class="pl-4">Trust by default</p>
+		</li>
+
+		<li class="flex items-center">
 			<div class="full justify-left flex items-center">
 				<Icon
 					aria-hidden="true"
@@ -75,7 +80,7 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 			<p class="pl-4">Work in the open</p>
 		</li>
 
-		<li class="mb-1 flex items-center sm:mb-2">
+		<li class="flex items-center">
 			<div class="full justify-left flex items-center">
 				<Icon
 					aria-hidden="true"
@@ -86,24 +91,12 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 			</div>
 			<p class="pl-4">Document it all</p>
 		</li>
-
-		<li class="mb-1 flex items-center sm:mb-2">
-			<div class="full justify-left flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-4 w-4 sm:h-8 sm:w-8"
-					focusable="false"
-					name="mdi:circle-small"
-				/>
-			</div>
-			<p class="pl-4">Trust by default</p>
-		</li>
 	</ul>
 
 	<div class="mb-2 text-base font-medium sm:text-xl">Personal</div>
 
 	<ul class="mb-8 sm:mb-16 sm:w-1/2">
-		<li class="mb-1 flex items-center sm:mb-2">
+		<li class="flex items-center">
 			<div class="full justify-left flex items-center">
 				<Icon
 					aria-hidden="true"
@@ -115,7 +108,7 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 			<p class="pl-4">Sucking at something is the first step to being sorta good at something</p>
 		</li>
 
-		<li class="mb-1 flex items-center sm:mb-2">
+		<li class="flex items-center">
 			<div class="full justify-left flex items-center">
 				<Icon
 					aria-hidden="true"
@@ -127,7 +120,7 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 			<p class="pl-4">Don’t let your dreams be dreams (to justify my 3am purchases)</p>
 		</li>
 
-		<li class="mb-1 flex items-center sm:mb-2">
+		<li class="flex items-center">
 			<div class="full justify-left flex items-center">
 				<Icon
 					aria-hidden="true"

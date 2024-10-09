@@ -11,24 +11,21 @@ import Community from "@/assets/community.svg?raw";
 import Section from "./Section.astro";
 import { Icon } from "astro-icon/components";
 import ExperienceSneak from "@/assets/experience.gif";
+import Subtitle from "./Subtitle.astro";
+import BoxLines from "./BoxLines.astro";
 ---
 
 <Section title="experiences">
 	<div class="mb-12 mt-2 sm:mb-24 sm:mt-4 sm:w-3/5">
 		<p class="leading-[1.6] sm:leading-[1.75]">A.K.A The things I am more than sorta good at.</p>
 
-		<div class="mt-10">
+		<div class="relative mt-10 w-max">
+			<BoxLines />
 			<img src={ExperienceSneak.src} class="" height={ExperienceSneak.height} alt="" />
 		</div>
 	</div>
 
-	<div class="border-t">
-		<div
-			class="redact redact-show relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
-		>
-			<Fragment set:html={Current} />
-		</div>
-	</div>
+	<Subtitle title="current" />
 
 	<div class="mb-12 sm:mb-20 sm:w-3/5">
 		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
@@ -42,20 +39,14 @@ import ExperienceSneak from "@/assets/experience.gif";
 		</div>
 
 		<p class="leading-[1.6] sm:leading-[1.75]">
-			Brought design's high bar of craft to code and stood up Cash App's design system function. Set
-			up cross-platform design infrastructures, brought parity between design and code vernacular,
+			Stood up Cash App's design system function to deliver a high bar of design craft. Set up
+			cross-platform design infrastructure, brought parity between design and code vernacular,
 			evangelized modular development, and supported 40+ components being built and tested. Kicked
 			off migration efforts to adopt the new system across 145+ flows covering 85% of app traffic.
 		</p>
 	</div>
 
-	<div class="border-t">
-		<div
-			class="redact redact-show relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
-		>
-			<Fragment set:html={Past} />
-		</div>
-	</div>
+	<Subtitle title="past" />
 
 	<div class="mb-12 sm:mb-20 sm:w-3/5">
 		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
@@ -110,13 +101,7 @@ import ExperienceSneak from "@/assets/experience.gif";
 		</p>
 	</div>
 
-	<div class="border-t">
-		<div
-			class="redact redact-show relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
-		>
-			<Fragment set:html={Community} />
-		</div>
-	</div>
+	<Subtitle title="community" />
 
 	<div class="mb-12 sm:mb-20 sm:w-3/5">
 		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row">
