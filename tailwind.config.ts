@@ -68,10 +68,7 @@ export default {
 				},
 				".section-tracker": {
 					"@apply text-base sm:text-3xl font-bold transition-all text-textSubtle absolute sm:left-14": {},
-				},
-				".container": {
-					"@apply mx-4 w-[calc(100%-32px)] sm:w-full": {},
-				},
+				}
 			});
 		}),
 	],

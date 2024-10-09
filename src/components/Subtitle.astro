@@ -7,16 +7,9 @@ import Past from "@/assets/past.svg?raw";
 import Community from "@/assets/community.svg?raw";
 ---
 
-<div
-	x-data="{ show: false }"
-	class="bg-white pb-2 pr-2 pt-2"
-	x-ref={title}
-	{...rest}
-	@scroll.window=`show = $refs.${title}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
->
+<div class="border-t" {...rest}>
 	<div
-		class="redact relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
-		:class="{ 'redact-show': show }"
+		class="mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
 	>
 		<Fragment
 			set:html={title === "education"

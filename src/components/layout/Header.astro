@@ -1,26 +1,31 @@
 ---
 import { Icon } from "astro-icon/components";
-import ThemeToggle from "../ThemeToggle.astro";
 import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 ---
 
 <header
-	class="border-bx fixed z-10 h-12 w-full overflow-hidden bg-bgColor duration-700 ease-[cubic-bezier(0.95,0.05,0.795,0.035)] sm:h-24"
+	class="fixed z-10 h-12 w-full border-b bg-bgColor duration-500 ease-[cubic-bezier(0.55,0,1,0.45)] sm:h-24 [&::after]:absolute [&::after]:bottom-[-1px] [&::after]:left-[100%] [&::after]:h-[1px] [&::after]:w-full [&::after]:bg-divider [&::after]:content-['']"
+	x-show="show"
+	x-transition:enter="delay-[2s] ease-in duration-300"
+	x-transition:enter-start="opacity-0"
+	x-transition:enter-end="opacity-100"
+	x-cloak
 	x-ref="header"
-	x-data="{ endScroll: false, headerHeight: $refs.header.getBoundingClientRect().height, headerNKHeight: $refs.headerNK.getBoundingClientRect().height, scroll: this.headerHeight }"
-	x-resize="headerHeight = $height"
+	x-data="{ show: false, endScroll: false, headerHeight: $refs.header.getBoundingClientRect().height, headerNKHeight: $refs.headerNK.getBoundingClientRect().height, scroll: this.headerHeight }"
+	x-init="$nextTick(() => show = true), $store.header.headerHeight = $refs.header.getBoundingClientRect().height"
+	x-resize="headerHeight = $height, $store.header.headerHeight = $refs.header.getBoundingClientRect().height"
 	@scroll.window="scroll = headerHeight - (window.scrollY*headerNKHeight/$store.header.introNKHeight); endScroll = scroll < 0"
 	:style="$store.settings.open ? { marginLeft: `-320px` } : { marginLeft: `0px` }"
 >
-	<div class="container mx-auto flex h-full flex-row justify-between">
+	<div class="container mx-auto flex h-full flex-row justify-between overflow-hidden border-x">
 		<div
-			class="h-full bg-white pr-2 pt-2"
+			class="h-full"
 			:class="{ 'translate-y-[100%]': !endScroll, 'translate-y-0': endScroll }"
 			:style="!endScroll && { transform: `translateY(${scroll}px)` }"
 			x-cloak
 		>
 			<div
-				class="redact redact-show relative text-textProminent [&>svg]:h-5 sm:[&>svg]:h-6"
+				class="text-textProminent [&>svg]:h-5 sm:[&>svg]:h-6"
 				x-ref="headerNK"
 				x-resize="headerNKHeight = $height"
 			>
