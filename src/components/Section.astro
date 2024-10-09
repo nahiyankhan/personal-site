@@ -8,9 +8,12 @@ import Contact from "@/assets/contact.svg?raw";
 
 <div x-data="{ show: false }" class="border-b" {...rest}>
 	<div class="container mx-auto flex min-h-[50vh] flex-col border-x" x-ref={title}>
-		<div>
+		<div
+			@scroll.window=`show = $refs.${title}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
+		>
 			<div
-				class="redact redact-show relative w-[fit-content] text-textProminent [&>svg]:h-8 sm:[&>svg]:h-24"
+				class="redact relative w-[fit-content] text-textProminent [&>svg]:h-8 sm:[&>svg]:h-24"
+				:class="{ 'redact-show': show }"
 			>
 				<Fragment
 					set:html={title === "about"

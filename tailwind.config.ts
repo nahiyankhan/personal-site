@@ -40,7 +40,7 @@ export default {
 				},
 				".redact": {
 					"&::after": {
-						"@apply content-[''] absolute pointer-events-none left-[-8px] w-[calc(100%+16px)] bg-[#fffffe] h-[calc(100%+16px)] top-[-8px] mix-blend-color-dodge origin-left scale-x-0 duration-500 bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)] animate-[lines_0.066666666s_linear_infinite]": {},
+						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+8px)] bg-[#fffffe] h-[calc(100%+16px)] top-[-8px] mix-blend-exclusion origin-left scale-x-0 duration-500 bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)] animate-[lines_0.066666666s_linear_infinite]": {},
 					},
 					"&.redact-show": {
 						"&::after": {

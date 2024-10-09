@@ -1,0 +1,35 @@
+---
+const { title, ...rest } = Astro.props;
+import Education from "@/assets/education.svg?raw";
+import Mantras from "@/assets/mantras.svg?raw";
+import Current from "@/assets/current.svg?raw";
+import Past from "@/assets/past.svg?raw";
+import Community from "@/assets/community.svg?raw";
+---
+
+<div
+	x-data="{ show: false }"
+	class="border-t"
+	x-ref={title}
+	{...rest}
+	@scroll.window=`show = $refs.${title}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
+>
+	<div
+		class="redact relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
+		:class="{ 'redact-show': show }"
+	>
+		<Fragment
+			set:html={title === "education"
+				? Education
+				: title === "mantras"
+					? Mantras
+					: title === "current"
+						? Current
+						: title === "past"
+							? Past
+							: Community}
+			<
+			div
+		/>
+	</div>
+</div>
