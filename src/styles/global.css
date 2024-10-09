@@ -5,10 +5,10 @@
 @layer base {
 	:root {
 		--slate-0: 0deg 0% 100%;
-		--slate-10: 233deg 10% 90%;
-		--slate-20: 233deg 9% 49%;
-		--slate-30: 233deg 17% 30%;
-		--slate-40: 233deg 26% 21%;
+		--slate-10: 233deg 32% 80%;
+		--slate-20: 231deg 19% 66%;
+		--slate-30: 233deg 22% 41%;
+		--slate-40: 231deg 26% 28%;
 		--slate-50: 233deg 29% 14%;
 		--slate-60: 233deg 15% 6%;
 	}
@@ -47,7 +47,7 @@
 	}
 
 	* {
-		@apply border-borderDivider;
+		@apply border-divider;
 	}
 	
 }

@@ -89,7 +89,7 @@ export default {
 				textStandard: "hsl(var(--text-standard) / <alpha-value>)",
 				textSubtle: "hsl(var(--text-subtle) / <alpha-value>)",
 
-				borderDivider: "hsl(var(--border-divider) / <alpha-value>)",
+				divider: "hsl(var(--border-divider) / <alpha-value>)",
 			},
 			fontFamily: {
 				// Add any custom fonts here

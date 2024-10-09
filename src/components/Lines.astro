@@ -1,0 +1,34 @@
+<div
+	class="fixed left-0 top-0 z-10"
+	x-data="{ v1: { pos: 0, show: false }, v2: { pos: 0, show: false }, h1: { pos: 0, show: false }, h2: { pos: 0, show: false } }"
+	x-on:load.window="h1 = { pos: 95, show: true }; v1 = { pos: (window.innerWidth - $store.container.width)/2, show: true }; v2 = { pos: (window.innerWidth - $store.container.width)/2, show: true }"
+	x-on:resize.window="v1.pos = (window.innerWidth - $store.container.width)/2; v2.pos = (window.innerWidth - $store.container.width)/2"
+>
+	<!-- v1: vertical-left -->
+	<div
+		class="bg-divider pointer-events-none fixed left-0 top-0 h-full w-[1px] translate-x-[calc(50vw-1px)] duration-[700ms] ease-[cubic-bezier(0.95,0.05,0.795,0.035)] [will-change:transform]"
+		:style="{ transform: `translateX(${v1.pos - ($store.settings.open ? 320 : 0)}px)` }"
+	>
+	</div>
+
+	<!-- v2: vertical-right -->
+	<div
+		class="bg-divider pointer-events-none fixed right-0 top-0 h-full w-[1px] translate-x-[-50vw] duration-[700ms] ease-[cubic-bezier(0.95,0.05,0.795,0.035)] [will-change:transform]"
+		:style="{ transform: `translateX(-${v2.pos + ($store.settings.open ? 320 : 0)}px)` }"
+	>
+	</div>
+
+	<!-- h1: horizontal-top -->
+	<div
+		class="bg-divider pointer-events-none fixed left-0 top-0 h-[1px] w-full translate-y-[calc(50vh-1px)] duration-[700ms] ease-[cubic-bezier(0.95,0.05,0.795,0.035)] [will-change:transform]"
+		:style="{ transform: `translateY(${h1.pos}px)` }"
+	>
+	</div>
+
+	<!-- h2: horizontal-bottom -->
+	<div
+		class="bg-divider pointer-events-none fixed bottom-0 left-0 h-[1px] w-full translate-y-[-50vh] duration-[700ms] ease-[cubic-bezier(0.95,0.05,0.795,0.035)] [will-change:transform]"
+		:style="{ transform: `translateY(${h2.pos}px)` }"
+	>
+	</div>
+</div>

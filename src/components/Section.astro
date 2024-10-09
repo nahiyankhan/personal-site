@@ -7,8 +7,9 @@ import Contact from "@/assets/contact.svg?raw";
 ---
 
 <div x-data="{ show: false }" class="border-b" {...rest}>
-	<div class="container mx-auto flex min-h-[50vh] flex-col border-x" x-ref={title}>
+	<div class="flex min-h-[50vh] flex-col" x-ref={title}>
 		<div
+			class="bg-white pb-2 pr-2 pt-2"
 			@scroll.window=`show = $refs.${title}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
 		>
 			<div

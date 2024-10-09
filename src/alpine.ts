@@ -66,4 +66,8 @@ export default (Alpine: Alpine) => {
       this.open = !this.open
     },
   } as Settings)
+
+  Alpine.store('container', {
+    width: 0
+  })
 }
