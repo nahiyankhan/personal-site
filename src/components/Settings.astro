@@ -6,11 +6,11 @@ import ThemeToggle from "./ThemeToggle.astro";
 <settings
 	x-data
 	x-cloak
-	class="fixed right-0 top-0 z-20 h-full w-80 border-l bg-bgColor transition-all"
+	class="fixed right-0 top-0 z-20 h-full w-80 border-l bg-bgColor duration-300 ease-[cubic-bezier(0.55,0,1,0.45)]"
 	:class="{ 'translate-x-0': $store.settings.open, 'translate-x-[100%]': !$store.settings.open }"
 >
 	<div class="flex h-full flex-col">
-		<div class="flex h-12 justify-between border-b sm:h-24">
+		<div class="[&::after]:bg-bgDivider relative flex h-12 justify-between border-b sm:h-24">
 			<h3 class="text-textProminent">Settings</h3>
 			<button
 				class="relative h-5 text-textProminent sm:h-7 sm:w-7"

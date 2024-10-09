@@ -20,15 +20,7 @@ import Subtitle from "./Subtitle.astro";
 			step to being sorta good at something.
 		</p>
 	</div>
-
-	<!-- <div class="border-t">
-		<div
-			class="redact redact-show relative mb-12 inline-flex w-[fit-content] border-t text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
-		>
-			<Fragment set:html={Education} />
-		</div>
-	</div> -->
-
+  
 	<Subtitle title="education" />
 
 	<div class="mb-2 sm:mb-8 sm:w-1/2">
@@ -59,19 +51,23 @@ import Subtitle from "./Subtitle.astro";
 		<p class="">Math Major, Computer Science and Art Minors</p>
 	</div>
 
-	<!-- <div class="border-t">
-		<div
-			class="redact redact-show relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-16 [&>svg]:h-5 sm:[&>svg]:h-12"
-		>
-			<Fragment set:html={Mantras} />
-		</div>
-	</div> -->
-
 	<Subtitle title="mantras" />
 
 	<div class="mb-2 text-base font-medium sm:text-xl">Work</div>
 
 	<ul class="mb-4 sm:mb-8 sm:w-1/2">
+		<li class="flex items-center">
+			<div class="full justify-left flex items-center">
+				<Icon
+					aria-hidden="true"
+					class="h-4 w-4 sm:h-8 sm:w-8"
+					focusable="false"
+					name="mdi:circle-small"
+				/>
+			</div>
+			<p class="pl-4">Trust by default</p>
+		</li>
+
 		<li class="flex items-center">
 			<div class="full justify-left flex items-center">
 				<Icon
@@ -94,18 +90,6 @@ import Subtitle from "./Subtitle.astro";
 				/>
 			</div>
 			<p class="pl-4">Document it all</p>
-		</li>
-
-		<li class="flex items-center">
-			<div class="full justify-left flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-4 w-4 sm:h-8 sm:w-8"
-					focusable="false"
-					name="mdi:circle-small"
-				/>
-			</div>
-			<p class="pl-4">Trust by default</p>
 		</li>
 	</ul>
 

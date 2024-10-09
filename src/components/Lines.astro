@@ -1,0 +1,69 @@
+<div
+	class="fixed left-0 top-0 z-10"
+	x-data="{ v2: 0 }"
+	x-on:load.window="v2 = (window.innerWidth - $store.container.width)/2 + $store.container.width"
+>
+	<!-- v1: vertical-left -->
+	<div
+		class="initial-v1-position pointer-events-none fixed left-0 top-0 h-0 w-[1px] bg-divider opacity-100 [transition:height_.4s_cubic-bezier(0.85,0,0.15,1)_0.3s,opacity_.3s_1s] [will-change:transform]"
+		:style="{ height: `100%`, opacity: '0' }"
+	>
+	</div>
+
+	<!-- v2: vertical-right -->
+	<div
+		class="initial-v2-position pointer-events-none fixed right-0 top-0 h-0 w-[1px] bg-divider opacity-100 [transition:height_.4s_cubic-bezier(0.85,0,0.15,1)_0.3s,opacity_.3s_1s] [will-change:transform]"
+		:style="{ height: `100%`, opacity: '0' }"
+	>
+	</div>
+
+	<!-- h1: horizontal-top -->
+	<div
+		class="pointer-events-none fixed left-0 top-0 h-[1px] w-0 bg-divider opacity-100 [transition:width_.4s_cubic-bezier(0.85,0,0.15,1)_0.3s,opacity_.3s_1s] [will-change:transform] sm:translate-y-[95px]"
+		:style="{ width: `100%`, opacity: '0' }"
+	>
+	</div>
+</div>
+
+<style>
+	:root {
+		--initial-v-position: 0;
+	}
+
+	@media (min-width: 640px) {
+		:root {
+			--initial-v-position: 640px;
+		}
+	}
+
+	@media (min-width: 768px) {
+		:root {
+			--initial-v-position: 768px;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		:root {
+			--initial-v-position: 1024px;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		:root {
+			--initial-v-position: 1280px;
+		}
+	}
+
+	@media (min-width: 1536px) {
+		:root {
+			--initial-v-position: 1536px;
+		}
+	}
+	.initial-v1-position {
+		transform: translateX(calc((100vw - var(--initial-v-position)) / 2));
+	}
+
+	.initial-v2-position {
+		transform: translateX(calc(((100vw - var(--initial-v-position)) / 2) * -1));
+	}
+</style>
