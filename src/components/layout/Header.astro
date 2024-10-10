@@ -4,18 +4,17 @@ import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 ---
 
 <header
-	class="fixed z-10 h-12 w-full border-b border-transparent bg-bgColor duration-500 [transition:border-color_.3s_1s,all_.5s_cubic-bezier(0.55,0,1,0.45)] sm:h-24 [&::after]:absolute [&::after]:bottom-[-1px] [&::after]:left-[100%] [&::after]:h-[1px] [&::after]:w-full [&::after]:bg-divider [&::after]:content-['']"
+	class="fixed z-10 h-12 w-full border-b bg-bgColor [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:h-24 [&::after]:absolute [&::after]:bottom-[-1px] [&::after]:left-[100%] [&::after]:h-[1px] [&::after]:w-full [&::after]:bg-divider [&::after]:content-['']"
 	x-ref="header"
 	x-data="{ endScroll: false, headerHeight: $refs.header.getBoundingClientRect().height, headerNKHeight: $refs.headerNK.getBoundingClientRect().height, scroll: this.headerHeight }"
 	x-init="$store.header.headerHeight = $refs.header.getBoundingClientRect().height"
 	x-resize="headerHeight = $height, $store.header.headerHeight = $refs.header.getBoundingClientRect().height"
 	@scroll.window="scroll = headerHeight - (window.scrollY*headerNKHeight/$store.header.introNKHeight); endScroll = scroll < 0"
-	:style="{ borderColor: `hsl(var(--border-divider))`, transform: $store.settings.open ? `translateX(-320px)` : `translateX(0px)` }"
+	:style="{ transform: $store.settings.open ? `translateX(-320px)` : `translateX(0px)` }"
 >
 	<!-- $store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` } -->
 	<div
-		class="container mx-auto flex h-full flex-row justify-between overflow-hidden border-x border-transparent [transition:border-color_.3s_.7s]"
-		:style="{ borderColor: `hsl(var(--border-divider))` }"
+		class="container mx-auto flex h-full flex-row justify-between overflow-hidden border-x [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]"
 	>
 		<div
 			class="h-full"

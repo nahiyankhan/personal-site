@@ -5,15 +5,11 @@ import AboutSneak from "@/assets/about.gif";
 import BoxLines from "./BoxLines.astro";
 ---
 
-<div
-	x-data
-	class="border-x border-transparent [transition:border-color_.3s_.7s]"
-	:style="{ borderColor: `hsl(var(--border-divider))` }"
->
+<div x-data class="border-x border-divider [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]">
 	<div class="flex min-h-[50vh] flex-col">
 		<div class="w-full">
 			<div
-				class="relative mb-2 w-[fit-content] text-textProminent sm:mb-4 [&>svg]:h-7 sm:[&>svg]:h-24"
+				class="mb-2 w-[fit-content] text-textProminent sm:mb-4 [&>svg]:h-7 sm:[&>svg]:h-24"
 				x-ref="introNK"
 				x-init="$store.header.introNKHeight = $refs.introNK.getBoundingClientRect().height"
 				x-resize="$store.header.introNKHeight = $height"
@@ -56,3 +52,14 @@ import BoxLines from "./BoxLines.astro";
 		</div>
 	</div>
 </div>
+
+<style>
+	@keyframes border-in {
+		0% {
+			border-color: transparent;
+		}
+		100% {
+			border-color: hsl(var(--border-divider));
+		}
+	}
+</style>

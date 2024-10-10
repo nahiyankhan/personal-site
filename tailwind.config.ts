@@ -27,7 +27,7 @@ export default {
 		plugin(({ addComponents }) => {
 			addComponents({
 				".header-standard": {
-					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-semibold text-textProminent tracking-tight": {},
+					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-semibold tracking-tight": {},
 				},
 				".subtitle-large": {
 					"@apply leading-[1.6] sm:leading-[1.75] text-textStandard tracking-wider": {},
@@ -40,18 +40,13 @@ export default {
 				},
 				".redact": {
 					"&::after": {
-						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+8px)] bg-[#fffffe] h-[calc(100%+16px)] top-[-8px] mix-blend-exclusion origin-left scale-x-0 duration-500 bg-[repeating-linear-gradient(transparent,_transparent_3px,_#00000054_4px)] animate-[lines_0.066666666s_linear_infinite]": {},
-					},
-					"&.redact-show": {
-						"&::after": {
-							"@apply scale-x-100": {},
-						},
+						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+8px)] bg-[hsl(var(--redact-bg))] h-[calc(100%+16px)] top-[-8px] mix-blend-exclusion origin-left scale-x-100 duration-500 bg-[repeating-linear-gradient(transparent,_transparent_3px,_#0000002b_4px)]": {},
 					},
 				},
 				".link": {
 					"@apply redact": {},
 					"&::after": {
-						"@apply duration-300 h-[calc(100%+8px)] top-[-4px]": {},
+						"@apply duration-300 w-[calc(100%+8px)] h-[calc(100%+8px)] top-[-4px] scale-x-0": {},
 					},
 					"&:hover::after": {
 						"@apply md:scale-x-100": {},
@@ -60,15 +55,12 @@ export default {
 				"button": {
 					"@apply redact": {},
 					"&::after": {
-						"@apply translate-x-[100%] w-full h-full top-0 left-0 duration-300": {},
+						"@apply translate-x-[100%] w-[calc(100%+8px)] h-[calc(100%+16px)] w-full h-full top-0 left-0 duration-300": {},
 					},
 					"&:hover::after": {
 						"@apply md:scale-x-100 md:translate-x-0": {},
 					},
 				},
-				".section-tracker": {
-					"@apply text-base sm:text-3xl font-bold transition-all text-textSubtle absolute sm:left-14": {},
-				}
 			});
 		}),
 	],
@@ -92,23 +84,6 @@ export default {
 				// Add any custom fonts here
 				sans: ['JetBrains Mono Variable',...fontFamily.sans],
 				mono: ['Rubik Mono One',...fontFamily.mono]
-			},
-			keyframes: {
-				wiggle: {
-					'0%, 100%': { transform: 'rotate(0deg)' },
-					'25%': { transform: 'rotate(-8deg)' },
-					'75%': { transform: 'rotate(8deg)' },
-				},
-				redact: {
-					'0%, 100%': { background: 'repeating-linear-gradient(transparent, transparent 3px, #00000054 4px)' },
-					'50%': { background: 'repeating-linear-gradient(transparent, transparent 2px, #00000054 3px)' },
-				},
-				lines: {
-					'0%': { backgroundPosition: '0px 0px' },
-					'50%': { backgroundPosition: '0px 0px' },
-					'51%': { backgroundPosition: '0px 2px' },
-					'100%': { backgroundPosition: '0px 2px' }
-				}
 			},
 			transitionProperty: {
 				height: "height",
