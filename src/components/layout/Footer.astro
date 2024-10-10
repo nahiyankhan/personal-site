@@ -6,13 +6,13 @@ const year = new Date().getFullYear();
 ---
 
 <footer
-	class="h-12 w-full border-b duration-700 ease-[cubic-bezier(0.95,0.05,0.795,0.035)] sm:h-24"
+	class="h-12 w-full border-b border-t duration-700 ease-[cubic-bezier(0.95,0.05,0.795,0.035)] sm:h-24"
 	x-data
 	x-cloak
 	:style="$store.settings.open ? { marginLeft: `-320px` } : { marginLeft: `0px` }"
 >
 	<div
-		class="container mx-auto flex h-full items-end justify-between border-x border-l border-r text-sm font-normal"
+		class="container mx-auto flex h-full items-end justify-between overflow-hidden border-x border-l border-r text-sm font-normal"
 	>
 		<div class="me-0 sm:me-4">
 			&copy; {siteConfig.author}

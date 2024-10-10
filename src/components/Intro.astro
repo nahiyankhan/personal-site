@@ -1,5 +1,7 @@
 ---
-import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
+import NahiyanKhan from "@/assets/nahiyankhan_chonk.svg?raw";
+import Nahiyan from "@/assets/nahiyan.svg?raw";
+import Khan from "@/assets/khan.svg?raw";
 import { Icon } from "astro-icon/components";
 import AboutSneak from "@/assets/about.gif";
 import BoxLines from "./BoxLines.astro";
@@ -9,13 +11,24 @@ import BoxLines from "./BoxLines.astro";
 	<div class="flex min-h-[50vh] flex-col">
 		<div class="w-full">
 			<div
-				class="relative -mt-[1px] mb-2 w-[fit-content] text-textProminent sm:mb-4 [&>svg]:h-7 sm:[&>svg]:h-24"
+				class="relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-4 [&_svg]:h-7 sm:[&_svg]:h-56"
 				x-ref="introNK"
 				x-init="$store.header.introNKHeight = $refs.introNK.getBoundingClientRect().height"
 				x-resize="$store.header.introNKHeight = $height"
 			>
-				<BoxLines />
-				<Fragment set:html={NahiyanKhan} />
+				<!-- <Fragment set:html={NahiyanKhan} /> -->
+				<div class="relative sm:mb-4 sm:mr-4">
+					<BoxLines />
+					<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
+						<Fragment set:html={Nahiyan} />
+					</div>
+				</div>
+				<div class="relative">
+					<BoxLines />
+					<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
+						<Fragment set:html={Khan} />
+					</div>
+				</div>
 			</div>
 		</div>
 		<p class="subtitle-large">(na-he-yahn). Or Khan. 🖖🏽</p>
@@ -23,7 +36,9 @@ import BoxLines from "./BoxLines.astro";
 		<div class="mb-16 sm:mb-24 sm:w-3/5">
 			<div class="relative mb-8 mt-10 w-max sm:mb-16">
 				<BoxLines />
-				<img src={AboutSneak.src} class="" height={AboutSneak.height} alt="" />
+				<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
+					<img src={AboutSneak.src} class="" height={AboutSneak.height} alt="" />
+				</div>
 			</div>
 
 			<p class="subtitle-large mb-4 sm:mb-6">

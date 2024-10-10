@@ -12,7 +12,15 @@ import BoxLines from "./BoxLines.astro";
 		class="flex min-h-[50vh] flex-col border-t [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]"
 		x-ref={title}
 	>
-		<div class="relative -mt-[1px] w-[fit-content] text-textProminent [&>svg]:h-8 sm:[&>svg]:h-24">
+		<div class="relative -mt-[1px] w-max">
+			<BoxLines />
+			<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] opacity-0">
+				<p class="font-extrabold uppercase text-textProminent sm:text-[12rem] sm:leading-[12rem]">
+					/{title}
+				</p>
+			</div>
+		</div>
+		<!-- <div class="relative -mt-[1px] w-[fit-content] text-textProminent [&>svg]:h-8 sm:[&>svg]:h-24">
 			<BoxLines />
 			<Fragment
 				set:html={title === "about"
@@ -23,7 +31,7 @@ import BoxLines from "./BoxLines.astro";
 							? Projects
 							: Contact}
 			/>
-		</div>
+		</div> -->
 
 		<slot />
 	</div>

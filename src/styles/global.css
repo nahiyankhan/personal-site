@@ -6,11 +6,11 @@
 	:root {
 		--slate-0: 0deg 0% 100%;
 		--slate-10: 233deg 100% 96%;
-		--slate-20: 231deg 19% 66%;
+		--slate-20: 233deg 28% 81%;
 		--slate-30: 233deg 22% 41%;
 		--slate-40: 231deg 26% 28%;
 		--slate-50: 233deg 29% 14%;
-		--slate-60: 233deg 15% 6%;
+		--slate-60: 233deg 14% 11%;
 	}
 
 	:root[data-theme="light"] {
@@ -41,9 +41,9 @@
 		--theme-accent-2: 0deg 0% 93%;
 		--theme-quote: 102deg 100% 86%;
 
-		--text-prominent: var(--slate-10);
+		--text-prominent: var(--slate-20);
 		--text-standard: var(--slate-10);
-		--text-subtle: var(--slate-20);
+		--text-subtle: var(--slate-10);
 
 		--border-divider: var(--slate-40);
 

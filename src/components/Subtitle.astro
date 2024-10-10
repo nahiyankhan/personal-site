@@ -13,7 +13,12 @@ import BoxLines from "./BoxLines.astro";
 		class="relative -mt-[1px] mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
 	>
 		<BoxLines />
-		<Fragment
+		<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] opacity-0">
+			<p class="font-extrabold uppercase text-textProminent sm:text-8xl sm:leading-[8rem]">
+				/{title}
+			</p>
+		</div>
+		<!-- <Fragment
 			set:html={title === "education"
 				? Education
 				: title === "mantras"
@@ -25,6 +30,6 @@ import BoxLines from "./BoxLines.astro";
 							: Community}
 			<
 			div
-		/>
+		/> -->
 	</div>
 </div>

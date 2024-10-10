@@ -80,6 +80,16 @@ export default {
 
 				divider: "hsl(var(--border-divider) / <alpha-value>)",
 			},
+			keyframes: {
+				fadein: {
+					"0%": {
+						opacity: "0",
+					},
+					"100%": {
+						opacity: "1",
+					},
+				},
+			},
 			fontFamily: {
 				// Add any custom fonts here
 				sans: ['JetBrains Mono Variable',...fontFamily.sans],
