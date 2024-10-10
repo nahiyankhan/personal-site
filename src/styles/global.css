@@ -22,7 +22,8 @@
 		--theme-accent: 351deg 66% 48%;
 		--theme-accent-2: 0deg 0% 7%;
 		--theme-quote: 351deg 66% 48%;
-
+		
+		--text-inverse: black;
 		--text-prominent: var(--slate-60);
 		--text-standard: var(--slate-50);
 		--text-subtle: var(--slate-30);
@@ -41,6 +42,7 @@
 		--theme-accent-2: 0deg 0% 93%;
 		--theme-quote: 102deg 100% 86%;
 
+		--text-inverse: white;
 		--text-prominent: var(--slate-20);
 		--text-standard: var(--slate-10);
 		--text-subtle: var(--slate-10);
