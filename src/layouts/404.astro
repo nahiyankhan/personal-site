@@ -1,0 +1,38 @@
+---
+import "@fontsource-variable/jetbrains-mono";
+import BaseHead from "@/components/BaseHead.astro";
+import ThemeProvider from "@/components/ThemeProvider.astro";
+import Footer from "@/components/layout/Footer.astro";
+import { siteConfig } from "@/site-config";
+import type { SiteMeta } from "@/types";
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+	meta: SiteMeta;
+}
+
+const {
+	meta: { articleDate, description = siteConfig.description, ogImage, title },
+} = Astro.props;
+---
+
+<html class="scroll-smooth" lang={siteConfig.lang}>
+	<head>
+		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
+		<ViewTransitions />
+	</head>
+	<body
+		class="bg-bgColor text-sm font-light [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:text-base sm:leading-[1.75]"
+	>
+		<ThemeProvider />
+		<main
+			x-data
+			id="main"
+			class="min-h-screen w-full pt-12 tracking-wider [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:pt-24"
+		>
+			<div class="container mx-auto flex flex-col [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]">
+				<slot />
+			</div>
+		</main>
+	</body>
+</html>

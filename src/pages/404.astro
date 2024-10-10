@@ -1,5 +1,6 @@
 ---
-import PageLayout from "@/layouts/Base.astro";
+import BoxLines from "@/components/BoxLines.astro";
+import PageLayout from "@/layouts/404.astro";
 
 const meta = {
 	description: "Oops! It looks like this page is lost in space!",
@@ -8,6 +9,22 @@ const meta = {
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="title mb-6">404 | Oops something went wrong</h1>
-	<p class="mb-8">Please use the navigation to find your way back</p>
+	<div x-data class="border-x [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]">
+		<div
+			class="flex h-full min-h-[50vh] flex-col border-y [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]"
+		>
+			<div class="relative mb-12 w-max">
+				<BoxLines />
+				<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] opacity-0">
+					<p
+						class="text-5xl font-extrabold uppercase leading-[2.4rem] text-textProminent sm:text-[5rem] sm:leading-[3.8rem] md:text-8xl md:leading-[4.6rem] lg:text-[8rem] lg:leading-[6rem] xl:text-[11rem] xl:leading-[8.2rem] 2xl:text-[12rem] 2xl:leading-[9rem]"
+					>
+						/404 | Uh oh
+					</p>
+				</div>
+			</div>
+
+			<p class="mb-8">Please use the navigation to find your way back</p>
+		</div>
+	</div>
 </PageLayout>
