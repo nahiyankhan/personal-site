@@ -5,12 +5,12 @@ import Section from "./Section.astro";
 ---
 
 <Section title="contact">
-	<div class="mb-12 mt-4 w-11/12 sm:mb-20 sm:mt-8 md:w-3/5 2xl:w-1/2">
+	<div class="mb-8 mt-4 w-11/12 sm:mb-20 sm:mt-8 md:w-3/5 2xl:w-1/2">
 		<p class="mb-8">Recommend a science fiction novel. Go rock climbing together. Let's jam.</p>
 	</div>
 
-	<p class="mb-4 text-lg font-medium">Say hello at</p>
-	<ul class="">
+	<div class="mb-2 text-base font-medium sm:text-xl">Say hello at</div>
+	<ul class="mb-24">
 		{
 			socialLinks.map(({ friendlyName, link, name }) => (
 				<li class="mb-2 flex">

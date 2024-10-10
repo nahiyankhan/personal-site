@@ -3,7 +3,9 @@ import Nahiyan from "@/assets/nahiyan.svg?raw";
 import Khan from "@/assets/khan.svg?raw";
 import { Icon } from "astro-icon/components";
 import AboutSneak from "@/assets/about.gif";
+import ThisIsFine from "@/assets/thisisfine.gif";
 import BoxLines from "./BoxLines.astro";
+import EasterEgg from "./EasterEgg.astro";
 ---
 
 <div x-data class="border-x [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]">
@@ -40,13 +42,14 @@ import BoxLines from "./BoxLines.astro";
 				</div>
 			</div>
 
-			<p class="subtitle-large mb-4 sm:mb-6">
-				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary. Existential
-				crisis is real.
-			</p>
+			<div class="subtitle-large inline">
+				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary.
+				<EasterEgg src={ThisIsFine.src} height={ThisIsFine.height}> Existential crisis</EasterEgg>
+				is real.
+			</div>
 
-			<p class="subtitle-large mb-4 sm:mb-6">
-				But 9 to 5, I lead design system strategy and build design infrastructures.
+			<p class="subtitle-large my-4 sm:my-6">
+				But 9 to 5, I lead and build design infrastructures and tooling.
 			</p>
 
 			<a

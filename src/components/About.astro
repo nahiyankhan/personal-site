@@ -4,17 +4,17 @@ import Section from "./Section.astro";
 import JHULogo from "@/assets/jhu.svg?raw";
 import MacalesterLogo from "@/assets/macalester.svg?raw";
 import Subtitle from "./Subtitle.astro";
+import SortaGood from "@/assets/sortagood.gif";
+import EasterEgg from "./EasterEgg.astro";
 ---
 
 <Section title="about">
 	<div class="mb-12 mt-4 w-11/12 sm:mb-24 sm:mt-8 md:w-3/5 2xl:w-1/2">
 		<p class="subtitle-large mb-6 sm:mb-12">A.K.A The 5 to 9.</p>
 
-		<p class="subtitle-large mb-2 sm:mb-4">
+		<p class="subtitle-large mb-2 inline sm:mb-4">
 			I rock climb, tinker, and read science fiction (Do you have a recommendation?). I am also
 			going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so far.
-			But you know how Jake from Adventure Time says it, sucking at something is the first step to
-			being sorta good at something.
 		</p>
 	</div>
 
@@ -52,7 +52,7 @@ import Subtitle from "./Subtitle.astro";
 
 	<Subtitle title="mantras" />
 
-	<div class="w-11/12 md:w-3/5 xl:w-1/2">
+	<div class="mb-8 w-11/12 md:w-3/5 xl:w-1/2">
 		<div class="mb-2 text-base font-medium sm:text-xl">Work</div>
 
 		<ul class="mb-4 sm:mb-8">
@@ -105,7 +105,11 @@ import Subtitle from "./Subtitle.astro";
 						name="mdi:circle-small"
 					/>
 				</div>
-				<p class="pl-4">Sucking at something is the first step to being sorta good at something</p>
+				<div class="inline pl-4">
+					Sucking at something is the first step to being
+					<EasterEgg src={SortaGood.src} height={SortaGood.height}> sorta good</EasterEgg>
+					at something
+				</div>
 			</li>
 
 			<li class="flex items-center">
