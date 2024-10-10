@@ -11,13 +11,13 @@ import BoxLines from "./BoxLines.astro";
 	<div class="flex min-h-[50vh] flex-col">
 		<div class="w-full">
 			<div
-				class="relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-4 [&_svg]:h-7 sm:[&_svg]:h-56"
+				class="relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-4 [&_svg]:h-14 [&_svg]:[transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:[&_svg]:h-[5.5rem] md:[&_svg]:h-[6.5rem] lg:[&_svg]:h-36 xl:[&_svg]:h-[11.5rem] 2xl:[&_svg]:h-56"
 				x-ref="introNK"
 				x-init="$store.header.introNKHeight = $refs.introNK.getBoundingClientRect().height"
 				x-resize="$store.header.introNKHeight = $height"
 			>
 				<!-- <Fragment set:html={NahiyanKhan} /> -->
-				<div class="relative sm:mb-4 sm:mr-4">
+				<div class="relative mb-2 sm:mb-4 sm:mr-4">
 					<BoxLines />
 					<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
 						<Fragment set:html={Nahiyan} />
@@ -33,8 +33,8 @@ import BoxLines from "./BoxLines.astro";
 		</div>
 		<p class="subtitle-large">(na-he-yahn). Or Khan. 🖖🏽</p>
 
-		<div class="mb-16 sm:mb-24 sm:w-3/5">
-			<div class="relative mb-8 mt-10 w-max sm:mb-16">
+		<div class="mb-14 w-11/12 sm:mb-24 lg:w-3/5 xl:w-1/2">
+			<div class="relative mb-8 mt-10 sm:mb-16">
 				<BoxLines />
 				<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
 					<img src={AboutSneak.src} class="" height={AboutSneak.height} alt="" />

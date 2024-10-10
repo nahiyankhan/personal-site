@@ -12,15 +12,15 @@ const year = new Date().getFullYear();
 	:style="$store.settings.open ? { marginLeft: `-320px` } : { marginLeft: `0px` }"
 >
 	<div
-		class="container mx-auto flex h-full items-end justify-between overflow-hidden border-x border-l border-r text-sm font-normal"
+		class="container mx-auto flex h-full items-end justify-between overflow-hidden border-x border-l border-r"
 	>
-		<div class="me-0 sm:me-4">
+		<div class="">
 			&copy; {siteConfig.author}
 			{year}
 		</div>
-		<div class="flex w-7 justify-center">
+		<div class="flex w-4 justify-center sm:w-7">
 			<button
-				class="relative h-7 w-7 text-textProminent"
+				class="relative h-4 w-4 text-textProminent sm:h-7 sm:w-7"
 				type="button"
 				x-data
 				@click="window.scrollTo({top: 0, behavior: 'smooth'})"

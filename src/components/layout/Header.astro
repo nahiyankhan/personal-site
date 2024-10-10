@@ -7,7 +7,7 @@ import BoxLines from "../BoxLines.astro";
 ---
 
 <header
-	class="fixed z-10 h-12 w-full border-b bg-bgColor [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:h-24 [&::after]:absolute [&::after]:bottom-[-1px] [&::after]:left-[100%] [&::after]:h-[1px] [&::after]:w-full [&::after]:bg-divider [&::after]:content-['']"
+	class="fixed z-10 h-12 w-full border-y bg-bgColor [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:h-24 [&::after]:absolute [&::after]:bottom-[-1px] [&::after]:left-[100%] [&::after]:h-[1px] [&::after]:w-full [&::after]:bg-divider [&::after]:content-['']"
 	x-ref="header"
 	x-data="{ endScroll: false, headerHeight: $refs.header.getBoundingClientRect().height, headerNKHeight: $refs.headerNK.getBoundingClientRect().height, scroll: this.headerHeight }"
 	x-init="$store.header.headerHeight = $refs.header.getBoundingClientRect().height"
@@ -20,13 +20,13 @@ import BoxLines from "../BoxLines.astro";
 		class="container mx-auto flex h-full flex-row justify-between overflow-hidden border-x [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]"
 	>
 		<div
-			class="h-full"
+			class="flex h-full"
 			:class="{ 'translate-y-[100%]': !endScroll, 'translate-y-0': endScroll }"
 			:style="!endScroll && { transform: `translateY(${scroll}px)` }"
 			x-cloak
 		>
 			<div
-				class="flex-cols flex-rows relative text-textProminent [&_svg]:h-5 sm:[&_svg]:h-6"
+				class="relative flex flex-col justify-between text-textProminent sm:justify-start [&_svg]:h-5 sm:[&_svg]:h-6"
 				x-ref="headerNK"
 				x-resize="headerNKHeight = $height"
 			>
@@ -34,7 +34,7 @@ import BoxLines from "../BoxLines.astro";
 					<BoxLines small />
 					<Fragment set:html={Nahiyan} />
 				</div>
-				<div class="relative w-max">
+				<div class="relative mb-[-1px] w-max sm:mb-0">
 					<BoxLines small />
 					<Fragment set:html={Khan} />
 				</div>
