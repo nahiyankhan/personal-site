@@ -1,9 +1,5 @@
 ---
 const { title, ...rest } = Astro.props;
-import About from "@/assets/about.svg?raw";
-import Experience from "@/assets/experience.svg?raw";
-import Projects from "@/assets/projects.svg?raw";
-import Contact from "@/assets/contact.svg?raw";
 import BoxLines from "./BoxLines.astro";
 ---
 
@@ -22,19 +18,6 @@ import BoxLines from "./BoxLines.astro";
 				</p>
 			</div>
 		</div>
-		<!-- <div class="relative -mt-[1px] w-[fit-content] text-textProminent [&>svg]:h-8 sm:[&>svg]:h-24">
-			<BoxLines />
-			<Fragment
-				set:html={title === "about"
-					? About
-					: title === "experiences"
-						? Experience
-						: title === "projects"
-							? Projects
-							: Contact}
-			/>
-		</div> -->
-
 		<slot />
 	</div>
 </div>

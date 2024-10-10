@@ -1,10 +1,5 @@
 ---
 const { title, ...rest } = Astro.props;
-import Education from "@/assets/education.svg?raw";
-import Mantras from "@/assets/mantras.svg?raw";
-import Current from "@/assets/current.svg?raw";
-import Past from "@/assets/past.svg?raw";
-import Community from "@/assets/community.svg?raw";
 import BoxLines from "./BoxLines.astro";
 ---
 
@@ -20,18 +15,5 @@ import BoxLines from "./BoxLines.astro";
 				/{title}
 			</p>
 		</div>
-		<!-- <Fragment
-			set:html={title === "education"
-				? Education
-				: title === "mantras"
-					? Mantras
-					: title === "current"
-						? Current
-						: title === "past"
-							? Past
-							: Community}
-			<
-			div
-		/> -->
 	</div>
 </div>
