@@ -4,16 +4,16 @@ import About from "@/assets/about.svg?raw";
 import Experience from "@/assets/experience.svg?raw";
 import Projects from "@/assets/projects.svg?raw";
 import Contact from "@/assets/contact.svg?raw";
+import BoxLines from "./BoxLines.astro";
 ---
 
-<div
-	x-data
-	class="border-x border-transparent [transition:border-color_.3s_.7s]"
-	:style="{ borderColor: `hsl(var(--border-divider))` }"
-	{...rest}
->
-	<div class="flex min-h-[50vh] flex-col border-t" x-ref={title}>
-		<div class="w-[fit-content] text-textProminent [&>svg]:h-8 sm:[&>svg]:h-24">
+<div x-data class="border-x [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]" {...rest}>
+	<div
+		class="flex min-h-[50vh] flex-col border-t [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]"
+		x-ref={title}
+	>
+		<div class="relative -mt-[1px] w-[fit-content] text-textProminent [&>svg]:h-8 sm:[&>svg]:h-24">
+			<BoxLines />
 			<Fragment
 				set:html={title === "about"
 					? About

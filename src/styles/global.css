@@ -5,7 +5,7 @@
 @layer base {
 	:root {
 		--slate-0: 0deg 0% 100%;
-		--slate-10: 233deg 32% 80%;
+		--slate-10: 233deg 100% 96%;
 		--slate-20: 231deg 19% 66%;
 		--slate-30: 233deg 22% 41%;
 		--slate-40: 231deg 26% 28%;
@@ -27,7 +27,7 @@
 		--text-standard: var(--slate-50);
 		--text-subtle: var(--slate-30);
 
-		--border-divider: var(--slate-10);
+		--border-divider: var(--slate-20);
 
 		--redact-bg: 0deg 0% 98%;
 	}
