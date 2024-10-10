@@ -21,16 +21,10 @@ const {
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 		<ViewTransitions />
 	</head>
-	<body
-		class="bg-bgColor text-sm font-light [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:text-base sm:leading-[1.75]"
-	>
+	<body class="nk-transition bg-bgColor text-sm font-light sm:text-base sm:leading-[1.75]">
 		<ThemeProvider />
-		<main
-			x-data
-			id="main"
-			class="min-h-screen w-full pt-12 tracking-wider [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:pt-24"
-		>
-			<div class="container mx-auto flex flex-col [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]">
+		<main x-data id="main" class="nk-transition min-h-screen w-full pt-12 tracking-wider sm:pt-24">
+			<div class="nk-transition container mx-auto flex flex-col">
 				<slot />
 			</div>
 		</main>

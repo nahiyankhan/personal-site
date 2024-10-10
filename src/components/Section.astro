@@ -3,11 +3,8 @@ const { title, ...rest } = Astro.props;
 import BoxLines from "./BoxLines.astro";
 ---
 
-<div x-data class="border-x [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]" {...rest}>
-	<div
-		class="flex min-h-[50vh] flex-col border-t [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]"
-		x-ref={title}
-	>
+<div x-data class="nk-transition border-x" {...rest}>
+	<div class="nk-transition flex min-h-[50vh] flex-col border-t" x-ref={title}>
 		<div class="relative w-max">
 			<BoxLines />
 			<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] opacity-0">

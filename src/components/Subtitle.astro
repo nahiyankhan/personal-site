@@ -3,9 +3,9 @@ const { title, ...rest } = Astro.props;
 import BoxLines from "./BoxLines.astro";
 ---
 
-<div class="border-t [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]" {...rest}>
+<div class="nk-transition border-t" {...rest}>
 	<div
-		class="relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
+		class="relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-20 [&>svg]:h-5 sm:[&>svg]:h-12"
 	>
 		<BoxLines />
 		<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] opacity-0">

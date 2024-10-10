@@ -62,7 +62,7 @@ export default {
 					},
 				},
 				".nk-transition": {
-					"@apply [transition:all_.3s_cubic-bezier(0.55,0,1,0.45),color_.150s]": {},
+					"@apply [transition:all_.3s_cubic-bezier(0.55,0,1,0.45),color_0s_ease-in]": {},
 				},
 			});
 		}),

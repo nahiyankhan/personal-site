@@ -17,10 +17,14 @@ import BoxLines from "./BoxLines.astro";
 		<p class="leading-[1.6] sm:leading-[1.75]">A.K.A The things I am more than sorta good at.</p>
 	</div>
 
-	<div class="mb-14 w-11/12 sm:mb-24 lg:w-3/5 xl:w-1/2">
+	<div class="mb-14 w-11/12 sm:mb-24 lg:w-3/5 xl:w-1/2" x-data="{ inview: false }">
 		<div class="relative mb-8 mt-10 sm:mb-16">
 			<BoxLines />
-			<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
+			<div
+				class="opacity-0"
+				:class="{ 'animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards]': inview }"
+				x-intersect.full="inview = true"
+			>
 				<img src={ExperienceSneak.src} class="" height={ExperienceSneak.height} alt="" />
 			</div>
 		</div>
@@ -29,7 +33,7 @@ import BoxLines from "./BoxLines.astro";
 	<Subtitle title="current" />
 
 	<div class="w-11/12 md:w-3/5 lg:w-1/2">
-		<div class="mb-12 sm:mb-20">
+		<div class="mb-12 sm:mb-40">
 			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 				<Fragment set:html={CashAppLogo} />
 				<div class="mt-3 sm:ml-4 sm:mt-0">
@@ -87,7 +91,7 @@ import BoxLines from "./BoxLines.astro";
 			</p>
 		</div>
 
-		<div class="mb-12 sm:mb-20">
+		<div class="mb-12 sm:mb-40">
 			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 				<Fragment set:html={MacalesterLogo} />
 				<div class="mt-3 sm:ml-4 sm:mt-0">
@@ -109,7 +113,7 @@ import BoxLines from "./BoxLines.astro";
 	<Subtitle title="community" />
 
 	<div class="w-11/12 md:w-3/5 lg:w-1/2">
-		<div class="mb-12 sm:mb-20">
+		<div class="mb-12 sm:mb-40">
 			<div class="mb-4 flex flex-col sm:flex-row">
 				<div class="block dark:hidden [&>svg]:w-12 sm:[&>svg]:w-16">
 					<Fragment set:html={DesignXLogoWhite} />
@@ -127,13 +131,16 @@ import BoxLines from "./BoxLines.astro";
 			</div>
 
 			<div class="mt-8">
-				<iframe
-					class="mb-4 w-full [aspect-ratio:16/9]"
-					src="https://www.youtube.com/embed/wLSKcR7uAGE"
-					title="Nahiyan Khan (Lead UX Engineer of Design Systems, Lifion by ADP)- Visualizing Design Tokens at Scale"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					referrerpolicy="strict-origin-when-cross-origin"
-					allowfullscreen></iframe>
+				<div class="relative">
+					<BoxLines />
+					<iframe
+						class="mb-4 w-full [aspect-ratio:16/9]"
+						src="https://www.youtube.com/embed/wLSKcR7uAGE"
+						title="Nahiyan Khan (Lead UX Engineer of Design Systems, Lifion by ADP)- Visualizing Design Tokens at Scale"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						referrerpolicy="strict-origin-when-cross-origin"
+						allowfullscreen></iframe>
+				</div>
 
 				<p class="mb-4 leading-[1.6] sm:leading-[1.75]">
 					Topic: “Visualizing Design Tokens at Scale”
