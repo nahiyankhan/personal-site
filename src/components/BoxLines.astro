@@ -5,43 +5,44 @@ const { small, ...rest } = Astro.props;
 ---
 
 <div
-	x-data="{ inview: false }"
+	x-data="{ inview: false, ratio: 1 }"
 	x-ref={boxLineRef}
 	@scroll.window=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
-	x-init=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
-	class="absolute h-full w-full"
+	x-init=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 3/4), ratio = window.innerWidth < 1024 ? 2 : 1`
+  @resize.window=`ratio = window.innerWidth < 1024 ? 2 : 1`
+	class="absolute h-full w-full [&_div]:bg-divider"
 	{...rest}
 >
   {small ? (
     <div
       class="absolute right-0 top-0 h-0 w-[1px] bg-divider transition-all duration-1000"
-      :style="inview && { height: `calc(100% + 16px)`, transform: `translateY(-8px)` }"
+      :style="inview && { height: `calc(100% + (16px/${ratio}))`, transform: `translateY(calc(-8px/${ratio}))` }"
     >
     </div>
     <div
       class="absolute left-0 top-0 h-[1px] w-0 bg-divider transition-all duration-1000"
-      :style="inview && { width: `calc(100% + 16px)` }"
+      :style="inview && { width: `calc(100% + (16px/${ratio}))` }"
     >
     </div>
     <div
       class="absolute bottom-0 left-0 h-[1px] w-0 bg-divider transition-all duration-1000"
-      :style="inview && { width: `calc(100% + 16px)` }"
+      :style="inview && { width: `calc(100% + (16px/${ratio}))` }"
     >
     </div>
   ) : (
     <div
-      class="absolute right-0 top-0 h-0 w-[1px] bg-divider transition-all duration-1000"
-      :style="inview && { height: `calc(100% + 64px)`, transform: `translateY(-32px)` }"
+      class="absolute right-[-1px] top-0 h-0 w-[1px] z-[-1] bg-divider transition-all duration-1000"
+      :style="inview && { height: `calc(100% + (64px/${ratio}))`, transform: `translateY(calc(-32px/${ratio}))` }"
     >
     </div>
     <div
-      class="absolute left-0 top-0 h-[1px] w-0 bg-divider transition-all duration-1000"
-      :style="inview && { width: `calc(100% + 32px)` }"
+      class="absolute left-0 top-[-1px] h-[1px] w-0 bg-divider transition-all duration-1000"
+      :style="inview && { width: `calc(100% + (32px/${ratio}))` }"
     >
     </div>
     <div
-      class="absolute bottom-0 left-0 h-[1px] w-0 bg-divider transition-all duration-1000"
-      :style="inview && { width: `calc(100% + 32px)` }"
+      class="absolute bottom-[-1px] left-0 h-[1px] w-0 bg-divider transition-all duration-1000"
+      :style="inview && { width: `calc(100% + (32px/${ratio}))` }"
     >
     </div>
   )}

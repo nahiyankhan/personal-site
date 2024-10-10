@@ -40,7 +40,7 @@ const {
 			:style="$store.settings.open && { transform: `translateX(-320px)` }"
 		>
 			<div
-				class="container mx-auto flex flex-col"
+				class="container mx-auto flex flex-col [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]"
 				x-ref="container"
 				x-init="$store.container.width = $refs.container.getBoundingClientRect().width"
 				x-resize="$store.container.width = $width"

@@ -1,35 +1,19 @@
 ---
 const { title, ...rest } = Astro.props;
-import Education from "@/assets/education.svg?raw";
-import Mantras from "@/assets/mantras.svg?raw";
-import Current from "@/assets/current.svg?raw";
-import Past from "@/assets/past.svg?raw";
-import Community from "@/assets/community.svg?raw";
 import BoxLines from "./BoxLines.astro";
 ---
 
 <div class="border-t [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]" {...rest}>
 	<div
-		class="relative -mt-[1px] mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
+		class="relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-24 [&>svg]:h-5 sm:[&>svg]:h-12"
 	>
 		<BoxLines />
 		<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] opacity-0">
-			<p class="font-extrabold uppercase text-textProminent sm:text-8xl sm:leading-[4.6rem]">
+			<p
+				class="text-3xl font-extrabold uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl xl:leading-[3.4rem] 2xl:text-8xl 2xl:leading-[4.6rem]"
+			>
 				/{title}
 			</p>
 		</div>
-		<!-- <Fragment
-			set:html={title === "education"
-				? Education
-				: title === "mantras"
-					? Mantras
-					: title === "current"
-						? Current
-						: title === "past"
-							? Past
-							: Community}
-			<
-			div
-		/> -->
 	</div>
 </div>

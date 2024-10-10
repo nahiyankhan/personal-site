@@ -4,7 +4,8 @@
 	x-data
 	@click="$store.theme.toggleMode()"
 >
-	<p class="text-textProminent">Light / Dark</p>
+	<p class="hidden text-textProminent dark:block">Light</p>
+	<p class="text-textProminent dark:hidden">Dark</p>
 	<svg
 		aria-hidden="true"
 		class="h-5 w-5 duration-0 dark:hidden sm:h-6 sm:w-6"

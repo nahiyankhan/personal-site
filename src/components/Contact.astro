@@ -5,28 +5,27 @@ import Section from "./Section.astro";
 ---
 
 <Section title="contact">
-	<div class="mb-12 mt-8 sm:w-1/2">
-		<p class="mb-8">Say hello. Recommend a science fiction novel. Let's jam.</p>
+	<div class="mb-8 mt-4 w-11/12 sm:mb-20 sm:mt-8 md:w-3/5 2xl:w-1/2">
+		<p class="mb-8">Recommend a science fiction novel. Go rock climbing together. Let's jam.</p>
 	</div>
-	<div class="mb-24">
-		<!-- <p class="mb-7 h-[76px] content-end font-mono text-2xl font-extrabold">Say hello at</p> -->
-		<ul class="">
-			{
-				socialLinks.map(({ friendlyName, link, name }) => (
-					<li class="mb-2 flex">
-						<a
-							class="link relative flex items-center justify-center text-textProminent underline"
-							href={link}
-							target="_blank"
-						>
-							<div class="full justify-left flex items-center">
-								<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
-							</div>
-							<p class="pl-4">{friendlyName}</p>
-						</a>
-					</li>
-				))
-			}
-		</ul>
-	</div>
+
+	<div class="mb-2 text-base font-medium sm:text-xl">Say hello at</div>
+	<ul class="mb-24">
+		{
+			socialLinks.map(({ friendlyName, link, name }) => (
+				<li class="mb-2 flex">
+					<a
+						class="link relative flex items-center justify-center text-textProminent underline"
+						href={link}
+						target="_blank"
+					>
+						<div class="full justify-left flex items-center">
+							<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
+						</div>
+						<p class="pl-4">{friendlyName}</p>
+					</a>
+				</li>
+			))
+		}
+	</ul>
 </Section>

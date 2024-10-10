@@ -4,129 +4,137 @@ import Section from "./Section.astro";
 import JHULogo from "@/assets/jhu.svg?raw";
 import MacalesterLogo from "@/assets/macalester.svg?raw";
 import Subtitle from "./Subtitle.astro";
+import SortaGood from "@/assets/sortagood.gif";
+import EasterEgg from "./EasterEgg.astro";
 ---
 
 <Section title="about">
-	<div class="mb-12 mt-2 sm:mb-24 sm:mt-12 sm:w-3/5">
+	<div class="mb-12 mt-4 w-11/12 sm:mb-24 sm:mt-8 md:w-3/5 2xl:w-1/2">
 		<p class="subtitle-large mb-6 sm:mb-12">A.K.A The 5 to 9.</p>
 
-		<p class="subtitle-large mb-2 sm:mb-4">
+		<p class="subtitle-large mb-2 inline sm:mb-4">
 			I rock climb, tinker, and read science fiction (Do you have a recommendation?). I am also
 			going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so far.
-			But you know how Jake from Adventure Time says it, sucking at something is the first step to
-			being sorta good at something.
 		</p>
 	</div>
 
 	<Subtitle title="education" />
 
-	<div class="mb-2 sm:mb-8 sm:w-1/2">
-		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
-			<Fragment set:html={JHULogo} />
-			<div class="mt-3 sm:ml-4 sm:mt-0">
-				<p class="header-standard">Masters in Computer Science</p>
-				<p class="text-sm font-normal leading-[1.6] sm:text-base">
-					Johns Hopkins University <span class="text-textSubtle"> | 2019 - 2022</span>
-				</p>
+	<div class="w-11/12 md:w-3/5 xl:w-1/2">
+		<div class="mb-2 sm:mb-8">
+			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
+				<Fragment set:html={JHULogo} />
+				<div class="mt-3 sm:ml-4 sm:mt-0">
+					<p class="header-standard">Masters in Computer Science</p>
+					<p class="text-sm font-normal leading-[1.6] sm:text-base">
+						Johns Hopkins University <span class="text-textSubtle"> | 2019 - 2022</span>
+					</p>
+				</div>
 			</div>
+
+			<p class="">Software Engineering and Enterprise Web Development.</p>
 		</div>
 
-		<p class="">Software Engineering and Enterprise Web Development.</p>
-	</div>
-
-	<div class="mb-12 pt-8 sm:mb-20 sm:w-1/2">
-		<div class="mb-2 flex flex-col sm:mb-4 sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
-			<Fragment set:html={MacalesterLogo} />
-			<div class="mt-3 sm:ml-4 sm:mt-0">
-				<p class="header-standard">Bachelor of Arts</p>
-				<p class="text-sm font-normal leading-[1.6] sm:text-base">
-					Macalester College <span class="text-textSubtle"> | 2009 - 2013</span>
-				</p>
+		<div class="mb-12 pt-8 sm:mb-20">
+			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
+				<Fragment set:html={MacalesterLogo} />
+				<div class="mt-3 sm:ml-4 sm:mt-0">
+					<p class="header-standard">Bachelor of Arts</p>
+					<p class="text-sm font-normal leading-[1.6] sm:text-base">
+						Macalester College <span class="text-textSubtle"> | 2009 - 2013</span>
+					</p>
+				</div>
 			</div>
-		</div>
 
-		<p class="">Math Major, Computer Science and Art Minors</p>
+			<p class="">Math Major, Computer Science and Art Minors</p>
+		</div>
 	</div>
 
 	<Subtitle title="mantras" />
 
-	<div class="mb-2 text-base font-medium sm:text-xl">Work</div>
+	<div class="mb-8 w-11/12 md:w-3/5 xl:w-1/2">
+		<div class="mb-2 text-base font-medium sm:text-xl">Work</div>
 
-	<ul class="mb-4 sm:mb-8 sm:w-1/2">
-		<li class="flex items-center">
-			<div class="full justify-left flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-4 w-4 sm:h-8 sm:w-8"
-					focusable="false"
-					name="mdi:circle-small"
-				/>
-			</div>
-			<p class="pl-4">Trust by default</p>
-		</li>
+		<ul class="mb-4 sm:mb-8">
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Trust by default</p>
+			</li>
 
-		<li class="flex items-center">
-			<div class="full justify-left flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-4 w-4 sm:h-8 sm:w-8"
-					focusable="false"
-					name="mdi:circle-small"
-				/>
-			</div>
-			<p class="pl-4">Work in the open</p>
-		</li>
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Work in the open</p>
+			</li>
 
-		<li class="flex items-center">
-			<div class="full justify-left flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-4 w-4 sm:h-8 sm:w-8"
-					focusable="false"
-					name="mdi:circle-small"
-				/>
-			</div>
-			<p class="pl-4">Document it all</p>
-		</li>
-	</ul>
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Document it all</p>
+			</li>
+		</ul>
 
-	<div class="mb-2 text-base font-medium sm:text-xl">Personal</div>
+		<div class="mb-2 text-base font-medium sm:text-xl">Personal</div>
 
-	<ul class="mb-8 sm:mb-16 sm:w-1/2">
-		<li class="flex items-center">
-			<div class="full justify-left flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-4 w-4 sm:h-8 sm:w-8"
-					focusable="false"
-					name="mdi:circle-small"
-				/>
-			</div>
-			<p class="pl-4">Sucking at something is the first step to being sorta good at something</p>
-		</li>
+		<ul class="mb-8 sm:mb-16">
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<div class="inline pl-4">
+					Sucking at something is the first step to being
+					<EasterEgg src={SortaGood.src} height={SortaGood.height}> sorta good</EasterEgg>
+					at something
+				</div>
+			</li>
 
-		<li class="flex items-center">
-			<div class="full justify-left flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-4 w-4 sm:h-8 sm:w-8"
-					focusable="false"
-					name="mdi:circle-small"
-				/>
-			</div>
-			<p class="pl-4">Don’t let your dreams be dreams (to justify my 3am purchases)</p>
-		</li>
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Don’t let your dreams be dreams (to justify my 3am purchases)</p>
+			</li>
 
-		<li class="flex items-center">
-			<div class="full justify-left flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-4 w-4 sm:h-8 sm:w-8"
-					focusable="false"
-					name="mdi:circle-small"
-				/>
-			</div>
-			<p class="pl-4">Today I am a [insert obsesion of the day] kinda guy</p>
-		</li>
-	</ul>
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Today I am a [insert obsesion of the day] kinda guy</p>
+			</li>
+		</ul>
+	</div>
 </Section>

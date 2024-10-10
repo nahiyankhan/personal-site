@@ -1,9 +1,5 @@
 ---
 const { title, ...rest } = Astro.props;
-import About from "@/assets/about.svg?raw";
-import Experience from "@/assets/experience.svg?raw";
-import Projects from "@/assets/projects.svg?raw";
-import Contact from "@/assets/contact.svg?raw";
 import BoxLines from "./BoxLines.astro";
 ---
 
@@ -12,27 +8,16 @@ import BoxLines from "./BoxLines.astro";
 		class="flex min-h-[50vh] flex-col border-t [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)]"
 		x-ref={title}
 	>
-		<div class="relative -mt-[1px] w-max">
+		<div class="relative w-max">
 			<BoxLines />
 			<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] opacity-0">
-				<p class="font-extrabold uppercase text-textProminent sm:text-[12rem] sm:leading-[9rem]">
+				<p
+					class="text-5xl font-extrabold uppercase leading-[2.4rem] text-textProminent sm:text-[5rem] sm:leading-[3.8rem] md:text-8xl md:leading-[4.6rem] lg:text-[8rem] lg:leading-[6rem] xl:text-[11rem] xl:leading-[8.2rem] 2xl:text-[12rem] 2xl:leading-[9rem]"
+				>
 					/{title}
 				</p>
 			</div>
 		</div>
-		<!-- <div class="relative -mt-[1px] w-[fit-content] text-textProminent [&>svg]:h-8 sm:[&>svg]:h-24">
-			<BoxLines />
-			<Fragment
-				set:html={title === "about"
-					? About
-					: title === "experiences"
-						? Experience
-						: title === "projects"
-							? Projects
-							: Contact}
-			/>
-		</div> -->
-
 		<slot />
 	</div>
 </div>
