@@ -27,7 +27,7 @@ export default {
 		plugin(({ addComponents }) => {
 			addComponents({
 				".header-standard": {
-					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-semibold tracking-tight": {},
+					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-semibold tracking-tight text-textInverse": {},
 				},
 				".subtitle-large": {
 					"@apply leading-[1.6] sm:leading-[1.75] text-textStandard tracking-wider": {},
@@ -61,6 +61,9 @@ export default {
 						"@apply md:scale-x-100 md:translate-x-0": {},
 					},
 				},
+				".nk-transition": {
+					"@apply [transition:all_.3s_cubic-bezier(0.55,0,1,0.45),color_0s_ease-in]": {},
+				},
 			});
 		}),
 	],
@@ -74,6 +77,7 @@ export default {
 				quote: "hsl(var(--theme-quote) / <alpha-value>)",
 				textColor: "hsl(var(--theme-text) / <alpha-value>)",
 
+				textInverse: "hsl(var(--text-inverse) / <alpha-value>)",
 				textProminent: "hsl(var(--text-prominent) / <alpha-value>)",
 				textStandard: "hsl(var(--text-standard) / <alpha-value>)",
 				textSubtle: "hsl(var(--text-subtle) / <alpha-value>)",
