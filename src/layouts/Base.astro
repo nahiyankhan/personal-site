@@ -28,20 +28,19 @@ const {
 		<ViewTransitions />
 	</head>
 	<body
-		class="bg-bgColor text-sm font-light transition-colors duration-300 sm:text-base sm:leading-[1.75]"
+		class="bg-bgColor text-sm font-light [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:text-base sm:leading-[1.75]"
 	>
 		<ThemeProvider />
 		<SkipLink />
 		<Header />
-		<Lines />
 		<main
 			x-data
 			id="main"
-			class="min-h-screen w-full pt-12 tracking-wider duration-500 ease-[cubic-bezier(0.55,0,1,0.45)] sm:pt-24"
+			class="min-h-screen w-full pt-12 tracking-wider [transition:all_.3s_cubic-bezier(0.55,0,1,0.45)] sm:pt-24"
 			:style="$store.settings.open && { transform: `translateX(-320px)` }"
 		>
 			<div
-				class="container mx-auto flex flex-col transition-all duration-500 ease-in"
+				class="container mx-auto flex flex-col"
 				x-ref="container"
 				x-init="$store.container.width = $refs.container.getBoundingClientRect().width"
 				x-resize="$store.container.width = $width"

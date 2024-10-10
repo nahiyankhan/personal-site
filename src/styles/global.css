@@ -27,7 +27,9 @@
 		--text-standard: var(--slate-50);
 		--text-subtle: var(--slate-30);
 
-		--border-divider: var(--slate-10)
+		--border-divider: var(--slate-10);
+
+		--redact-bg: 0deg 0% 98%;
 	}
 
 	:root[data-theme="dark"] {
@@ -43,7 +45,9 @@
 		--text-standard: var(--slate-10);
 		--text-subtle: var(--slate-20);
 
-		--border-divider: var(--slate-40)
+		--border-divider: var(--slate-40);
+
+		--redact-bg: 0deg 0% 98%;
 	}
 
 	* {
