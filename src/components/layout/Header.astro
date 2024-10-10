@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
+import BoxLines from "../BoxLines.astro";
 ---
 
 <header
@@ -23,10 +24,11 @@ import NahiyanKhan from "@/assets/nahiyankhan.svg?raw";
 			x-cloak
 		>
 			<div
-				class="text-textProminent [&>svg]:h-5 sm:[&>svg]:h-6"
+				class="relative text-textProminent [&>svg]:h-5 sm:[&>svg]:h-6"
 				x-ref="headerNK"
 				x-resize="headerNKHeight = $height"
 			>
+				<BoxLines small />
 				<Fragment set:html={NahiyanKhan} />
 			</div>
 		</div>
