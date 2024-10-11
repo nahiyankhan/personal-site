@@ -20,7 +20,6 @@ const { src, height } = Astro.props;
 		x-transition:leave-start="opacity-100"
 		x-transition:leave-end="opacity-0"
 	>
-		<BoxLines />
 	</div>
 	<div
 		class="absolute right-0 z-20 w-80 translate-x-[100%] translate-y-1"
@@ -33,6 +32,6 @@ const { src, height } = Astro.props;
 		x-transition:leave-end="opacity-0"
 	>
 		<BoxLines />
-		<img src={src} class="" height={height} alt="" />
+		<img src={src} class="pr-[1px]" height={height} alt="" />
 	</div>
 </div>

@@ -44,9 +44,9 @@ export default {
 					},
 				},
 				".link": {
-					"@apply redact": {},
+					"@apply redact bg-bgColor": {},
 					"&::after": {
-						"@apply duration-300 w-[calc(100%+8px)] h-[calc(100%+8px)] top-[-4px] scale-x-0": {},
+						"@apply duration-300 w-full h-full top-0 scale-x-0": {},
 					},
 					"&:hover::after": {
 						"@apply md:scale-x-100": {},

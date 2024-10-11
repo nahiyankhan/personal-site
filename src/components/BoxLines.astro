@@ -31,7 +31,7 @@ const { small, ...rest } = Astro.props;
     </div>
   ) : (
     <div
-      class="absolute right-[-1px] top-0 h-0 w-[1px] z-[-1] bg-divider transition-all duration-1000"
+      class="absolute right-0 top-0 h-0 w-[1px] z-[-1] bg-divider transition-all duration-1000"
       :style="inview && { height: `calc(100% + (64px/${ratio}))`, transform: `translateY(calc(-32px/${ratio}))` }"
     >
     </div>

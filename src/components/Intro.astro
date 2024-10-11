@@ -12,7 +12,7 @@ import EasterEgg from "./EasterEgg.astro";
 	<div class="flex min-h-[50vh] flex-col">
 		<div class="mb-14 w-full sm:mb-40">
 			<div
-				class="[&_svg]:nk-transition relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-8 [&_svg]:h-full [&_svg]:w-screen sm:[&_svg]:max-w-screen-sm md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl"
+				class="[&_svg]:nk-transition relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-8 [&_svg]:ml-[-1px] [&_svg]:h-full [&_svg]:w-screen sm:[&_svg]:max-w-screen-sm md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl"
 				x-ref="introNK"
 				x-init="$store.header.introNKHeight = $refs.introNK.getBoundingClientRect().height"
 				x-resize="$store.header.introNKHeight = $height"
