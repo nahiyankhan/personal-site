@@ -27,7 +27,7 @@ import BoxLines from "./BoxLines.astro";
 					<BoxLines />
 					<div
 						class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0"
-						:style="{ transform: `translateX(${scrollPos}px)` }"
+						:style="{ transform: `translateX(${scrollPos*2}px)` }"
 					>
 						<Fragment set:html={Khan} />
 					</div>
