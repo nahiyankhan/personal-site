@@ -7,15 +7,14 @@ import BoxLines from "../BoxLines.astro";
 ---
 
 <header
-	class="nk-transition fixed z-10 h-12 w-full border-y bg-bgColor sm:h-24 [&::after]:absolute [&::after]:bottom-[-1px] [&::after]:left-[100%] [&::after]:h-[1px] [&::after]:w-full [&::after]:bg-divider [&::after]:content-['']"
+	class="nk-transition fixed z-10 h-12 w-full origin-top-left border-y bg-bgColor sm:h-24"
 	x-ref="header"
 	x-data="{ endScroll: false, headerHeight: $refs.header.getBoundingClientRect().height, headerNKHeight: $refs.headerNK.getBoundingClientRect().height, scroll: this.headerHeight }"
 	x-init="$store.header.headerHeight = $refs.header.getBoundingClientRect().height"
 	x-resize="headerHeight = $height, $store.header.headerHeight = $refs.header.getBoundingClientRect().height"
 	@scroll.window="scroll = headerHeight - (window.scrollY*headerNKHeight/$store.header.introNKHeight); endScroll = scroll < 0"
-	:style="{ transform: $store.settings.open ? `translateX(-320px)` : `translateX(0px)` }"
+	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
-	<!-- $store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` } -->
 	<div
 		class="nk-transition container mx-auto flex h-full flex-row justify-between overflow-hidden border-x"
 	>

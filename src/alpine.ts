@@ -61,6 +61,7 @@ export default (Alpine: Alpine) => {
 
   Alpine.store('settings', {
     open: false,
+    scale: 1,
 
     toggle() {
       this.open = !this.open
