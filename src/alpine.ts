@@ -53,12 +53,6 @@ export default (Alpine: Alpine) => {
     },
   } as ThemeStore);
 
-  Alpine.store('header', {
-    headerHeight: 0,
-    headerNKHeight: 0,
-    introNKHeight: 0,
-  })
-
   Alpine.store('settings', {
     open: false,
     scale: 1,

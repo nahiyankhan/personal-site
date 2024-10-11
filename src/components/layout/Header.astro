@@ -1,6 +1,5 @@
 ---
 import { Icon } from "astro-icon/components";
-import NahiyanKhan from "@/assets/nahiyankhan_chonk.svg?raw";
 import Nahiyan from "@/assets/nahiyan.svg?raw";
 import Khan from "@/assets/khan.svg?raw";
 import BoxLines from "../BoxLines.astro";
@@ -8,40 +7,30 @@ import BoxLines from "../BoxLines.astro";
 
 <header
 	class="nk-transition fixed z-10 h-12 w-full origin-top-left border-y bg-bgColor sm:h-24"
-	x-ref="header"
-	x-data="{ endScroll: false, headerHeight: $refs.header.getBoundingClientRect().height, headerNKHeight: $refs.headerNK.getBoundingClientRect().height, scroll: this.headerHeight }"
-	x-init="$store.header.headerHeight = $refs.header.getBoundingClientRect().height"
-	x-resize="headerHeight = $height, $store.header.headerHeight = $refs.header.getBoundingClientRect().height"
-	@scroll.window="scroll = headerHeight - (window.scrollY*headerNKHeight/$store.header.introNKHeight); endScroll = scroll < 0"
 	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
 	<div
 		class="nk-transition container mx-auto flex h-full flex-row justify-between overflow-hidden border-x"
 	>
-		<div
-			class="flex h-full"
-			:class="{ 'translate-y-[100%]': !endScroll, 'translate-y-0': endScroll }"
-			:style="!endScroll && { transform: `translateY(${scroll}px)` }"
-			x-cloak
-		>
+		<div class="flex h-full animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
 			<div
-				class="relative flex flex-col justify-between text-textProminent sm:justify-start [&_svg]:h-5 sm:[&_svg]:h-6"
-				x-ref="headerNK"
-				x-resize="headerNKHeight = $height"
+				class="relative flex flex-col justify-between overflow-hidden text-textProminent sm:justify-start [&_svg]:h-5 sm:[&_svg]:h-6"
 			>
 				<div class="relative w-max sm:mb-1">
-					<BoxLines small />
+					<!-- <BoxLines small /> -->
 					<Fragment set:html={Nahiyan} />
 				</div>
 				<div class="relative mb-[-1px] w-max sm:mb-0">
-					<BoxLines small />
+					<!-- <BoxLines small /> -->
 					<Fragment set:html={Khan} />
 				</div>
 			</div>
 		</div>
-		<div x-cloak>
+		<div>
 			<!-- <ThemeToggle /> -->
-			<div class="w-5 justify-center sm:w-7 md:flex">
+			<div
+				class="w-5 animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] justify-center opacity-0 sm:w-7 md:flex"
+			>
 				<button
 					class="relative h-5 w-5 text-textProminent sm:h-7 sm:w-7"
 					type="button"
