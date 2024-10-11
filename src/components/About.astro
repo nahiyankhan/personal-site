@@ -6,16 +6,50 @@ import MacalesterLogo from "@/assets/macalester.svg?raw";
 import Subtitle from "./Subtitle.astro";
 import SortaGood from "@/assets/sortagood.gif";
 import EasterEgg from "./EasterEgg.astro";
+import ThisIsFine from "@/assets/thisisfine.gif";
+import BoxLines from "./BoxLines.astro";
+import AboutSneak from "@/assets/about.gif";
+
+const today = new Date().getTime();
+const sashaDOB = new Date("2024-08-05").getTime();
+const weeksSince = Math.floor((today - sashaDOB) / (1000 * 60 * 60 * 24 * 7));
 ---
 
 <Section title="about">
-	<div class="mb-12 mt-4 w-11/12 sm:mb-24 sm:mt-8 md:w-3/5 2xl:w-1/2">
-		<p class="subtitle-large mb-6 sm:mb-12">A.K.A The 5 to 9.</p>
+	<div class="mb-12 mt-6 w-11/12 sm:mb-24 sm:mt-12 md:w-3/5 2xl:w-1/2">
+		<div class="subtitle-large mb-6 inline-block sm:mb-8">
+			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary.
+			<EasterEgg src={ThisIsFine.src} height={ThisIsFine.height}>Existential crisis</EasterEgg>
+			is real. But 9 to 5, I lead and build design infrastructures and tooling.
+		</div>
 
-		<p class="subtitle-large mb-2 inline sm:mb-4">
-			I rock climb, tinker, and read science fiction (Do you have a recommendation?). I am also
-			going down an espresso rabbit hole and am attempting latte art. Result: Sucking at it so far.
+		<p class="subtitle-large mb-2 sm:mb-4">
+			And 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, and read science
+			fiction. Or rather, I did until my newborn came along {weeksSince} weeks ago.
 		</p>
+
+		<div class="relative mb-8 mt-10 sm:mb-16">
+			<BoxLines />
+			<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
+				<img src={AboutSneak.src} class="" height={AboutSneak.height} alt="" />
+			</div>
+		</div>
+
+		<a
+			class="link relative flex w-fit items-center text-textProminent underline"
+			href="/nahiyankhan_resume.pdf"
+			target="_blank"
+		>
+			<div class="full justify-left inline-flex items-center">
+				<Icon
+					aria-hidden="true"
+					class="h-8 w-8"
+					focusable="false"
+					name="mdi:file-document-outline"
+				/>
+			</div>
+			<p class="pl-4">Resume</p>
+		</a>
 	</div>
 
 	<Subtitle title="education" />
@@ -50,9 +84,82 @@ import EasterEgg from "./EasterEgg.astro";
 		</div>
 	</div>
 
-	<Subtitle title="mantras" />
+	<Subtitle title="specialty" />
 
-	<div class="mb-8 w-11/12 md:w-3/5 xl:w-1/2">
+	<div class="mb-8 w-11/12 sm:mb-24 md:w-3/5 xl:w-1/2">
+		<ul class="mb-4 sm:mb-8">
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Holistic (design + eng) design system strategy</p>
+			</li>
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Setting up design infrastructures</p>
+			</li>
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Leading cross-domain initiatives</p>
+			</li>
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Fostering cross-discipline relationships</p>
+			</li>
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Mentoring designers and engineers</p>
+			</li>
+			<li class="flex items-center">
+				<div class="full justify-left flex items-center">
+					<Icon
+						aria-hidden="true"
+						class="h-4 w-4 sm:h-8 sm:w-8"
+						focusable="false"
+						name="mdi:circle-small"
+					/>
+				</div>
+				<p class="pl-4">Prototyping</p>
+			</li>
+		</ul>
+	</div>
+
+	<Subtitle title="mantra" />
+
+	<div class="mb-20 w-11/12 sm:mb-40 md:w-3/5 xl:w-1/2">
 		<div class="mb-2 text-base font-medium sm:text-xl">Work</div>
 
 		<ul class="mb-4 sm:mb-8">
@@ -65,37 +172,13 @@ import EasterEgg from "./EasterEgg.astro";
 						name="mdi:circle-small"
 					/>
 				</div>
-				<p class="pl-4">Trust by default</p>
-			</li>
-
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">Work in the open</p>
-			</li>
-
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">Document it all</p>
+				<p class="pl-4">Trust by default. Work in the open. Document it all.</p>
 			</li>
 		</ul>
 
 		<div class="mb-2 text-base font-medium sm:text-xl">Personal</div>
 
-		<ul class="mb-8 sm:mb-40">
+		<ul>
 			<li class="flex items-center">
 				<div class="full justify-left flex items-center">
 					<Icon
@@ -110,30 +193,6 @@ import EasterEgg from "./EasterEgg.astro";
 					<EasterEgg src={SortaGood.src} height={SortaGood.height}> sorta good</EasterEgg>
 					at something
 				</div>
-			</li>
-
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">Don’t let your dreams be dreams (to justify my 3am purchases)</p>
-			</li>
-
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">Today I am a [insert obsesion of the day] kinda guy</p>
 			</li>
 		</ul>
 	</div>

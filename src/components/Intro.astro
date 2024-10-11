@@ -10,13 +10,19 @@ import EasterEgg from "./EasterEgg.astro";
 
 <div x-data class="nk-transition border-x">
 	<div class="flex min-h-[50vh] flex-col">
-		<div class="w-full">
+		<div class="mb-14 w-full sm:mb-40">
 			<div
-				class="[&_svg]:nk-transition relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-4 [&_svg]:h-14 sm:[&_svg]:h-[5.5rem] md:[&_svg]:h-[6.5rem] lg:[&_svg]:h-36 xl:[&_svg]:h-[11.5rem] 2xl:[&_svg]:h-56"
+				class="[&_svg]:nk-transition relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-8 [&_svg]:h-full [&_svg]:w-screen sm:[&_svg]:max-w-screen-sm md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl"
 				x-ref="introNK"
 				x-init="$store.header.introNKHeight = $refs.introNK.getBoundingClientRect().height"
 				x-resize="$store.header.introNKHeight = $height"
 			>
+				<!-- <div
+				class="[&_svg]:nk-transition relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-8 [&_svg]:h-14 sm:[&_svg]:h-[5.5rem] md:[&_svg]:h-[6.5rem] lg:[&_svg]:h-36 xl:[&_svg]:h-[11.5rem] 2xl:[&_svg]:h-56"
+				x-ref="introNK"
+				x-init="$store.header.introNKHeight = $refs.introNK.getBoundingClientRect().height"
+				x-resize="$store.header.introNKHeight = $height"
+			> -->
 				<!-- <Fragment set:html={NahiyanKhan} /> -->
 				<div class="relative mb-2 sm:mb-4 sm:mr-4">
 					<BoxLines />
@@ -31,42 +37,11 @@ import EasterEgg from "./EasterEgg.astro";
 					</div>
 				</div>
 			</div>
-		</div>
-		<p class="subtitle-large">(na-he-yahn) or khan 🖖🏽</p>
-
-		<div class="mb-14 w-11/12 sm:mb-40 lg:w-3/5 xl:w-1/2">
-			<div class="relative mb-8 mt-10 sm:mb-16">
-				<BoxLines />
-				<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
-					<img src={AboutSneak.src} class="" height={AboutSneak.height} alt="" />
-				</div>
-			</div>
-
-			<div class="subtitle-large inline">
-				Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary.
-				<EasterEgg src={ThisIsFine.src} height={ThisIsFine.height}>Existential crisis</EasterEgg>
-				is real.
-			</div>
-
-			<p class="subtitle-large my-4 sm:my-6">
-				But 9 to 5, I lead and build design infrastructures and tooling.
-			</p>
-
-			<a
-				class="link relative flex w-fit items-center text-textProminent underline"
-				href="/nahiyankhan_resume.pdf"
-				target="_blank"
+			<p
+				class="subtitle-large animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0"
 			>
-				<div class="full justify-left inline-flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-8 w-8"
-						focusable="false"
-						name="mdi:file-document-outline"
-					/>
-				</div>
-				<p class="pl-4">Resume</p>
-			</a>
+				(na-he-yahn) or khan 🖖🏽
+			</p>
 		</div>
 	</div>
 </div>
