@@ -8,7 +8,7 @@
 		--slate-10: 233deg 100% 96%;
 		--slate-20: 233deg 28% 81%;
 		--slate-30: 233deg 22% 41%;
-		--slate-40: 231deg 26% 28%;
+		--slate-40: 233deg 22% 20%;
 		--slate-50: 233deg 29% 14%;
 		--slate-60: 233deg 14% 11%;
 	}
@@ -24,8 +24,8 @@
 		--theme-quote: 351deg 66% 48%;
 		
 		--text-inverse: black;
-		--text-prominent: var(--slate-60);
-		--text-standard: var(--slate-50);
+		--text-prominent: var(--slate-40);
+		--text-standard: var(--slate-40);
 		--text-subtle: var(--slate-30);
 
 		--border-divider: var(--slate-20);

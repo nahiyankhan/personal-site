@@ -1,6 +1,12 @@
 ---
 const { title, ...rest } = Astro.props;
 import BoxLines from "./BoxLines.astro";
+import Education from "@/assets/education.svg?raw";
+import Specialty from "@/assets/specialty.svg?raw";
+import Mantra from "@/assets/mantra.svg?raw";
+import Current from "@/assets/current.svg?raw";
+import Past from "@/assets/past.svg?raw";
+import Community from "@/assets/community.svg?raw";
 ---
 
 <div class="nk-transition border-t" {...rest}>
@@ -9,11 +15,23 @@ import BoxLines from "./BoxLines.astro";
 	>
 		<BoxLines />
 		<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] opacity-0">
-			<p
-				class="text-3xl font-extrabold uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl xl:leading-[3.4rem] 2xl:text-8xl 2xl:leading-[4.6rem]"
+			<div
+				class="relative w-[fit-content] animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] text-textProminent opacity-0 [&>svg]:h-6 sm:[&>svg]:h-8 md:[&>svg]:h-10 lg:[&>svg]:h-12 xl:[&>svg]:h-16 2xl:[&>svg]:h-20"
 			>
-				/{title}
-			</p>
+				<Fragment
+					set:html={title === "education"
+						? Education
+						: title === "specialty"
+							? Specialty
+							: title === "mantra"
+								? Mantra
+								: title === "current"
+									? Current
+									: title === "past"
+										? Past
+										: Community}
+				/>
+			</div>
 		</div>
 	</div>
 </div>
