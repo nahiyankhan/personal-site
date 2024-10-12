@@ -5,20 +5,23 @@ import BoxLines from "./BoxLines.astro";
 ---
 
 <div
-	x-data="{ scrollPos: window.pageYOffset }"
-	@scroll.window="scrollPos = window.pageYOffset"
+	x-data="{ scrollPos: window.pageYOffset, fillOpacity: 1, titleHeight: $refs.nahiyan.getBoundingClientRect().height*3/4 }"
+	x-init="titleHeight = $refs.nahiyan.getBoundingClientRect().height*3/4"
+	@resize.window="titleHeight = $refs.nahiyan.getBoundingClientRect().height*3/4"
+	@scroll.window="scrollPos = window.pageYOffset, fillOpacity = 1 - (scrollPos / titleHeight) >= 0 ? 1 - (scrollPos / titleHeight) : 0"
 	class="nk-transition overflow-hidden border-x"
 >
 	<div class="flex min-h-[50vh] flex-col">
 		<div class="mb-14 w-full sm:mb-40">
 			<div
-				class="[&_svg]:nk-transition relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-8 [&_svg]:ml-[-1px] [&_svg]:h-full [&_svg]:w-screen sm:[&_svg]:max-w-screen-sm md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl"
+				class="[&_svg]:nk-transition relative mb-2 flex w-[fit-content] flex-wrap border-divider text-textProminent sm:mb-8 [&_svg]:ml-[-1px] [&_svg]:h-full [&_svg]:w-screen [&_svg]:stroke-[0.5px] sm:[&_svg]:max-w-screen-sm sm:[&_svg]:stroke-[hsl(var(--border-divider))] md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl"
 			>
 				<div class="relative mb-2 sm:mb-4 sm:mr-4">
 					<BoxLines />
 					<div
 						class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0"
-						:style="{ transform: `translateX(-${scrollPos}px)` }"
+						:style="{ transform: `translateX(-${scrollPos}px)`, color: `hsl(var(--text-prominent) / ${fillOpacity})`, stroke: `hsl(var(--border-divider) / 1-${fillOpacity})` }"
+						x-ref="nahiyan"
 					>
 						<Fragment set:html={Nahiyan} />
 					</div>
@@ -27,7 +30,7 @@ import BoxLines from "./BoxLines.astro";
 					<BoxLines />
 					<div
 						class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0"
-						:style="{ transform: `translateX(${scrollPos*2}px)` }"
+						:style="{ transform: `translateX(${scrollPos*2}px)`, color: `hsl(var(--text-prominent) / ${fillOpacity})`, stroke: `hsl(var(--border-divider) / 1-${fillOpacity})` }"
 					>
 						<Fragment set:html={Khan} />
 					</div>
