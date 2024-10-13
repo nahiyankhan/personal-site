@@ -52,6 +52,11 @@ export default {
 						"@apply md:scale-x-100": {},
 					},
 				},
+				".link-parent": {
+					"&:hover p.link::after": {
+						"@apply md:scale-x-100": {},
+					},
+				},
 				"button:not(.disabled)": {
 					"@apply redact": {},
 					"&::after": {
