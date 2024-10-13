@@ -93,6 +93,25 @@ export default {
 						opacity: "1",
 					},
 				},
+				dashForward: {
+					"0%": {
+						strokeDashoffset: "1000",
+						color: "transparent",
+						opacity: "1",
+					},
+					"50%": {
+						strokeDashoffset: "0",
+						color: "transparent"
+					},
+					"80%": {
+						strokeDashoffset: "0",
+						color: "transparent"
+					},
+					"100%": {
+						strokeDashoffset: "0",
+						color: "hsl(var(--text-prominent) / 1)"
+					},
+				}
 			},
 			fontFamily: {
 				// Add any custom fonts here
