@@ -15,7 +15,7 @@ import Contact from "@/assets/contact.svg?raw";
 	@scroll.window=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
 	x-init=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
 >
-	<div class="nk-transition flex min-h-[50vh] flex-col border-t" x-ref={title}>
+	<div class="nk-transition flex min-h-[50vh] flex-col" x-ref={title}>
 		<div class="relative w-max">
 			<BoxLines />
 			<div

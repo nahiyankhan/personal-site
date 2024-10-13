@@ -101,20 +101,44 @@ export default {
 				dashForward: {
 					"0%": {
 						strokeDashoffset: "1000",
+						stroke: "hsl(var(--border-divider) / 1)",
 						color: "transparent",
 						opacity: "1",
 					},
 					"50%": {
 						strokeDashoffset: "0",
+						stroke: "hsl(var(--border-divider) / 1)",
 						color: "transparent"
 					},
 					"80%": {
 						strokeDashoffset: "0",
+						stroke: "hsl(var(--border-divider) / 1)",
 						color: "transparent"
 					},
 					"100%": {
 						strokeDashoffset: "0",
+						stroke: "transparent",
 						color: "hsl(var(--text-prominent) / 1)"
+					},
+				},
+				flicker: {
+					"0%": {
+						color: "hsl(var(--text-prominent) / 1)",
+						stroke: "transparent",
+						strokeDashoffset: "0",
+					},
+					"100%": {
+						color: "hsl(var(--text-prominent) / 0)",
+						stroke: "hsl(var(--border-divider) / 1)",
+						strokeDashoffset: "0",
+					}
+				},
+				borderForward: {
+					"0%": {
+						width: "0px",
+					},
+					"100%": {
+						width: "100%",
 					},
 				}
 			},
