@@ -10,7 +10,7 @@ const { small, ...rest } = Astro.props;
 	@scroll.window=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
 	x-init=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 3/4), ratio = window.innerWidth < 1024 ? 2 : 1`
   @resize.window=`ratio = window.innerWidth < 1024 ? 2 : 1`
-	class="absolute h-full w-full [&_div]:bg-divider"
+	class="absolute h-full w-full [&_div]:bg-divider z-10"
 	{...rest}
 >
   {small ? (
@@ -41,7 +41,7 @@ const { small, ...rest } = Astro.props;
     >
     </div>
     <div
-      class="absolute bottom-[-1px] left-0 h-[1px] w-0 bg-divider transition-all duration-1000"
+      class="absolute bottom-0 left-0 h-[1px] w-0 bg-divider transition-all duration-1000"
       :style="inview && { width: `calc(100% + (32px/${ratio}))` }"
     >
     </div>

@@ -1,19 +1,42 @@
 ---
 const { title, ...rest } = Astro.props;
 import BoxLines from "./BoxLines.astro";
+import Education from "@/assets/education.svg?raw";
+import Specialty from "@/assets/specialty.svg?raw";
+import Mantra from "@/assets/mantra.svg?raw";
+import Current from "@/assets/current.svg?raw";
+import Past from "@/assets/past.svg?raw";
+import Community from "@/assets/community.svg?raw";
 ---
 
-<div class="nk-transition border-t" {...rest}>
-	<div
-		class="relative mb-12 inline-flex w-[fit-content] text-textProminent sm:mb-20 [&>svg]:h-5 sm:[&>svg]:h-12"
-	>
+<div
+	x-data="{ inview: false }"
+	x-ref="subtitle"
+	class="nk-transition border-t"
+	{...rest}
+	@scroll.window=`inview = $refs.subtitle.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
+	x-init=`inview = $refs.subtitle.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
+>
+	<div class="relative mb-12 inline-flex w-[fit-content] sm:mb-20 [&>svg]:h-5 sm:[&>svg]:h-12">
 		<BoxLines />
-		<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] opacity-0">
-			<p
-				class="text-3xl font-extrabold uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl xl:leading-[3.4rem] 2xl:text-8xl 2xl:leading-[4.6rem]"
-			>
-				/{title}
-			</p>
+		<div
+			class="nk-transition relative w-[fit-content] text-textProminent opacity-0 [&>svg]:h-6 sm:[&>svg]:h-8 md:[&>svg]:h-10 lg:[&>svg]:h-12 xl:[&>svg]:h-16 2xl:[&>svg]:h-20 [&_svg]:stroke-[hsl(var(--border-divider))] [&_svg]:stroke-[1px] [&_svg_path]:[stroke-dasharray:1000] [&_svg_path]:[stroke-dashoffset:1000]"
+			:class="inview && '[&_svg_path]:animate-[dashForward_1s_cubic-bezier(0.55,0,1,0.45)_forwards]'"
+			:style="inview && { opacity: 1 }"
+		>
+			<Fragment
+				set:html={title === "education"
+					? Education
+					: title === "specialty"
+						? Specialty
+						: title === "mantra"
+							? Mantra
+							: title === "current"
+								? Current
+								: title === "past"
+									? Past
+									: Community}
+			/>
 		</div>
 	</div>
 </div>

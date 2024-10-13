@@ -4,33 +4,19 @@ import Khan from "@/assets/khan.svg?raw";
 import BoxLines from "./BoxLines.astro";
 ---
 
-<div
-	x-data="{ scrollPos: window.pageYOffset }"
-	@scroll.window="scrollPos = window.pageYOffset"
-	class="nk-transition overflow-hidden border-x"
->
+<div class="nk-transition border-x">
 	<div class="flex min-h-[50vh] flex-col">
 		<div class="mb-14 w-full sm:mb-40">
 			<div
-				class="[&_svg]:nk-transition relative -mt-[1px] mb-2 flex w-[fit-content] flex-wrap text-textProminent sm:mb-8 [&_svg]:ml-[-1px] [&_svg]:h-full [&_svg]:w-screen sm:[&_svg]:max-w-screen-sm md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl"
+				class="relative mb-2 flex flex-wrap border-divider [&_svg]:nk-transition sm:mb-8 [&_svg]:ml-[-1px] [&_svg]:h-full [&_svg]:w-screen [&_svg]:stroke-[hsl(var(--border-divider))] [&_svg]:stroke-[0.5px] sm:[&_svg]:max-w-screen-sm md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl [&_svg_path]:animate-[dashForward_1.5s_cubic-bezier(0.55,0,1,0.45)_forwards] [&_svg_path]:[stroke-dasharray:1000] [&_svg_path]:[stroke-dashoffset:1000]"
 			>
-				<div class="relative mb-2 sm:mb-4 sm:mr-4">
+				<div class="relative mb-2 sm:mb-4">
 					<BoxLines />
-					<div
-						class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0"
-						:style="{ transform: `translateX(-${scrollPos}px)` }"
-					>
-						<Fragment set:html={Nahiyan} />
-					</div>
+					<Fragment set:html={Nahiyan} />
 				</div>
 				<div class="relative">
 					<BoxLines />
-					<div
-						class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0"
-						:style="{ transform: `translateX(${scrollPos}px)` }"
-					>
-						<Fragment set:html={Khan} />
-					</div>
+					<Fragment set:html={Khan} />
 				</div>
 			</div>
 			<p
@@ -41,14 +27,3 @@ import BoxLines from "./BoxLines.astro";
 		</div>
 	</div>
 </div>
-
-<style>
-	@keyframes border-in {
-		0% {
-			border-color: transparent;
-		}
-		100% {
-			border-color: hsl(var(--border-divider));
-		}
-	}
-</style>

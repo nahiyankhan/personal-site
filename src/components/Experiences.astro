@@ -12,7 +12,7 @@ import Subtitle from "./Subtitle.astro";
 import BoxLines from "./BoxLines.astro";
 ---
 
-<Section title="experiences">
+<Section title="experience">
 	<div class="mb-4 mt-4 sm:mt-8 md:w-4/5 lg:w-3/5">
 		<p class="leading-[1.6] sm:leading-[1.75]">A.K.A The things I am more than sorta good at.</p>
 	</div>
@@ -21,9 +21,9 @@ import BoxLines from "./BoxLines.astro";
 		<div class="relative mb-8 mt-10 sm:mb-16">
 			<BoxLines />
 			<div
-				class="opacity-0"
-				:class="{ 'animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards]': inview }"
-				x-intersect.full="inview = true"
+				x-data
+				:class="{ 'animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.5s_forwards]': inview }"
+				x-intersect.half="inview = true"
 			>
 				<img src={ExperienceSneak.src} class="pr-[1px]" height={ExperienceSneak.height} alt="" />
 			</div>
