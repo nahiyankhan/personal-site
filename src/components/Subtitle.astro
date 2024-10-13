@@ -12,7 +12,7 @@ import Community from "@/assets/community.svg?raw";
 <div
 	x-data="{ inview: false }"
 	x-ref="subtitle"
-	class="nk-transition border-t"
+	class="nk-transition"
 	{...rest}
 	@scroll.window=`inview = $refs.subtitle.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
 	x-init=`inview = $refs.subtitle.getBoundingClientRect().top <= (window.innerHeight * 3/4)`

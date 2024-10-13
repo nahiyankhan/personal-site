@@ -33,11 +33,11 @@ const {
 		<main
 			x-data
 			id="main"
-			class="nk-transition min-h-screen w-full origin-left px-2 tracking-wider sm:pt-24"
+			class="nk-transition min-h-screen w-full origin-left px-2 pt-12 tracking-wider sm:pt-24"
 			:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 		>
 			<div
-				class="nk-transition container mx-auto flex flex-col"
+				class="container nk-transition mx-auto mb-12 flex flex-col border-b sm:mb-24"
 				x-ref="container"
 				x-init="$store.container.width = $refs.container.getBoundingClientRect().width"
 				x-resize="$store.container.width = $width"
