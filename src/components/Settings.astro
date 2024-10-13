@@ -19,10 +19,10 @@ import ThemeToggle from "./ThemeToggle.astro";
 	:class="{ 'translate-x-0': $store.settings.open, 'translate-x-[100%]': !$store.settings.open }"
 >
 	<div class="flex h-full flex-col">
-		<div class="[&::after]:bg-bgDivider relative flex h-12 justify-between border-b sm:h-24">
-			<h3 class="text-textProminent sm:text-xl">Settings</h3>
+		<div class="[&::after]:bg-bgDivider relative flex h-6 justify-between border-b sm:h-8">
+			<h3 class="text-textProminent">Settings</h3>
 			<button
-				class="relative h-5 text-textProminent sm:h-7 sm:w-7"
+				class="relative flex h-5 items-center justify-center text-textProminent sm:h-8 sm:w-8"
 				type="button"
 				@click="$store.settings.toggle()"
 			>
@@ -36,7 +36,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 			</div>
 			<div class="flex items-center justify-between pb-2">
 				<button
-					class="disabled relative flex h-5 w-full justify-between text-textProminent line-through sm:h-7 sm:w-full"
+					class="disabled relative flex h-5 w-full items-center justify-between text-textProminent line-through sm:h-7 sm:w-full"
 					type="button"
 					@click=""
 					disabled
@@ -44,7 +44,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 					<p class="text-textProminent">Party Mode (Coming soon)</p>
 					<Icon
 						aria-hidden="true"
-						class="h-5 w-5 sm:h-7 sm:w-7"
+						class="mr-1 h-5 w-5 sm:h-7 sm:w-7"
 						focusable="false"
 						name="mdi:party-popper"
 					/>
