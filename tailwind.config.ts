@@ -121,6 +121,22 @@ export default {
 						color: "hsl(var(--text-prominent) / 1)"
 					},
 				},
+				dashBackward: {
+					"0%": {
+						strokeDashoffset: "0",
+						stroke: "transparent",
+						color: "hsl(var(--text-prominent) / 1)"
+					},
+					"20%": {
+						stroke: "hsl(var(--border-divider) / 1)",
+						color: "transparent"
+					},
+					"100%": {
+						strokeDashoffset: "1000",
+						stroke: "hsl(var(--border-divider) / 1)",
+						color: "transparent",
+					},
+				},
 				flicker: {
 					"0%": {
 						color: "hsl(var(--text-prominent) / 1)",
