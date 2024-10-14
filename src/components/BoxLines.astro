@@ -7,8 +7,8 @@ const { small, ...rest } = Astro.props;
 <div
 	x-data="{ inview: false, ratio: 1 }"
 	x-ref={boxLineRef}
-	@scroll.window=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 3/4)`
-	x-init=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 3/4), ratio = window.innerWidth < 1024 ? 2 : 1`
+	@scroll.window=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 4/5) && $refs.${boxLineRef}.getBoundingClientRect().top >= 100`
+	x-init=`inview = $refs.${boxLineRef}.getBoundingClientRect().top <= (window.innerHeight * 4/5) && $refs.${boxLineRef}.getBoundingClientRect().top >= 100, ratio = window.innerWidth < 1024 ? 2 : 1`
   @resize.window=`ratio = window.innerWidth < 1024 ? 2 : 1`
 	class="absolute h-full w-full [&_div]:bg-divider z-10"
 	{...rest}
