@@ -12,8 +12,8 @@ import Contact from "@/assets/contact.svg?raw";
 	x-ref="sectionTitle"
 	class="nk-transition border-x"
 	{...rest}
-	@scroll.window=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 4/5) && $refs.sectionTitle.getBoundingClientRect().top >= 100, inscrollup = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 4/5)`
-	x-init=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 3/4), inscrollup = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 4/5)`
+	@scroll.window=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/10) && $refs.sectionTitle.getBoundingClientRect().top >= 100, inscrollup = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/5)`
+	x-init=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/10), inscrollup = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/5)`
 >
 	<div class="nk-transition flex min-h-[50vh] flex-col" x-ref={title}>
 		<div class="relative w-max">
