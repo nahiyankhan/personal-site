@@ -40,7 +40,7 @@ export default {
 				},
 				".redact": {
 					"&::after": {
-						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+8px)] bg-[hsl(var(--redact-bg))] h-[calc(100%+16px)] top-[-8px] mix-blend-exclusion origin-left scale-x-100 duration-500 bg-[repeating-linear-gradient(transparent,_transparent_3px,_#0000002b_4px)]": {},
+						"@apply content-[''] absolute pointer-events-none left-0 w-[calc(100%+8px)] bg-[hsl(var(--redact-bg))] nk-transition h-[calc(100%+16px)] top-[-8px] mix-blend-exclusion origin-left scale-x-100 duration-500 bg-[repeating-linear-gradient(transparent,_transparent_3px,_#0000002b_4px)]": {},
 					},
 				},
 				".link": {
@@ -60,7 +60,7 @@ export default {
 				"button:not(.disabled)": {
 					"@apply redact": {},
 					"&::after": {
-						"@apply translate-x-[100%] w-[calc(100%+8px)] h-[calc(100%+16px)] w-full h-full top-0 left-0 duration-300 scale-x-0": {},
+						"@apply translate-x-[100%] w-[calc(100%+8px)] h-[calc(100%+16px)] w-full h-full top-0 left-0  scale-x-0": {},
 					},
 					"&:hover::after": {
 						"@apply md:scale-x-100 md:translate-x-0": {},

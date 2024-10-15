@@ -17,6 +17,22 @@ const weeksSince = Math.floor((today - sashaDOB) / (1000 * 60 * 60 * 24 * 7));
 
 <Section title="about">
 	<div class="mb-12 mt-6 w-11/12 sm:mb-24 sm:mt-12 md:w-3/5 2xl:w-1/2">
+		<a
+			class="link relative mb-6 flex w-fit items-center text-textProminent underline"
+			href="/nahiyankhan_resume.pdf"
+			target="_blank"
+		>
+			<div class="full justify-left inline-flex items-center">
+				<Icon
+					aria-hidden="true"
+					class="h-8 w-8"
+					focusable="false"
+					name="mdi:file-document-outline"
+				/>
+			</div>
+			<p class="pl-2">TL;DR Resume</p>
+		</a>
+
 		<div class="subtitle-large mb-6 inline-block sm:mb-8">
 			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary.
 			<EasterEgg src={ThisIsFine.src} height={ThisIsFine.height}>Existential crisis</EasterEgg>
@@ -34,22 +50,6 @@ const weeksSince = Math.floor((today - sashaDOB) / (1000 * 60 * 60 * 24 * 7));
 				<img src={AboutSneak.src} class="pr-[1px]" height={AboutSneak.height} alt="" />
 			</div>
 		</div>
-
-		<a
-			class="link relative flex w-fit items-center text-textProminent underline"
-			href="/nahiyankhan_resume.pdf"
-			target="_blank"
-		>
-			<div class="full justify-left inline-flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-8 w-8"
-					focusable="false"
-					name="mdi:file-document-outline"
-				/>
-			</div>
-			<p class="pl-4">Resume</p>
-		</a>
 	</div>
 
 	<Subtitle title="education" />
