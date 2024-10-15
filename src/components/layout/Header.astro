@@ -1,6 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 import NK from "@/assets/nk.svg?raw";
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header
@@ -8,27 +10,44 @@ import NK from "@/assets/nk.svg?raw";
 	class="nk-transition z-10 mx-2 h-6 w-auto origin-top-left border-y bg-bgColor sm:fixed sm:mx-auto sm:h-8 sm:w-full"
 	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
-	<div
-		class="container nk-transition mx-auto flex h-full flex-row justify-between overflow-hidden border-x"
-	>
-		<div class="flex h-full animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
-			<div
-				class="relative flex flex-col justify-between overflow-hidden text-textProminent sm:justify-start [&_svg]:-ml-1 [&_svg]:h-6 sm:[&_svg]:h-8"
-			>
-				<Fragment set:html={NK} />
-			</div>
+	<div class="container nk-transition mx-auto flex h-full flex-row justify-between overflow-hidden">
+		<div
+			class="flex h-full opacity-0"
+			class:list={[
+				{ "animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards]": currentPath === "/" },
+				{ "opacity-100": currentPath !== "/" },
+			]}
+		>
+			<a href="/">
+				<div
+					class="relative flex flex-col justify-between overflow-hidden text-textProminent sm:justify-start [&_svg]:-ml-1 [&_svg]:h-6 sm:[&_svg]:h-8"
+				>
+					<Fragment set:html={NK} />
+				</div>
+			</a>
 		</div>
 		<!-- <ThemeToggle /> -->
-		<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] bg-bgColor opacity-0">
+		<!-- <div
+			class="bg-bgColor opacity-0"
+			class:list={[
+				{ "animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards]": currentPath === "/" },
+				{ "opacity-100": currentPath !== "/" },
+			]}
+		>
 			<button
 				class="relative flex h-full w-full items-center justify-center text-textProminent"
 				type="button"
 				x-data
 				@click="$store.settings.toggle()"
 			>
-				<Icon aria-hidden="true" class="h-6 w-6 sm:h-7 sm:w-7" focusable="false" name="mdi:cog" />
+				<Icon
+					aria-hidden="true"
+					class="h-6 w-6 sm:h-7 sm:w-7"
+					focusable="false"
+					name="solar:settings-bold-duotone"
+				/>
 			</button>
-		</div>
+		</div> -->
 	</div>
 </header>
 

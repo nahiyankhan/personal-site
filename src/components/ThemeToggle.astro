@@ -1,54 +1,25 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
 <button
-	class="relative flex h-7 w-full items-center justify-between px-2 text-textProminent"
+	class="relative flex h-12 w-full flex-col items-center justify-center border-b px-2 text-textProminent sm:h-20"
 	type="button"
 	x-data
 	@click="$store.theme.toggleMode()"
 >
-	<p class="hidden text-textProminent dark:block">Light</p>
-	<p class="text-textProminent dark:hidden">Dark</p>
-	<svg
+	<Icon
 		aria-hidden="true"
-		class="h-5 w-5 duration-0 dark:hidden sm:h-6 sm:w-6"
-		fill="none"
+		class="h-5 w-5 dark:hidden sm:h-7 sm:w-7"
 		focusable="false"
-		id="sun-svg"
-		stroke-width="1.5"
-		viewBox="0 0 24 24"
-		xmlns="http://www.w3.org/2000/svg"
-	>
-		<path
-			d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"
-			stroke="currentColor"
-			stroke-linecap="round"
-			stroke-linejoin="round"></path>
-		<path d="M22 12L23 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-		></path>
-		<path d="M12 2V1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-		<path d="M12 23V22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-		<path d="M20 20L19 19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-		></path>
-		<path d="M20 4L19 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-		></path>
-		<path d="M4 20L5 19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-		></path>
-		<path d="M4 4L5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-		<path d="M1 12L2 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-		></path>
-	</svg>
-	<svg
+		name="solar:moon-bold-duotone"
+	/>
+	<Icon
 		aria-hidden="true"
-		class="hidden h-5 w-5 duration-0 dark:block sm:h-6 sm:w-6"
-		fill="none"
+		class="hidden h-5 w-5 dark:block sm:h-7 sm:w-7"
 		focusable="false"
-		id="moon-svg"
-		stroke="currentColor"
-		stroke-width="1.5"
-		viewBox="0 0 24 24"
-		xmlns="http://www.w3.org/2000/svg"
-	>
-		<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
-		<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
-		<path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"></path>
-		<path d="M19 11h2m-1 -1v2"></path>
-	</svg>
+		name="solar:sun-bold-duotone"
+	/>
+	<p class="hidden text-textProminent dark:block">Light mode</p>
+	<p class="text-textProminent dark:hidden">Dark mode</p>
 </button>

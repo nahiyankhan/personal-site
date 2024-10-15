@@ -69,6 +69,9 @@ export default {
 				".nk-transition": {
 					"@apply [transition:all_.3s_cubic-bezier(0.55,0,1,0.45),color_0s_ease-in]": {},
 				},
+				".animated-border": {
+					"@apply [&::after]:absolute [&::before]:z-[-1] [&::after]:z-[-1] [&::before]:absolute [&::after]:bottom-0 [&::after]:left-0 [&::after]:h-[1px] [&::after]:w-full [&::after]:animate-[borderForward_.7s_cubic-bezier(0.55,0,1,0.45)_forwards] [&::after]:bg-divider [&::after]:content-[''] [&::before]:left-0 [&::before]:top-[-1px] [&::before]:h-[1px] [&::before]:w-full [&::before]:animate-[borderForward_.7s_cubic-bezier(0.55,0,1,0.45)_forwards] [&::before]:bg-divider [&::before]:content-['']": {},
+				},
 			});
 		}),
 	],
