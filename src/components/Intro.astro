@@ -1,19 +1,14 @@
 ---
-import Nahiyan from "@/assets/nahiyan.svg?raw";
 import NahiyanKhan from "@/assets/nahiyan-khan.svg?raw";
-import Khan from "@/assets/khan.svg?raw";
-import BoxLines from "./BoxLines.astro";
 ---
 
 <div class="nk-transition border-x">
 	<div class="flex flex-col sm:min-h-[50vh]">
 		<div class="mb-14 w-full sm:mb-40">
 			<div
-				class="relative mb-2 flex flex-wrap border-divider [&_svg]:nk-transition sm:mb-8 [&_svg]:ml-[-1px] [&_svg]:mt-[-1px] [&_svg]:h-full [&_svg]:w-[calc(100vw-16px)] [&_svg]:stroke-[hsl(var(--border-divider))] [&_svg]:stroke-[0.5px] sm:[&_svg]:max-w-screen-sm md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl [&_svg_path]:animate-[dashForward_1.5s_cubic-bezier(0.55,0,1,0.45)_forwards] [&_svg_path]:[stroke-dasharray:1000] [&_svg_path]:[stroke-dashoffset:1000]"
+				class="relative mb-2 flex flex-wrap border-divider [&_svg]:nk-transition sm:mb-8 [&_svg]:ml-[-1px] [&_svg]:mt-[-1px] [&_svg]:h-full [&_svg]:w-[calc(100vw-16px)] [&_svg]:stroke-[hsl(var(--border-divider))] [&_svg]:stroke-[2px] sm:[&_svg]:max-w-screen-sm sm:[&_svg]:stroke-[1px] md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg lg:[&_svg]:stroke-[0.5px] xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl [&_svg_path]:animate-[dashForward_1.5s_cubic-bezier(0.55,0,1,0.45)_forwards] [&_svg_path]:[stroke-dasharray:1000] [&_svg_path]:[stroke-dashoffset:1000]"
 			>
-				<div
-					class="relative mb-2 sm:mb-4 [&::after]:absolute [&::after]:bottom-[-1px] [&::after]:left-0 [&::after]:block [&::after]:h-[1px] [&::after]:w-full [&::after]:animate-[borderForward_.7s_cubic-bezier(0.55,0,1,0.45)_forwards] [&::after]:bg-divider [&::after]:content-[''] [&::before]:left-0 [&::before]:top-0 [&::before]:block [&::before]:h-[1px] [&::before]:w-full [&::before]:animate-[borderForward_.7s_cubic-bezier(0.55,0,1,0.45)_forwards] [&::before]:bg-divider [&::before]:content-['']"
-				>
+				<div class="animated-border relative mb-2 sm:mb-4">
 					<!-- <BoxLines /> -->
 					<Fragment set:html={NahiyanKhan} />
 				</div>
@@ -25,7 +20,7 @@ import BoxLines from "./BoxLines.astro";
 			<p
 				class="subtitle-large animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0"
 			>
-				(na-he-yahn) or khan 🖖🏽
+				(na-he-yahn) khan 🖖🏽
 			</p>
 		</div>
 	</div>

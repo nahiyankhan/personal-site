@@ -11,6 +11,7 @@ import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
 import { ViewTransitions } from "astro:transitions";
 import Settings from "@/components/Settings.astro";
+import ScrollUp from "@/components/ScrollUp.astro";
 
 interface Props {
 	meta: SiteMeta;
@@ -26,18 +27,19 @@ const {
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 		<ViewTransitions />
 	</head>
-	<body class="nk-transition bg-bgColor text-sm font-light sm:text-base sm:leading-[1.75]">
+	<body class="nk-transition relative bg-bgColor text-sm font-light sm:text-base sm:leading-[1.75]">
 		<ThemeProvider />
 		<SkipLink />
 		<Header />
+		<Settings />
 		<main
 			x-data
 			id="main"
-			class="nk-transition min-h-screen w-full origin-left px-2 pt-12 tracking-wider sm:pt-24"
+			class="nk-transition mt-12 min-h-screen w-full origin-left px-2 tracking-wider sm:mt-8"
 			:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 		>
 			<div
-				class="container nk-transition mx-auto mb-12 flex flex-col border-b sm:mb-24"
+				class="container nk-transition mx-auto flex flex-col border-b"
 				x-ref="container"
 				x-init="$store.container.width = $refs.container.getBoundingClientRect().width"
 				x-resize="$store.container.width = $width"
@@ -45,7 +47,7 @@ const {
 				<slot />
 			</div>
 		</main>
-		<Settings />
+		<ScrollUp />
 		<Footer />
 	</body>
 </html>

@@ -12,14 +12,14 @@ import Contact from "@/assets/contact.svg?raw";
 	x-ref="sectionTitle"
 	class="nk-transition border-x"
 	{...rest}
-	@scroll.window=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/10) && $refs.sectionTitle.getBoundingClientRect().top >= 100, inscrollup = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/5)`
-	x-init=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/10), inscrollup = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/5)`
+	@scroll.window=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/10) && $refs.sectionTitle.getBoundingClientRect().top >= 30, inscrollup = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/10)`
+	x-init=`inview = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/10), inscrollup = $refs.sectionTitle.getBoundingClientRect().top <= (window.innerHeight * 9/10)`
 >
 	<div class="nk-transition flex min-h-[50vh] flex-col" x-ref={title}>
 		<div class="relative w-max">
 			<BoxLines />
 			<div
-				class="nk-transition relative w-[fit-content] text-textProminent opacity-0 [&>svg]:h-8 sm:[&>svg]:h-14 md:[&>svg]:h-16 lg:[&>svg]:h-20 xl:[&>svg]:h-28 2xl:[&>svg]:h-32 [&_svg]:stroke-[hsl(var(--border-divider))] [&_svg]:stroke-[1px] [&_svg_path]:opacity-0 [&_svg_path]:[stroke-dasharray:1000] [&_svg_path]:[stroke-dashoffset:1000]"
+				class="nk-transition relative w-[fit-content] text-textProminent opacity-0 [&>svg]:h-8 sm:[&>svg]:h-14 md:[&>svg]:h-16 lg:[&>svg]:h-20 xl:[&>svg]:h-28 2xl:[&>svg]:h-32 [&_svg]:stroke-[hsl(var(--border-divider))] [&_svg]:stroke-[2px] sm:[&_svg]:stroke-[1px] [&_svg_path]:opacity-0 [&_svg_path]:[stroke-dasharray:1000] [&_svg_path]:[stroke-dashoffset:1000]"
 				:class="inview ? '[&_svg_path]:animate-[dashForward_1s_cubic-bezier(0.55,0,1,0.45)_forwards]' : '[&_svg_path]:animate-[dashBackward_2s_cubic-bezier(0.55,0,1,0.45)_forwards]'"
 				:style="inscrollup && { opacity: 1 }"
 			>

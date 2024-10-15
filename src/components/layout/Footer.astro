@@ -11,27 +11,12 @@ const year = new Date().getFullYear();
 	x-cloak
 	:style="$store.settings.open ? { marginLeft: `-320px` } : { marginLeft: `0px` }"
 >
-	<div class="container mx-auto flex h-full items-end justify-between overflow-hidden border-x">
-		<div>
+	<div class="x container mx-auto flex h-full items-center justify-between overflow-hidden">
+		<div class="text-[10px] sm:text-base">
 			&copy; {siteConfig.author}
 			{year} | Made using <a class="link relative" href="https://astro.build/" target="_blank"
 				>AstroJS</a
 			> and <a class="link relative" href="https://alpinejs.dev/" target="_blank">AlpineJS</a>
-		</div>
-		<div class="flex w-4 justify-center sm:w-7">
-			<button
-				class="relative h-4 w-4 text-textProminent sm:h-7 sm:w-7"
-				type="button"
-				x-data
-				@click="window.scrollTo({top: 0, behavior: 'smooth'})"
-			>
-				<Icon
-					aria-hidden="true"
-					class="h-4 w-4 sm:h-7 sm:w-7"
-					focusable="false"
-					name="mdi:arrow-up-thin-circle-outline"
-				/>
-			</button>
 		</div>
 	</div>
 </footer>
