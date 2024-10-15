@@ -10,7 +10,9 @@ const currentPath = Astro.url.pathname;
 	class="nk-transition z-10 mx-2 h-6 w-auto origin-top-left border-y bg-bgColor sm:fixed sm:mx-auto sm:h-8 sm:w-full"
 	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
-	<div class="container nk-transition mx-auto flex h-full flex-row justify-between overflow-hidden">
+	<div
+		class="container nk-transition mx-auto flex h-full flex-row justify-between overflow-hidden px-2"
+	>
 		<div
 			class="flex h-full opacity-0"
 			class:list={[
