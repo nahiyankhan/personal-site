@@ -9,21 +9,16 @@ import Past from "@/assets/past.svg?raw";
 import Community from "@/assets/community.svg?raw";
 ---
 
-<div
-	x-data="{ inview: false, inscrollup: false }"
-	x-ref="subtitle"
-	class="nk-transition"
-	{...rest}
-	@scroll.window=`inview = $refs.subtitle.getBoundingClientRect().top <= (window.innerHeight * 9/10) && $refs.subtitle.getBoundingClientRect().top >= 30, inscrollup = $refs.subtitle.getBoundingClientRect().top <= (window.innerHeight * 9/10)`
-	x-init=`inview = $refs.subtitle.getBoundingClientRect().top <= (window.innerHeight * 9/10) && $refs.subtitle.getBoundingClientRect().top >= 30, inscrollup = $refs.subtitle.getBoundingClientRect().top <= (window.innerHeight * 9/10)`
->
-	<div class="relative mb-12 inline-flex w-[fit-content] sm:mb-20 [&>svg]:h-5 sm:[&>svg]:h-12">
+<div x-data="{ inview: false }" class="nk-transition" {...rest}>
+	<div
+		class="relative mb-12 inline-flex w-[fit-content] animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] sm:mb-20"
+	>
 		<BoxLines />
 		<div
-			class="nk-transition relative w-[fit-content] text-textProminent [&>svg]:h-6 sm:[&>svg]:h-8 md:[&>svg]:h-10 lg:[&>svg]:h-12 xl:[&>svg]:h-16 2xl:[&>svg]:h-20 [&_svg]:stroke-[hsl(var(--border-divider))] [&_svg]:stroke-[2px] sm:[&_svg]:stroke-[1px] [&_svg_path]:[stroke-dasharray:1000] [&_svg_path]:[stroke-dashoffset:1000]"
-			:class="inview ? '[&_svg_path]:animate-[dashForward_.8s_cubic-bezier(0.55,0,1,0.45)_forwards]' : '[&_svg_path]:animate-[dashBackward_2s_cubic-bezier(0.55,0,1,0.45)_forwards]'"
+			class="text-3xl font-extrabold uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl xl:leading-[3.4rem] 2xl:text-8xl 2xl:leading-[4.6rem]"
 		>
-			<Fragment
+			/{title}
+			<!-- <Fragment
 				set:html={title === "education"
 					? Education
 					: title === "specialty"
@@ -35,7 +30,7 @@ import Community from "@/assets/community.svg?raw";
 								: title === "past"
 									? Past
 									: Community}
-			/>
+			/> -->
 		</div>
 	</div>
 </div>
