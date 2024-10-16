@@ -5,7 +5,7 @@ import { Icon } from "astro-icon/components";
 <div
 	x-data="{ show: false }"
 	@scroll.window="show = window.scrollY > 200"
-	class="container nk-transition sticky bottom-0 mx-auto my-4 flex justify-end px-2 sm:my-8"
+	class="container nk-transition sticky bottom-0 mx-auto my-4 flex justify-end px-2 sm:my-8 sm:px-0"
 	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
 	<div
