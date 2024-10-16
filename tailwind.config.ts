@@ -146,6 +146,50 @@ export default {
 						opacity: "1",
 					},
 				},
+				dash: {
+					"0%,10%": {
+						strokeDashoffset: "1000",
+						stroke: "hsl(var(--border-divider) / 1)",
+						color: "transparent",
+						opacity: "1",
+					},
+					"23.33%": {
+						strokeDashoffset: "0",
+						stroke: "hsl(var(--border-divider) / 1)",
+						color: "transparent",
+						opacity: "1",
+					},
+					"31.33%": {
+						strokeDashoffset: "0",
+						stroke: "hsl(var(--border-divider) / 1)",
+						color: "transparent",
+						opacity: "1",
+					},
+					"36.4%": {
+						strokeDashoffset: "0",
+						stroke: "transparent",
+						color: "hsl(var(--text-prominent) / 1)",
+						opacity: "1",
+					},
+
+					"50%": {
+						strokeDashoffset: "0",
+						stroke: "transparent",
+						color: "hsl(var(--text-prominent) / 1)",
+						opacity: "1",
+					},
+					"68.66%": {
+						stroke: "hsl(var(--border-divider) / 1)",
+						color: "transparent",
+						opacity: "1",
+					},
+					"90%, 100%": {
+						strokeDashoffset: "1000",
+						stroke: "hsl(var(--border-divider) / 1)",
+						color: "transparent",
+						opacity: "1",
+					},
+				},
 				flicker: {
 					"0%": {
 						color: "hsl(var(--text-prominent) / 1)",
