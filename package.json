@@ -33,7 +33,7 @@
 		"alpinejs": "^3.14.1",
 		"alpinejs-overlap": "^1.0.5",
 		"astro": "4.15.11",
-		"astro-expressive-code": "^0.37.0",
+		"astro-expressive-code": "^0.38.0",
 		"astro-icon": "^1.1.1",
 		"cssnano": "^7.0.5",
 		"hastscript": "^9.0.0",
