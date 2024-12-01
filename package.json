@@ -32,7 +32,7 @@
 		"@fontsource/rubik-mono-one": "^5.1.0",
 		"alpinejs": "^3.14.1",
 		"alpinejs-overlap": "^1.0.5",
-		"astro": "4.15.11",
+		"astro": "4.16.16",
 		"astro-expressive-code": "^0.37.0",
 		"astro-icon": "^1.1.1",
 		"cssnano": "^7.0.5",
