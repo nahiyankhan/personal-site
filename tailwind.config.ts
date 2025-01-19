@@ -147,49 +147,49 @@ export default {
 					},
 				},
 				dash: {
-					"0%,10%": {
-						strokeDashoffset: "1000",
-						stroke: "hsl(var(--border-divider) / 1)",
-						color: "transparent",
-						opacity: "1",
-					},
-					"23.33%": {
-						strokeDashoffset: "0",
-						stroke: "hsl(var(--border-divider) / 1)",
-						color: "transparent",
-						opacity: "1",
-					},
-					"31.33%": {
-						strokeDashoffset: "0",
-						stroke: "hsl(var(--border-divider) / 1)",
-						color: "transparent",
-						opacity: "1",
-					},
-					"36.4%": {
-						strokeDashoffset: "0",
-						stroke: "transparent",
-						color: "hsl(var(--text-prominent) / 1)",
-						opacity: "1",
-					},
-
-					"50%": {
-						strokeDashoffset: "0",
-						stroke: "transparent",
-						color: "hsl(var(--text-prominent) / 1)",
-						opacity: "1",
-					},
-					"68.66%": {
-						stroke: "hsl(var(--border-divider) / 1)",
-						color: "transparent",
-						opacity: "1",
-					},
-					"90%, 100%": {
-						strokeDashoffset: "1000",
-						stroke: "hsl(var(--border-divider) / 1)",
-						color: "transparent",
-						opacity: "1",
-					},
-				},
+          "0%": {
+            strokeDashoffset: "1000",
+            stroke: "hsl(var(--border-divider) / 1)",
+            color: "transparent",
+            opacity: "1",
+          },
+          "70%": {
+            strokeDashoffset: "0",
+            stroke: "hsl(var(--border-divider) / 1)",
+            color: "transparent",
+            opacity: "1",
+          },
+          "85%": {
+            strokeDashoffset: "0",
+            stroke: "hsl(var(--border-divider) / 1)",
+            color: "transparent",
+            opacity: "1",
+          },
+          "90%": {
+            strokeDashoffset: "0",
+            stroke: "transparent",
+            color: "hsl(var(--text-standard) / 1)",
+            opacity: "1",
+          },
+          "92.5%": {
+            strokeDashoffset: "0",
+            stroke: "hsl(var(--border-divider) / 1)",
+            color: "transparent",
+            opacity: "1",
+          },
+          "95%": {
+            strokeDashoffset: "0",
+            stroke: "hsl(var(--border-divider) / 1)",
+            color: "transparent",
+            opacity: "1",
+          },
+          "100%": {
+            strokeDashoffset: "0",
+            stroke: "transparent",
+            color: "hsl(var(--text-standard) / 1)",
+            opacity: "1",
+          },
+        },
 				flicker: {
 					"0%": {
 						color: "hsl(var(--text-prominent) / 1)",
