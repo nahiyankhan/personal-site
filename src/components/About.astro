@@ -9,10 +9,6 @@ import EasterEgg from "./EasterEgg.astro";
 import ThisIsFine from "@/assets/thisisfine.gif";
 import BoxLines from "./BoxLines.astro";
 import AboutSneak from "@/assets/about.gif";
-
-const today = new Date().getTime();
-const sashaDOB = new Date("2024-08-05").getTime();
-const weeksSince = Math.floor((today - sashaDOB) / (1000 * 60 * 60 * 24 * 7));
 ---
 
 <Section title="about">
@@ -36,13 +32,13 @@ const weeksSince = Math.floor((today - sashaDOB) / (1000 * 60 * 60 * 24 * 7));
 
 		<div class="subtitle-large mb-6 inline-block sm:mb-8">
 			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary.
-			<EasterEgg src={ThisIsFine.src} height={ThisIsFine.height}>Existential crisis</EasterEgg>
+			<EasterEgg src={ThisIsFine.src} height={ThisIsFine.height}> Existential crisis </EasterEgg>
 			is real. But 9 to 5, I lead and build design infrastructures and tooling.
 		</div>
 
 		<p class="subtitle-large mb-2 sm:mb-4">
-			And 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, and read science
-			fiction. Or rather, I did until my newborn came along {weeksSince} weeks ago.
+			And 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, read science
+			fiction, and as of August 2024 - play with my daughter.
 		</p>
 
 		<div class="relative mb-8 mt-10 sm:mb-12">
@@ -195,10 +191,14 @@ const weeksSince = Math.floor((today - sashaDOB) / (1000 * 60 * 60 * 24 * 7));
 				</div>
 				<div class="inline pl-4">
 					Sucking at something is the first step to being
-					<EasterEgg src={SortaGood.src} height={SortaGood.height}> sorta good</EasterEgg>
+					<EasterEgg src={SortaGood.src} height={SortaGood.height}>
+						{" "}
+						sorta good
+					</EasterEgg>
 					at something
 				</div>
 			</li>
 		</ul>
 	</div>
-</Section>
+</Section>;
+
