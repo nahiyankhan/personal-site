@@ -186,7 +186,7 @@ export default {
           "100%": {
             strokeDashoffset: "0",
             stroke: "transparent",
-            color: "hsl(var(--text-standard) / 1)",
+            color: "hsl(var(--text-prominent) / 1)",
             opacity: "1",
           },
         },
