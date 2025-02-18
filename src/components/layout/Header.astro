@@ -13,13 +13,7 @@ const currentPath = Astro.url.pathname;
 	<div
 		class="container nk-transition mx-auto flex h-full flex-row justify-between overflow-hidden px-2 sm:px-0"
 	>
-		<div
-			class="flex h-full opacity-0"
-			class:list={[
-				{ "animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards]": currentPath === "/" },
-				{ "opacity-100": currentPath !== "/" },
-			]}
-		>
+		<div class="flex h-full opacity-100">
 			<a href="/">
 				<div
 					class="relative flex flex-col justify-between overflow-hidden text-textProminent sm:justify-start [&_svg]:-ml-1 [&_svg]:h-6 sm:[&_svg]:h-8"
