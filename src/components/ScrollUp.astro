@@ -5,7 +5,7 @@ import { Icon } from "astro-icon/components";
 <div
 	x-data="{ show: false }"
 	@scroll.window="show = window.scrollY > 200"
-	class="container nk-transition sticky bottom-0 mx-auto my-4 flex justify-end px-2 sm:my-8 sm:px-0"
+	class="container nk-transition sticky bottom-0 mx-auto mt-4 flex justify-end px-2 sm:mt-8 sm:px-0"
 	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
 	<div
@@ -18,7 +18,10 @@ import { Icon } from "astro-icon/components";
 		x-transition:leave-start="opacity-100 translate-y-0"
 		x-transition:leave-end="opacity-0 translate-y-16"
 	>
-		<button @click="window.scrollTo({top: 0, behavior: 'smooth'})" class="h-full w-full border p-2">
+		<button
+			@click="window.scrollTo({top: 0, behavior: 'smooth'})"
+			class="h-full w-full border-x border-t p-2"
+		>
 			<Icon class="h-full w-full" name="solar:alt-arrow-up-bold-duotone" />
 		</button>
 	</div>

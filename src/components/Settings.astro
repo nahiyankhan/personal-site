@@ -16,7 +16,7 @@ const currentPath = Astro.url.pathname;
 
 <action-header
 	x-data
-	class="container nk-transition relative mx-auto flex justify-between px-2 pt-4 sm:px-0 sm:pt-14"
+	class="container nk-transition sticky top-0 z-50 mx-auto flex justify-between px-2 sm:px-0"
 	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
 	{
@@ -24,7 +24,7 @@ const currentPath = Astro.url.pathname;
 			<div class="relative h-12 w-12 bg-bgColor sm:h-16 sm:w-16">
 				<button
 					onclick="history.length > 1 ? history.back() : window.location.href = '/'"
-					class="flex h-full w-full items-center justify-center border p-2"
+					class="flex h-full w-full items-center justify-center border-x border-b p-2"
 				>
 					<Icon class="h-10 w-10" name="solar:alt-arrow-left-bold-duotone" />
 				</button>
@@ -37,7 +37,7 @@ const currentPath = Astro.url.pathname;
 	<div class="relative h-12 w-12 bg-bgColor sm:h-16 sm:w-16">
 		<button
 			@click="$store.settings.toggle()"
-			class="flex h-full w-full items-center justify-center border p-2"
+			class="flex h-full w-full items-center justify-center border-x border-b p-2"
 		>
 			<Icon class="h-8 w-8" name="solar:settings-bold-duotone" />
 		</button>
