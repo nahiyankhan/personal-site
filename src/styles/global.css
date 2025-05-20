@@ -19,10 +19,10 @@
 		--theme-bg: var(--slate-0);
 		--theme-link: 172deg 18% 41%;
 		--theme-text: 203deg 11% 15%;
-		--theme-accent: 351deg 66% 48%;
+		--theme-accent: var(--slate-50);
 		--theme-accent-2: 0deg 0% 7%;
 		--theme-quote: 351deg 66% 48%;
-		
+
 		--text-inverse: black;
 		--text-prominent: var(--slate-40);
 		--text-standard: var(--slate-40);
@@ -55,5 +55,4 @@
 	* {
 		@apply border-divider;
 	}
-	
 }

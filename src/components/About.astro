@@ -11,48 +11,53 @@ import BoxLines from "./BoxLines.astro";
 import AboutSneak from "@/assets/about.gif";
 ---
 
-<Section title="about">
-	<div class="mb-12 mt-6 w-11/12 sm:mb-24 sm:mt-12 md:w-3/5 2xl:w-1/2">
-		<p class="mb-10 sm:mb-16">A.K.A The 9 to 5. And the 5 to 9.</p>
-		<a
-			class="link relative mb-6 flex w-fit items-center text-textProminent underline"
-			href="/nahiyankhan_resume.pdf"
-			target="_blank"
-		>
-			<div class="full justify-left inline-flex items-center">
-				<Icon
-					aria-hidden="true"
-					class="h-8 w-8"
-					focusable="false"
-					name="mdi:file-document-outline"
-				/>
+<Section title="about" subtitle="AKA The 9 to 5. And the 5 to 9.">
+	<div class="mb-12 mt-6 sm:mb-24 sm:mt-12">
+		<div class="flex gap-8">
+			<div class="border-b border-l">
+				<div class="subtitle-large mb-6 inline-block sm:mb-8">
+					Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary.
+					<EasterEgg src={ThisIsFine.src} height={ThisIsFine.height}>
+						Existential crisis
+					</EasterEgg>
+					is real. But 9 to 5, I lead and build design infrastructures and tooling.
+				</div>
+
+				<p class="subtitle-large mb-4 sm:mb-8">
+					And 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, read science
+					fiction, and as of August 2024 - play with my daughter.
+				</p>
+
+				<a
+					class="link relative mb-6 flex w-fit items-center text-textProminent underline"
+					href="/nahiyankhan_resume.pdf"
+					target="_blank"
+				>
+					<div class="full justify-left inline-flex items-center">
+						<Icon
+							aria-hidden="true"
+							class="h-8 w-8"
+							focusable="false"
+							name="mdi:file-document-outline"
+						/>
+					</div>
+					<p class="pl-2">TL;DR Resume</p>
+				</a>
 			</div>
-			<p class="pl-2">TL;DR Resume</p>
-		</a>
-
-		<div class="subtitle-large mb-6 inline-block sm:mb-8">
-			Am an engineer. Am a designer. Am both? Am neither? Definitions are arbitrary.
-			<EasterEgg src={ThisIsFine.src} height={ThisIsFine.height}> Existential crisis </EasterEgg>
-			is real. But 9 to 5, I lead and build design infrastructures and tooling.
-		</div>
-
-		<p class="subtitle-large mb-2 sm:mb-4">
-			And 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, read science
-			fiction, and as of August 2024 - play with my daughter.
-		</p>
-
-		<div class="relative mb-8 mt-10 sm:mb-12">
-			<BoxLines />
-			<div class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] opacity-0">
-				<img src={AboutSneak.src} class="pr-[1px]" height={AboutSneak.height} alt="" />
+			<div class="relative">
+				<div
+					class="animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_1s_forwards] overflow-hidden rounded-tr-[180px] opacity-0"
+				>
+					<img src={AboutSneak.src} class="pr-[1px]" height={AboutSneak.height} alt="" />
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<Subtitle title="education" />
 
-	<div class="w-11/12 md:w-3/5 xl:w-1/2">
-		<div class="mb-2 sm:mb-8">
+	<div class="mb-12 grid grid-cols-1 gap-8 md:mb-24 md:grid-cols-2">
+		<div class="border-l">
 			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-full">
 				<div class="h-12 w-12 overflow-hidden sm:h-16 sm:w-16">
 					<Fragment set:html={JHULogo} />
@@ -68,7 +73,7 @@ import AboutSneak from "@/assets/about.gif";
 			<p class="">Software Engineering and Enterprise Web Development.</p>
 		</div>
 
-		<div class="mb-12 pt-8 sm:mb-20">
+		<div class="border-l">
 			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 				<Fragment set:html={MacalesterLogo} />
 				<div class="mt-3 sm:ml-4 sm:mt-0">
@@ -83,10 +88,10 @@ import AboutSneak from "@/assets/about.gif";
 		</div>
 	</div>
 
-	<Subtitle title="specialty" />
+	<Subtitle title="mantras" />
 
-	<div class="mb-8 w-11/12 sm:mb-24 md:w-3/5 xl:w-1/2">
-		<ul class="mb-4 sm:mb-8">
+	<div class="mb-20 w-11/12 sm:mb-40 md:w-3/5">
+		<ul class="mb-4 border-l sm:mb-8">
 			<li class="flex items-center">
 				<div class="full justify-left flex items-center">
 					<Icon
@@ -96,90 +101,8 @@ import AboutSneak from "@/assets/about.gif";
 						name="mdi:circle-small"
 					/>
 				</div>
-				<p class="pl-4">Holistic (design + eng) design system strategy</p>
+				<p class="pl-4">Trust by default. Work in the open. Meet where the work is.</p>
 			</li>
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">Setting up design infrastructures</p>
-			</li>
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">Leading cross-domain initiatives</p>
-			</li>
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">Fostering cross-discipline relationships</p>
-			</li>
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">Mentoring designers and engineers</p>
-			</li>
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">Prototyping</p>
-			</li>
-		</ul>
-	</div>
-
-	<Subtitle title="mantra" />
-
-	<div class="mb-20 w-11/12 sm:mb-40 md:w-3/5 xl:w-1/2">
-		<div class="mb-2 text-base font-medium sm:text-xl">Work</div>
-
-		<ul class="mb-4 sm:mb-8">
-			<li class="flex items-center">
-				<div class="full justify-left flex items-center">
-					<Icon
-						aria-hidden="true"
-						class="h-4 w-4 sm:h-8 sm:w-8"
-						focusable="false"
-						name="mdi:circle-small"
-					/>
-				</div>
-				<p class="pl-4">
-					Trust by default. Work in the open. Document it all. Meet where the work is.
-				</p>
-			</li>
-		</ul>
-
-		<div class="mb-2 text-base font-medium sm:text-xl">Personal</div>
-
-		<ul>
 			<li class="flex items-center">
 				<div class="full justify-left flex items-center">
 					<Icon

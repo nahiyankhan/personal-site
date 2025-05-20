@@ -1,36 +1,16 @@
 ---
 const { title, ...rest } = Astro.props;
-import BoxLines from "./BoxLines.astro";
-import Education from "@/assets/education.svg?raw";
-import Specialty from "@/assets/specialty.svg?raw";
-import Mantra from "@/assets/mantra.svg?raw";
-import Current from "@/assets/current.svg?raw";
-import Past from "@/assets/past.svg?raw";
-import Community from "@/assets/community.svg?raw";
 ---
 
 <div x-data="{ inview: false }" class="nk-transition" {...rest}>
 	<div
 		class="relative mb-12 inline-flex w-[fit-content] animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] sm:mb-20"
 	>
-		<BoxLines />
+		<div class="absolute top-0 h-40 w-40 border"></div>
 		<div
-			class="text-3xl font-extrabold uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl xl:leading-[3.4rem] 2xl:text-8xl 2xl:leading-[4.6rem]"
+			class="py-12 text-3xl font-light uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl"
 		>
-			<span class="opacity-50">/</span>{title}
-			<!-- <Fragment
-				set:html={title === "education"
-					? Education
-					: title === "specialty"
-						? Specialty
-						: title === "mantra"
-							? Mantra
-							: title === "current"
-								? Current
-								: title === "past"
-									? Past
-									: Community}
-			/> -->
+			{title}
 		</div>
 	</div>
 </div>

@@ -4,28 +4,27 @@ import { Icon } from "astro-icon/components";
 import Section from "./Section.astro";
 ---
 
-<Section title="contact">
-	<div class="mb-8 mt-4 w-11/12 sm:mb-20 sm:mt-8 md:w-3/5 2xl:w-1/2">
-		<p>A.K.A Recommend a science fiction novel. Go climbing together. Let's jam.</p>
-	</div>
+<Section
+	title="contact"
+	subtitle="AKA Recommend a science fiction novel. Go climbing together. Let's jam."
+/>
 
-	<div class="mb-2 text-base font-medium">Say hello at</div>
-	<ul class="mb-24">
-		{
-			socialLinks.map(({ friendlyName, link, name }) => (
-				<li class="mb-2 flex">
-					<a
-						class="link relative flex items-center justify-center text-textProminent underline"
-						href={link}
-						target="_blank"
-					>
-						<div class="full justify-left flex items-center">
-							<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
-						</div>
-						<p class="pl-2">{friendlyName}</p>
-					</a>
-				</li>
-			))
-		}
-	</ul>
-</Section>
+<div class="mb-2 text-base font-medium">Say hello at</div>
+<ul class="mb-24">
+	{
+		socialLinks.map(({ friendlyName, link, name }) => (
+			<li class="mb-2 flex">
+				<a
+					class="link relative flex items-center justify-center text-textProminent underline"
+					href={link}
+					target="_blank"
+				>
+					<div class="full justify-left flex items-center">
+						<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
+					</div>
+					<p class="pl-2">{friendlyName}</p>
+				</a>
+			</li>
+		))
+	}
+</ul>

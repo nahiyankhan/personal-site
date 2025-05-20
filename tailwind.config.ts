@@ -44,7 +44,7 @@ export default {
 					},
 				},
 				".link": {
-					"@apply redact bg-bgColor": {},
+					// "@apply redact bg-bgColor": {},
 					"&::after": {
 						"@apply duration-300 w-full h-full top-0 scale-x-0": {},
 					},
@@ -58,7 +58,7 @@ export default {
 					},
 				},
 				"button:not(.disabled)": {
-					"@apply redact": {},
+					// "@apply redact": {},
 					"&::after": {
 						"@apply translate-x-[100%] w-[calc(100%+8px)] h-[calc(100%+16px)] w-full h-full top-0 left-0  scale-x-0 duration-300": {},
 					},

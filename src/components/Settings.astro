@@ -21,10 +21,10 @@ const currentPath = Astro.url.pathname;
 >
 	{
 		currentPath !== "/" ? (
-			<div class="relative h-12 w-12 bg-bgColor sm:h-16 sm:w-16">
+			<div class="relative h-12 w-12 rounded-b-full bg-bgColor sm:h-16 sm:w-16">
 				<button
 					onclick="history.length > 1 ? history.back() : window.location.href = '/'"
-					class="flex h-full w-full items-center justify-center border-x border-b p-2"
+					class="flex h-full w-full items-center justify-center rounded-b-full border-x border-b p-2"
 				>
 					<Icon class="h-10 w-10" name="solar:alt-arrow-left-bold-duotone" />
 				</button>
@@ -34,10 +34,10 @@ const currentPath = Astro.url.pathname;
 		)
 	}
 
-	<div class="relative h-12 w-12 bg-bgColor sm:h-16 sm:w-16">
+	<div class="relative h-12 w-12 overflow-hidden rounded-b-full bg-bgColor sm:h-16 sm:w-16">
 		<button
 			@click="$store.settings.toggle()"
-			class="flex h-full w-full items-center justify-center border-x border-b p-2"
+			class="flex h-full w-full items-center justify-center rounded-b-full border-x border-b p-2"
 		>
 			<Icon class="h-8 w-8" name="solar:settings-bold-duotone" />
 		</button>

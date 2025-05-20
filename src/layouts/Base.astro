@@ -30,7 +30,7 @@ const {
 	<body class="nk-transition relative bg-bgColor text-sm font-light sm:text-base sm:leading-[1.75]">
 		<ThemeProvider />
 		<SkipLink />
-		<!-- <Header /> -->
+		<Header />
 		<Settings />
 		<main
 			x-data
@@ -39,7 +39,7 @@ const {
 			:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 		>
 			<div
-				class="container nk-transition mx-auto flex flex-col border-b"
+				class="container nk-transition mx-auto flex flex-col"
 				x-ref="container"
 				x-init="$store.container.width = $refs.container.getBoundingClientRect().width"
 				x-resize="$store.container.width = $width"
