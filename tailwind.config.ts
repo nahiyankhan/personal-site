@@ -27,7 +27,7 @@ export default {
 		plugin(({ addComponents }) => {
 			addComponents({
 				".header-standard": {
-					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-semibold tracking-tight text-textInverse": {},
+					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-light tracking-tight text-textStandard": {},
 				},
 				".subtitle-large": {
 					"@apply leading-[1.6] sm:leading-[1.75] text-textStandard tracking-wider": {},

@@ -8,9 +8,9 @@
 		--slate-10: 233deg 100% 96%;
 		--slate-20: 233deg 28% 81%;
 		--slate-30: 233deg 22% 41%;
-		--slate-40: 233deg 22% 20%;
-		--slate-50: 233deg 29% 14%;
-		--slate-60: 233deg 14% 11%;
+		--slate-40: 250deg 11% 26%;
+		--slate-50: 250deg 9% 17%;
+		--slate-60: 247deg 8% 12%;
 	}
 
 	:root[data-theme="light"] {
@@ -23,7 +23,7 @@
 		--theme-accent-2: 0deg 0% 7%;
 		--theme-quote: 351deg 66% 48%;
 
-		--text-inverse: black;
+		--text-inverse: white;
 		--text-prominent: var(--slate-40);
 		--text-standard: var(--slate-40);
 		--text-subtle: var(--slate-30);
@@ -38,16 +38,16 @@
 		--theme-bg: var(--slate-60);
 		--theme-link: 330deg 49% 67%;
 		--theme-text: 220deg 3% 79%;
-		--theme-accent: 159deg 64% 45%;
+		--theme-accent: var(--slate-10);
 		--theme-accent-2: 0deg 0% 93%;
 		--theme-quote: 102deg 100% 86%;
 
-		--text-inverse: white;
-		--text-prominent: var(--slate-20);
+		--text-inverse: black;
+		--text-prominent: var(--slate-0);
 		--text-standard: var(--slate-10);
-		--text-subtle: var(--slate-10);
+		--text-subtle: var(--slate-20);
 
-		--border-divider: var(--slate-30);
+		--border-divider: var(--slate-40);
 
 		--redact-bg: 0deg 0% 98%;
 	}

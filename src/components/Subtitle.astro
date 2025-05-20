@@ -6,9 +6,15 @@ const { title, ...rest } = Astro.props;
 	<div
 		class="relative mb-12 inline-flex w-[fit-content] animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.7s_forwards] sm:mb-20"
 	>
-		<div class="absolute top-0 h-40 w-40 border"></div>
+		<!-- <div class="absolute left-0 top-0 h-[400px] w-24 overflow-hidden">
+			<div
+				class="h-full w-full bg-[repeating-linear-gradient(57.5deg,transparent_0,transparent_6px,#C6C4D9_6px,#C6C4D9_7px)]"
+			>
+			</div>
+		</div> -->
+		<div class="absolute top-0 h-[88px] w-[400px] rounded-r-full border"></div>
 		<div
-			class="py-12 text-3xl font-light uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl"
+			class="pl-24 pt-2 text-3xl font-light uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl"
 		>
 			{title}
 		</div>

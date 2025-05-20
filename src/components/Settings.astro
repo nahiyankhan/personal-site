@@ -16,15 +16,15 @@ const currentPath = Astro.url.pathname;
 
 <action-header
 	x-data
-	class="container nk-transition sticky top-0 z-50 mx-auto flex justify-between px-2 sm:px-0"
+	class="container nk-transition sticky top-3 z-50 mx-auto flex justify-between px-2 sm:px-0"
 	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
 	{
 		currentPath !== "/" ? (
-			<div class="relative h-12 w-12 rounded-b-full bg-bgColor sm:h-16 sm:w-16">
+			<div class="relative h-12 w-12 rounded-full bg-bgColor sm:h-16 sm:w-16">
 				<button
 					onclick="history.length > 1 ? history.back() : window.location.href = '/'"
-					class="flex h-full w-full items-center justify-center rounded-b-full border-x border-b p-2"
+					class="flex h-full w-full items-center justify-center rounded-full border p-2"
 				>
 					<Icon class="h-10 w-10" name="solar:alt-arrow-left-bold-duotone" />
 				</button>
@@ -34,10 +34,10 @@ const currentPath = Astro.url.pathname;
 		)
 	}
 
-	<div class="relative h-12 w-12 overflow-hidden rounded-b-full bg-bgColor sm:h-16 sm:w-16">
+	<div class="relative h-12 w-12 overflow-hidden rounded-full bg-bgColor sm:h-16 sm:w-16">
 		<button
 			@click="$store.settings.toggle()"
-			class="flex h-full w-full items-center justify-center rounded-b-full border-x border-b p-2"
+			class="flex h-full w-full items-center justify-center rounded-full border p-2"
 		>
 			<Icon class="h-8 w-8" name="solar:settings-bold-duotone" />
 		</button>
@@ -47,14 +47,14 @@ const currentPath = Astro.url.pathname;
 <settings
 	x-data
 	x-cloak
-	class="fixed right-0 top-0 z-20 h-full w-[calc(20rem+1px)] border-l bg-bgColor duration-300 ease-[cubic-bezier(0.55,0,1,0.45)]"
+	class="fixed right-0 top-0 z-20 h-full p-3 duration-300 ease-[cubic-bezier(0.55,0,1,0.45)]"
 	:class="{ 'translate-x-0': $store.settings.open, 'translate-x-[100%]': !$store.settings.open }"
 >
-	<div class="flex h-full flex-col">
-		<div class="[&::after]:bg-bgDivider relative flex justify-between border-y">
+	<div class="flex h-full w-[calc(20rem+1px)] flex-col rounded-xl border bg-bgColor">
+		<div class="[&::after]:bg-bgDivider relative flex justify-between border-b">
 			<h3 class="text-textProminent sm:py-4 sm:pl-4">Settings</h3>
 			<button
-				class="relative flex h-full w-16 items-center justify-center border-l text-textProminent"
+				class="relative flex h-full w-16 items-center justify-center rounded-full text-textProminent"
 				type="button"
 				@click="$store.settings.toggle()"
 			>

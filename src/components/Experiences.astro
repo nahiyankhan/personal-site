@@ -12,11 +12,16 @@ import ExperienceSneak from "@/assets/experience.gif";
 import Subtitle from "./Subtitle.astro";
 ---
 
-<Section title="experience" subtitle="AKA The things I am more than sorta good at.">
-	<div class="mb-4 mt-4 sm:mt-8 md:w-4/5 lg:w-3/5"></div>
+<Section title="experience" subtitle="aka the things I am more than sorta good at.">
+	<div class="absolute left-0 top-48 h-full w-24 overflow-hidden">
+		<div
+			class="h-full w-full bg-[repeating-linear-gradient(57.5deg,transparent_0,transparent_6px,#C6C4D9_6px,#C6C4D9_7px)] dark:bg-[repeating-linear-gradient(57.5deg,transparent_0,transparent_6px,#57546B_6px,#57546B_7px)]"
+		>
+		</div>
+	</div>
 
-	<div class="mb-14 w-11/12 sm:mb-24 lg:w-3/5 xl:w-1/2" x-data="{ inview: false }">
-		<div class="relative mb-8 mt-10 overflow-hidden rounded-tl-[180px] sm:mb-16">
+	<div class="mb-14 w-11/12 pl-24 pt-8 sm:mb-24 lg:w-3/5 xl:w-1/2" x-data="{ inview: false }">
+		<div class="relative mb-8 mt-10 overflow-hidden rounded-tl-[80px] border sm:mb-16">
 			<div
 				x-data
 				:class="{ 'animate-[fadein_.5s_cubic-bezier(0.55,0,1,0.45)_.5s_forwards]': inview }"
@@ -29,8 +34,8 @@ import Subtitle from "./Subtitle.astro";
 
 	<Subtitle title="current" />
 
-	<div class="mb-12 grid grid-cols-1 gap-8 md:mb-24 md:grid-cols-2">
-		<div class="border-l">
+	<div class="mb-12 grid grid-cols-1 gap-8 pl-24 md:mb-24 md:grid-cols-2">
+		<div class="">
 			<div class="mb-4 flex flex-col sm:flex-row">
 				<div
 					class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border sm:h-16 sm:w-16 [&>svg]:w-6 sm:[&>svg]:w-8"
@@ -39,54 +44,54 @@ import Subtitle from "./Subtitle.astro";
 				</div>
 				<div class="mt-3 sm:ml-4 sm:mt-0">
 					<p class="header-standard">Principal Design Engineer \ Applied AI</p>
-					<p class="text-sm font-normal leading-[1.6] sm:text-base">
+					<p class="text-sm font-normal leading-[1.6] text-textStandard sm:text-base">
 						Block <span class="text-textSubtle"> | Jan 2025 - Current</span>
 					</p>
 				</div>
 			</div>
 
-			<p class="leading-[1.6] sm:leading-[1.75]">
-				Brb. Currently making sense of non-determinstic outputs.
+			<p class="leading-[1.6] text-textStandard sm:leading-[1.75]">
+				brb. currently trying to make sense of non-deterministic outputs. 🤘🏽
 			</p>
 		</div>
 
-		<div class="border-l">
+		<div class="">
 			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 				<Fragment set:html={CashAppLogo} />
 				<div class="mt-3 sm:ml-4 sm:mt-0">
 					<p class="header-standard">Staff Design Engineer \ Design Systems</p>
-					<p class="text-sm font-normal leading-[1.6] sm:text-base">
+					<p class="text-sm font-normal leading-[1.6] text-textStandard sm:text-base">
 						Cash App <span class="text-textSubtle"> | April 2022 - Jan 2025</span>
 					</p>
 				</div>
 			</div>
 
-			<p class="leading-[1.6] sm:leading-[1.75]">
-				Stood up Cash App's design system function and established the system - Arcade.
+			<p class="leading-[1.6] text-textStandard sm:leading-[1.75]">
+				stood up Cash App's design system function and drove adoption of the system - Arcade.
 			</p>
 		</div>
 	</div>
 
 	<Subtitle title="past" />
 
-	<div class="mb-12 grid grid-cols-1 gap-8 md:mb-24 md:grid-cols-2">
-		<div class="border-l">
+	<div class="mb-12 grid grid-cols-1 gap-8 pl-24 md:mb-24 md:grid-cols-2">
+		<div class="">
 			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 				<Fragment set:html={ADPLogo} />
 				<div class="mt-3 sm:ml-4 sm:mt-0">
-					<p class="header-standard">Lead UX Engineer \ Design Systems</p>
+					<p class="header-standard">Senior Design Engineer \ Design Systems</p>
 					<p class="text-sm font-normal leading-[1.6] sm:text-base">
 						ADP <span class="text-textSubtle"> | March 2018 - April 2022</span>
 					</p>
 				</div>
 			</div>
 
-			<p class="leading-[1.6] sm:leading-[1.75]">
-				Overhauled ADP's server-driven design system - Beacon.
+			<p class="leading-[1.6] text-textStandard sm:leading-[1.75]">
+				evolved ADP's server-driven design system - Beacon.
 			</p>
 		</div>
 
-		<div class="border-l">
+		<div class="">
 			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 				<Fragment set:html={PearsonLogo} />
 				<div class="mt-3 sm:ml-4 sm:mt-0">
@@ -97,12 +102,12 @@ import Subtitle from "./Subtitle.astro";
 				</div>
 			</div>
 
-			<p class="leading-[1.6] sm:leading-[1.75]">
-				Functioned as a hybrid product designer and front-of-the-front-end engineer.
+			<p class="leading-[1.6] text-textStandard sm:leading-[1.75]">
+				functioned as a hybrid product designer and front-of-the-front-end engineer.
 			</p>
 		</div>
 
-		<div class="border-l">
+		<div class="">
 			<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 				<Fragment set:html={MacalesterLogo} />
 				<div class="mt-3 sm:ml-4 sm:mt-0">
@@ -114,14 +119,16 @@ import Subtitle from "./Subtitle.astro";
 				</div>
 			</div>
 
-			<p class="leading-[1.6] sm:leading-[1.75]">Designed marketing materials for print and web.</p>
+			<p class="leading-[1.6] text-textStandard sm:leading-[1.75]">
+				designed marketing materials for print and web.
+			</p>
 		</div>
 	</div>
 
 	<Subtitle title="community" />
 
-	<div class="mb-12 grid grid-cols-1 gap-8 md:mb-24 md:grid-cols-2">
-		<div class="border-l">
+	<div class="mb-12 grid grid-cols-1 gap-8 pl-24 md:mb-24 md:grid-cols-2">
+		<div class="">
 			<div class="mb-4 flex flex-col sm:flex-row">
 				<div class="block dark:hidden [&>svg]:w-12 sm:[&>svg]:w-16">
 					<Fragment set:html={DesignXLogoWhite} />
@@ -149,7 +156,7 @@ import Subtitle from "./Subtitle.astro";
 						allowfullscreen></iframe>
 				</div>
 
-				<p class="mb-4 leading-[1.6] sm:leading-[1.75]">
+				<p class="mb-4 leading-[1.6] text-textStandard sm:leading-[1.75]">
 					Topic: “Visualizing Design Tokens at Scale”
 				</p>
 
