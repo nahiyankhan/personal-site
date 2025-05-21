@@ -1,28 +1,42 @@
 ---
 import { Icon } from "astro-icon/components";
-import NK from "@/assets/nk.svg?raw";
+import NKLight from "@/assets/nk-light.svg?raw";
+import NKDark from "@/assets/nk-dark.svg?raw";
+import ThemeToggle from "../ThemeToggle.astro";
 
 const currentPath = Astro.url.pathname;
 ---
 
 <header
 	x-data
-	class="nk-transition z-10 mx-2 h-6 w-auto origin-top-left border-y bg-bgColor sm:fixed sm:mx-auto sm:h-8 sm:w-full"
+	class="nk-transition top-0 z-10 mx-2 h-6 w-auto border-y bg-bgColor sm:fixed sm:mx-auto sm:h-8 sm:w-full"
 	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
-	<div
-		class="container nk-transition mx-auto flex h-full flex-row justify-between overflow-hidden px-2 sm:px-0"
-	>
-		<!-- <div class="flex h-full opacity-100">
-			<a href="/">
-				<div
-					class="relative flex flex-col justify-between overflow-hidden text-textProminent sm:justify-start [&_svg]:-ml-1 [&_svg]:h-6 sm:[&_svg]:h-8"
-				>
-					<Fragment set:html={NK} />
-				</div>
-			</a>
-		</div> -->
-		<!-- <ThemeToggle /> -->
+	<div class="container nk-transition relative mx-auto flex h-full justify-between">
+		<a
+			href="/"
+			class="mt-3 flex h-12 w-12 items-center justify-center rounded-full border bg-bgColor p-2 sm:h-16 sm:w-16"
+		>
+			<div
+				x-show="$store.theme.mode === 'light'"
+				class="[&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-7 sm:[&>svg]:w-7"
+			>
+				<Fragment set:html={NKLight} />
+			</div>
+			<div
+				x-show="$store.theme.mode === 'dark'"
+				class="[&>svg]:h-5 [&>svg]:w-5 sm:[&>svg]:h-7 sm:[&>svg]:w-7"
+			>
+				<Fragment set:html={NKDark} />
+			</div>
+		</a>
+
+		<div
+			class="relative mt-3 h-12 w-12 overflow-hidden rounded-full bg-bgColor transition-colors duration-300 ease-[cubic-bezier(0.55,0,1,0.45)] hover:border-black hover:bg-black hover:text-white dark:hover:border-white dark:hover:bg-white dark:hover:text-black sm:h-16 sm:w-16"
+		>
+			<ThemeToggle />
+		</div>
+
 		<!-- <div
 			class="bg-bgColor opacity-0"
 			class:list={[
@@ -45,10 +59,10 @@ const currentPath = Astro.url.pathname;
 			</button>
 		</div> -->
 	</div>
-</header>
 
-<style>
-	[x-cloak] {
-		display: none !important;
-	}
-</style>
+	<style>
+		[x-cloak] {
+			display: none !important;
+		}
+	</style>
+</header>

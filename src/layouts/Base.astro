@@ -31,12 +31,10 @@ const {
 		<ThemeProvider />
 		<SkipLink />
 		<Header />
-		<Settings />
 		<main
 			x-data
 			id="main"
-			class="nk-transition mt-5 min-h-screen w-full origin-left px-2 tracking-wider sm:mt-8"
-			:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
+			class="nk-transition mt-24 min-h-screen w-full origin-left px-2 tracking-wider sm:mt-40"
 		>
 			<div
 				class="container nk-transition mx-auto flex flex-col"

@@ -3,23 +3,21 @@ import { Icon } from "astro-icon/components";
 ---
 
 <button
-	class="relative flex h-12 w-full flex-col items-center justify-center border-b px-2 text-textProminent sm:h-20"
+	class="flex h-full w-full items-center justify-center rounded-full border p-2"
 	type="button"
 	x-data
 	@click="$store.theme.toggleMode()"
 >
 	<Icon
 		aria-hidden="true"
-		class="h-5 w-5 dark:hidden sm:h-7 sm:w-7"
+		class="h-5 w-5 transition-all duration-300 dark:hidden sm:h-7 sm:w-7"
 		focusable="false"
 		name="solar:moon-bold-duotone"
 	/>
 	<Icon
 		aria-hidden="true"
-		class="hidden h-5 w-5 dark:block sm:h-7 sm:w-7"
+		class="hidden h-5 w-5 transition-all duration-300 dark:block sm:h-7 sm:w-7"
 		focusable="false"
 		name="solar:sun-bold-duotone"
 	/>
-	<p class="hidden text-textProminent dark:block">Light mode</p>
-	<p class="text-textProminent dark:hidden">Dark mode</p>
 </button>
