@@ -3,7 +3,7 @@ import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 
 export const siteConfig: SiteConfig = {
 	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
-	author: "Nahiyan Khan",
+	author: "nahiyan khan",
 	// Date.prototype.toLocaleDateString() parameters, found in src/utils/date.ts.
 	date: {
 		locale: "en-US",
@@ -14,7 +14,7 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	// Meta property used as the default description meta property
-	description: "Nahiyan Khan's personal site. His musings. And playground.",
+	description: "nahiyan khan's personal site. his musings. and playground.",
 	// HTML lang property, found in src/layouts/Base.astro L:18
 	lang: "en-US",
 	// Meta property, found in src/components/BaseHead.astro L:42
@@ -22,7 +22,7 @@ export const siteConfig: SiteConfig = {
 	// Option to sort posts by updatedDate if set to true (if property exists). Default (false) will sort by publishDate
 	sortPostsByUpdatedDate: false,
 	// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
-	title: "Personal Site",
+	title: "personal site",
 	webmentions: {
 		// Webmention.io API endpoint. Get your own here: https://webmention.io/, and follow this blog post: https://astro-cactus.chriswilliams.dev/posts/webmentions/
 		link: "",
@@ -41,12 +41,12 @@ export const socialLinks: {
 	// 	name: "mdi:email",
 	// },
 	{
-		friendlyName: "LinkedIn",
+		friendlyName: "linkedIn",
 		link: "https://www.linkedin.com/in/nahiyankhan/",
 		name: "mdi:linkedin",
 	},
 	{
-		friendlyName: "Github",
+		friendlyName: "github",
 		link: "https://github.com/nahiyankhan",
 		name: "mdi:github",
 	},
