@@ -24,17 +24,17 @@ const {
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 		<ViewTransitions />
 	</head>
-	<body class="nk-transition relative bg-bgColor text-sm font-light sm:text-base sm:leading-[1.75]">
+	<body
+		class="bg-bgColorInverse nk-transition relative text-sm font-light sm:text-base sm:leading-[1.75]"
+	>
 		<ThemeProvider />
 		<SkipLink />
 		<!-- <Header /> -->
 		<main x-data id="main" class="nk-transition tracking-wider">
-			<div class="nk-transition mx-auto flex flex-col">
+			<div class="m-2 overflow-hidden rounded-2xl border bg-bgColor sm:m-8">
 				<slot />
 			</div>
 		</main>
-		<!-- <ScrollUp /> -->
-		<Footer />
 	</body>
 </html>
 
