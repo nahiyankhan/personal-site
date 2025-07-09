@@ -11,24 +11,29 @@
 		--slate-40: 250deg 11% 26%;
 		--slate-50: 250deg 9% 17%;
 		--slate-60: 247deg 8% 12%;
+
+		--vwave-0: 24deg 100% 66%;
+		--vwave-10: 353deg 100% 73%;
+		--vwave-20: 321deg 100% 71%;
+		--vwave-30: 340deg 96% 61%;
+		--vwave-40: 342deg 65% 45%;
+		--vwave-50: 337deg 91% 25%;
+		--vwave-60: 267deg 39% 15%;
 	}
 
 	:root[data-theme="light"] {
 		color-scheme: light;
 		/* https://tailwindcss.com/docs/customizing-colors#using-css-variables */
-		--theme-bg: var(--slate-0);
+		--theme-bg: 42deg 17% 80%;
+		--theme-bg-inverse: var(--slate-60);
 		--theme-link: 172deg 18% 41%;
-		--theme-text: 203deg 11% 15%;
+		--theme-text: var(--slate-60);
+		--theme-text-inverse: 42deg 17% 80%;
 		--theme-accent: var(--slate-50);
 		--theme-accent-2: 0deg 0% 7%;
 		--theme-quote: 351deg 66% 48%;
 
-		--text-inverse: white;
-		--text-prominent: var(--slate-40);
-		--text-standard: var(--slate-40);
-		--text-subtle: var(--slate-30);
-
-		--border-divider: var(--slate-20);
+		--border-divider: var(--slate-60);
 
 		--redact-bg: 0deg 0% 98%;
 	}
@@ -36,23 +41,20 @@
 	:root[data-theme="dark"] {
 		color-scheme: dark;
 		--theme-bg: var(--slate-60);
+		--theme-bg-inverse: 42deg 17% 80%;
 		--theme-link: 330deg 49% 67%;
-		--theme-text: 220deg 3% 79%;
+		--theme-text: 42deg 17% 80%;
+		--theme-text-inverse: var(--slate-60);
 		--theme-accent: var(--slate-10);
 		--theme-accent-2: 0deg 0% 93%;
 		--theme-quote: 102deg 100% 86%;
 
-		--text-inverse: black;
-		--text-prominent: var(--slate-0);
-		--text-standard: var(--slate-10);
-		--text-subtle: var(--slate-20);
-
-		--border-divider: var(--slate-40);
+		--border-divider: 42deg 17% 80%;
 
 		--redact-bg: 0deg 0% 98%;
 	}
 
 	* {
-		@apply border-divider;
+		@apply text-textDefault border-divider font-[200];
 	}
 }

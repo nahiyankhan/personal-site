@@ -27,16 +27,16 @@ export default {
 		plugin(({ addComponents }) => {
 			addComponents({
 				".header-standard": {
-					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-light tracking-tight text-textStandard": {},
+					"@apply text-lg sm:text-xl leading-6 sm:leading-9 font-light tracking-tight text-textDefault": {},
 				},
 				".subtitle-large": {
-					"@apply leading-[1.6] sm:leading-[1.75] text-textStandard tracking-wider": {},
+					"@apply leading-[1.6] sm:leading-[1.75] text-textDefault tracking-wider": {},
 				},
 				".section-title": {
-					"@apply text-4xl tracking-tighter text-textProminent [line-height:initial] sm:text-9xl": {},
+					"@apply text-4xl tracking-tighter text-textDefault [line-height:initial] sm:text-9xl": {},
 				},
 				".subsection-title": {
-					"@apply text-2xl font-extrabold text-textProminent sm:text-6xl uppercase": {},
+					"@apply text-2xl font-extrabold text-textDefault sm:text-6xl uppercase": {},
 				},
 				".redact": {
 					"&::after": {
@@ -81,14 +81,11 @@ export default {
 				accent: "hsl(var(--theme-accent) / <alpha-value>)",
 				"accent-2": "hsl(var(--theme-accent-2) / <alpha-value>)",
 				bgColor: "hsl(var(--theme-bg) / <alpha-value>)",
+				bgColorInverse: "hsl(var(--theme-bg-inverse) / <alpha-value>)",
 				link: "hsl(var(--theme-link) / <alpha-value>)",
 				quote: "hsl(var(--theme-quote) / <alpha-value>)",
-				textColor: "hsl(var(--theme-text) / <alpha-value>)",
-
-				textInverse: "hsl(var(--text-inverse) / <alpha-value>)",
-				textProminent: "hsl(var(--text-prominent) / <alpha-value>)",
-				textStandard: "hsl(var(--text-standard) / <alpha-value>)",
-				textSubtle: "hsl(var(--text-subtle) / <alpha-value>)",
+				textDefault: "hsl(var(--theme-text) / <alpha-value>)",
+				textInverse: "hsl(var(--theme-text-inverse) / <alpha-value>)",
 
 				divider: "hsl(var(--border-divider) / <alpha-value>)",
 			},

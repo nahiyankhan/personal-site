@@ -1,26 +1,37 @@
 ---
-import NahiyanKhanLight from "@/assets/nahiyan-khan-light.svg?raw";
-import NahiyanKhanDark from "@/assets/nahiyan-khan-dark.svg?raw";
+import Nahiyan from "@/assets/nahiyan.svg?raw";
+import { Icon } from "astro-icon/components";
 ---
 
-<div class="nk-transition">
-	<div class="flex flex-col lg:min-h-[50vh]">
-		<div class="w-full sm:mb-20">
-			<div class="relative mb-2 flex flex-wrap">
-				<div
-					class="relative mb-2 text-textProminent sm:mb-8 [&_svg]:ml-[-1px] [&_svg]:mr-[-1px] [&_svg]:h-full [&_svg]:w-[calc(100vw-16px)] [&_svg]:stroke-[2px] sm:[&_svg]:max-w-screen-sm sm:[&_svg]:stroke-[1px] md:[&_svg]:max-w-screen-md lg:[&_svg]:max-w-screen-lg lg:[&_svg]:stroke-[1px] xl:[&_svg]:max-w-screen-xl 2xl:[&_svg]:max-w-screen-2xl"
-				>
-					<div class="block dark:hidden">
-						<Fragment set:html={NahiyanKhanLight} />
-					</div>
-					<div class="hidden dark:block">
-						<Fragment set:html={NahiyanKhanDark} />
-					</div>
-				</div>
-			</div>
-			<div class="flex flex-col rounded-l-full border py-3 sm:py-5 md:py-8">
-				<p class="subtitle-large text-right">nahiyan khan 🖖🏽</p>
-			</div>
+<div class="nk-transition flex flex-col items-center justify-center">
+	<div
+		class="relative p-10 text-textProminent [&_svg]:ml-[-1px] [&_svg]:mr-[-1px] [&_svg]:h-full [&_svg]:w-full"
+	>
+		<Fragment set:html={Nahiyan} />
+	</div>
+	<div class="relative flex h-8 w-full items-center border-b border-t px-10 sm:h-12">
+		<p class="subtitle-large">nahiyan</p>
+
+		<div class="absolute right-10 h-12 w-12 overflow-hidden rounded-full sm:mr-0 sm:h-16 sm:w-16">
+			<a
+				class="flex h-full w-full items-center justify-center rounded-full border bg-bgColor p-2 transition-all [&::after]:absolute [&::after]:h-12 [&::after]:w-12 [&::after]:origin-center [&::after]:rounded-full [&::after]:border [&::after]:border-transparent [&::after]:duration-300 [&::after]:content-[''] hover:[&::after]:scale-75 hover:[&::after]:border-divider dark:hover:[&::after]:border-divider [&::after]:sm:h-16 [&::after]:sm:w-16"
+				type="button"
+				x-data
+				@click="$store.theme.toggleMode()"
+			>
+				<Icon
+					aria-hidden="true"
+					class="h-5 w-5 transition-all duration-300 dark:hidden sm:h-7 sm:w-7"
+					focusable="false"
+					name="solar:moon-bold-duotone"
+				/>
+				<Icon
+					aria-hidden="true"
+					class="hidden h-5 w-5 transition-all duration-300 dark:block sm:h-7 sm:w-7"
+					focusable="false"
+					name="solar:sun-bold-duotone"
+				/>
+			</a>
 		</div>
 	</div>
 </div>
