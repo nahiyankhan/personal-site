@@ -9,10 +9,17 @@ import Footer from "@/components/layout/Footer.astro";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<Intro />
-	<About />
-	<Experiences />
-	<!-- <Projects /> -->
-	<Contact />
-	<Footer />
+	<div class="animate-[fadein_0.5s_ease-in_.4s_forwards] opacity-0">
+		<Intro />
+	</div>
+	<div class="animate-[fadein_0.5s_ease-in_.6s_forwards] opacity-0">
+		<About />
+	</div>
+	<div class="animate-[fadein_0.5s_ease-in_.8s_forwards] opacity-0">
+		<Experiences />
+	</div>
+	<div class="animate-[fadein_0.5s_ease-in_.1s_forwards] opacity-0">
+		<Contact />
+		<Footer />
+	</div>
 </PageLayout>

@@ -5,9 +5,7 @@ const introLineRef = `introLineRef`;
 ---
 
 <div class="nk-transition flex flex-col items-center justify-center">
-	<div
-		class="relative p-10 text-textProminent [&_svg]:ml-[-1px] [&_svg]:mr-[-1px] [&_svg]:h-full [&_svg]:w-full"
-	>
+	<div class="relative p-10 [&_svg]:ml-[-1px] [&_svg]:mr-[-1px] [&_svg]:h-full [&_svg]:w-full">
 		<Fragment set:html={Nahiyan} />
 	</div>
 	<div
@@ -18,16 +16,8 @@ const introLineRef = `introLineRef`;
 		x-init=`inview = $refs.${introLineRef}.getBoundingClientRect().top <= (window.innerHeight * 9/10) && $refs.${introLineRef}.getBoundingClientRect().top >= 50, ratio = window.innerWidth < 1024 ? 2 : 1`
 		@resize.window=`ratio = window.innerWidth < 1024 ? 2 : 1`
 	>
-		<div
-			class="absolute left-0 top-0 h-[1px] w-full -translate-x-[100%] bg-divider transition-all duration-1000"
-			:style="inview && { transform: `translateX(0)` }"
-		>
-		</div>
-		<div
-			class="absolute bottom-0 left-0 h-[1px] w-full translate-x-[100%] bg-divider transition-all duration-1000"
-			:style="inview && { transform: `translateX(0)` }"
-		>
-		</div>
+		<div class="absolute left-0 top-0 h-[1px] w-full bg-divider transition-all"></div>
+		<div class="absolute bottom-0 left-0 h-[1px] w-full bg-divider transition-all"></div>
 
 		<p class="subtitle-large">nahiyan</p>
 

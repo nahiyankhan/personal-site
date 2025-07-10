@@ -25,12 +25,16 @@ const {
 		<ViewTransitions />
 	</head>
 	<body
-		class="bg-bgColorInverse nk-transition relative text-sm font-light sm:text-base sm:leading-[1.75]"
+		class="nk-transition relative bg-bgColorInverse text-sm font-light sm:text-base sm:leading-[1.75]"
 	>
 		<ThemeProvider />
 		<SkipLink />
 		<!-- <Header /> -->
-		<main x-data id="main" class="nk-transition tracking-wider">
+		<main
+			x-data
+			id="main"
+			class="origin-center animate-[fadein_.5s_ease-in_forwards] tracking-wider"
+		>
 			<div class="m-2 overflow-hidden rounded-2xl border bg-bgColor sm:m-8">
 				<slot />
 			</div>
