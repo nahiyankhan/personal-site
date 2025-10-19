@@ -2,13 +2,13 @@
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import "@fontsource/rubik-mono-one";
+import { ViewTransitions } from "astro:transitions";
 import BaseHead from "@/components/BaseHead.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
 import Footer from "@/components/layout/Footer.astro";
 import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
-import { ViewTransitions } from "astro:transitions";
 
 interface Props {
 	meta: SiteMeta;
@@ -22,20 +22,14 @@ const {
 <html class="scroll-smooth" lang={siteConfig.lang}>
 	<head>
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
-		<ViewTransitions />
+		<!-- <ViewTransitions /> -->
 	</head>
-	<body
-		class="nk-transition relative bg-bgColorInverse text-sm font-light sm:text-base sm:leading-[1.75]"
-	>
+	<body class="relative bg-bgColorInverse text-sm font-light sm:text-base sm:leading-[1.75]">
 		<ThemeProvider />
 		<SkipLink />
 		<!-- <Header /> -->
-		<main
-			x-data
-			id="main"
-			class="origin-center animate-[fadein_.5s_ease-in_forwards] tracking-wider"
-		>
-			<div class="m-2 overflow-hidden rounded-2xl border bg-bgColor sm:m-8">
+		<main x-data id="main" class="origin-center tracking-wider">
+			<div class="m-2 overflow-hidden border bg-bgColor sm:m-8">
 				<slot />
 			</div>
 		</main>

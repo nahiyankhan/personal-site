@@ -1,25 +1,18 @@
 ---
-import Intro from "@/components/Intro.astro";
-import Experiences from "@/components/Experiences.astro";
-import PageLayout from "@/layouts/Base.astro";
 import About from "@/components/About.astro";
-import Projects from "@/components/Projects.astro";
 import Contact from "@/components/Contact.astro";
+import Experiences from "@/components/Experiences.astro";
+import Intro from "@/components/Intro.astro";
+import Projects from "@/components/Projects.astro";
 import Footer from "@/components/layout/Footer.astro";
+import PageLayout from "@/layouts/Base.astro";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<div class="animate-[fadein_0.5s_ease-in_.4s_forwards] opacity-0">
-		<Intro />
-	</div>
-	<div class="animate-[fadein_0.5s_ease-in_.6s_forwards] opacity-0">
-		<About />
-	</div>
-	<div class="animate-[fadein_0.5s_ease-in_.8s_forwards] opacity-0">
-		<Experiences />
-	</div>
-	<div class="animate-[fadein_0.5s_ease-in_.1s_forwards] opacity-0">
-		<Contact />
-		<Footer />
-	</div>
+	<Intro />
+	<About />
+	<Experiences />
+	<Projects />
+	<Contact />
+	<Footer />
 </PageLayout>
