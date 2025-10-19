@@ -3,12 +3,10 @@ const { title, subtitle, ...rest } = Astro.props;
 ---
 
 <div x-ref="sectionTitle" class="border-b" {...rest}>
-	<div class="relative flex min-h-[50vh] flex-col" x-ref={title}>
-		<div class="relative w-full px-8 py-16 pb-20">
+	<div class="relative flex flex-col" x-ref={title}>
+		<div class="relative w-full px-8 py-8 pb-20">
 			<div class="relative z-20 flex flex-col items-end">
-				<div
-					class="text-5xl font-bold uppercase leading-[1.5rem] sm:text-6xl sm:leading-[3rem] md:text-8xl md:leading-[3.4rem] lg:text-9xl"
-				>
+				<div class="trim-text text-5xl font-bold uppercase sm:text-6xl md:text-8xl lg:text-9xl">
 					{title}
 				</div>
 				<div

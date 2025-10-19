@@ -55,6 +55,43 @@
 	}
 
 	* {
-		@apply text-textDefault border-divider font-[200];
+		@apply border-divider font-[200] text-textDefault;
 	}
+}
+
+/* custom css */
+
+.rules-horizontal {
+	background: repeating-linear-gradient(
+		transparent,
+		transparent 32px,
+		hsl(var(--border-divider) / 0.1) 32px,
+		hsl(var(--border-divider) / 0.1) 33px
+	);
+}
+
+.rules-vertical {
+	background: repeating-linear-gradient(
+		transparent,
+		transparent 1px,
+		hsl(var(--border-divider) / 0.15) 1px,
+		hsl(var(--border-divider) / 0.15) 2px
+	);
+}
+
+.trim-text {
+	text-box-trim: trim-both;
+}
+
+.noise::before {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 200vw;
+	height: 200vh;
+	content: "";
+	opacity: 0.08;
+	z-index: 1000;
+	pointer-events: none;
+	background: url(../assets/noise.gif);
 }

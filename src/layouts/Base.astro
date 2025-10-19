@@ -25,12 +25,15 @@ const {
 		<!-- <ViewTransitions /> -->
 	</head>
 	<body class="relative bg-bgColorInverse text-sm font-light sm:text-base sm:leading-[1.75]">
+		<div class="noise"></div>
 		<ThemeProvider />
 		<SkipLink />
 		<!-- <Header /> -->
 		<main x-data id="main" class="origin-center tracking-wider">
 			<div class="m-2 overflow-hidden border bg-bgColor sm:m-8">
-				<slot />
+				<div class="rules-horizontal">
+					<slot />
+				</div>
 			</div>
 		</main>
 	</body>
