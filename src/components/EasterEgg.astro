@@ -31,6 +31,8 @@ const { src, height } = Astro.props;
 		x-transition:leave-start="opacity-100"
 		x-transition:leave-end="opacity-0"
 	>
-		<img src={src} class="pr-[1px]" height={height} alt="" />
+		<div data-vfx-hover>
+			<img src={src} class="pr-[1px]" height={height} alt="" />
+		</div>
 	</div>
 </div>

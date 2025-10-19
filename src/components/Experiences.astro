@@ -29,8 +29,10 @@ import Subtitle from "./Subtitle.astro";
 			</div>
 
 			<div class="pr-0 sm:pr-12">
-				<div class="mb-4 flex flex-col items-center sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
-					<Fragment set:html={CashAppLogo} />
+				<div class="mb-4 flex flex-col items-center sm:flex-row">
+					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
+						<Fragment set:html={CashAppLogo} />
+					</div>
 					<p class="header-standard ml-4">Staff Design Engineer @ Cash App</p>
 				</div>
 			</div>
@@ -40,22 +42,28 @@ import Subtitle from "./Subtitle.astro";
 
 		<div class="mb-12 space-y-12 pt-4">
 			<div class="">
-				<div class="mb-4 flex flex-col items-center sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
-					<Fragment set:html={ADPLogo} />
+				<div class="mb-4 flex flex-col items-center sm:flex-row">
+					<div data-vfx-glitch class="[&>svg]:w-12 sm:[&>svg]:w-16">
+						<Fragment set:html={ADPLogo} />
+					</div>
 					<p class="header-standard ml-4">Senior Design Engineer @ ADP</p>
 				</div>
 			</div>
 
 			<div class="">
-				<div class="mb-4 flex flex-col items-center sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
-					<Fragment set:html={PearsonLogo} />
+				<div class="mb-4 flex flex-col items-center sm:flex-row">
+					<div data-vfx-glitch class="[&>svg]:w-12 sm:[&>svg]:w-16">
+						<Fragment set:html={PearsonLogo} />
+					</div>
 					<p class="header-standard ml-4">Product Designer @ Pearson</p>
 				</div>
 			</div>
 
 			<div class="">
-				<div class="mb-4 flex flex-col items-center sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
-					<Fragment set:html={MacalesterLogo} />
+				<div class="mb-4 flex flex-col items-center sm:flex-row">
+					<div data-vfx-glitch class="[&>svg]:w-12 sm:[&>svg]:w-16">
+						<Fragment set:html={MacalesterLogo} />
+					</div>
 					<p class="header-standard ml-4">Graphic Designer @ Macalester College</p>
 				</div>
 			</div>

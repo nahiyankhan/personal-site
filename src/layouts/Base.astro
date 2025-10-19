@@ -3,7 +3,12 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import "@fontsource/rubik-mono-one";
 import { ViewTransitions } from "astro:transitions";
+import AudioWaveVisualizer from "@/components/AudioWaveVisualizer.astro";
 import BaseHead from "@/components/BaseHead.astro";
+import CursorEffect from "@/components/CursorEffect.astro";
+import MusicColorDemo from "@/components/MusicColorDemo.astro";
+import MusicPlayer from "@/components/MusicPlayer.astro";
+import PowerGlitchEffects from "@/components/PowerGlitchEffects.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
 import Footer from "@/components/layout/Footer.astro";
@@ -26,16 +31,21 @@ const {
 	</head>
 	<body class="relative bg-bgColorInverse text-sm font-light sm:text-base sm:leading-[1.75]">
 		<div class="noise"></div>
+		<AudioWaveVisualizer />
 		<ThemeProvider />
+		<PowerGlitchEffects />
+		<!-- <CursorEffect /> -->
 		<SkipLink />
 		<!-- <Header /> -->
 		<main x-data id="main" class="origin-center tracking-wider">
-			<div class="m-2 overflow-hidden border bg-bgColor sm:m-8">
+			<div class="m-2 overflow-hidden rounded-md bg-bgColor sm:m-8">
 				<div class="rules-horizontal">
 					<slot />
 				</div>
 			</div>
 		</main>
+		<MusicPlayer />
+		<MusicColorDemo />
 	</body>
 </html>
 

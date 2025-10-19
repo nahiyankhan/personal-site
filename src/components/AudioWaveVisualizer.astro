@@ -1,0 +1,703 @@
+---
+// Audio-reactive visualization using Shadertoy 3ls3zM shader
+// Multi-pass rendering: Geometry → Dot Matrix → Post-FX
+---
+
+<canvas id="wave-visualizer" class="wave-visualizer"></canvas>
+
+<style>
+	.wave-visualizer {
+		position: fixed;
+		bottom: -400px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 800px;
+		height: 800px;
+		z-index: 1;
+		pointer-events: none;
+		opacity: 0.9;
+	}
+
+	@media (max-width: 640px) {
+		.wave-visualizer {
+			bottom: -150px;
+			width: 400px;
+			height: 400px;
+		}
+	}
+</style>
+
+<script>
+	// Track color themes (hue values 0-1 for HSV)
+	// Hue spectrum: 0=Red, 0.16=Yellow, 0.33=Green, 0.5=Cyan, 0.66=Blue, 0.83=Magenta
+	const colorThemes: Record<string, number> = {
+		"Cyberpunk Action": 0.75, // Purple/Blue
+		"Neon Nights": 0.0, // Red/Orange
+		"Oblivion Echo": 0.55, // Cyan
+		"Nightclub Cyberpunk": 0.85, // Hot Pink/Magenta
+		"Synthwave Phonk": 0.15, // Yellow/Orange
+	};
+
+	const defaultHue = 0.0; // Grayscale when dormant
+
+	// Helper: Convert HSV to RGB for color broadcasting
+	function hsvToRgb(h: number, s: number, v: number): { r: number; g: number; b: number } {
+		const k = (n: number) => (n + h * 6.0) % 6.0;
+		const f = (n: number) => v * (1.0 - s * Math.max(0, Math.min(k(n), 4.0 - k(n), 1.0)));
+		return {
+			r: Math.round(f(5) * 255),
+			g: Math.round(f(3) * 255),
+			b: Math.round(f(1) * 255),
+		};
+	}
+
+	class ShadertoyVisualizer {
+		private canvas: HTMLCanvasElement;
+		private gl: WebGLRenderingContext;
+		private bufferA: {
+			framebuffer: WebGLFramebuffer;
+			texture: WebGLTexture;
+			program: WebGLProgram;
+		} | null = null;
+		private bufferB: {
+			framebuffer: WebGLFramebuffer;
+			texture: WebGLTexture;
+			program: WebGLProgram;
+		} | null = null;
+		private finalProgram: WebGLProgram | null = null;
+
+		private audioContext: AudioContext | null = null;
+		private analyser: AnalyserNode | null = null;
+		private dataArray: Uint8Array<ArrayBuffer> | null = null;
+		private audioElement: HTMLAudioElement | null = null;
+
+		private isPlaying = false;
+		private currentHue = defaultHue;
+		private animationId: number | null = null;
+		private time = 0;
+		private beat = 0;
+		private audioIntensity = 0;
+		private bassLevel = 0;
+		private midLevel = 0;
+		private highLevel = 0;
+
+		private quadBuffer: WebGLBuffer | null = null;
+
+		constructor(canvas: HTMLCanvasElement) {
+			this.canvas = canvas;
+			const gl =
+				canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false }) ||
+				canvas.getContext("experimental-webgl", { alpha: true, premultipliedAlpha: false });
+			if (!gl) {
+				throw new Error("WebGL not supported");
+			}
+			this.gl = gl as WebGLRenderingContext;
+
+			this.resize();
+			window.addEventListener("resize", () => this.resize());
+			this.initQuad();
+			this.initShaders();
+
+			// Enable blending for transparency
+			this.gl.enable(this.gl.BLEND);
+			this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+
+			this.startAnimation();
+		}
+
+		private resize() {
+			// Square canvas for circular display
+			const size = window.innerWidth <= 640 ? 400 : 500;
+			this.canvas.width = size;
+			this.canvas.height = size;
+
+			// Recreate framebuffers with new size
+			if (this.bufferA) {
+				this.createFramebuffer(this.bufferA);
+			}
+			if (this.bufferB) {
+				this.createFramebuffer(this.bufferB);
+			}
+		}
+
+		private initQuad() {
+			const gl = this.gl;
+			const positions = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
+			this.quadBuffer = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, this.quadBuffer);
+			gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+		}
+
+		private createFramebuffer(buffer: { framebuffer: WebGLFramebuffer; texture: WebGLTexture }) {
+			const gl = this.gl;
+
+			// Delete old texture
+			if (buffer.texture) {
+				gl.deleteTexture(buffer.texture);
+			}
+
+			// Create new texture
+			buffer.texture = gl.createTexture()!;
+			gl.bindTexture(gl.TEXTURE_2D, buffer.texture);
+			gl.texImage2D(
+				gl.TEXTURE_2D,
+				0,
+				gl.RGBA,
+				this.canvas.width,
+				this.canvas.height,
+				0,
+				gl.RGBA,
+				gl.UNSIGNED_BYTE,
+				null
+			);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+			// Attach to framebuffer
+			gl.bindFramebuffer(gl.FRAMEBUFFER, buffer.framebuffer);
+			gl.framebufferTexture2D(
+				gl.FRAMEBUFFER,
+				gl.COLOR_ATTACHMENT0,
+				gl.TEXTURE_2D,
+				buffer.texture,
+				0
+			);
+		}
+
+		private initShaders() {
+			const gl = this.gl;
+
+			// Common GLSL code (prepended to all shaders)
+			const commonCode = `
+				precision highp float;
+				#define saturate(x) clamp(x, 0.0, 1.0)
+				#define BPM 120.0
+				#define PI 3.14159265359
+				#define PI2 6.28318530718
+				#define EPS 0.0001
+				
+				uniform vec2 iResolution;
+				uniform float iTime;
+				uniform float beat;
+				uniform float audioIntensity;
+				uniform float bassLevel;
+				uniform float midLevel;
+				uniform float highLevel;
+				uniform float hueShift;
+				
+				bool between(float x, float from, float to) {
+					return from <= x && x < to;
+				}
+				
+				float sdCircle(vec2 p, float r) {
+					return length(p) - r;
+				}
+				
+				float sdRect(vec2 p, vec2 b) {
+					vec2 d = abs(p) - b;
+					return max(d.x, d.y) + min(max(d.x, d.y), 0.0);
+				}
+				
+				float sdTriangle(vec2 p, float size) {
+					vec2 s = size * vec2(0.25, 0.43301270189);
+					p.y -= size * 0.14433756729;
+					return sdRect(p, vec2(s.x - p.y * s.x / s.y, s.y));
+				}
+				
+				float opSubtraction(float d1, float d2) {
+					return max(-d1, d2);
+				}
+				
+				vec2 opRep(vec2 p, vec2 c) {
+					return mod(p, c) - 0.5 * c;
+				}
+				
+				mat2 rot(float x) {
+					return mat2(cos(x), sin(x), -sin(x), cos(x));
+				}
+				
+				vec3 hsv2rgb(vec3 c) {
+					vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+					vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+					return c.z * mix(K.xxx, saturate(p - K.xxx), c.y);
+				}
+				
+				vec2 hash22(vec2 p) {
+					vec3 p3 = fract(vec3(p.xyx) * vec3(.1031, .1030, .0973));
+					p3 += dot(p3, p3.yzx+19.19);
+					return fract((p3.xx+p3.yz)*p3.zy);
+				}
+				
+				float remap(float val, float im, float ix, float om, float ox) {
+					return clamp(om + (val - im) * (ox - om) / (ix - im), om, ox);
+				}
+				
+				float ease_in_quad(float x) {
+					return x * x;
+				}
+				
+				float ease_out_quad(float x) {
+					return 1.0 - (1.0 - x) * (1.0 - x);
+				}
+				
+				float roller_coaster(float x, float peak) {
+					if (x < peak) {
+						return ease_in_quad(x / peak);
+					} else {
+						return ease_in_quad(1.0 - (x - peak) / (1.0 - peak));
+					}
+				}
+			`;
+
+			// Vertex shader (same for all passes)
+			const vertexShader = `
+				attribute vec2 position;
+				void main() {
+					gl_Position = vec4(position, 0.0, 1.0);
+				}
+			`;
+
+			// Buffer A: Draw 2D geometry (audio-reactive)
+			const bufferAFragment =
+				commonCode +
+				`
+				void main() {
+					vec2 p = (gl_FragCoord.xy * 2.0 - iResolution.xy) / min(iResolution.x, iResolution.y);
+					vec3 col = vec3(0.0);
+					float intensity = mix(0.1, 1.0, audioIntensity);
+					
+					// Bass-driven expanding circles (triggered by bass)
+					if (bassLevel > 0.2) {
+						int numCircles = int(bassLevel * 3.0) + 1;
+						for(int i = 0; i < 3; i++) {
+							if (i >= numCircles) break;
+							float shift = float(i) * 0.3;
+							vec2 center = vec2(0.0);
+							// Use time + bass for pulsing
+							float phase = fract(iTime * 0.5 + shift);
+							float r = ease_out_quad(phase) * (0.8 + bassLevel * 0.5);
+							float d1 = sdCircle(p - center, 2.0 * r);
+							float d2 = sdCircle(p - center, 1.7 * r);
+							float d = opSubtraction(d2, d1);
+							float hue = hueShift + shift * 0.2 + bassLevel * 0.1;
+							col += hsv2rgb(vec3(hue, 0.8, intensity)) * saturate(-100.0 * d) * bassLevel;
+						}
+					}
+					
+				// Mid-frequency circles (triggered by mids) - centered
+				if (midLevel > 0.15) {
+					int numCircles = int(midLevel * 5.0) + 1;
+					for(int i = 0; i < 5; i++) {
+						if (i >= numCircles) break;
+						float shift = float(i) * 0.2;
+						vec2 center = vec2(0.0); // Centered instead of moving
+						float phase = fract(iTime * 0.6 + shift);
+						float r = ease_out_quad(phase) * (0.5 + midLevel * 0.4);
+						float d1 = sdCircle(p - center, 1.0 * r);
+						float d2 = sdCircle(p - center, 0.85 * r);
+						float d = opSubtraction(d2, d1);
+						float hue = hueShift + 0.15 + shift * 0.1 + midLevel * 0.2;
+						col += hsv2rgb(vec3(hue, 0.9, intensity)) * saturate(-100.0 * d) * midLevel;
+					}
+				}
+					
+					// High-frequency fractals (triggered by highs)
+					if (highLevel > 0.1 || audioIntensity > 0.3) {
+						vec2 q = (fract(p) - 0.5) * 5.0;
+						float d = 9999.0;
+						float z = iTime * 0.3 + highLevel * 2.0;
+						for (int i = 0; i < 5; ++i) {
+							q = abs(q) - 0.5;
+							q *= rot(0.785398);
+							q = abs(q) - 0.5;
+							q *= rot(z);
+							float k = sdRect(q, vec2(0.6, 0.1 + q.x));
+							d = min(d, k);
+						}
+						float fractalIntensity = max(highLevel, audioIntensity * 0.5);
+						col += hsv2rgb(vec3(hueShift + q.x * 3.0 + highLevel * 0.3, 0.7, intensity)) * saturate(-2.0 * d) * fractalIntensity;
+					}
+					
+					// Subtle background glow when no strong audio
+					if (audioIntensity < 0.2) {
+						float d = length(p) - 0.5;
+						col += vec3(0.05) * saturate(-d);
+					}
+					
+					// Use alpha - make it visible even when dim
+					float brightness = max(max(col.r, col.g), col.b);
+					float alpha = brightness > 0.01 ? 1.0 : 0.0;
+					gl_FragColor = vec4(col, alpha);
+				}
+			`;
+
+			// Buffer B: Dot Matrix effect
+			const bufferBFragment =
+				commonCode +
+				`
+				uniform sampler2D iChannel0;
+				
+				void main() {
+					vec2 uv = (gl_FragCoord.xy / iResolution.xy) * 2.0 - 1.0;
+					
+					// Fewer base dots (25) with more variation (±8)
+					float ny = 25.0 + 30.0 * roller_coaster(fract(beat / 8.0), 0.8) * audioIntensity;
+					float nx = ny * iResolution.x / iResolution.y;
+					vec2 num = vec2(nx, ny);
+					
+					vec3 col;
+					vec2 uvDot = (((floor(uv * num) + 0.5) / num) + 1.0) * 0.5;
+					vec3 lum = texture2D(iChannel0, uvDot).rgb;
+					
+					vec2 uvGrid = fract(uv * num);
+					vec2 pGrid = uvGrid - 0.5;
+					// Larger dots (0.45 radius) with spacing between them
+					col = (lum + 0.05) * 5.0 * saturate(-sdCircle(pGrid, 0.45));
+					
+					// Make content fully opaque where visible
+					float brightness = max(max(col.r, col.g), col.b);
+					float alpha = brightness > 0.01 ? 1.0 : 0.0;
+					gl_FragColor = vec4(col, alpha);
+				}
+			`;
+
+			// Final pass: Post-processing
+			const finalFragment =
+				commonCode +
+				`
+				uniform sampler2D iChannel1;
+				
+				void main() {
+					vec2 uv = gl_FragCoord.xy / iResolution.xy;
+					vec3 col = vec3(0.0);
+					
+					// Adjust zoom to fill width - less zoom for full coverage
+					uv = uv * 2.0 - 1.0;
+					uv *= 0.95; // Reduced to fill the full width
+					uv = (uv + 1.0) * 0.5;
+					
+					// Camera shake (audio-reactive)
+					uv += 0.02 * sin(PI2 * beat / 32.0 * 10.0) * audioIntensity;
+					uv += 0.01 * sin(PI2 * beat / 32.0 * 20.0) * audioIntensity;
+					
+					// Lens distortion
+					vec2 dir = uv - vec2(0.5);
+					uv += dir * dot(dir, dir) * 0.2;
+					
+					// Chromatic aberration
+					vec2 offset = vec2(1.0, 1.0) * 0.005;
+					col.r = texture2D(iChannel1, uv - offset).r;
+					col.g = texture2D(iChannel1, uv).g;
+					col.b = texture2D(iChannel1, uv + offset).b;
+					
+				// Vignette
+				vec2 d = abs(uv - vec2(0.5)) * 1.6;
+				d = pow(d, vec2(2.0));
+				col.rgb *= pow(saturate(1.0 - dot(d, d)), 3.0);
+				
+				// Natural radial fade from center
+				vec2 center = gl_FragCoord.xy / iResolution.xy - vec2(0.5);
+				float distFromCenter = length(center) * 2.0; // 0 at center, 1 at edge
+				
+				// Smooth radial fade: full opacity at center, fade to transparent at edges
+				float radialFade = 1.0 - smoothstep(0.4, 1.2, distFromCenter);
+				
+				// Apply fade intelligently: bright waves ignore fade, dim content respects it
+				float brightness = max(max(col.r, col.g), col.b);
+				float alpha;
+				if (brightness > 0.3) {
+					// Bright content (waves) stays fully opaque
+					alpha = 1.0;
+				} else if (brightness > 0.01) {
+					// Dim content fades naturally
+					alpha = radialFade;
+				} else {
+					// Very dark content is transparent
+					alpha = 0.0;
+				}
+				
+				gl_FragColor = vec4(col, alpha);
+			}
+			`;
+
+			// Create programs
+			this.bufferA = {
+				framebuffer: gl.createFramebuffer()!,
+				texture: gl.createTexture()!,
+				program: this.createProgram(vertexShader, bufferAFragment)!,
+			};
+			this.createFramebuffer(this.bufferA);
+
+			this.bufferB = {
+				framebuffer: gl.createFramebuffer()!,
+				texture: gl.createTexture()!,
+				program: this.createProgram(vertexShader, bufferBFragment)!,
+			};
+			this.createFramebuffer(this.bufferB);
+
+			this.finalProgram = this.createProgram(vertexShader, finalFragment);
+		}
+
+		private createProgram(vertexSource: string, fragmentSource: string): WebGLProgram | null {
+			const gl = this.gl;
+
+			const vertexShader = this.compileShader(gl.VERTEX_SHADER, vertexSource);
+			const fragmentShader = this.compileShader(gl.FRAGMENT_SHADER, fragmentSource);
+
+			if (!vertexShader || !fragmentShader) return null;
+
+			const program = gl.createProgram();
+			if (!program) return null;
+
+			gl.attachShader(program, vertexShader);
+			gl.attachShader(program, fragmentShader);
+			gl.linkProgram(program);
+
+			if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+				console.error("Program link error:", gl.getProgramInfoLog(program));
+				return null;
+			}
+
+			return program;
+		}
+
+		private compileShader(type: number, source: string): WebGLShader | null {
+			const gl = this.gl;
+			const shader = gl.createShader(type);
+			if (!shader) return null;
+
+			gl.shaderSource(shader, source);
+			gl.compileShader(shader);
+
+			if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+				console.error("Shader compile error:", gl.getShaderInfoLog(shader));
+				gl.deleteShader(shader);
+				return null;
+			}
+
+			return shader;
+		}
+
+		public connectAudio(audioElement: HTMLAudioElement) {
+			if (this.audioElement === audioElement && this.audioContext) {
+				return;
+			}
+
+			this.audioElement = audioElement;
+
+			if (!this.audioContext) {
+				try {
+					this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+					this.analyser = this.audioContext.createAnalyser();
+					this.analyser.fftSize = 256;
+
+					const source = this.audioContext.createMediaElementSource(audioElement);
+					source.connect(this.analyser);
+					this.analyser.connect(this.audioContext.destination);
+
+					this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+				} catch (error) {
+					console.error("Error connecting audio:", error);
+				}
+			}
+		}
+
+		public setTheme(trackName: string) {
+			this.currentHue = colorThemes[trackName] || defaultHue;
+		}
+
+		public start() {
+			this.isPlaying = true;
+		}
+
+		public stop() {
+			this.isPlaying = false;
+			this.audioIntensity = 0;
+		}
+
+		private startAnimation() {
+			this.animate();
+		}
+
+		private animate() {
+			const deltaTime = 1.0 / 60.0; // Assume 60fps
+			this.time += deltaTime;
+			this.beat = ((this.time * 120.0) / 60.0) % 32.0; // BPM 120, loop every 32 beats
+
+			// Update audio data
+			if (this.isPlaying && this.analyser && this.dataArray) {
+				this.analyser.getByteFrequencyData(this.dataArray);
+
+				// Calculate frequency bands
+				const bass = this.dataArray.slice(0, 10).reduce((a, b) => a + b) / 10 / 255;
+				const mid = this.dataArray.slice(10, 50).reduce((a, b) => a + b) / 40 / 255;
+				const high = this.dataArray.slice(50, 100).reduce((a, b) => a + b) / 50 / 255;
+				const average = this.dataArray.reduce((a, b) => a + b) / this.dataArray.length / 255;
+
+				this.bassLevel = bass;
+				this.midLevel = mid;
+				this.highLevel = high;
+				this.audioIntensity = average;
+			} else {
+				// Fade out when not playing
+				this.audioIntensity *= 0.95;
+				this.bassLevel *= 0.95;
+				this.midLevel *= 0.95;
+				this.highLevel *= 0.95;
+			}
+
+			// Broadcast color information for other components to use
+			this.broadcastColors();
+
+			this.render();
+			this.animationId = requestAnimationFrame(() => this.animate());
+		}
+
+		private broadcastColors() {
+			// Calculate saturation and value based on audio intensity
+			const saturation = this.isPlaying ? 0.8 + this.audioIntensity * 0.2 : 0.0;
+			const value = this.isPlaying ? 0.8 + this.audioIntensity * 0.2 : 0.3;
+
+			// Dynamic hue shifting based on audio frequencies
+			let dynamicHue = this.currentHue;
+			if (this.isPlaying) {
+				// Bass shifts hue backward, highs shift forward
+				const hueShift = (this.highLevel - this.bassLevel) * 0.15 + this.midLevel * 0.05;
+				dynamicHue = (this.currentHue + hueShift) % 1.0;
+				// Ensure positive values
+				if (dynamicHue < 0) dynamicHue += 1.0;
+			}
+
+			// Convert HSV to RGB
+			const rgb = hsvToRgb(dynamicHue, saturation, value);
+
+			// Dispatch custom event with color data
+			document.dispatchEvent(
+				new CustomEvent("visualizer-colors", {
+					detail: {
+						hue: dynamicHue, // 0-1 range (now dynamic!)
+						saturation: saturation, // 0-1 range
+						value: value, // 0-1 range
+						rgb: rgb, // { r, g, b } 0-255 range
+						hex: `#${rgb.r.toString(16).padStart(2, "0")}${rgb.g.toString(16).padStart(2, "0")}${rgb.b.toString(16).padStart(2, "0")}`,
+						audioLevels: {
+							bass: this.bassLevel,
+							mid: this.midLevel,
+							high: this.highLevel,
+							intensity: this.audioIntensity,
+						},
+						isPlaying: this.isPlaying,
+					},
+				})
+			);
+		}
+
+		private render() {
+			const gl = this.gl;
+			if (!this.bufferA || !this.bufferB || !this.finalProgram) return;
+
+			// Setup vertex buffer
+			gl.bindBuffer(gl.ARRAY_BUFFER, this.quadBuffer);
+
+			// Pass 1: Buffer A (geometry)
+			this.renderPass(this.bufferA.program, this.bufferA.framebuffer, null);
+
+			// Pass 2: Buffer B (dot matrix)
+			this.renderPass(this.bufferB.program, this.bufferB.framebuffer, this.bufferA.texture);
+
+			// Pass 3: Final (post-processing)
+			this.renderPass(this.finalProgram, null, this.bufferB.texture);
+		}
+
+		private renderPass(
+			program: WebGLProgram,
+			framebuffer: WebGLFramebuffer | null,
+			inputTexture: WebGLTexture | null
+		) {
+			const gl = this.gl;
+
+			gl.useProgram(program);
+			gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+
+			if (framebuffer) {
+				gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+			} else {
+				gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+			}
+
+			// Set uniforms
+			const posLoc = gl.getAttribLocation(program, "position");
+			gl.enableVertexAttribArray(posLoc);
+			gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+			const resLoc = gl.getUniformLocation(program, "iResolution");
+			gl.uniform2f(resLoc, this.canvas.width, this.canvas.height);
+
+			const timeLoc = gl.getUniformLocation(program, "iTime");
+			gl.uniform1f(timeLoc, this.time);
+
+			const beatLoc = gl.getUniformLocation(program, "beat");
+			gl.uniform1f(beatLoc, this.beat);
+
+			const audioLoc = gl.getUniformLocation(program, "audioIntensity");
+			gl.uniform1f(audioLoc, this.audioIntensity);
+
+			const bassLoc = gl.getUniformLocation(program, "bassLevel");
+			gl.uniform1f(bassLoc, this.bassLevel);
+
+			const midLoc = gl.getUniformLocation(program, "midLevel");
+			gl.uniform1f(midLoc, this.midLevel);
+
+			const highLoc = gl.getUniformLocation(program, "highLevel");
+			gl.uniform1f(highLoc, this.highLevel);
+
+			const hueLoc = gl.getUniformLocation(program, "hueShift");
+			gl.uniform1f(hueLoc, this.currentHue);
+
+			// Bind input texture if provided
+			if (inputTexture) {
+				gl.activeTexture(gl.TEXTURE0);
+				gl.bindTexture(gl.TEXTURE_2D, inputTexture);
+				const channelLoc = gl.getUniformLocation(program, "iChannel0");
+				if (channelLoc) gl.uniform1i(channelLoc, 0);
+
+				const channelLoc1 = gl.getUniformLocation(program, "iChannel1");
+				if (channelLoc1) gl.uniform1i(channelLoc1, 0);
+			}
+
+			// Clear and draw
+			gl.clearColor(0, 0, 0, 0);
+			gl.clear(gl.COLOR_BUFFER_BIT);
+			gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+		}
+	}
+
+	// Initialize visualizer
+	const canvas = document.getElementById("wave-visualizer") as HTMLCanvasElement;
+	if (canvas) {
+		try {
+			const visualizer = new ShadertoyVisualizer(canvas);
+
+			// Listen for events from MusicPlayer
+			document.addEventListener("music-play", ((e: CustomEvent) => {
+				const { audioElement, trackName } = e.detail;
+				visualizer.connectAudio(audioElement);
+				visualizer.setTheme(trackName);
+				visualizer.start();
+			}) as EventListener);
+
+			document.addEventListener("music-pause", () => {
+				visualizer.stop();
+			});
+
+			document.addEventListener("music-track-change", ((e: CustomEvent) => {
+				const { trackName } = e.detail;
+				visualizer.setTheme(trackName);
+			}) as EventListener);
+		} catch (error) {
+			console.error("Failed to initialize visualizer:", error);
+		}
+	}
+</script>

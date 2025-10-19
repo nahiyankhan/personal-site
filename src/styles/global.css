@@ -87,8 +87,8 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 200vw;
-	height: 200vh;
+	width: 100vw;
+	height: 100vh;
 	content: "";
 	opacity: 0.08;
 	z-index: 1000;

@@ -19,6 +19,7 @@ import { Icon } from "astro-icon/components";
 		x-transition:leave-end="opacity-0 translate-y-16"
 	>
 		<button
+			data-vfx-glitch
 			@click="window.scrollTo({top: 0, behavior: 'smooth'})"
 			class="h-full w-full rounded-full border bg-bgColor p-2 transition-colors duration-300 ease-[cubic-bezier(0.55,0,1,0.45)] hover:border-black hover:bg-black hover:text-white dark:hover:border-white dark:hover:bg-white dark:hover:text-black sm:h-16 sm:w-16"
 		>

@@ -20,7 +20,7 @@ import { Icon } from "astro-icon/components";
 		<div class="flex min-h-screen flex-col">
 			<div class="relative flex flex-row items-center">
 				<div
-					class="flex w-full border-y text-3xl font-extrabold uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl xl:leading-[3.4rem] 2xl:text-8xl 2xl:leading-[4.6rem]"
+					class="text-textProminent flex w-full border-y text-3xl font-extrabold uppercase leading-[1.5rem] sm:text-5xl sm:leading-[3rem] xl:text-7xl xl:leading-[3.4rem] 2xl:text-8xl 2xl:leading-[4.6rem]"
 					transition:name=`beacon-title`
 				>
 					/Beacon-Guidelines-Site
@@ -39,7 +39,9 @@ import { Icon } from "astro-icon/components";
 
 			<div class="relative mb-2 mt-20 sm:mb-4 sm:w-1/2" transition:name=`beacon-header-image`>
 				<BoxLines />
-				<img src={BeaconSiteImage.src} class="pr-[1px]" height={BeaconSiteImage.height} alt="" />
+				<div data-vfx-hover>
+					<img src={BeaconSiteImage.src} class="pr-[1px]" height={BeaconSiteImage.height} alt="" />
+				</div>
 			</div>
 		</div>
 	</div>
