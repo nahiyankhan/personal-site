@@ -2,9 +2,7 @@
 import ADPLogo from "@/assets/adp.svg?raw";
 import BlockLogo from "@/assets/block.svg?raw";
 import CashAppLogo from "@/assets/cash_app.svg?raw";
-import DesignXLogoDark from "@/assets/designx_dark.svg?raw";
-import DesignXLogoWhite from "@/assets/designx_white.svg?raw";
-import ExperienceSneak from "@/assets/experience.gif";
+import ExperienceTitle from "@/assets/experience.svg?raw";
 import MacalesterLogo from "@/assets/macalester.svg?raw";
 import PearsonLogo from "@/assets/pearson.svg?raw";
 import { Icon } from "astro-icon/components";
@@ -12,8 +10,17 @@ import Section from "./Section.astro";
 import Subtitle from "./Subtitle.astro";
 ---
 
-<Section title="experience" subtitle="a.k.a the things I am more than sorta good at.">
-	<div class="grid px-8 pt-16">
+<div>
+	<!-- <div class="relative flex flex-col items-end px-8 py-8">
+		<div class="h-24 [&>svg]:h-full [&>svg]:w-full">
+			<Fragment set:html={ExperienceTitle} />
+		</div>
+		<div class="relative inline-flex w-[fit-content]">
+			<div class="baseline-on-grid text-sm">a.k.a the things I am more than sorta good at.</div>
+		</div>
+	</div> -->
+
+	<div class="grid px-8 pt-8">
 		<Subtitle title="current" />
 
 		<div class="mb-16 space-y-16 pt-8">
@@ -27,8 +34,12 @@ import Subtitle from "./Subtitle.astro";
 					<p class="baseline-on-grid ml-8 text-sm">Principal Design Engineer @ Block</p>
 				</div>
 			</div>
+		</div>
 
-			<div class="pr-0 sm:pr-16">
+		<Subtitle title="past" />
+
+		<div class="mb-16 grid grid-cols-2 gap-8 pt-8">
+			<div class="">
 				<div class="mb-8 flex flex-col items-center sm:flex-row">
 					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
 						<Fragment set:html={CashAppLogo} />
@@ -36,11 +47,7 @@ import Subtitle from "./Subtitle.astro";
 					<p class="baseline-on-grid ml-8 text-sm">Staff Design Engineer @ Cash App</p>
 				</div>
 			</div>
-		</div>
 
-		<Subtitle title="past" />
-
-		<div class="mb-16 space-y-16 pt-8">
 			<div class="">
 				<div class="mb-8 flex flex-col items-center sm:flex-row">
 					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
@@ -69,4 +76,4 @@ import Subtitle from "./Subtitle.astro";
 			</div>
 		</div>
 	</div>
-</Section>
+</div>

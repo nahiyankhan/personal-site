@@ -6,7 +6,8 @@ import { Icon } from "astro-icon/components";
 <div class="flex flex-col items-end justify-center">
 	<div
 		id="intro-logo"
-		class="relative overflow-hidden px-8 pb-8 pt-16 [&_svg]:h-[64px] [&_svg]:w-full sm:[&_svg]:h-[96px] lg:[&_svg]:h-[128px]"
+		class="relative overflow-hidden px-8 pb-8 pt-16 [&_svg]:w-full"
+		data-logo-scale
 	>
 		<Fragment set:html={Nahiyan} />
 	</div>
@@ -34,6 +35,61 @@ import { Icon } from "astro-icon/components";
 </div>
 
 <script>
+	// Logo scaling system - increments in 32px units based on viewport
+	const LOGO_ASPECT_RATIO = 2692 / 330; // ~8.16:1
+	const GRID_UNIT = 32; // Base unit for scaling
+	const HORIZONTAL_PADDING = 64; // px-8 on both sides (32px * 2)
+
+	function calculateLogoSize(): number {
+		const viewportWidth = window.innerWidth;
+
+		// Start with minimum size (2 units = 64px)
+		let units = 2;
+
+		// Calculate required width for each unit increment
+		// and find the largest size that fits
+		while (units <= 10) {
+			// Cap at 10 units (320px) for sanity
+			const nextUnits = units + 1;
+			const nextHeight = nextUnits * GRID_UNIT;
+			const nextWidth = nextHeight * LOGO_ASPECT_RATIO;
+			const nextTotalWidth = nextWidth + HORIZONTAL_PADDING;
+
+			// If next size doesn't fit, use current size
+			if (nextTotalWidth > viewportWidth) {
+				break;
+			}
+
+			units = nextUnits;
+		}
+
+		return units * GRID_UNIT;
+	}
+
+	function updateLogoSize() {
+		const logoElement = document.getElementById("intro-logo");
+		if (!logoElement) return;
+
+		const svg = logoElement.querySelector("svg");
+		if (!svg) return;
+
+		const height = calculateLogoSize();
+		const units = height / GRID_UNIT;
+		const width = height * LOGO_ASPECT_RATIO;
+		const totalWidth = width + HORIZONTAL_PADDING;
+
+		svg.style.height = `${height}px`;
+
+		// Debug logging
+		console.log("🎨 Logo Scaling:", {
+			viewportWidth: window.innerWidth,
+			logoHeight: `${height}px (${units} × 32px)`,
+			logoWidth: `${Math.round(width)}px`,
+			totalWidth: `${Math.round(totalWidth)}px`,
+			padding: `${HORIZONTAL_PADDING}px`,
+		});
+	}
+
 	let canvas: HTMLCanvasElement | null = null;
 	let gl: WebGLRenderingContext | null = null;
 	let program: WebGLProgram | null = null;
@@ -289,21 +345,53 @@ import { Icon } from "astro-icon/components";
 		animationId = requestAnimationFrame(animate);
 	}
 
+	// Debounce function for resize handler
+	function debounce(func: Function, wait: number) {
+		let timeout: ReturnType<typeof setTimeout> | null = null;
+		return function executedFunction(...args: any[]) {
+			const later = () => {
+				timeout = null;
+				func(...args);
+			};
+			if (timeout) clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+		};
+	}
+
+	// Resize handler
+	const handleResize = debounce(() => {
+		updateLogoSize();
+		initGL();
+	}, 150);
+
 	// Initialize on load
-	document.addEventListener("DOMContentLoaded", initGL);
+	document.addEventListener("DOMContentLoaded", () => {
+		updateLogoSize();
+		initGL();
+	});
 
 	// Reinitialize on theme change
 	document.addEventListener("theme-change", () => {
-		setTimeout(initGL, 50);
+		setTimeout(() => {
+			updateLogoSize();
+			initGL();
+		}, 50);
 	});
 
+	// Handle window resize
+	window.addEventListener("resize", handleResize);
+
 	// Reinitialize after Astro transitions
-	document.addEventListener("astro:after-swap", initGL);
+	document.addEventListener("astro:after-swap", () => {
+		updateLogoSize();
+		initGL();
+	});
 
 	// Clean up on page unload
 	document.addEventListener("astro:before-preparation", () => {
 		if (animationId) cancelAnimationFrame(animationId);
 		if (canvas) canvas.remove();
+		window.removeEventListener("resize", handleResize);
 	});
 </script>
 
