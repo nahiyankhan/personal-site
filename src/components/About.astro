@@ -1,23 +1,30 @@
 ---
+import AboutTitle from "@/assets/about.svg?raw";
 import JHULogo from "@/assets/jhu.svg?raw";
 import MacalesterLogo from "@/assets/macalester.svg?raw";
-import SortaGood from "@/assets/sortagood.gif";
-import ThisIsFine from "@/assets/thisisfine.gif";
 import { Icon } from "astro-icon/components";
-import Section from "./Section.astro";
 import Subtitle from "./Subtitle.astro";
 ---
 
-<Section title="about" subtitle="a.k.a the 9 to 5. and the 5 to 9.">
-	<div class="border-t">
-		<div class="w-11/12 px-8 py-16 lg:w-3/5 xl:w-1/2">
+<div>
+	<div class="relative flex flex-col items-end px-8 py-8">
+		<div class="h-24 [&>svg]:h-full [&>svg]:w-full">
+			<Fragment set:html={AboutTitle} />
+		</div>
+		<div class="relative mb-8 inline-flex w-[fit-content] sm:mb-8">
+			<div class="baseline-on-grid text-sm">a.k.a the 9 to 5. and the 5 to 9.</div>
+		</div>
+	</div>
+
+	<div class="">
+		<div class="w-11/12 px-8 py-8 lg:w-3/5 xl:w-1/2">
 			<div class="">
-				<div class="mb-6 inline-block text-sm sm:mb-8">
+				<div class="baseline-on-grid mb-[20px] inline-block text-sm">
 					am an engineer. am a designer. am both? am neither? definitions are arbitrary. existential
 					crisis is real. but 9 to 5, I lead design engineering at block.
 				</div>
 
-				<p class="mb-4 text-sm">
+				<p class="baseline-on-grid mb-8 text-sm">
 					and 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, read science
 					fiction, and as of august 2024 - play with my daughter.
 				</p>
@@ -25,24 +32,24 @@ import Subtitle from "./Subtitle.astro";
 		</div>
 	</div>
 
-	<div class="grid grid-cols-1 border-t px-8 pb-16 sm:grid-cols-2 sm:divide-x sm:pb-0">
+	<div class="grid grid-cols-1 px-8 pb-16 sm:grid-cols-2 sm:divide-x sm:pb-0">
 		<div class="pt-16">
 			<Subtitle title="education" />
 
-			<div class="mb-12 space-y-8 md:mb-16">
+			<div class="mb-16 space-y-8 md:mb-16">
 				<div class="">
-					<div class="mb-4 flex flex-col items-center sm:flex-row [&>svg]:w-full">
+					<div class="mb-8 flex flex-col sm:flex-row [&>svg]:w-full">
 						<div class="h-12 w-12 overflow-hidden sm:h-16 sm:w-16">
 							<Fragment set:html={JHULogo} />
 						</div>
-						<p class="header-standard ml-4">Masters in Computer Science @ JHU</p>
+						<p class="baseline-on-grid ml-8 text-sm">Masters in Computer Science @ JHU</p>
 					</div>
 				</div>
 
 				<div class="">
-					<div class="mb-4 flex flex-col items-center sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
+					<div class="mb-8 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 						<Fragment set:html={MacalesterLogo} />
-						<p class="header-standard ml-4">Bachelor of Arts @ Macalester College</p>
+						<p class="baseline-on-grid ml-8 text-sm">Bachelor of Arts @ Macalester College</p>
 					</div>
 				</div>
 			</div>
@@ -51,7 +58,7 @@ import Subtitle from "./Subtitle.astro";
 		<div class="sm:px-8 sm:pt-16">
 			<Subtitle title="mantras" />
 
-			<ul class="mb-4 sm:mb-8">
+			<ul class="mb-8 sm:mb-8">
 				<li class="flex items-center">
 					<div class="full justify-left flex items-center">
 						<Icon
@@ -61,7 +68,9 @@ import Subtitle from "./Subtitle.astro";
 							name="mdi:circle-small"
 						/>
 					</div>
-					<p class="pl-4 text-sm">trust by default. work in the open. meet where the work is.</p>
+					<p class="baseline-on-grid pl-8 text-sm">
+						trust by default. work in the open. meet where the work is.
+					</p>
 				</li>
 				<li class="flex items-center">
 					<div class="full justify-left flex items-center">
@@ -72,11 +81,11 @@ import Subtitle from "./Subtitle.astro";
 							name="mdi:circle-small"
 						/>
 					</div>
-					<div class="inline pl-4 text-sm">
+					<div class="baseline-on-grid inline pl-8 text-sm">
 						sucking at something is the first step to being sorta good at something
 					</div>
 				</li>
 			</ul>
 		</div>
 	</div>
-</Section>
+</div>

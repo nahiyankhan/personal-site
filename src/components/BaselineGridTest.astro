@@ -1,0 +1,106 @@
+---
+/**
+ * Test component to visualize baseline grid alignment
+ * Toggle the grid overlay to see if text baselines align with the grid lines
+ */
+---
+
+<div class="fixed left-4 top-4 z-50">
+	<button
+		id="toggle-grid"
+		class="rounded bg-accent px-4 py-2 text-sm text-textInverse shadow-lg hover:opacity-80"
+	>
+		Toggle Grid
+	</button>
+</div>
+
+<!-- Grid overlay - hidden by default -->
+<div
+	id="grid-overlay"
+	class="pointer-events-none fixed inset-0 z-40 hidden"
+	style="background: repeating-linear-gradient(transparent, transparent 31px, rgba(255, 0, 0, 0.3) 31px, rgba(255, 0, 0, 0.3) 32px);"
+>
+</div>
+
+<!-- Test content -->
+<div class="mx-auto max-w-4xl space-y-16 px-8 py-32">
+	<section>
+		<h2 class="baseline-on-grid mb-8 text-2xl font-bold">Single Line Test</h2>
+		<div class="baseline-on-grid text-sm">
+			This is a single line of text that should sit on the grid.
+		</div>
+	</section>
+
+	<section>
+		<h2 class="baseline-on-grid mb-8 text-2xl font-bold">Multi-line Test (Short)</h2>
+		<div class="baseline-on-grid max-w-md text-sm">
+			This is a multi-line text block that should align to the baseline grid. Each line should sit
+			exactly on a grid line.
+		</div>
+	</section>
+
+	<section>
+		<h2 class="baseline-on-grid mb-8 text-2xl font-bold">Multi-line Test (Long)</h2>
+		<div class="baseline-on-grid max-w-md text-sm">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+			labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+			laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+			voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		</div>
+	</section>
+
+	<section>
+		<h2 class="baseline-on-grid mb-8 text-2xl font-bold">Multiple Paragraphs</h2>
+		<div class="container-on-grid max-w-md">
+			<p class="baseline-on-grid text-sm">
+				First paragraph with multiple lines of text. This should align properly to the baseline grid
+				with each line sitting on a grid line.
+			</p>
+			<p class="baseline-on-grid text-sm">
+				Second paragraph that also aligns to the baseline grid. The spacing between paragraphs
+				should maintain the grid rhythm.
+			</p>
+			<p class="baseline-on-grid text-sm">
+				Third paragraph to ensure consistent spacing and alignment throughout the entire block of
+				text.
+			</p>
+		</div>
+	</section>
+
+	<section>
+		<h2 class="baseline-on-grid mb-8 text-2xl font-bold">Mixed Sizes</h2>
+		<div class="max-w-md space-y-8">
+			<div class="baseline-on-grid text-xs">Extra small text (12px) on grid</div>
+			<div class="baseline-on-grid text-sm">Small text (14px) on grid</div>
+			<div class="baseline-on-grid text-base">Base text (16px) on grid</div>
+			<div class="baseline-on-grid text-lg">Large text (18px) on grid</div>
+			<div class="baseline-on-grid-large text-2xl">Extra large text (24px) with 4 baselines</div>
+		</div>
+	</section>
+
+	<section>
+		<h2 class="baseline-on-grid mb-8 text-2xl font-bold">Real Content Example</h2>
+		<div class="max-w-md">
+			<div class="baseline-on-grid mb-8 text-sm">a.k.a the 9 to 5. and the 5 to 9.</div>
+
+			<div class="baseline-on-grid mb-8 text-sm">
+				am an engineer. am a designer. am both? am neither? definitions are arbitrary. existential
+				crisis is real. but 9 to 5, I lead design engineering at block.
+			</div>
+
+			<p class="baseline-on-grid text-sm">
+				and 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, read science
+				fiction, and as of august 2024 - play with my daughter.
+			</p>
+		</div>
+	</section>
+</div>
+
+<script>
+	const toggleButton = document.getElementById("toggle-grid");
+	const gridOverlay = document.getElementById("grid-overlay");
+
+	toggleButton?.addEventListener("click", () => {
+		gridOverlay?.classList.toggle("hidden");
+	});
+</script>

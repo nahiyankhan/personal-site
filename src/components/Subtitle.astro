@@ -3,9 +3,9 @@ const { title, ...rest } = Astro.props;
 ---
 
 <div x-data="{ inview: false }" {...rest}>
-	<div class="relative mb-4 inline-flex w-[fit-content] sm:mb-8">
+	<div class="relative mb-8 inline-flex w-[fit-content] sm:mb-8">
 		<div
-			class="text-textProminent text-2xl font-bold uppercase leading-[1.5rem] sm:text-3xl sm:leading-[3rem] md:text-4xl xl:text-5xl"
+			class="text-textProminent text-[2rem] font-bold uppercase leading-[2.5rem] sm:text-[3rem] sm:leading-[3.5rem] lg:text-[4rem] lg:leading-[4.5rem] xl:text-[6rem] xl:leading-[6rem]"
 		>
 			{title}
 		</div>

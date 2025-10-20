@@ -6,7 +6,7 @@ const currentPath = Astro.url.pathname;
 
 <header
 	x-data
-	class="top-0 z-50 h-8 w-auto border-b bg-bgColor sm:fixed sm:mx-auto sm:h-12 sm:w-full"
+	class="top-0 z-50 h-8 w-auto bg-bgColor sm:fixed sm:mx-auto sm:h-12 sm:w-full"
 	:style="$store.settings.open ? { transform: `translateX(-320px)` } : { transform: `translateX(0px)` }"
 >
 	<div class="container relative mx-auto flex h-full justify-end">

@@ -6,20 +6,20 @@ import Section from "./Section.astro";
 
 <Section title="contact" subtitle="a.k.a say hi. recommend a science fiction novel. let's jam.">
 	<div class="px-8">
-		<div class="mb-2 text-base">say hi at</div>
+		<div class="mb-8 text-base">say hi at</div>
 		<ul class="mb-24">
 			{
 				socialLinks.map(({ friendlyName, link, name }) => (
-					<li class="mb-2 flex">
+					<li class="mb-8 flex">
 						<a
-							class="text-textProminent link relative flex items-center justify-center underline"
+							class="baseline-on-grid link relative flex items-center justify-center text-sm underline"
 							href={link}
 							target="_blank"
 						>
 							<div class="full justify-left flex items-center">
 								<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
 							</div>
-							<p class="pl-2">{friendlyName}</p>
+							<p class="baseline-on-grid pl-8">{friendlyName}</p>
 						</a>
 					</li>
 				))
