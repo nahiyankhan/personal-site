@@ -1,46 +1,402 @@
 ---
 import Nahiyan from "@/assets/nahiyan.svg?raw";
 import { Icon } from "astro-icon/components";
-const introLineRef = `introLineRef`;
 ---
 
-<div class="nk-transition flex flex-col items-center justify-center">
-	<div class="relative p-10 [&_svg]:ml-[-1px] [&_svg]:mr-[-1px] [&_svg]:h-full [&_svg]:w-full">
+<div class="flex flex-col items-end justify-center">
+	<div
+		id="intro-logo"
+		class="relative overflow-hidden px-8 pb-8 pt-16 [&_svg]:w-full"
+		data-logo-scale
+	>
 		<Fragment set:html={Nahiyan} />
 	</div>
-	<div
-		class="relative flex h-8 w-full items-center px-10 sm:h-12"
-		x-data="{ inview: false, ratio: 1 }"
-		x-ref={introLineRef}
-		@scroll.window=`inview = $refs.${introLineRef}.getBoundingClientRect().top <= (window.innerHeight * 9/10) && $refs.${introLineRef}.getBoundingClientRect().top >= 50`
-		x-init=`inview = $refs.${introLineRef}.getBoundingClientRect().top <= (window.innerHeight * 9/10) && $refs.${introLineRef}.getBoundingClientRect().top >= 50, ratio = window.innerWidth < 1024 ? 2 : 1`
-		@resize.window=`ratio = window.innerWidth < 1024 ? 2 : 1`
-	>
-		<div class="absolute left-0 top-0 h-[1px] w-full bg-divider transition-all"></div>
-		<div class="absolute bottom-0 left-0 h-[1px] w-full bg-divider transition-all"></div>
-
-		<p class="subtitle-large">nahiyan</p>
-
-		<div class="absolute right-10 h-12 w-12 overflow-hidden rounded-full sm:mr-0 sm:h-16 sm:w-16">
-			<a
-				class="flex h-full w-full items-center justify-center rounded-full border bg-bgColor p-2 transition-all [&::after]:absolute [&::after]:h-12 [&::after]:w-12 [&::after]:origin-center [&::after]:rounded-full [&::after]:border [&::after]:border-transparent [&::after]:duration-300 [&::after]:content-[''] hover:[&::after]:scale-75 hover:[&::after]:border-divider dark:hover:[&::after]:border-divider [&::after]:sm:h-16 [&::after]:sm:w-16"
-				type="button"
-				x-data
-				@click="$store.theme.toggleMode()"
-			>
-				<Icon
-					aria-hidden="true"
-					class="h-5 w-5 transition-all duration-300 dark:hidden sm:h-7 sm:w-7"
-					focusable="false"
-					name="solar:moon-bold-duotone"
-				/>
-				<Icon
-					aria-hidden="true"
-					class="hidden h-5 w-5 transition-all duration-300 dark:block sm:h-7 sm:w-7"
-					focusable="false"
-					name="solar:sun-bold-duotone"
-				/>
-			</a>
-		</div>
+	<div class="relative mr-8 h-12 w-12 rounded-full sm:h-16 sm:w-16">
+		<a
+			class="relative flex h-full w-full items-center justify-center rounded-full border bg-bgColor transition-all [&::after]:absolute [&::after]:h-12 [&::after]:w-12 [&::after]:origin-center [&::after]:rounded-full [&::after]:border [&::after]:border-transparent [&::after]:duration-300 [&::after]:content-[''] hover:[&::after]:scale-75 hover:[&::after]:border-divider dark:hover:[&::after]:border-divider [&::after]:sm:h-16 [&::after]:sm:w-16"
+			type="button"
+			x-data
+			@click="$store.theme.toggleMode()"
+		>
+			<Icon
+				aria-hidden="true"
+				class="h-5 w-5 transition-all duration-300 dark:hidden sm:h-7 sm:w-7"
+				focusable="false"
+				name="solar:moon-bold-duotone"
+			/>
+			<Icon
+				aria-hidden="true"
+				class="hidden h-5 w-5 transition-all duration-300 dark:block sm:h-7 sm:w-7"
+				focusable="false"
+				name="solar:sun-bold-duotone"
+			/>
+		</a>
 	</div>
 </div>
+
+<script>
+	// Logo scaling system - increments in 32px units based on viewport
+	const LOGO_ASPECT_RATIO = 2692 / 330; // ~8.16:1
+	const GRID_UNIT = 32; // Base unit for scaling
+	const HORIZONTAL_PADDING = 64; // px-8 on both sides (32px * 2)
+
+	function calculateLogoSize(): number {
+		const viewportWidth = window.innerWidth;
+
+		// Start with minimum size (2 units = 64px)
+		let units = 2;
+
+		// Calculate required width for each unit increment
+		// and find the largest size that fits
+		while (units <= 10) {
+			// Cap at 10 units (320px) for sanity
+			const nextUnits = units + 1;
+			const nextHeight = nextUnits * GRID_UNIT;
+			const nextWidth = nextHeight * LOGO_ASPECT_RATIO;
+			const nextTotalWidth = nextWidth + HORIZONTAL_PADDING;
+
+			// If next size doesn't fit, use current size
+			if (nextTotalWidth > viewportWidth) {
+				break;
+			}
+
+			units = nextUnits;
+		}
+
+		return units * GRID_UNIT;
+	}
+
+	function updateLogoSize() {
+		const logoElement = document.getElementById("intro-logo");
+		if (!logoElement) return;
+
+		const svg = logoElement.querySelector("svg");
+		if (!svg) return;
+
+		const height = calculateLogoSize();
+		const units = height / GRID_UNIT;
+		const width = height * LOGO_ASPECT_RATIO;
+		const totalWidth = width + HORIZONTAL_PADDING;
+
+		svg.style.height = `${height}px`;
+
+		// Debug logging
+		console.log("🎨 Logo Scaling:", {
+			viewportWidth: window.innerWidth,
+			logoHeight: `${height}px (${units} × 32px)`,
+			logoWidth: `${Math.round(width)}px`,
+			totalWidth: `${Math.round(totalWidth)}px`,
+			padding: `${HORIZONTAL_PADDING}px`,
+		});
+	}
+
+	let canvas: HTMLCanvasElement | null = null;
+	let gl: WebGLRenderingContext | null = null;
+	let program: WebGLProgram | null = null;
+	let texture: WebGLTexture | null = null;
+	let animationId: number | null = null;
+	let startTime = Date.now();
+
+	const vertexShaderSource = `
+		attribute vec2 position;
+		void main() {
+			gl_Position = vec4(position, 0.0, 1.0);
+		}
+	`;
+
+	const fragmentShaderSource = `
+		precision mediump float;
+		uniform sampler2D src;
+		uniform vec2 resolution;
+		uniform vec2 offset;
+		uniform float time;
+
+		float nn(float y, float t) {
+			float n = (
+				sin(y * 0.07 + t * 8.0 + sin(y * 0.5 + t * 10.0)) +
+				sin(y * 0.7 + t * 2.0 + sin(y * 0.3 + t * 8.0)) * 0.7 +
+				sin(y * 1.1 + t * 2.8) * 0.4
+			);
+			n += sin(y * 124.0 + t * 100.7) * sin(y * 877.0 - t * 38.8) * 0.3;
+			return n;
+		}
+
+		void main() {
+			vec2 uv = gl_FragCoord.xy / resolution;
+			// Flip Y coordinate for WebGL
+			uv.y = 1.0 - uv.y;
+			
+			vec2 uvr = uv, uvg = uv, uvb = uv;
+
+			float t = mod(time, 30.0);
+			
+			// Quantize time for laggy/stuttering effect (10 FPS)
+			float fps = 10.0;
+			float tLaggy = floor(t * fps) / fps;
+			
+			float amp = 10.0 / resolution.x;
+
+			// Create sporadic glitch bursts with gaps
+			float glitchTrigger = sin(tLaggy * 1.3) * sin(tLaggy * 2.7) * sin(tLaggy * 4.1);
+			float burstIntensity = smoothstep(0.65, 1.0, abs(glitchTrigger));
+			
+			// Scanline-style shifts (per-row) but only during bursts
+			if (burstIntensity > 0.0 && abs(nn(uv.y, tLaggy)) > 1.0) {
+				uvr.x += nn(uv.y, tLaggy) * amp * burstIntensity;
+				uvg.x += nn(uv.y, tLaggy + 10.0) * amp * burstIntensity;
+				uvb.x += nn(uv.y, tLaggy + 20.0) * amp * burstIntensity;
+			}
+
+			vec4 cr = texture2D(src, uvr);
+			vec4 cg = texture2D(src, uvg);
+			vec4 cb = texture2D(src, uvb);
+
+			gl_FragColor = vec4(cr.r, cg.g, cb.b, smoothstep(0.0, 1.0, cr.a + cg.a + cb.a));
+		}
+	`;
+
+	function createShader(gl: WebGLRenderingContext, type: number, source: string) {
+		const shader = gl.createShader(type);
+		if (!shader) return null;
+		gl.shaderSource(shader, source);
+		gl.compileShader(shader);
+		if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+			console.error("Shader compile error:", gl.getShaderInfoLog(shader));
+			gl.deleteShader(shader);
+			return null;
+		}
+		return shader;
+	}
+
+	function initGL() {
+		const logoElement = document.getElementById("intro-logo");
+		if (!logoElement) return;
+
+		// Clean up existing canvas
+		if (canvas) {
+			canvas.remove();
+			if (animationId) cancelAnimationFrame(animationId);
+		}
+
+		// Get SVG dimensions first
+		const svg = logoElement.querySelector("svg");
+		if (!svg) return;
+
+		const svgRect = svg.getBoundingClientRect();
+
+		// Add extra width for RGB shift effect (20% on each side)
+		const extraWidth = svgRect.width * 0.4; // 20% on each side
+		const canvasWidth = svgRect.width + extraWidth;
+
+		// Create canvas with extra width
+		canvas = document.createElement("canvas");
+		canvas.style.position = "absolute";
+		canvas.style.pointerEvents = "none";
+
+		// Position canvas to align with SVG, but offset left to center it
+		const logoRect = logoElement.getBoundingClientRect();
+		const svgOffsetLeft = svgRect.left - logoRect.left;
+		const svgOffsetTop = svgRect.top - logoRect.top;
+
+		canvas.style.left = `${svgOffsetLeft - extraWidth / 2}px`;
+		canvas.style.top = `${svgOffsetTop}px`;
+		canvas.style.width = `${canvasWidth}px`;
+		canvas.style.height = `${svgRect.height}px`;
+
+		canvas.width = canvasWidth;
+		canvas.height = svgRect.height;
+
+		logoElement.appendChild(canvas);
+
+		// Initialize WebGL
+		gl = canvas.getContext("webgl", { alpha: true, premultipliedAlpha: false });
+		if (!gl) {
+			console.error("WebGL not supported");
+			return;
+		}
+
+		// Enable blending for transparency
+		gl.enable(gl.BLEND);
+		gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+		// Create shaders
+		const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+		const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+		if (!vertexShader || !fragmentShader) return;
+
+		// Create program
+		program = gl.createProgram();
+		if (!program) return;
+		gl.attachShader(program, vertexShader);
+		gl.attachShader(program, fragmentShader);
+		gl.linkProgram(program);
+
+		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+			console.error("Program link error:", gl.getProgramInfoLog(program));
+			return;
+		}
+
+		gl.useProgram(program);
+
+		// Set up geometry
+		const positions = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
+		const buffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+		gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+		const positionLocation = gl.getAttribLocation(program, "position");
+		gl.enableVertexAttribArray(positionLocation);
+		gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+		// Create texture from SVG by drawing paths directly to canvas
+		// svg is already retrieved above
+		if (svg) {
+			// Create a temporary 2D canvas with extra width for RGB shift
+			const tempCanvas = document.createElement("canvas");
+			tempCanvas.width = canvasWidth;
+			tempCanvas.height = svgRect.height;
+			const ctx = tempCanvas.getContext("2d");
+
+			if (!ctx) {
+				console.error("Could not get 2D context");
+				return;
+			}
+
+			// Get the actual computed color
+			const textColor = getComputedStyle(document.documentElement).getPropertyValue("--theme-text");
+			const actualColor = textColor ? `hsl(${textColor})` : getComputedStyle(svg).color;
+
+			// Get SVG viewBox to calculate proper scaling
+			const viewBox = svg.viewBox.baseVal;
+			const hasViewBox = viewBox.width > 0 && viewBox.height > 0;
+
+			if (hasViewBox) {
+				const scaleX = svgRect.width / viewBox.width;
+				const scaleY = svgRect.height / viewBox.height;
+
+				// Apply transformation and offset to center the SVG in the wider canvas
+				ctx.translate(-viewBox.x * scaleX + extraWidth / 2, -viewBox.y * scaleY);
+				ctx.scale(scaleX, scaleY);
+			}
+
+			// Manually draw the SVG paths to the canvas
+			const paths = svg.querySelectorAll("path");
+			ctx.fillStyle = actualColor;
+
+			paths.forEach((path) => {
+				const d = path.getAttribute("d");
+				if (d) {
+					const path2d = new Path2D(d);
+					ctx.fill(path2d);
+				}
+			});
+
+			if (!gl || !program) {
+				console.error("WebGL context or program not available");
+				return;
+			}
+
+			// Hide the original SVG since we'll render it via WebGL
+			svg.style.opacity = "0";
+
+			// Create WebGL texture from the 2D canvas
+			texture = gl.createTexture();
+			gl.activeTexture(gl.TEXTURE0);
+			gl.bindTexture(gl.TEXTURE_2D, texture);
+			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tempCanvas);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+			startTime = Date.now();
+			animate();
+		}
+	}
+
+	function animate() {
+		if (!gl || !program || !canvas || !texture) {
+			return;
+		}
+
+		const time = (Date.now() - startTime) / 1000;
+
+		// Rebind texture for each frame
+		gl.activeTexture(gl.TEXTURE0);
+		gl.bindTexture(gl.TEXTURE_2D, texture);
+
+		gl.viewport(0, 0, canvas.width, canvas.height);
+		gl.clearColor(0, 0, 0, 0);
+		gl.clear(gl.COLOR_BUFFER_BIT);
+
+		// Set uniforms
+		const srcLocation = gl.getUniformLocation(program, "src");
+		const resolutionLocation = gl.getUniformLocation(program, "resolution");
+		const timeLocation = gl.getUniformLocation(program, "time");
+		const offsetLocation = gl.getUniformLocation(program, "offset");
+
+		gl.uniform1i(srcLocation, 0);
+		gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+		gl.uniform1f(timeLocation, time);
+		gl.uniform2f(offsetLocation, 0, 0);
+
+		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+		animationId = requestAnimationFrame(animate);
+	}
+
+	// Debounce function for resize handler
+	function debounce(func: Function, wait: number) {
+		let timeout: ReturnType<typeof setTimeout> | null = null;
+		return function executedFunction(...args: any[]) {
+			const later = () => {
+				timeout = null;
+				func(...args);
+			};
+			if (timeout) clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+		};
+	}
+
+	// Resize handler
+	const handleResize = debounce(() => {
+		updateLogoSize();
+		initGL();
+	}, 150);
+
+	// Initialize on load
+	document.addEventListener("DOMContentLoaded", () => {
+		updateLogoSize();
+		initGL();
+	});
+
+	// Reinitialize on theme change
+	document.addEventListener("theme-change", () => {
+		setTimeout(() => {
+			updateLogoSize();
+			initGL();
+		}, 50);
+	});
+
+	// Handle window resize
+	window.addEventListener("resize", handleResize);
+
+	// Reinitialize after Astro transitions
+	document.addEventListener("astro:after-swap", () => {
+		updateLogoSize();
+		initGL();
+	});
+
+	// Clean up on page unload
+	document.addEventListener("astro:before-preparation", () => {
+		if (animationId) cancelAnimationFrame(animationId);
+		if (canvas) canvas.remove();
+		window.removeEventListener("resize", handleResize);
+	});
+</script>
+
+<style>
+	#intro-logo {
+		position: relative;
+	}
+</style>

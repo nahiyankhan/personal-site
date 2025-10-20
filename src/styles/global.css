@@ -55,6 +55,117 @@
 	}
 
 	* {
-		@apply text-textDefault border-divider font-[200];
+		@apply border-divider font-[200] text-textDefault;
 	}
+}
+
+/* custom css */
+
+.rules-horizontal {
+	background: repeating-linear-gradient(
+		transparent,
+		transparent 32px,
+		hsl(var(--border-divider) / 0.1) 32px,
+		hsl(var(--border-divider) / 0.1) 33px
+	);
+}
+
+.rules-vertical {
+	background: repeating-linear-gradient(
+		transparent,
+		transparent 1px,
+		hsl(var(--border-divider) / 0.15) 1px,
+		hsl(var(--border-divider) / 0.15) 2px
+	);
+}
+
+.trim-text {
+	text-box-trim: trim-both;
+}
+
+/* Grid alignment utilities for 32px baseline grid */
+/* Using cap unit for accurate baseline alignment - works across all modern browsers */
+/* 
+ * How it works:
+ * 1. The 1cap unit represents the actual cap-height of the font
+ * 2. padding-top shifts the text down so the baseline sits on the grid line
+ * 3. line-height: 2rem (32px) ensures each line is exactly 1 grid unit apart
+ * 4. margin-bottom is calculated to maintain grid alignment for the next element
+ * 
+ * For multi-line text:
+ * - First line: baseline positioned by padding-top
+ * - Subsequent lines: naturally fall on grid lines due to 32px line-height
+ * - After element: next element starts on grid line due to margin-bottom
+ * 
+ * Formula (from https://maketypework.com/web-typography-baseline-grids-made-easy/):
+ * baseline-shift = (line-height - cap-height) / 2
+ * baseline-push = (desired space beneath) - baseline-shift
+ */
+.baseline-on-grid {
+	/* For 2rem (32px) baseline */
+	--baselines: 2;
+	--beneath: 2; /* Space beneath = 2 baselines (32px) */
+	--baseline-shift: calc(calc(calc(var(--baselines) * 1rem) - 1cap) / 2);
+	--baseline-push: calc(calc(var(--beneath) * 1rem) - var(--baseline-shift));
+
+	line-height: calc(var(--baselines) * 1rem);
+	padding-top: var(--baseline-shift);
+	margin-bottom: var(--baseline-push);
+}
+
+/* Single baseline height variant (for compact spacing) */
+.baseline-on-grid-compact {
+	--baselines: 2;
+	--beneath: 1; /* Only 1 baseline (16px) space beneath */
+	--baseline-shift: calc(calc(calc(var(--baselines) * 1rem) - 1cap) / 2);
+	--baseline-push: calc(calc(var(--beneath) * 1rem) - var(--baseline-shift));
+
+	line-height: calc(var(--baselines) * 1rem);
+	padding-top: var(--baseline-shift);
+	margin-bottom: var(--baseline-push);
+}
+
+/* For larger text spanning multiple baselines */
+.baseline-on-grid-large {
+	--baselines: 4; /* 4rem = 64px line height */
+	--beneath: 2;
+	--baseline-shift: calc(calc(calc(var(--baselines) * 1rem) - 1cap) / 2);
+	--baseline-push: calc(calc(var(--beneath) * 1rem) - var(--baseline-shift));
+
+	line-height: calc(var(--baselines) * 1rem);
+	padding-top: var(--baseline-shift);
+	margin-bottom: var(--baseline-push);
+}
+
+/* Ensure parent containers are also grid-aligned */
+.container-on-grid {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.container-on-grid > *:last-child {
+	margin-bottom: 0;
+}
+
+/* Faster scrolling - uses instant scroll instead of smooth */
+html.scroll-smooth {
+	scroll-behavior: auto;
+}
+
+/* Faster scroll timing for custom scroll implementations */
+* {
+	scroll-padding-top: 2rem;
+}
+
+.noise::before {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	content: "";
+	opacity: 0.08;
+	z-index: 10000;
+	pointer-events: none;
+	background: url(../assets/noise.gif);
 }

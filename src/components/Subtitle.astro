@@ -2,12 +2,10 @@
 const { title, ...rest } = Astro.props;
 ---
 
-<div x-data="{ inview: false }" class="nk-transition" {...rest}>
-	<div class="relative mb-4 inline-flex w-[fit-content] sm:mb-8">
-		<div
-			class="text-textProminent text-2xl font-bold uppercase leading-[1.5rem] sm:text-3xl sm:leading-[3rem] md:text-4xl xl:text-5xl"
-		>
-			{title}
+<div x-data="{ inview: false }" {...rest}>
+	<div class="relative inline-flex w-[fit-content]">
+		<div class="baseline-on-grid text-[32px] font-light leading-[32px]">
+			_.{title}
 		</div>
 	</div>
 </div>

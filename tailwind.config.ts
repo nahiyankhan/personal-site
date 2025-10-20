@@ -95,7 +95,7 @@ export default {
 			},
 			fontFamily: {
 				// Add any custom fonts here
-				sans: ["JetBrains Mono Variable", ...fontFamily.sans],
+				sans: ["Space Grotesk Variable", ...fontFamily.sans],
 				mono: ["Rubik Mono One", ...fontFamily.mono],
 			},
 			transitionProperty: {

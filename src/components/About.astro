@@ -1,76 +1,125 @@
 ---
-import { Icon } from "astro-icon/components";
-import Section from "./Section.astro";
+import AboutTitle from "@/assets/about.svg?raw";
 import JHULogo from "@/assets/jhu.svg?raw";
 import MacalesterLogo from "@/assets/macalester.svg?raw";
+import { Icon } from "astro-icon/components";
 import Subtitle from "./Subtitle.astro";
-import SortaGood from "@/assets/sortagood.gif";
-import EasterEgg from "./EasterEgg.astro";
-import ThisIsFine from "@/assets/thisisfine.gif";
+
+import ADPLogo from "@/assets/adp.svg?raw";
+import BlockLogo from "@/assets/block.svg?raw";
+import CashAppLogo from "@/assets/cash_app.svg?raw";
+import PearsonLogo from "@/assets/pearson.svg?raw";
 ---
 
-<Section title="about" subtitle="a.k.a the 9 to 5. and the 5 to 9.">
-	<div class="border-t">
-		<div class="w-11/12 px-8 py-16 lg:w-3/5 xl:w-1/2">
-			<div class="">
-				<div class="subtitle-large mb-6 inline-block sm:mb-8">
-					am an engineer. am a designer. am both? am neither? definitions are arbitrary.
-					<EasterEgg src={ThisIsFine.src} height={ThisIsFine.height}>
-						existential crisis
-					</EasterEgg>
-					is real. but 9 to 5, I lead design engineering at block.
-				</div>
+<div>
+	<div class="relative flex flex-col items-end px-8 py-8">
+		<div id="about-logo" class="[&>svg]:w-full" data-logo-scale>
+			<Fragment set:html={AboutTitle} />
+		</div>
+		<div class="relative inline-flex w-[fit-content]">
+			<div class="baseline-on-grid text-sm">a.k.a the 9 to 5. and the 5 to 9.</div>
+		</div>
+	</div>
 
-				<p class="subtitle-large mb-4">
-					and 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, read science
-					fiction, and as of august 2024 - play with my daughter.
-				</p>
+	<div class="w-11/12 px-8 lg:w-3/5 xl:w-1/2">
+		<div class="">
+			<div class="baseline-on-grid mb-[20px] inline-block text-sm">
+				am an engineer. am a designer. am both? am neither? definitions are arbitrary. existential
+				crisis is real. but 9 to 5, I lead design engineering at block.
+			</div>
+
+			<p class="baseline-on-grid mb-8 text-sm">
+				and 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, read science
+				fiction, and as of august 2024 - play with my daughter.
+			</p>
+		</div>
+	</div>
+
+	<div class="grid px-8 pt-8">
+		<Subtitle title="currenty-at" />
+
+		<div class="mb-8 space-y-16">
+			<div class="pr-0 sm:pr-16">
+				<div class="mb-8 flex flex-col items-center sm:flex-row">
+					<div
+						class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border sm:h-16 sm:w-16 [&>svg]:w-6 sm:[&>svg]:w-8"
+					>
+						<Fragment set:html={BlockLogo} />
+					</div>
+					<p class="baseline-on-grid ml-8 text-sm">Principal Design Engineer @ Block</p>
+				</div>
+			</div>
+		</div>
+
+		<Subtitle title="used-to-be-at" />
+
+		<div class="mb-8 grid grid-cols-2 gap-8">
+			<div class="">
+				<div class="flex flex-col items-center sm:flex-row">
+					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
+						<Fragment set:html={CashAppLogo} />
+					</div>
+					<p class="baseline-on-grid ml-8 text-sm">Staff Design Engineer @ Cash App</p>
+				</div>
+			</div>
+
+			<div class="">
+				<div class="flex flex-col items-center sm:flex-row">
+					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
+						<Fragment set:html={ADPLogo} />
+					</div>
+					<p class="baseline-on-grid ml-8 text-sm">Senior Design Engineer @ ADP</p>
+				</div>
+			</div>
+
+			<div class="">
+				<div class="flex flex-col items-center sm:flex-row">
+					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
+						<Fragment set:html={PearsonLogo} />
+					</div>
+					<p class="baseline-on-grid ml-8 text-sm">Product Designer @ Pearson</p>
+				</div>
+			</div>
+
+			<div class="">
+				<div class="flex flex-col items-center sm:flex-row">
+					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
+						<Fragment set:html={MacalesterLogo} />
+					</div>
+					<p class="baseline-on-grid ml-8 text-sm">Graphic Designer @ Macalester College</p>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="grid grid-cols-1 border-t px-8 pb-16 sm:grid-cols-2 sm:divide-x sm:pb-0">
-		<div class="pt-16">
-			<Subtitle title="education" />
+	<div class="grid grid-cols-1 px-8 pb-16 sm:grid-cols-2 sm:pb-0">
+		<div class="pt-8">
+			<Subtitle title="studied-at" />
 
-			<div class="mb-12 space-y-8 md:mb-16">
+			<div class="mb-8 space-y-8">
 				<div class="">
-					<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-full">
+					<div class="mb-8 flex flex-col sm:flex-row [&>svg]:w-full">
 						<div class="h-12 w-12 overflow-hidden sm:h-16 sm:w-16">
 							<Fragment set:html={JHULogo} />
 						</div>
-						<div class="mt-3 sm:ml-4 sm:mt-0">
-							<p class="header-standard">Masters in Computer Science</p>
-							<p class="text-sm font-normal leading-[1.6] sm:text-base">
-								Johns Hopkins University <span class="text-textSubtle"> | 2019 - 2022</span>
-							</p>
-						</div>
+						<p class="baseline-on-grid ml-8 text-sm">Masters in Computer Science @ JHU</p>
 					</div>
-
-					<p class="">software engineering</p>
 				</div>
 
 				<div class="">
-					<div class="mb-4 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
+					<div class="mb-8 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
 						<Fragment set:html={MacalesterLogo} />
-						<div class="mt-3 sm:ml-4 sm:mt-0">
-							<p class="header-standard">Bachelor of Arts</p>
-							<p class="text-sm font-normal leading-[1.6] sm:text-base">
-								Macalester College <span class="text-textSubtle"> | 2009 - 2013</span>
-							</p>
-						</div>
+						<p class="baseline-on-grid ml-8 text-sm">Bachelor of Arts @ Macalester College</p>
 					</div>
-
-					<p class="">art, math, and computer science</p>
 				</div>
 			</div>
 		</div>
 
-		<div class="sm:px-8 sm:pt-16">
+		<div class="pt-8">
 			<Subtitle title="mantras" />
 
-			<ul class="mb-4 sm:mb-8">
-				<li class="flex items-center">
+			<ul class="mb-8 sm:mb-8">
+				<li class="mb-8 flex items-center">
 					<div class="full justify-left flex items-center">
 						<Icon
 							aria-hidden="true"
@@ -79,10 +128,12 @@ import ThisIsFine from "@/assets/thisisfine.gif";
 							name="mdi:circle-small"
 						/>
 					</div>
-					<p class="pl-4">trust by default. work in the open. meet where the work is.</p>
+					<p class="baseline-on-grid pl-8 text-sm">
+						trust by default. work in the open. meet where the work is.
+					</p>
 				</li>
-				<li class="flex items-center">
-					<div class="full justify-left flex items-center">
+				<li class="flex items-start">
+					<div class="full justify-left mt-4 flex items-end">
 						<Icon
 							aria-hidden="true"
 							class="h-4 w-4 sm:h-8 sm:w-8"
@@ -90,16 +141,84 @@ import ThisIsFine from "@/assets/thisisfine.gif";
 							name="mdi:circle-small"
 						/>
 					</div>
-					<div class="inline pl-4">
-						sucking at something is the first step to being
-						<EasterEgg src={SortaGood.src} height={SortaGood.height}>
-							{" "}
-							sorta good
-						</EasterEgg>
-						at something
+					<div class="baseline-on-grid inline pl-8 text-sm">
+						sucking at something is the first step to being sorta good at something.
 					</div>
 				</li>
 			</ul>
 		</div>
 	</div>
-</Section>
+</div>
+
+<script>
+	// Logo scaling system for About - increments in 32px units, max 3 units (96px)
+	const LOGO_ASPECT_RATIO = 1920 / 331; // ~5.8:1
+	const GRID_UNIT = 32;
+	const HORIZONTAL_PADDING = 64; // px-8 on both sides
+	const MIN_UNITS = 2; // 64px minimum
+	const MAX_UNITS = 3; // 96px maximum
+
+	function calculateLogoSize(): number {
+		const viewportWidth = window.innerWidth;
+		let units = MIN_UNITS;
+
+		while (units < MAX_UNITS) {
+			const nextUnits = units + 1;
+			const nextHeight = nextUnits * GRID_UNIT;
+			const nextWidth = nextHeight * LOGO_ASPECT_RATIO;
+			const nextTotalWidth = nextWidth + HORIZONTAL_PADDING;
+
+			if (nextTotalWidth > viewportWidth) {
+				break;
+			}
+
+			units = nextUnits;
+		}
+
+		return units * GRID_UNIT;
+	}
+
+	function updateLogoSize() {
+		const logoElement = document.getElementById("about-logo");
+		if (!logoElement) return;
+
+		const svg = logoElement.querySelector("svg");
+		if (!svg) return;
+
+		const height = calculateLogoSize();
+		const units = height / GRID_UNIT;
+		const width = height * LOGO_ASPECT_RATIO;
+		const totalWidth = width + HORIZONTAL_PADDING;
+
+		svg.style.height = `${height}px`;
+
+		console.log("🎨 About Logo Scaling:", {
+			viewportWidth: window.innerWidth,
+			logoHeight: `${height}px (${units} × 32px)`,
+			logoWidth: `${Math.round(width)}px`,
+			totalWidth: `${Math.round(totalWidth)}px`,
+			maxAllowed: `${MAX_UNITS * GRID_UNIT}px`,
+		});
+	}
+
+	function debounce(func: Function, wait: number) {
+		let timeout: ReturnType<typeof setTimeout> | null = null;
+		return function executedFunction(...args: any[]) {
+			const later = () => {
+				timeout = null;
+				func(...args);
+			};
+			if (timeout) clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+		};
+	}
+
+	const handleResize = debounce(updateLogoSize, 150);
+
+	document.addEventListener("DOMContentLoaded", updateLogoSize);
+	document.addEventListener("theme-change", () => {
+		setTimeout(updateLogoSize, 50);
+	});
+	window.addEventListener("resize", handleResize);
+	document.addEventListener("astro:after-swap", updateLogoSize);
+</script>

@@ -1,0 +1,127 @@
+---
+// Component for animated background lines with random opacity changes
+---
+
+<div id="animated-lines" class="pointer-events-none fixed inset-0 z-0"></div>
+
+<script>
+	function initAnimatedLines() {
+		const container = document.getElementById("animated-lines");
+		if (!container) return;
+
+		const lineHeight = 32; // 32px rhythm for line positioning
+		const lineThickness = 1; // Thickness of the line in pixels
+		const totalLines = Math.ceil(window.innerHeight / lineHeight) + 1;
+
+		// Clear existing lines on re-init
+		container.innerHTML = "";
+
+		// Create line elements
+		const lines: HTMLElement[] = [];
+		for (let i = 0; i < totalLines; i++) {
+			const line = document.createElement("div");
+			line.className = "animated-line";
+			line.style.position = "absolute";
+			line.style.left = "0";
+			line.style.right = "0";
+			line.style.height = `${lineThickness}px`;
+			line.style.top = `${i * lineHeight}px`;
+			line.style.backgroundColor = `hsl(var(--border-divider) / 1)`;
+			line.style.transition = "none";
+			line.style.opacity = "0.15";
+
+			// Randomly apply visual effects (subtle)
+			const rand = Math.random();
+
+			// 25% chance: chromatic aberration
+			if (rand < 0.25) {
+				line.style.filter =
+					"drop-shadow(1px 0 0 rgba(255, 0, 0, 0.5)) drop-shadow(-1px 0 0 rgba(0, 255, 255, 0.5))";
+			}
+
+			container.appendChild(line);
+			lines.push(line);
+		}
+
+		// Randomly animate lines
+		function animateLine(line: HTMLElement) {
+			const randomDelay = Math.random() * 5000; // 0-5 seconds
+
+			setTimeout(() => {
+				// Random opacity: minimum 0.15, up to 1.0
+				const opacitySteps = [0.15, 0.25, 0.5, 0.75, 1.0];
+				const targetOpacity = opacitySteps[Math.floor(Math.random() * opacitySteps.length)];
+				line.style.opacity = targetOpacity.toString();
+
+				// Schedule next animation
+				animateLine(line);
+			}, randomDelay);
+		}
+
+		// Start animating random subset of lines
+		const linesToAnimate = Math.floor(totalLines * 0.3); // Animate 30% of lines
+		const shuffledLines = [...lines].sort(() => Math.random() - 0.5);
+
+		for (let i = 0; i < linesToAnimate; i++) {
+			animateLine(shuffledLines[i]);
+		}
+
+		// Handle window resize
+		let resizeTimeout: NodeJS.Timeout;
+		window.addEventListener("resize", () => {
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(() => {
+				initAnimatedLines();
+			}, 250);
+		});
+	}
+
+	// Initialize on load
+	document.addEventListener("DOMContentLoaded", initAnimatedLines);
+
+	// Re-initialize on theme change (if needed)
+	document.addEventListener("astro:after-swap", initAnimatedLines);
+
+	// Snap scroll to 32px increments
+	function initSnapScroll() {
+		const scrollableContent = document.getElementById("scrollable-content");
+		if (!scrollableContent) return;
+
+		let isScrolling = false;
+		let scrollTimeout: NodeJS.Timeout;
+
+		scrollableContent.addEventListener(
+			"wheel",
+			(e) => {
+				e.preventDefault();
+
+				if (isScrolling) return;
+				isScrolling = true;
+
+				const delta = Math.sign(e.deltaY);
+				const currentScroll = scrollableContent.scrollTop;
+				const lineHeight = 32;
+
+				// Calculate target scroll position
+				const currentLine = Math.round(currentScroll / lineHeight);
+				const targetLine = currentLine + delta;
+				const targetScroll = targetLine * lineHeight;
+
+				scrollableContent.scrollTo({
+					top: Math.max(0, targetScroll),
+					behavior: "smooth",
+				});
+
+				clearTimeout(scrollTimeout);
+				scrollTimeout = setTimeout(() => {
+					isScrolling = false;
+				}, 100);
+			},
+			{ passive: false }
+		);
+	}
+
+	// Initialize snap scroll on load
+	document.addEventListener("DOMContentLoaded", initSnapScroll);
+	document.addEventListener("astro:after-swap", initSnapScroll);
+</script>

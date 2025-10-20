@@ -1,14 +1,17 @@
 ---
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
+import "@fontsource-variable/space-grotesk";
 import "@fontsource/rubik-mono-one";
+import { ViewTransitions } from "astro:transitions";
+import AnimatedLines from "@/components/AnimatedLines.astro";
 import BaseHead from "@/components/BaseHead.astro";
+import CursorEffect from "@/components/CursorEffect.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
 import Footer from "@/components/layout/Footer.astro";
 import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
-import { ViewTransitions } from "astro:transitions";
 
 interface Props {
 	meta: SiteMeta;
@@ -22,20 +25,19 @@ const {
 <html class="scroll-smooth" lang={siteConfig.lang}>
 	<head>
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
-		<ViewTransitions />
+		<!-- <ViewTransitions /> -->
 	</head>
 	<body
-		class="nk-transition relative bg-bgColorInverse text-sm font-light sm:text-base sm:leading-[1.75]"
+		class="relative h-screen overflow-hidden bg-bgColorInverse p-8 text-sm font-light leading-[2rem] sm:text-base sm:leading-[2rem]"
 	>
+		<div class="noise"></div>
 		<ThemeProvider />
+		<AnimatedLines />
+		<!-- <CursorEffect /> -->
 		<SkipLink />
 		<!-- <Header /> -->
-		<main
-			x-data
-			id="main"
-			class="origin-center animate-[fadein_.5s_ease-in_forwards] tracking-wider"
-		>
-			<div class="m-2 overflow-hidden rounded-2xl border bg-bgColor sm:m-8">
+		<main x-data id="main" class="h-full origin-center tracking-wider">
+			<div id="scrollable-content" class="h-full overflow-y-scroll rounded-md bg-bgColor">
 				<slot />
 			</div>
 		</main>
@@ -45,5 +47,28 @@ const {
 <style>
 	[x-cloak] {
 		display: none !important;
+	}
+
+	/* Custom scrollbar styling */
+	#scrollable-content {
+		scrollbar-width: thin;
+		scrollbar-color: hsl(var(--border-divider) / 0.3) transparent;
+	}
+
+	#scrollable-content::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	#scrollable-content::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	#scrollable-content::-webkit-scrollbar-thumb {
+		background-color: hsl(var(--border-divider) / 0.3);
+		border-radius: 4px;
+	}
+
+	#scrollable-content::-webkit-scrollbar-thumb:hover {
+		background-color: hsl(var(--border-divider) / 0.5);
 	}
 </style>

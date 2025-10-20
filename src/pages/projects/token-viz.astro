@@ -11,7 +11,7 @@ import TokenVizImage from "@/assets/token-viz.png";
 			<div class="relative mt-8">
 				<BoxLines />
 				<p
-					class="text-3xl font-extrabold uppercase leading-[1.5rem] text-textProminent sm:text-5xl sm:leading-[3rem] xl:text-7xl xl:leading-[3.4rem] 2xl:text-8xl 2xl:leading-[4.6rem]"
+					class="text-textProminent text-3xl font-extrabold uppercase leading-[1.5rem] sm:text-5xl sm:leading-[3rem] xl:text-7xl xl:leading-[3.5rem] 2xl:text-8xl 2xl:leading-[5rem]"
 					transition:name=`token-viz-title`
 				>
 					/Token Visualizer
@@ -20,7 +20,9 @@ import TokenVizImage from "@/assets/token-viz.png";
 
 			<div class="relative mb-2 mt-10 sm:mb-4 sm:w-1/2" transition:name=`token-viz-image`>
 				<BoxLines />
-				<img src={TokenVizImage.src} class="pr-[1px]" height={TokenVizImage.height} alt="" />
+				<div data-vfx-hover>
+					<img src={TokenVizImage.src} class="pr-[1px]" height={TokenVizImage.height} alt="" />
+				</div>
 			</div>
 		</div>
 	</div>
