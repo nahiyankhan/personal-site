@@ -12,7 +12,7 @@ import PearsonLogo from "@/assets/pearson.svg?raw";
 ---
 
 <div>
-	<div class="relative flex flex-col items-end px-8 py-8">
+	<div class="relative flex flex-col items-end px-4 py-4 sm:px-8 sm:py-8">
 		<div id="about-logo" class="[&>svg]:w-full" data-logo-scale>
 			<Fragment set:html={AboutTitle} />
 		</div>
@@ -21,105 +21,109 @@ import PearsonLogo from "@/assets/pearson.svg?raw";
 		</div>
 	</div>
 
-	<div class="w-11/12 px-8 lg:w-3/5 xl:w-1/2">
+	<div class="w-11/12 px-4 sm:px-8 lg:w-3/5 xl:w-1/2">
 		<div class="">
-			<div class="baseline-on-grid mb-[20px] inline-block text-sm">
+			<div class="baseline-on-grid mb-4 inline-block text-sm sm:mb-[20px]">
 				am an engineer. am a designer. am both? am neither? definitions are arbitrary. existential
 				crisis is real. but 9 to 5, I lead design engineering at block.
 			</div>
 
-			<p class="baseline-on-grid mb-8 text-sm">
+			<p class="baseline-on-grid mb-4 text-sm sm:mb-8">
 				and 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, read science
 				fiction, and as of august 2024 - play with my daughter.
 			</p>
 		</div>
 	</div>
 
-	<div class="grid px-8 pt-8">
+	<div class="grid px-4 pt-4 sm:px-8 sm:pt-8">
 		<Subtitle title="currenty-at" />
 
-		<div class="mb-8 space-y-16">
+		<div class="mb-4 space-y-8 sm:mb-8 sm:space-y-16">
 			<div class="pr-0 sm:pr-16">
-				<div class="mb-8 flex flex-col items-center sm:flex-row">
+				<div class="mb-4 flex flex-row items-center sm:mb-8">
 					<div
-						class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border sm:h-16 sm:w-16 [&>svg]:w-6 sm:[&>svg]:w-8"
+						class="flex h-[48px] w-[48px] flex-shrink-0 items-center justify-center overflow-hidden rounded-full border sm:h-16 sm:w-16 [&>svg]:w-6 sm:[&>svg]:w-8"
 					>
 						<Fragment set:html={BlockLogo} />
 					</div>
-					<p class="baseline-on-grid ml-8 text-sm">Principal Design Engineer @ Block</p>
+					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Principal Design Engineer @ Block</p>
 				</div>
 			</div>
 		</div>
 
 		<Subtitle title="used-to-be-at" />
 
-		<div class="mb-8 grid grid-cols-2 gap-8">
+		<div class="mb-4 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-2 sm:gap-8">
 			<div class="">
-				<div class="flex flex-col items-center sm:flex-row">
-					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
+				<div class="flex flex-row items-center">
+					<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
 						<Fragment set:html={CashAppLogo} />
 					</div>
-					<p class="baseline-on-grid ml-8 text-sm">Staff Design Engineer @ Cash App</p>
+					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Staff Design Engineer @ Cash App</p>
 				</div>
 			</div>
 
 			<div class="">
-				<div class="flex flex-col items-center sm:flex-row">
-					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
+				<div class="flex flex-row items-center">
+					<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
 						<Fragment set:html={ADPLogo} />
 					</div>
-					<p class="baseline-on-grid ml-8 text-sm">Senior Design Engineer @ ADP</p>
+					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Senior Design Engineer @ ADP</p>
 				</div>
 			</div>
 
 			<div class="">
-				<div class="flex flex-col items-center sm:flex-row">
-					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
+				<div class="flex flex-row items-center">
+					<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
 						<Fragment set:html={PearsonLogo} />
 					</div>
-					<p class="baseline-on-grid ml-8 text-sm">Product Designer @ Pearson</p>
+					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Product Designer @ Pearson</p>
 				</div>
 			</div>
 
 			<div class="">
-				<div class="flex flex-col items-center sm:flex-row">
-					<div class="[&>svg]:w-12 sm:[&>svg]:w-16">
+				<div class="flex flex-row items-center">
+					<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
 						<Fragment set:html={MacalesterLogo} />
 					</div>
-					<p class="baseline-on-grid ml-8 text-sm">Graphic Designer @ Macalester College</p>
+					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Graphic Designer @ Macalester College</p>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="grid grid-cols-1 px-8 pb-16 sm:grid-cols-2 sm:pb-0">
-		<div class="pt-8">
+	<div class="grid grid-cols-1 px-4 pb-16 sm:grid-cols-2 sm:px-8 sm:pb-0">
+		<div class="pt-4 sm:pt-8">
 			<Subtitle title="studied-at" />
 
-			<div class="mb-8 space-y-8">
+			<div class="mb-4 space-y-4 sm:mb-8 sm:space-y-8">
 				<div class="">
-					<div class="mb-8 flex flex-col sm:flex-row [&>svg]:w-full">
-						<div class="h-12 w-12 overflow-hidden sm:h-16 sm:w-16">
+					<div class="mb-4 flex flex-row items-center sm:mb-8">
+						<div class="h-[48px] w-[48px] flex-shrink-0 overflow-hidden sm:h-16 sm:w-16">
 							<Fragment set:html={JHULogo} />
 						</div>
-						<p class="baseline-on-grid ml-8 text-sm">Masters in Computer Science @ JHU</p>
+						<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Masters in Computer Science @ JHU</p>
 					</div>
 				</div>
 
 				<div class="">
-					<div class="mb-8 flex flex-col sm:flex-row [&>svg]:w-12 sm:[&>svg]:w-16">
-						<Fragment set:html={MacalesterLogo} />
-						<p class="baseline-on-grid ml-8 text-sm">Bachelor of Arts @ Macalester College</p>
+					<div class="mb-4 flex flex-row items-center sm:mb-8">
+						<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
+							<Fragment set:html={MacalesterLogo} />
+						</div>
+						<p class="baseline-on-grid ml-4 text-sm sm:ml-8">
+							Bachelor of Arts @ Macalester College
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="pt-8">
+		<div class="pt-4 sm:pt-8">
 			<Subtitle title="mantras" />
 
-			<ul class="mb-8 sm:mb-8">
-				<li class="mb-8 flex items-center">
+			<ul class="mb-4 sm:mb-8">
+				<li class="mb-4 flex items-center sm:mb-8">
 					<div class="full justify-left flex items-center">
 						<Icon
 							aria-hidden="true"
@@ -128,7 +132,7 @@ import PearsonLogo from "@/assets/pearson.svg?raw";
 							name="mdi:circle-small"
 						/>
 					</div>
-					<p class="baseline-on-grid pl-8 text-sm">
+					<p class="baseline-on-grid pl-4 text-sm sm:pl-8">
 						trust by default. work in the open. meet where the work is.
 					</p>
 				</li>
@@ -141,7 +145,7 @@ import PearsonLogo from "@/assets/pearson.svg?raw";
 							name="mdi:circle-small"
 						/>
 					</div>
-					<div class="baseline-on-grid inline pl-8 text-sm">
+					<div class="baseline-on-grid inline pl-4 text-sm sm:pl-8">
 						sucking at something is the first step to being sorta good at something.
 					</div>
 				</li>
@@ -151,12 +155,13 @@ import PearsonLogo from "@/assets/pearson.svg?raw";
 </div>
 
 <script>
-	// Logo scaling system for About - increments in 32px units, max 3 units (96px)
+	// Logo scaling system for About - increments in baseline units, max 3 units
 	const LOGO_ASPECT_RATIO = 1920 / 331; // ~5.8:1
-	const GRID_UNIT = 32;
-	const HORIZONTAL_PADDING = 64; // px-8 on both sides
-	const MIN_UNITS = 2; // 64px minimum
-	const MAX_UNITS = 3; // 96px maximum
+	const isMobile = window.innerWidth < 640;
+	const GRID_UNIT = isMobile ? 16 : 32; // Responsive baseline unit
+	const HORIZONTAL_PADDING = isMobile ? 32 : 64; // p-4 on mobile, p-8 on desktop
+	const MIN_UNITS = 2; // minimum
+	const MAX_UNITS = 3; // maximum
 
 	function calculateLogoSize(): number {
 		const viewportWidth = window.innerWidth;

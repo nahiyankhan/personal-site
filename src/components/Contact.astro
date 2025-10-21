@@ -6,7 +6,7 @@ import Subtitle from "./Subtitle.astro";
 ---
 
 <div>
-	<div class="relative flex flex-col items-end px-8 pb-8 pt-16">
+	<div class="relative flex flex-col items-end px-4 pb-4 pt-8 sm:px-8 sm:pb-8 sm:pt-16">
 		<div id="contact-logo" class="[&>svg]:w-full" data-logo-scale>
 			<Fragment set:html={ContactTitle} />
 		</div>
@@ -17,7 +17,7 @@ import Subtitle from "./Subtitle.astro";
 		</div>
 	</div>
 
-	<div class="px-8">
+	<div class="px-4 sm:px-8">
 		<Subtitle title="say-hi" />
 
 		<ul>
@@ -38,12 +38,13 @@ import Subtitle from "./Subtitle.astro";
 </div>
 
 <script>
-	// Logo scaling system for Contact - increments in 32px units, max 3 units (96px)
+	// Logo scaling system for Contact - increments in baseline units, max 3 units
 	const LOGO_ASPECT_RATIO = 2692 / 331; // ~8.13:1
-	const GRID_UNIT = 32;
-	const HORIZONTAL_PADDING = 64; // px-8 on both sides
-	const MIN_UNITS = 2; // 64px minimum
-	const MAX_UNITS = 3; // 96px maximum
+	const isMobile = window.innerWidth < 640;
+	const GRID_UNIT = isMobile ? 16 : 32; // Responsive baseline unit
+	const HORIZONTAL_PADDING = isMobile ? 32 : 64; // p-4 on mobile, p-8 on desktop
+	const MIN_UNITS = 2; // minimum
+	const MAX_UNITS = 3; // maximum
 
 	function calculateLogoSize(): number {
 		const viewportWidth = window.innerWidth;

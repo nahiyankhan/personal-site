@@ -6,12 +6,12 @@ import { Icon } from "astro-icon/components";
 <div class="flex flex-col items-end justify-center">
 	<div
 		id="intro-logo"
-		class="relative overflow-hidden px-8 pb-8 pt-16 [&_svg]:w-full"
+		class="relative overflow-hidden px-4 pb-4 pt-8 sm:px-8 sm:pb-8 sm:pt-16 [&_svg]:w-full"
 		data-logo-scale
 	>
 		<Fragment set:html={Nahiyan} />
 	</div>
-	<div class="relative mr-8 h-12 w-12 rounded-full sm:h-16 sm:w-16">
+	<div class="relative mr-4 h-12 w-12 rounded-full sm:mr-8 sm:h-16 sm:w-16">
 		<a
 			class="relative flex h-full w-full items-center justify-center rounded-full border bg-bgColor transition-all [&::after]:absolute [&::after]:h-12 [&::after]:w-12 [&::after]:origin-center [&::after]:rounded-full [&::after]:border [&::after]:border-transparent [&::after]:duration-300 [&::after]:content-[''] hover:[&::after]:scale-75 hover:[&::after]:border-divider dark:hover:[&::after]:border-divider [&::after]:sm:h-16 [&::after]:sm:w-16"
 			type="button"
@@ -35,10 +35,11 @@ import { Icon } from "astro-icon/components";
 </div>
 
 <script>
-	// Logo scaling system - increments in 32px units based on viewport
+	// Logo scaling system - increments in baseline units based on viewport
 	const LOGO_ASPECT_RATIO = 2692 / 330; // ~8.16:1
-	const GRID_UNIT = 32; // Base unit for scaling
-	const HORIZONTAL_PADDING = 64; // px-8 on both sides (32px * 2)
+	const isMobile = window.innerWidth < 640;
+	const GRID_UNIT = isMobile ? 16 : 32; // Responsive baseline unit
+	const HORIZONTAL_PADDING = isMobile ? 32 : 64; // p-4 on mobile (16px * 2), p-8 on desktop (32px * 2)
 
 	function calculateLogoSize(): number {
 		const viewportWidth = window.innerWidth;

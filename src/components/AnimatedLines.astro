@@ -9,7 +9,8 @@
 		const container = document.getElementById("animated-lines");
 		if (!container) return;
 
-		const lineHeight = 32; // 32px rhythm for line positioning
+		// Responsive line height: 16px on mobile, 32px on desktop
+		const lineHeight = window.innerWidth >= 640 ? 32 : 16;
 		const lineThickness = 1; // Thickness of the line in pixels
 		const totalLines = Math.ceil(window.innerHeight / lineHeight) + 1;
 
@@ -82,7 +83,7 @@
 	// Re-initialize on theme change (if needed)
 	document.addEventListener("astro:after-swap", initAnimatedLines);
 
-	// Snap scroll to 32px increments
+	// Snap scroll to baseline increments (16px mobile, 32px desktop)
 	function initSnapScroll() {
 		const scrollableContent = document.getElementById("scrollable-content");
 		if (!scrollableContent) return;
@@ -100,7 +101,8 @@
 
 				const delta = Math.sign(e.deltaY);
 				const currentScroll = scrollableContent.scrollTop;
-				const lineHeight = 32;
+				// Responsive line height: 16px on mobile, 32px on desktop
+				const lineHeight = window.innerWidth >= 640 ? 32 : 16;
 
 				// Calculate target scroll position
 				const currentLine = Math.round(currentScroll / lineHeight);
