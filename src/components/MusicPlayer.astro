@@ -1,0 +1,456 @@
+---
+// Simple music player component
+---
+
+<div id="music-player" class="music-player">
+	<button id="shuffle-btn" class="music-btn" aria-label="Shuffle">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="20"
+			height="20"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<polyline points="16 3 21 3 21 8"></polyline>
+			<line x1="4" y1="20" x2="21" y2="3"></line>
+			<polyline points="21 16 21 21 16 21"></polyline>
+			<line x1="15" y1="15" x2="21" y2="21"></line>
+			<line x1="4" y1="4" x2="9" y2="9"></line>
+		</svg>
+	</button>
+
+	<button id="play-pause-btn" class="music-btn music-btn-main" aria-label="Play">
+		<!-- Play Icon -->
+		<svg
+			id="play-icon"
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<polygon points="5 3 19 12 5 21 5 3"></polygon>
+		</svg>
+		<!-- Pause Icon (hidden by default) -->
+		<svg
+			id="pause-icon"
+			class="hidden"
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<rect x="6" y="4" width="4" height="16"></rect>
+			<rect x="14" y="4" width="4" height="16"></rect>
+		</svg>
+	</button>
+
+	<div class="volume-container">
+		<button id="volume-btn" class="music-btn" aria-label="Volume">
+			<!-- Volume High Icon -->
+			<svg
+				id="volume-high-icon"
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+				<path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+				<path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+			</svg>
+			<!-- Volume Mute Icon (hidden by default) -->
+			<svg
+				id="volume-mute-icon"
+				class="hidden"
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+				<line x1="23" y1="9" x2="17" y2="15"></line>
+				<line x1="17" y1="9" x2="23" y2="15"></line>
+			</svg>
+		</button>
+		<div id="volume-slider-container" class="volume-slider-container hidden">
+			<input
+				id="volume-slider"
+				type="range"
+				min="0"
+				max="100"
+				value="100"
+				class="volume-slider"
+				aria-label="Volume slider"
+			/>
+		</div>
+	</div>
+
+	<audio id="audio-player" preload="none"></audio>
+</div>
+
+<style>
+	.music-player {
+		position: fixed;
+		bottom: 2rem;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.75rem 1.5rem;
+		background: hsl(var(--theme-bg) / 0.9);
+		backdrop-filter: blur(10px);
+		border: 1px solid hsl(var(--border-divider) / 0.3);
+		border-radius: 9999px;
+		box-shadow:
+			0 4px 6px -1px rgb(0 0 0 / 0.1),
+			0 2px 4px -2px rgb(0 0 0 / 0.1);
+		z-index: 50;
+		transition: all 0.3s ease;
+	}
+
+	.music-player:hover {
+		box-shadow:
+			0 10px 15px -3px rgb(0 0 0 / 0.1),
+			0 4px 6px -4px rgb(0 0 0 / 0.1);
+	}
+
+	.music-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem;
+		background: transparent;
+		border: none;
+		color: hsl(var(--theme-text));
+		cursor: pointer;
+		border-radius: 50%;
+		transition: all 0.2s ease;
+	}
+
+	.music-btn:hover {
+		background: hsl(var(--theme-accent) / 0.1);
+		transform: scale(1.1);
+	}
+
+	.music-btn:active {
+		transform: scale(0.95);
+	}
+
+	.music-btn-main {
+		padding: 0.75rem;
+		background: hsl(var(--theme-accent) / 0.1);
+	}
+
+	.music-btn-main:hover {
+		background: hsl(var(--theme-accent) / 0.2);
+	}
+
+	.volume-container {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.volume-slider-container {
+		position: absolute;
+		bottom: calc(100% + 1rem);
+		left: 50%;
+		transform: translateX(-50%);
+		background: hsl(var(--theme-bg) / 0.95);
+		backdrop-filter: blur(10px);
+		padding: 0.75rem;
+		border-radius: 1rem;
+		border: 1px solid hsl(var(--border-divider) / 0.3);
+		box-shadow:
+			0 4px 6px -1px rgb(0 0 0 / 0.1),
+			0 2px 4px -2px rgb(0 0 0 / 0.1);
+		width: 48px;
+		height: 120px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.volume-slider {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 100px;
+		height: 4px;
+		background: hsl(var(--theme-accent) / 0.3);
+		border-radius: 2px;
+		outline: none;
+		transform: rotate(-90deg);
+		cursor: pointer;
+	}
+
+	.volume-slider::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background: hsl(var(--theme-text));
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.volume-slider::-webkit-slider-thumb:hover {
+		transform: scale(1.2);
+	}
+
+	.volume-slider::-moz-range-thumb {
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background: hsl(var(--theme-text));
+		cursor: pointer;
+		border: none;
+		transition: all 0.2s ease;
+	}
+
+	.volume-slider::-moz-range-thumb:hover {
+		transform: scale(1.2);
+	}
+
+	.hidden {
+		display: none !important;
+	}
+
+	@media (max-width: 640px) {
+		.music-player {
+			bottom: 1rem;
+			padding: 0.5rem 1rem;
+			gap: 0.5rem;
+		}
+
+		.volume-slider-container {
+			height: 100px;
+			width: 44px;
+		}
+
+		.volume-slider {
+			width: 80px;
+		}
+	}
+</style>
+
+<script>
+	// Music tracks (add your music files to the public folder)
+	const tracks = [
+		{
+			name: "Cyberpunk Action",
+			src: "/music/cyberpunk-action-mechanical-future-dark-synthwave-rave-ai-177248.mp3",
+		},
+		{ name: "Neon Nights", src: "/music/dark-synthwave-neon-nights-251682.mp3" },
+		{ name: "Oblivion Echo", src: "/music/dark-synthwave-obilivion-echo-251687.mp3" },
+		{ name: "Nightclub Cyberpunk", src: "/music/nightclub-cyberpunk-dark-club-384644.mp3" },
+		{ name: "Synthwave Phonk", src: "/music/synthwave-phonk-292925.mp3" },
+	];
+
+	// Pick a random song on initialization
+	let currentTrackIndex = Math.floor(Math.random() * tracks.length);
+	let isPlaying = false;
+	let isMuted = false;
+	let previousVolume = 100;
+	let shouldSeekToStart = false;
+
+	const audioPlayer = document.getElementById("audio-player") as HTMLAudioElement;
+	const playPauseBtn = document.getElementById("play-pause-btn") as HTMLButtonElement;
+	const shuffleBtn = document.getElementById("shuffle-btn") as HTMLButtonElement;
+	const volumeBtn = document.getElementById("volume-btn") as HTMLButtonElement;
+	const volumeSliderContainer = document.getElementById(
+		"volume-slider-container"
+	) as HTMLDivElement;
+	const volumeSlider = document.getElementById("volume-slider") as HTMLInputElement;
+	const playIcon = document.getElementById("play-icon") as HTMLElement;
+	const pauseIcon = document.getElementById("pause-icon") as HTMLElement;
+	const volumeHighIcon = document.getElementById("volume-high-icon") as HTMLElement;
+	const volumeMuteIcon = document.getElementById("volume-mute-icon") as HTMLElement;
+
+	// Set initial volume
+	if (audioPlayer) {
+		audioPlayer.volume = 1;
+
+		// When track metadata is loaded, seek to 15% of the way through
+		audioPlayer.addEventListener("loadedmetadata", () => {
+			if (shouldSeekToStart && audioPlayer.duration) {
+				audioPlayer.currentTime = audioPlayer.duration * 0.15;
+				shouldSeekToStart = false;
+			}
+		});
+	}
+
+	function loadTrack(index: number) {
+		if (tracks.length === 0) return;
+
+		const track = tracks[index];
+		audioPlayer.src = track.src;
+
+		// Dispatch track change event
+		document.dispatchEvent(
+			new CustomEvent("music-track-change", {
+				detail: { trackName: track.name },
+			})
+		);
+	}
+
+	function togglePlayPause() {
+		if (tracks.length === 0) return;
+
+		if (!audioPlayer.src) {
+			shouldSeekToStart = true;
+			loadTrack(currentTrackIndex);
+		}
+
+		if (isPlaying) {
+			audioPlayer.pause();
+			playIcon.classList.remove("hidden");
+			pauseIcon.classList.add("hidden");
+			playPauseBtn.setAttribute("aria-label", "Play");
+
+			// Dispatch pause event
+			document.dispatchEvent(new CustomEvent("music-pause"));
+		} else {
+			audioPlayer.play();
+			playIcon.classList.add("hidden");
+			pauseIcon.classList.remove("hidden");
+			playPauseBtn.setAttribute("aria-label", "Pause");
+
+			// Dispatch play event
+			const currentTrack = tracks[currentTrackIndex];
+			document.dispatchEvent(
+				new CustomEvent("music-play", {
+					detail: {
+						audioElement: audioPlayer,
+						trackName: currentTrack.name,
+					},
+				})
+			);
+		}
+		isPlaying = !isPlaying;
+	}
+
+	function shuffleTrack() {
+		if (tracks.length === 0) return;
+
+		const newIndex = Math.floor(Math.random() * tracks.length);
+		currentTrackIndex = newIndex;
+		shouldSeekToStart = true;
+		loadTrack(currentTrackIndex);
+
+		if (isPlaying) {
+			audioPlayer.play();
+		}
+	}
+
+	function nextTrack() {
+		if (tracks.length === 0) return;
+
+		currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+		loadTrack(currentTrackIndex);
+
+		if (isPlaying) {
+			audioPlayer.play();
+		}
+	}
+
+	function toggleVolume() {
+		volumeSliderContainer?.classList.toggle("hidden");
+	}
+
+	function toggleMute() {
+		if (!audioPlayer) return;
+
+		if (isMuted) {
+			audioPlayer.volume = previousVolume / 100;
+			volumeSlider.value = previousVolume.toString();
+			volumeHighIcon?.classList.remove("hidden");
+			volumeMuteIcon?.classList.add("hidden");
+		} else {
+			previousVolume = Number.parseFloat(volumeSlider.value);
+			audioPlayer.volume = 0;
+			volumeSlider.value = "0";
+			volumeHighIcon?.classList.add("hidden");
+			volumeMuteIcon?.classList.remove("hidden");
+		}
+		isMuted = !isMuted;
+	}
+
+	function updateVolume(value: number) {
+		if (!audioPlayer) return;
+
+		audioPlayer.volume = value / 100;
+
+		// Update mute state based on volume
+		if (value === 0 && !isMuted) {
+			isMuted = true;
+			volumeHighIcon?.classList.add("hidden");
+			volumeMuteIcon?.classList.remove("hidden");
+		} else if (value > 0 && isMuted) {
+			isMuted = false;
+			volumeHighIcon?.classList.remove("hidden");
+			volumeMuteIcon?.classList.add("hidden");
+		}
+	}
+
+	// Event listeners
+	playPauseBtn?.addEventListener("click", togglePlayPause);
+	shuffleBtn?.addEventListener("click", shuffleTrack);
+	volumeBtn?.addEventListener("click", toggleVolume);
+
+	// Double-click volume button to mute/unmute
+	volumeBtn?.addEventListener("dblclick", (e) => {
+		e.stopPropagation();
+		toggleMute();
+	});
+
+	volumeSlider?.addEventListener("input", (e) => {
+		const target = e.target as HTMLInputElement;
+		updateVolume(Number.parseFloat(target.value));
+	});
+
+	// Hide volume slider when clicking outside
+	document.addEventListener("click", (e) => {
+		const target = e.target as HTMLElement;
+		if (!volumeBtn?.contains(target) && !volumeSliderContainer?.contains(target)) {
+			volumeSliderContainer?.classList.add("hidden");
+		}
+	});
+
+	// Auto-play next track when current track ends
+	audioPlayer?.addEventListener("ended", nextTrack);
+
+	// Handle audio errors gracefully
+	audioPlayer?.addEventListener("error", () => {
+		console.error("Error loading audio file");
+		isPlaying = false;
+		playIcon?.classList.remove("hidden");
+		pauseIcon?.classList.add("hidden");
+	});
+</script>
