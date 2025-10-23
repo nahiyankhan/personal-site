@@ -8,7 +8,7 @@
 <style>
 	.wave-visualizer {
 		position: fixed;
-		bottom: -400px;
+		bottom: -350px;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 800px;
@@ -16,6 +16,32 @@
 		z-index: 1;
 		pointer-events: none;
 		opacity: 0.9;
+		filter: blur(0px);
+		animation: glitchLag 3s infinite;
+	}
+
+	@keyframes glitchLag {
+		0%,
+		90% {
+			transform: translateX(-50%) translateY(0);
+			filter: blur(0px);
+		}
+		91% {
+			transform: translateX(-50%) translateY(-2px) translateX(2px);
+			filter: blur(0.5px);
+		}
+		92% {
+			transform: translateX(-50%) translateY(1px) translateX(-1px);
+			filter: blur(0px);
+		}
+		93% {
+			transform: translateX(-50%) translateY(0);
+		}
+		94%,
+		100% {
+			transform: translateX(-50%) translateY(0);
+			filter: blur(0px);
+		}
 	}
 
 	@media (max-width: 640px) {
@@ -80,6 +106,9 @@
 		private bassLevel = 0;
 		private midLevel = 0;
 		private highLevel = 0;
+
+		private frameSkipCounter = 0;
+		private framesToSkip = 0;
 
 		private quadBuffer: WebGLBuffer | null = null;
 
@@ -522,6 +551,23 @@
 		}
 
 		private animate() {
+			// Glitchy frame lag: skip multiple frames to create stuttering
+			this.frameSkipCounter++;
+
+			// Every ~180 frames (3 seconds at 60fps), trigger a lag spike
+			if (this.frameSkipCounter >= 180 && Math.random() > 0.6) {
+				this.frameSkipCounter = 0;
+				// Skip 3-6 frames for noticeable stutter
+				this.framesToSkip = Math.floor(Math.random() * 4) + 3;
+			}
+
+			// Skip multiple frames for lag effect
+			if (this.framesToSkip > 0) {
+				this.framesToSkip--;
+				this.animationId = requestAnimationFrame(() => this.animate());
+				return;
+			}
+
 			const deltaTime = 1.0 / 60.0; // Assume 60fps
 			this.time += deltaTime;
 			this.beat = ((this.time * 120.0) / 60.0) % 32.0; // BPM 120, loop every 32 beats
