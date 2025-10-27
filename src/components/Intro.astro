@@ -98,6 +98,10 @@ import { Icon } from "astro-icon/components";
 	let animationId: number | null = null;
 	let startTime = Date.now();
 
+	// Audio reactivity state
+	let audioIntensity = 0;
+	let audioBass = 0;
+
 	const vertexShaderSource = `
 		attribute vec2 position;
 		void main() {
@@ -111,6 +115,8 @@ import { Icon } from "astro-icon/components";
 		uniform vec2 resolution;
 		uniform vec2 offset;
 		uniform float time;
+		uniform float audioIntensity;
+		uniform float audioBass;
 
 		float nn(float y, float t) {
 			float n = (
@@ -126,23 +132,34 @@ import { Icon } from "astro-icon/components";
 			vec2 uv = gl_FragCoord.xy / resolution;
 			// Flip Y coordinate for WebGL
 			uv.y = 1.0 - uv.y;
-			
+
 			vec2 uvr = uv, uvg = uv, uvb = uv;
 
 			float t = mod(time, 30.0);
-			
-			// Quantize time for laggy/stuttering effect (10 FPS)
-			float fps = 10.0;
-			float tLaggy = floor(t * fps) / fps;
-			
-			float amp = 10.0 / resolution.x;
 
-			// Create sporadic glitch bursts with gaps
-			float glitchTrigger = sin(tLaggy * 1.3) * sin(tLaggy * 2.7) * sin(tLaggy * 4.1);
-			float burstIntensity = smoothstep(0.65, 1.0, abs(glitchTrigger));
-			
-			// Scanline-style shifts (per-row) but only during bursts
-			if (burstIntensity > 0.0 && abs(nn(uv.y, tLaggy)) > 1.0) {
+			// Quantize time for laggy/stuttering effect - faster when music plays
+			float fps = 10.0 + audioIntensity * 5.0;
+			float tLaggy = floor(t * fps) / fps;
+
+			// Amplify amplitude based on audio (2x to 5x multiplier when music plays)
+			float musicMultiplier = 1.0 + audioIntensity * 4.0;
+			float amp = (10.0 / resolution.x) * musicMultiplier;
+
+			// Create sporadic glitch bursts with gaps - more frequent with music
+			float glitchSpeed = 1.0 + audioIntensity * 2.0;
+			float glitchTrigger = sin(tLaggy * 1.3 * glitchSpeed) * sin(tLaggy * 2.7 * glitchSpeed) * sin(tLaggy * 4.1 * glitchSpeed);
+
+			// Lower threshold when music plays (0.65 -> 0.3), more glitches
+			float threshold = 0.65 - audioIntensity * 0.35;
+			float burstIntensity = smoothstep(threshold, 1.0, abs(glitchTrigger));
+
+			// Add bass-reactive extra glitching
+			float bassBoost = audioBass * 0.5;
+			burstIntensity = min(1.0, burstIntensity + bassBoost);
+
+			// Scanline-style shifts (per-row) - more likely with music
+			float glitchThreshold = 1.0 - audioIntensity * 0.5;
+			if (burstIntensity > 0.0 && abs(nn(uv.y, tLaggy)) > glitchThreshold) {
 				uvr.x += nn(uv.y, tLaggy) * amp * burstIntensity;
 				uvg.x += nn(uv.y, tLaggy + 10.0) * amp * burstIntensity;
 				uvb.x += nn(uv.y, tLaggy + 20.0) * amp * burstIntensity;
@@ -335,11 +352,15 @@ import { Icon } from "astro-icon/components";
 		const resolutionLocation = gl.getUniformLocation(program, "resolution");
 		const timeLocation = gl.getUniformLocation(program, "time");
 		const offsetLocation = gl.getUniformLocation(program, "offset");
+		const audioIntensityLocation = gl.getUniformLocation(program, "audioIntensity");
+		const audioBassLocation = gl.getUniformLocation(program, "audioBass");
 
 		gl.uniform1i(srcLocation, 0);
 		gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
 		gl.uniform1f(timeLocation, time);
 		gl.uniform2f(offsetLocation, 0, 0);
+		gl.uniform1f(audioIntensityLocation, audioIntensity);
+		gl.uniform1f(audioBassLocation, audioBass);
 
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
@@ -364,6 +385,19 @@ import { Icon } from "astro-icon/components";
 		updateLogoSize();
 		initGL();
 	}, 150);
+
+	// Listen for audio data from music visualizer
+	document.addEventListener("visualizer-colors", (event: any) => {
+		const { audioLevels, isPlaying } = event.detail || {};
+		if (audioLevels && isPlaying) {
+			audioIntensity = audioLevels.intensity || 0;
+			audioBass = audioLevels.bass || 0;
+		} else {
+			// Smoothly decay to zero when music stops
+			audioIntensity *= 0.95;
+			audioBass *= 0.95;
+		}
+	});
 
 	// Initialize on load
 	document.addEventListener("DOMContentLoaded", () => {

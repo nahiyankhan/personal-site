@@ -5,6 +5,10 @@
 <div id="animated-lines" class="pointer-events-none fixed inset-0 z-0"></div>
 
 <script>
+	// Audio reactivity state
+	let audioIntensity = 0;
+	let audioBass = 0;
+
 	function initAnimatedLines() {
 		const container = document.getElementById("animated-lines");
 		if (!container) return;
@@ -34,7 +38,7 @@
 			// Randomly apply visual effects (subtle)
 			const rand = Math.random();
 
-			// 25% chance: chromatic aberration
+			// 25% chance: chromatic aberration (will be increased when music plays)
 			if (rand < 0.25) {
 				line.style.filter =
 					"drop-shadow(1px 0 0 rgba(255, 0, 0, 0.5)) drop-shadow(-1px 0 0 rgba(0, 255, 255, 0.5))";
@@ -43,6 +47,61 @@
 			container.appendChild(line);
 			lines.push(line);
 		}
+
+		// Function to update chromatic effects based on music
+		function updateChromaticEffects() {
+			// When music is playing with intensity, apply chromatic aberration to more lines
+			const musicThreshold = 0.2;
+			if (audioIntensity > musicThreshold) {
+				lines.forEach((line, index) => {
+					// Increase chromatic aberration coverage based on audio intensity
+					// From 25% baseline to up to 90% when music is intense
+					const chromaticChance = 0.25 + (audioIntensity * 0.65);
+					const shouldHaveEffect = (index * 0.1 + audioIntensity) % 1.0 < chromaticChance;
+
+					if (shouldHaveEffect) {
+						// Amplify the effect strength based on audio (especially bass)
+						// Enhanced multipliers for more pronounced effect
+						const baseOffset = 1 + Math.floor(audioIntensity * 5);
+						const bassBoost = audioBass > 0.5 ? Math.floor(audioBass * 4) : 0;
+						const offset = baseOffset + bassBoost;
+						const alpha = 0.6 + audioIntensity * 0.4;
+
+						// Add slight random offset variation for more dynamic effect
+						const randomVariation = Math.random() * 0.5;
+						const finalOffset = offset + randomVariation;
+
+						line.style.filter =
+							`drop-shadow(${finalOffset}px 0 0 rgba(255, 0, 0, ${alpha})) drop-shadow(-${finalOffset}px 0 0 rgba(0, 255, 255, ${alpha}))`;
+
+						// Add subtle glow on high intensity
+						if (audioIntensity > 0.7) {
+							line.style.filter += ` drop-shadow(0 0 ${audioIntensity * 3}px rgba(255, 0, 255, 0.3))`;
+						}
+					} else if (!line.style.filter.includes("drop-shadow")) {
+						line.style.filter = "none";
+					}
+				});
+			} else if (audioIntensity < 0.05) {
+				// Reset to original state when music intensity is very low
+				lines.forEach((line, index) => {
+					const rand = (index * 0.73) % 1.0; // Deterministic pseudo-random
+					if (rand < 0.25) {
+						line.style.filter =
+							"drop-shadow(1px 0 0 rgba(255, 0, 0, 0.5)) drop-shadow(-1px 0 0 rgba(0, 255, 255, 0.5))";
+					} else {
+						line.style.filter = "none";
+					}
+				});
+			}
+		}
+
+		// Update chromatic effects continuously
+		function updateLoop() {
+			updateChromaticEffects();
+			requestAnimationFrame(updateLoop);
+		}
+		updateLoop();
 
 		// Randomly animate lines
 		function animateLine(line: HTMLElement) {
@@ -76,6 +135,19 @@
 			}, 250);
 		});
 	}
+
+	// Listen for audio data from music visualizer
+	document.addEventListener("visualizer-colors", (event: any) => {
+		const { audioLevels, isPlaying } = event.detail || {};
+		if (audioLevels && isPlaying) {
+			audioIntensity = audioLevels.intensity || 0;
+			audioBass = audioLevels.bass || 0;
+		} else {
+			// Smoothly decay to zero when music stops
+			audioIntensity *= 0.95;
+			audioBass *= 0.95;
+		}
+	});
 
 	// Initialize on load
 	document.addEventListener("DOMContentLoaded", initAnimatedLines);
