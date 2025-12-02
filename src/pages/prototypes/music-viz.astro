@@ -1,0 +1,73 @@
+---
+import AudioWaveVisualizer from "@/components/AudioWaveVisualizer.astro";
+import MusicPlayer from "@/components/MusicPlayer.astro";
+import SquareLayout from "@/layouts/SquareLayout.astro";
+---
+
+<SquareLayout meta={{ title: "Music Visualizer" }}>
+	<div class="fixed inset-0 flex items-center justify-center">
+		<AudioWaveVisualizer />
+	</div>
+
+	<div class="pointer-events-none fixed inset-0 flex items-center justify-center">
+		<div class="pointer-events-auto">
+			<MusicPlayer />
+		</div>
+	</div>
+
+	<div slot="overlay" class="fixed left-16 top-8 z-50">
+		<a href="/" class="back-button" transition:name="back-button">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<line x1="19" y1="12" x2="5" y2="12"></line>
+				<polyline points="12 19 5 12 12 5"></polyline>
+			</svg>
+			<span>back</span>
+		</a>
+	</div>
+</SquareLayout>
+
+<style>
+	.back-button {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1.5rem;
+		background: hsl(var(--theme-bg) / 1);
+		backdrop-filter: blur(10px);
+		border-radius: 9999px;
+		color: hsl(var(--theme-text));
+		text-decoration: none;
+		font-size: 0.875rem;
+		transition: all 0.3s ease;
+		opacity: 1;
+		isolation: isolate;
+	}
+
+	.back-button:hover {
+		box-shadow:
+			0 10px 15px -3px rgb(0 0 0 / 0.3),
+			0 4px 6px -4px rgb(0 0 0 / 0.2);
+		transform: translateY(-1px);
+	}
+
+	.back-button:active {
+		transform: translateY(0);
+	}
+
+	@media (max-width: 640px) {
+		.back-button {
+			padding: 0.5rem 1rem;
+			font-size: 0.8125rem;
+		}
+	}
+</style>

@@ -1,162 +1,51 @@
 ---
-import AboutTitle from "@/assets/about.svg?raw";
-// import JHULogo from "@/assets/jhu.svg?raw";
-// import MacalesterLogo from "@/assets/macalester.svg?raw";
-import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import LabTitle from "@/assets/lab.svg?raw";
+import musicVizImage from "@/assets/music-viz.png";
 import Subtitle from "./Subtitle.astro";
-
-// import ADPLogo from "@/assets/adp.svg?raw";
-import BlockLogo from "@/assets/block.svg?raw";
-// import CashAppLogo from "@/assets/cash_app.svg?raw";
-// import PearsonLogo from "@/assets/pearson.svg?raw";
 ---
 
 <div>
 	<div class="relative flex flex-col items-end px-4 py-4 sm:px-8 sm:py-8">
-		<div id="about-logo" class="relative [&>svg]:w-full" data-logo-scale>
-			<Fragment set:html={AboutTitle} />
+		<div id="lab-logo" class="relative [&>svg]:w-full" data-logo-scale>
+			<Fragment set:html={LabTitle} />
 		</div>
 		<div class="relative inline-flex w-[fit-content]">
-			<div class="baseline-on-grid text-sm">a.k.a the 9 to 5. and the 5 to 9.</div>
+			<div class="baseline-on-grid text-sm">a.k.a tinker town and where things break.</div>
 		</div>
 	</div>
 
-	<div class="w-11/12 px-4 sm:px-8 lg:w-3/5 xl:w-1/2">
-		<div class="">
-			<div class="baseline-on-grid mb-4 inline-block text-sm sm:mb-[20px]">
-				am an engineer. am a designer. am both? am neither? definitions are arbitrary. existential
-				crisis is real. but 9 to 5, I lead design engineering at block.
-			</div>
+	<div class="grid px-4 pb-16 sm:px-8 sm:pb-0">
+		<Subtitle title="current-experiments" />
 
-			<p class="baseline-on-grid mb-4 text-sm sm:mb-8">
-				and 5 to 9. I rock climb, tinker, bake cheesecakes, go down rabbit holes, read science
-				fiction, and as of august 2024 - play with my daughter.
-			</p>
-		</div>
-	</div>
-
-	<div class="grid px-4 pt-4 sm:px-8 sm:pt-8">
-		<Subtitle title="currenty-at" />
-
-		<div class="mb-4 space-y-8 sm:mb-8 sm:space-y-16">
-			<div class="pr-0 sm:pr-16">
-				<div class="mb-4 flex flex-row items-center sm:mb-8">
-					<div
-						class="flex h-[48px] w-[48px] flex-shrink-0 items-center justify-center overflow-hidden rounded-full border sm:h-16 sm:w-16 [&>svg]:w-6 sm:[&>svg]:w-8"
+		<div class="mb-4 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-4 sm:gap-8">
+			<div class="space-y-4">
+				<a
+					href="/prototypes/music-viz"
+					class="border-current/10 hover:border-current/30 block overflow-hidden rounded-lg border transition-all"
+					transition:name="music-viz-preview"
+				>
+					<Image src={musicVizImage} alt="Music Visualizer Preview" class="h-auto w-full" />
+				</a>
+				<div class="flex flex-col">
+					<a
+						href="/prototypes/music-viz"
+						class="baseline-on-grid !mb-0 inline-block text-sm underline decoration-dotted underline-offset-4 hover:decoration-solid"
 					>
-						<Fragment set:html={BlockLogo} />
-					</div>
-					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Principal Design Engineer @ Block</p>
-				</div>
-			</div>
-		</div>
-
-		<!-- <Subtitle title="used-to-be-at" />
-
-		<div class="mb-4 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-2 sm:gap-8">
-			<div class="">
-				<div class="flex flex-row items-center">
-					<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
-						<Fragment set:html={CashAppLogo} />
-					</div>
-					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Staff Design Engineer @ Cash App</p>
-				</div>
-			</div>
-
-			<div class="">
-				<div class="flex flex-row items-center">
-					<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
-						<Fragment set:html={ADPLogo} />
-					</div>
-					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Senior Design Engineer @ ADP</p>
-				</div>
-			</div>
-
-			<div class="">
-				<div class="flex flex-row items-center">
-					<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
-						<Fragment set:html={PearsonLogo} />
-					</div>
-					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Product Designer @ Pearson</p>
-				</div>
-			</div>
-
-			<div class="">
-				<div class="flex flex-row items-center">
-					<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
-						<Fragment set:html={MacalesterLogo} />
-					</div>
-					<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Graphic Designer @ Macalester College</p>
-				</div>
-			</div>
-		</div> -->
-	</div>
-
-	<div class="grid grid-cols-1 px-4 pb-16 sm:grid-cols-2 sm:px-8 sm:pb-0">
-		<!-- <div class="pt-4 sm:pt-8">
-			<Subtitle title="studied-at" />
-
-			<div class="mb-4 space-y-4 sm:mb-8 sm:space-y-8">
-				<div class="">
-					<div class="mb-4 flex flex-row items-center sm:mb-8">
-						<div class="h-[48px] w-[48px] flex-shrink-0 overflow-hidden sm:h-16 sm:w-16">
-							<Fragment set:html={JHULogo} />
-						</div>
-						<p class="baseline-on-grid ml-4 text-sm sm:ml-8">Masters in Computer Science @ JHU</p>
-					</div>
-				</div>
-
-				<div class="">
-					<div class="mb-4 flex flex-row items-center sm:mb-8">
-						<div class="flex-shrink-0 [&>svg]:w-[48px] sm:[&>svg]:w-16">
-							<Fragment set:html={MacalesterLogo} />
-						</div>
-						<p class="baseline-on-grid ml-4 text-sm sm:ml-8">
-							Bachelor of Arts @ Macalester College
-						</p>
-					</div>
-				</div>
-			</div>
-		</div> -->
-
-		<div class="pt-4 sm:pt-8">
-			<Subtitle title="mantras" />
-
-			<ul class="mb-4 sm:mb-8">
-				<li class="flex items-center">
-					<div class="full justify-left flex items-center">
-						<Icon
-							aria-hidden="true"
-							class="h-4 w-4 sm:h-8 sm:w-8"
-							focusable="false"
-							name="mdi:circle-small"
-						/>
-					</div>
-					<p class="baseline-on-grid pl-4 text-sm sm:pl-8">
-						trust by default. work in the open. meet where the work is.
+						music visualizer
+					</a>
+					<p class="baseline-on-grid text-sm opacity-70">
+						audio-reactive animations. from the portfolio editing floor.
 					</p>
-				</li>
-				<li class="flex items-start">
-					<div class="full justify-left mt-4 flex items-end">
-						<Icon
-							aria-hidden="true"
-							class="h-4 w-4 sm:h-8 sm:w-8"
-							focusable="false"
-							name="mdi:circle-small"
-						/>
-					</div>
-					<div class="baseline-on-grid inline pl-4 text-sm sm:pl-8">
-						sucking at something is the first step to being sorta good at something.
-					</div>
-				</li>
-			</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 
 <script>
-	// Logo scaling system for About - increments in baseline units, max 3 units
-	const LOGO_ASPECT_RATIO = 1920 / 331; // ~5.8:1
+	// Logo scaling system for Lab - increments in baseline units, max 3 units
+	const LOGO_ASPECT_RATIO = 1149 / 331; // ~3.5:1
 	const isMobile = window.innerWidth < 640;
 	const GRID_UNIT = isMobile ? 16 : 32; // Responsive baseline unit
 	const HORIZONTAL_PADDING = isMobile ? 32 : 64; // p-4 on mobile, p-8 on desktop
@@ -184,7 +73,7 @@ import BlockLogo from "@/assets/block.svg?raw";
 	}
 
 	function updateLogoSize() {
-		const logoElement = document.getElementById("about-logo");
+		const logoElement = document.getElementById("lab-logo");
 		if (!logoElement) return;
 
 		const svg = logoElement.querySelector("svg");
@@ -197,7 +86,7 @@ import BlockLogo from "@/assets/block.svg?raw";
 
 		svg.style.height = `${height}px`;
 
-		console.log("🎨 About Logo Scaling:", {
+		console.log("🧪 Lab Logo Scaling:", {
 			viewportWidth: window.innerWidth,
 			logoHeight: `${height}px (${units} × 32px)`,
 			logoWidth: `${Math.round(width)}px`,
@@ -302,7 +191,7 @@ import BlockLogo from "@/assets/block.svg?raw";
 	}
 
 	function initGL() {
-		const logoElement = document.getElementById("about-logo");
+		const logoElement = document.getElementById("lab-logo");
 		if (!logoElement) return;
 
 		// Clean up existing canvas

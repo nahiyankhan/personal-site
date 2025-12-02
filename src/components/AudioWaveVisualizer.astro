@@ -7,13 +7,8 @@
 
 <style>
 	.wave-visualizer {
-		position: fixed;
-		bottom: -350px;
-		left: 50%;
-		transform: translateX(-50%);
 		width: 800px;
 		height: 800px;
-		z-index: 1;
 		pointer-events: none;
 		opacity: 0.9;
 		filter: blur(0px);
@@ -23,30 +18,29 @@
 	@keyframes glitchLag {
 		0%,
 		90% {
-			transform: translateX(-50%) translateY(0);
+			transform: translateY(0);
 			filter: blur(0px);
 		}
 		91% {
-			transform: translateX(-50%) translateY(-2px) translateX(2px);
+			transform: translateY(-2px) translateX(2px);
 			filter: blur(0.5px);
 		}
 		92% {
-			transform: translateX(-50%) translateY(1px) translateX(-1px);
+			transform: translateY(1px) translateX(-1px);
 			filter: blur(0px);
 		}
 		93% {
-			transform: translateX(-50%) translateY(0);
+			transform: translateY(0);
 		}
 		94%,
 		100% {
-			transform: translateX(-50%) translateY(0);
+			transform: translateY(0);
 			filter: blur(0px);
 		}
 	}
 
 	@media (max-width: 640px) {
 		.wave-visualizer {
-			bottom: -150px;
 			width: 400px;
 			height: 400px;
 		}
@@ -111,6 +105,7 @@
 		private framesToSkip = 0;
 
 		private quadBuffer: WebGLBuffer | null = null;
+		private isDarkMode = true; // Default to dark mode
 
 		constructor(canvas: HTMLCanvasElement) {
 			this.canvas = canvas;
@@ -131,12 +126,23 @@
 			this.gl.enable(this.gl.BLEND);
 			this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
 
+			// Detect initial theme
+			this.updateTheme();
+			// Listen for theme changes
+			window.addEventListener("storage", () => this.updateTheme());
+			document.addEventListener("theme-change", () => this.updateTheme());
+
 			this.startAnimation();
+		}
+
+		private updateTheme() {
+			// Check if dark mode is active
+			this.isDarkMode = document.documentElement.classList.contains("dark");
 		}
 
 		private resize() {
 			// Square canvas for circular display
-			const size = window.innerWidth <= 640 ? 400 : 500;
+			const size = window.innerWidth <= 640 ? 400 : 800;
 			this.canvas.width = size;
 			this.canvas.height = size;
 
@@ -215,6 +221,7 @@
 				uniform float midLevel;
 				uniform float highLevel;
 				uniform float hueShift;
+				uniform float chromaticAberration;
 				
 				bool between(float x, float from, float to) {
 					return from <= x && x < to;
@@ -415,8 +422,8 @@
 					vec2 dir = uv - vec2(0.5);
 					uv += dir * dot(dir, dir) * 0.2;
 					
-					// Chromatic aberration
-					vec2 offset = vec2(1.0, 1.0) * 0.005;
+					// Chromatic aberration (theme-aware)
+					vec2 offset = vec2(1.0, 1.0) * chromaticAberration;
 					col.r = texture2D(iChannel1, uv - offset).r;
 					col.g = texture2D(iChannel1, uv).g;
 					col.b = texture2D(iChannel1, uv + offset).b;
@@ -701,6 +708,12 @@
 
 			const hueLoc = gl.getUniformLocation(program, "hueShift");
 			gl.uniform1f(hueLoc, this.currentHue);
+
+			// Set chromatic aberration strength based on theme
+			const chromaticLoc = gl.getUniformLocation(program, "chromaticAberration");
+			// Dark mode: 0.005 (strong effect), Light mode: 0.008 (stronger effect for visibility)
+			const chromaticStrength = this.isDarkMode ? 0.005 : 0.008;
+			gl.uniform1f(chromaticLoc, chromaticStrength);
 
 			// Bind input texture if provided
 			if (inputTexture) {

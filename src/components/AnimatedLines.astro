@@ -154,48 +154,4 @@
 
 	// Re-initialize on theme change (if needed)
 	document.addEventListener("astro:after-swap", initAnimatedLines);
-
-	// Snap scroll to baseline increments (16px mobile, 32px desktop)
-	function initSnapScroll() {
-		const scrollableContent = document.getElementById("scrollable-content");
-		if (!scrollableContent) return;
-
-		let isScrolling = false;
-		let scrollTimeout: NodeJS.Timeout;
-
-		scrollableContent.addEventListener(
-			"wheel",
-			(e) => {
-				e.preventDefault();
-
-				if (isScrolling) return;
-				isScrolling = true;
-
-				const delta = Math.sign(e.deltaY);
-				const currentScroll = scrollableContent.scrollTop;
-				// Responsive line height: 16px on mobile, 32px on desktop
-				const lineHeight = window.innerWidth >= 640 ? 32 : 16;
-
-				// Calculate target scroll position
-				const currentLine = Math.round(currentScroll / lineHeight);
-				const targetLine = currentLine + delta;
-				const targetScroll = targetLine * lineHeight;
-
-				scrollableContent.scrollTo({
-					top: Math.max(0, targetScroll),
-					behavior: "smooth",
-				});
-
-				clearTimeout(scrollTimeout);
-				scrollTimeout = setTimeout(() => {
-					isScrolling = false;
-				}, 100);
-			},
-			{ passive: false }
-		);
-	}
-
-	// Initialize snap scroll on load
-	document.addEventListener("DOMContentLoaded", initSnapScroll);
-	document.addEventListener("astro:after-swap", initSnapScroll);
 </script>
