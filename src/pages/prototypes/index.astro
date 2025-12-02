@@ -1,0 +1,28 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+import Footer from "@/components/layout/Footer.astro";
+---
+
+<PageLayout meta={{ title: "Prototypes" }}>
+	<div class="flex min-h-full flex-col px-4 pb-4 pt-8 sm:px-8 sm:pb-8 sm:pt-16">
+		<h1 class="mb-8 text-4xl font-bold">Prototypes</h1>
+		<p class="baseline-on-grid mb-8 text-sm">
+			A collection of experimental projects, interactive demos, and creative coding explorations.
+		</p>
+
+		<div class="grid gap-4 sm:gap-8">
+			<a
+				href="/prototypes/music-viz"
+				class="group relative rounded-md border p-4 transition-all hover:border-divider sm:p-8"
+			>
+				<h2 class="mb-2 text-xl font-bold">Music Visualizer</h2>
+				<p class="baseline-on-grid text-sm opacity-70">
+					An audio-reactive visualization using WebGL shaders. Multi-pass rendering with geometry, dot
+					matrix, and post-processing effects.
+				</p>
+			</a>
+		</div>
+	</div>
+	<Footer />
+</PageLayout>
+

@@ -9,7 +9,6 @@ import BaseHead from "@/components/BaseHead.astro";
 import CursorEffect from "@/components/CursorEffect.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
-import Footer from "@/components/layout/Footer.astro";
 import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
 
@@ -28,7 +27,7 @@ const {
 		<ViewTransitions />
 	</head>
 	<body
-		class="relative h-screen overflow-hidden bg-bgColorInverse p-4 text-sm font-light leading-[2rem] sm:p-8 sm:text-base sm:leading-[2rem]"
+		class="relative flex h-screen items-center justify-center overflow-hidden bg-bgColorInverse p-0 text-sm font-light leading-[2rem] sm:text-base sm:leading-[2rem]"
 	>
 		<div class="noise"></div>
 		<ThemeProvider />
@@ -36,17 +35,28 @@ const {
 		<!-- <CursorEffect /> -->
 		<SkipLink />
 		<!-- <Header /> -->
-		<main x-data id="main" class="h-full origin-center tracking-wider">
-			<div id="scrollable-content" class="h-full overflow-y-scroll rounded-md bg-bgColor">
+		<main x-data id="main" class="h-full w-full origin-center tracking-wider">
+			<div id="scrollable-content" class="fade-edges h-full w-full overflow-auto bg-bgColor">
 				<slot />
 			</div>
 		</main>
+		<!-- Overlay content (above mask) -->
+		<slot name="overlay" />
 	</body>
 </html>
 
 <style>
 	[x-cloak] {
 		display: none !important;
+	}
+
+	.fade-edges {
+		-webkit-mask-image: radial-gradient(circle at center, black 0%, black 50%, transparent 100%);
+		mask-image: radial-gradient(circle at center, black 0%, black 25%, transparent 100%);
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
+		-webkit-mask-position: center;
+		mask-position: center;
 	}
 
 	/* Custom scrollbar styling */
