@@ -5,10 +5,8 @@ import "@fontsource-variable/space-grotesk";
 import "@fontsource/rubik-mono-one";
 import { ViewTransitions } from "astro:transitions";
 import AnimatedLines from "@/components/AnimatedLines.astro";
-import AudioWaveVisualizer from "@/components/AudioWaveVisualizer.astro";
 import BaseHead from "@/components/BaseHead.astro";
 import CursorEffect from "@/components/CursorEffect.astro";
-import MusicPlayer from "@/components/MusicPlayer.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
 import Footer from "@/components/layout/Footer.astro";
@@ -33,7 +31,6 @@ const {
 		class="relative h-screen overflow-hidden bg-bgColorInverse p-4 text-sm font-light leading-[2rem] sm:p-8 sm:text-base sm:leading-[2rem]"
 	>
 		<div class="noise"></div>
-		<AudioWaveVisualizer />
 		<ThemeProvider />
 		<AnimatedLines />
 		<!-- <CursorEffect /> -->
@@ -44,7 +41,6 @@ const {
 				<slot />
 			</div>
 		</main>
-		<MusicPlayer />
 	</body>
 </html>
 
