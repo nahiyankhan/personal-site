@@ -3,7 +3,7 @@ import Nahiyan from "@/assets/nahiyan.svg?raw";
 import { Icon } from "astro-icon/components";
 ---
 
-<div class="flex flex-col items-end justify-center">
+<div class="flex flex-col items-start justify-center">
 	<div
 		id="intro-logo"
 		class="relative overflow-hidden px-4 pb-4 pt-8 sm:px-8 sm:pb-8 sm:pt-16 [&_svg]:w-full"
@@ -11,7 +11,7 @@ import { Icon } from "astro-icon/components";
 	>
 		<Fragment set:html={Nahiyan} />
 	</div>
-	<div class="relative mr-4 h-12 w-12 rounded-full sm:mr-8 sm:h-16 sm:w-16">
+	<div class="relative ml-4 h-12 w-12 rounded-full sm:ml-8 sm:h-16 sm:w-16">
 		<a
 			class="relative flex h-full w-full items-center justify-center rounded-full border bg-bgColor transition-all [&::after]:absolute [&::after]:h-12 [&::after]:w-12 [&::after]:origin-center [&::after]:rounded-full [&::after]:border [&::after]:border-transparent [&::after]:duration-300 [&::after]:content-[''] hover:[&::after]:scale-75 hover:[&::after]:border-divider dark:hover:[&::after]:border-divider [&::after]:sm:h-16 [&::after]:sm:w-16"
 			type="button"
@@ -117,6 +117,7 @@ import { Icon } from "astro-icon/components";
 		uniform float time;
 		uniform float audioIntensity;
 		uniform float audioBass;
+		uniform float isDarkMode;
 
 		float nn(float y, float t) {
 			float n = (
@@ -169,7 +170,29 @@ import { Icon } from "astro-icon/components";
 			vec4 cg = texture2D(src, uvg);
 			vec4 cb = texture2D(src, uvb);
 
-			gl_FragColor = vec4(cr.r, cg.g, cb.b, smoothstep(0.0, 1.0, cr.a + cg.a + cb.a));
+			float combinedAlpha = smoothstep(0.0, 1.0, cr.a + cg.a + cb.a);
+
+			if (isDarkMode > 0.5) {
+				// Dark mode: use actual RGB values (works great with light content)
+				gl_FragColor = vec4(cr.r, cg.g, cb.b, combinedAlpha);
+			} else {
+				// Light mode: use alpha to create RGB separation for dark content
+				// Where an offset channel has content, show that color brightly
+				vec4 center = texture2D(src, uv);
+				float centerAlpha = center.a;
+				
+				// Calculate where all channels align (center of content)
+				float allAligned = min(min(cr.a, cg.a), cb.a);
+				
+				// Create bright RGB fringes based on alpha at offset positions
+				vec3 rgbFringes = vec3(cr.a, cg.a, cb.a);
+				
+				// Mix: at center (allAligned=1) show original dark content,
+				// at edges (allAligned<1) show colored fringes
+				vec3 finalColor = mix(rgbFringes, center.rgb, allAligned);
+				
+				gl_FragColor = vec4(finalColor, combinedAlpha);
+			}
 		}
 	`;
 
@@ -354,6 +377,9 @@ import { Icon } from "astro-icon/components";
 		const offsetLocation = gl.getUniformLocation(program, "offset");
 		const audioIntensityLocation = gl.getUniformLocation(program, "audioIntensity");
 		const audioBassLocation = gl.getUniformLocation(program, "audioBass");
+		const isDarkModeLocation = gl.getUniformLocation(program, "isDarkMode");
+
+		const isDarkMode = document.documentElement.getAttribute("data-theme") === "dark" ? 1.0 : 0.0;
 
 		gl.uniform1i(srcLocation, 0);
 		gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
@@ -361,6 +387,7 @@ import { Icon } from "astro-icon/components";
 		gl.uniform2f(offsetLocation, 0, 0);
 		gl.uniform1f(audioIntensityLocation, audioIntensity);
 		gl.uniform1f(audioBassLocation, audioBass);
+		gl.uniform1f(isDarkModeLocation, isDarkMode);
 
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
