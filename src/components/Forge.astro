@@ -1,22 +1,22 @@
 ---
 import { Image } from "astro:assets";
-import LabTitle from "@/assets/lab.svg?raw";
+import ForgeTitle from "@/assets/forge.svg?raw";
 import musicVizImage from "@/assets/music-viz.png";
 import Subtitle from "./Subtitle.astro";
 ---
 
 <div>
-	<div class="relative flex flex-col items-end px-4 py-4 sm:px-8 sm:py-8">
-		<div id="lab-logo" class="relative [&>svg]:w-full" data-logo-scale>
-			<Fragment set:html={LabTitle} />
+	<div class="relative flex flex-col items-start px-4 py-4 sm:px-8 sm:py-16">
+		<div id="forge-logo" class="relative [&>svg]:w-full" data-logo-scale>
+			<Fragment set:html={ForgeTitle} />
 		</div>
 		<div class="relative inline-flex w-[fit-content]">
-			<div class="baseline-on-grid text-sm">a.k.a tinker town and where things break.</div>
+			<div class="baseline-on-grid text-sm">a.k.a tinker town where things break.</div>
 		</div>
 	</div>
 
 	<div class="grid px-4 pb-16 sm:px-8 sm:pb-0">
-		<Subtitle title="current-experiments" />
+		<!-- <Subtitle title="current-experiments" /> -->
 
 		<div class="mb-4 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-4 sm:gap-8">
 			<div class="space-y-4">
@@ -34,7 +34,7 @@ import Subtitle from "./Subtitle.astro";
 					>
 						music visualizer
 					</a>
-					<p class="baseline-on-grid text-sm opacity-70">
+					<p class="baseline-on-grid text-sm">
 						audio-reactive animations. from the portfolio editing floor.
 					</p>
 				</div>
@@ -44,8 +44,8 @@ import Subtitle from "./Subtitle.astro";
 </div>
 
 <script>
-	// Logo scaling system for Lab - increments in baseline units, max 3 units
-	const LOGO_ASPECT_RATIO = 1149 / 331; // ~3.5:1
+	// Logo scaling system for Forge - increments in baseline units, max 3 units
+	const LOGO_ASPECT_RATIO = 1920 / 331; // ~5.8:1
 	const isMobile = window.innerWidth < 640;
 	const GRID_UNIT = isMobile ? 16 : 32; // Responsive baseline unit
 	const HORIZONTAL_PADDING = isMobile ? 32 : 64; // p-4 on mobile, p-8 on desktop
@@ -73,7 +73,7 @@ import Subtitle from "./Subtitle.astro";
 	}
 
 	function updateLogoSize() {
-		const logoElement = document.getElementById("lab-logo");
+		const logoElement = document.getElementById("forge-logo");
 		if (!logoElement) return;
 
 		const svg = logoElement.querySelector("svg");
@@ -86,7 +86,7 @@ import Subtitle from "./Subtitle.astro";
 
 		svg.style.height = `${height}px`;
 
-		console.log("🧪 Lab Logo Scaling:", {
+		console.log("🔥 Forge Logo Scaling:", {
 			viewportWidth: window.innerWidth,
 			logoHeight: `${height}px (${units} × 32px)`,
 			logoWidth: `${Math.round(width)}px`,
@@ -121,6 +121,7 @@ import Subtitle from "./Subtitle.astro";
 		uniform float time;
 		uniform float audioIntensity;
 		uniform float audioBass;
+		uniform float isDarkMode;
 
 		float nn(float y, float t) {
 			float n = (
@@ -173,7 +174,29 @@ import Subtitle from "./Subtitle.astro";
 			vec4 cg = texture2D(src, uvg);
 			vec4 cb = texture2D(src, uvb);
 
-			gl_FragColor = vec4(cr.r, cg.g, cb.b, smoothstep(0.0, 1.0, cr.a + cg.a + cb.a));
+			float combinedAlpha = smoothstep(0.0, 1.0, cr.a + cg.a + cb.a);
+
+			if (isDarkMode > 0.5) {
+				// Dark mode: use actual RGB values (works great with light content)
+				gl_FragColor = vec4(cr.r, cg.g, cb.b, combinedAlpha);
+			} else {
+				// Light mode: use alpha to create RGB separation for dark content
+				// Where an offset channel has content, show that color brightly
+				vec4 center = texture2D(src, uv);
+				float centerAlpha = center.a;
+				
+				// Calculate where all channels align (center of content)
+				float allAligned = min(min(cr.a, cg.a), cb.a);
+				
+				// Create bright RGB fringes based on alpha at offset positions
+				vec3 rgbFringes = vec3(cr.a, cg.a, cb.a);
+				
+				// Mix: at center (allAligned=1) show original dark content,
+				// at edges (allAligned<1) show colored fringes
+				vec3 finalColor = mix(rgbFringes, center.rgb, allAligned);
+				
+				gl_FragColor = vec4(finalColor, combinedAlpha);
+			}
 		}
 	`;
 
@@ -191,7 +214,7 @@ import Subtitle from "./Subtitle.astro";
 	}
 
 	function initGL() {
-		const logoElement = document.getElementById("lab-logo");
+		const logoElement = document.getElementById("forge-logo");
 		if (!logoElement) return;
 
 		// Clean up existing canvas
@@ -357,6 +380,9 @@ import Subtitle from "./Subtitle.astro";
 		const offsetLocation = gl.getUniformLocation(program, "offset");
 		const audioIntensityLocation = gl.getUniformLocation(program, "audioIntensity");
 		const audioBassLocation = gl.getUniformLocation(program, "audioBass");
+		const isDarkModeLocation = gl.getUniformLocation(program, "isDarkMode");
+
+		const isDarkMode = document.documentElement.getAttribute("data-theme") === "dark" ? 1.0 : 0.0;
 
 		gl.uniform1i(srcLocation, 0);
 		gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
@@ -364,6 +390,7 @@ import Subtitle from "./Subtitle.astro";
 		gl.uniform2f(offsetLocation, 0, 0);
 		gl.uniform1f(audioIntensityLocation, audioIntensity);
 		gl.uniform1f(audioBassLocation, audioBass);
+		gl.uniform1f(isDarkModeLocation, isDarkMode);
 
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 

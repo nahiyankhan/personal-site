@@ -6,7 +6,7 @@ import Subtitle from "./Subtitle.astro";
 ---
 
 <div>
-	<div class="relative flex flex-col items-end px-4 pb-4 pt-8 sm:px-8 sm:pb-8 sm:pt-16">
+	<div class="relative flex flex-col items-start px-4 pb-4 pt-8 sm:px-8 sm:pb-8 sm:pt-16">
 		<div id="contact-logo" class="relative overflow-hidden [&>svg]:w-full" data-logo-scale>
 			<Fragment set:html={ContactTitle} />
 		</div>
@@ -25,7 +25,7 @@ import Subtitle from "./Subtitle.astro";
 				socialLinks.map(({ friendlyName, link, name }) => (
 					<li class="flex">
 						<a class="link relative flex underline" href={link} target="_blank">
-							<div class="full justify-left">
+							<div class="full justify-left mt-2">
 								<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
 							</div>
 							<p class="baseline-on-grid pl-4 text-sm">{friendlyName}</p>
@@ -115,6 +115,7 @@ import Subtitle from "./Subtitle.astro";
 		uniform float time;
 		uniform float audioIntensity;
 		uniform float audioBass;
+		uniform float isDarkMode;
 
 		float nn(float y, float t) {
 			float n = (
@@ -167,7 +168,29 @@ import Subtitle from "./Subtitle.astro";
 			vec4 cg = texture2D(src, uvg);
 			vec4 cb = texture2D(src, uvb);
 
-			gl_FragColor = vec4(cr.r, cg.g, cb.b, smoothstep(0.0, 1.0, cr.a + cg.a + cb.a));
+			float combinedAlpha = smoothstep(0.0, 1.0, cr.a + cg.a + cb.a);
+
+			if (isDarkMode > 0.5) {
+				// Dark mode: use actual RGB values (works great with light content)
+				gl_FragColor = vec4(cr.r, cg.g, cb.b, combinedAlpha);
+			} else {
+				// Light mode: use alpha to create RGB separation for dark content
+				// Where an offset channel has content, show that color brightly
+				vec4 center = texture2D(src, uv);
+				float centerAlpha = center.a;
+				
+				// Calculate where all channels align (center of content)
+				float allAligned = min(min(cr.a, cg.a), cb.a);
+				
+				// Create bright RGB fringes based on alpha at offset positions
+				vec3 rgbFringes = vec3(cr.a, cg.a, cb.a);
+				
+				// Mix: at center (allAligned=1) show original dark content,
+				// at edges (allAligned<1) show colored fringes
+				vec3 finalColor = mix(rgbFringes, center.rgb, allAligned);
+				
+				gl_FragColor = vec4(finalColor, combinedAlpha);
+			}
 		}
 	`;
 
@@ -351,6 +374,9 @@ import Subtitle from "./Subtitle.astro";
 		const offsetLocation = gl.getUniformLocation(program, "offset");
 		const audioIntensityLocation = gl.getUniformLocation(program, "audioIntensity");
 		const audioBassLocation = gl.getUniformLocation(program, "audioBass");
+		const isDarkModeLocation = gl.getUniformLocation(program, "isDarkMode");
+
+		const isDarkMode = document.documentElement.getAttribute("data-theme") === "dark" ? 1.0 : 0.0;
 
 		gl.uniform1i(srcLocation, 0);
 		gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
@@ -358,6 +384,7 @@ import Subtitle from "./Subtitle.astro";
 		gl.uniform2f(offsetLocation, 0, 0);
 		gl.uniform1f(audioIntensityLocation, audioIntensity);
 		gl.uniform1f(audioBassLocation, audioBass);
+		gl.uniform1f(isDarkModeLocation, isDarkMode);
 
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 

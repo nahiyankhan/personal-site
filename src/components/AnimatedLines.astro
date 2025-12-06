@@ -56,7 +56,7 @@
 				lines.forEach((line, index) => {
 					// Increase chromatic aberration coverage based on audio intensity
 					// From 25% baseline to up to 90% when music is intense
-					const chromaticChance = 0.25 + (audioIntensity * 0.65);
+					const chromaticChance = 0.25 + audioIntensity * 0.65;
 					const shouldHaveEffect = (index * 0.1 + audioIntensity) % 1.0 < chromaticChance;
 
 					if (shouldHaveEffect) {
@@ -71,8 +71,7 @@
 						const randomVariation = Math.random() * 0.5;
 						const finalOffset = offset + randomVariation;
 
-						line.style.filter =
-							`drop-shadow(${finalOffset}px 0 0 rgba(255, 0, 0, ${alpha})) drop-shadow(-${finalOffset}px 0 0 rgba(0, 255, 255, ${alpha}))`;
+						line.style.filter = `drop-shadow(${finalOffset}px 0 0 rgba(255, 0, 0, ${alpha})) drop-shadow(-${finalOffset}px 0 0 rgba(0, 255, 255, ${alpha}))`;
 
 						// Add subtle glow on high intensity
 						if (audioIntensity > 0.7) {
@@ -108,8 +107,8 @@
 			const randomDelay = Math.random() * 5000; // 0-5 seconds
 
 			setTimeout(() => {
-				// Random opacity: minimum 0.15, up to 1.0
-				const opacitySteps = [0.15, 0.25, 0.5, 0.75, 1.0];
+				// Random opacity: minimum 0.09, up to 0.6
+				const opacitySteps = [0.09, 0.15, 0.3, 0.45, 0.6];
 				const targetOpacity = opacitySteps[Math.floor(Math.random() * opacitySteps.length)];
 				line.style.opacity = targetOpacity.toString();
 
