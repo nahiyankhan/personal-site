@@ -1,0 +1,241 @@
+---
+import ASvg from "@/assets/letters/a.svg?raw";
+import BSvg from "@/assets/letters/b.svg?raw";
+import CSvg from "@/assets/letters/c.svg?raw";
+import ESvg from "@/assets/letters/e.svg?raw";
+import FSvg from "@/assets/letters/f.svg?raw";
+import GSvg from "@/assets/letters/g.svg?raw";
+import HSvg from "@/assets/letters/h.svg?raw";
+import ISvg from "@/assets/letters/i.svg?raw";
+import KSvg from "@/assets/letters/k.svg?raw";
+import NSvg from "@/assets/letters/n.svg?raw";
+import OSvg from "@/assets/letters/o.svg?raw";
+import RSvg from "@/assets/letters/r.svg?raw";
+import TSvg from "@/assets/letters/t.svg?raw";
+import USvg from "@/assets/letters/u.svg?raw";
+import YSvg from "@/assets/letters/y.svg?raw";
+
+type LetterType =
+	| "a"
+	| "b"
+	| "c"
+	| "e"
+	| "f"
+	| "g"
+	| "h"
+	| "i"
+	| "k"
+	| "n"
+	| "o"
+	| "r"
+	| "t"
+	| "u"
+	| "y";
+
+interface Props {
+	letters: LetterType[];
+	startIndex?: number;
+	wordId?: string;
+}
+
+const letterMap: Record<LetterType, string> = {
+	a: ASvg,
+	b: BSvg,
+	c: CSvg,
+	e: ESvg,
+	f: FSvg,
+	g: GSvg,
+	h: HSvg,
+	i: ISvg,
+	k: KSvg,
+	n: NSvg,
+	o: OSvg,
+	r: RSvg,
+	t: TSvg,
+	u: USvg,
+	y: YSvg,
+};
+
+const { letters, startIndex = 0, wordId } = Astro.props;
+---
+
+<div class="word-container" data-word-id={wordId}>
+	{
+		letters.map((letter, i) => (
+			<div
+				class:list={["letter-box", wordId ? `letter-box-${wordId}` : ""]}
+				data-index={startIndex + i}
+			>
+				<Fragment set:html={letterMap[letter]} />
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.word-container {
+		display: flex;
+		gap: 4px;
+	}
+
+	.letter-box {
+		width: var(--letter-width, 55px);
+		height: var(--letter-height, 48px);
+		max-width: 218px;
+		max-height: 192px;
+		flex-shrink: 0;
+		opacity: 0;
+	}
+
+	.letter-box :global(svg) {
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+
+	/* Letter glitches in */
+	.letter-box.revealed {
+		animation: glitchIn 0.8s steps(6, end) forwards;
+	}
+
+	/* Glitch in - laggy emergence */
+	@keyframes glitchIn {
+		0%,
+		16% {
+			opacity: 0;
+			transform: translate(0, 0);
+			filter: none;
+		}
+		17%,
+		32% {
+			opacity: 0.7;
+			transform: translate(-3px, -1px);
+			filter: drop-shadow(-5px 1px 0 #ff0000) drop-shadow(5px -1px 0 #00ffff);
+		}
+		33%,
+		48% {
+			opacity: 0;
+			transform: translate(2px, 1px);
+			filter: none;
+		}
+		49%,
+		64% {
+			opacity: 1;
+			transform: translate(2px, -1px);
+			filter: drop-shadow(4px 0 0 #ff0000) drop-shadow(-4px 0 0 #00ffff);
+		}
+		65%,
+		80% {
+			opacity: 1;
+			transform: translate(-1px, 0);
+			filter: drop-shadow(-2px 0 0 #ff0000) drop-shadow(2px 0 0 #00ffff);
+		}
+		81%,
+		100% {
+			opacity: 1;
+			transform: translate(0, 0);
+			filter: none;
+		}
+	}
+</style>
+
+<script>
+	function shuffleArray<T>(array: T[]): T[] {
+		const shuffled = [...array];
+		for (let i = shuffled.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+		}
+		return shuffled;
+	}
+
+	function resetWord(wordId?: string) {
+		const selector = wordId ? `.letter-box-${wordId}` : ".letter-box:not([class*='letter-box-'])";
+		const boxes = document.querySelectorAll(selector);
+		boxes.forEach((box) => {
+			box.classList.remove("revealed");
+		});
+	}
+
+	function animateWord(wordId?: string) {
+		const selector = wordId ? `.letter-box-${wordId}` : ".letter-box:not([class*='letter-box-'])";
+		const boxes = Array.from(document.querySelectorAll(selector));
+		if (!boxes.length) return;
+
+		// Reset all letters first so animation can replay
+		boxes.forEach((box) => {
+			box.classList.remove("revealed");
+		});
+
+		const shuffled = shuffleArray(boxes);
+
+		// Letters glitch in one by one
+		shuffled.forEach((box, i) => {
+			const delay = 300 + i * 150 + Math.random() * 100;
+
+			setTimeout(() => {
+				box.classList.add("revealed");
+			}, delay);
+		});
+
+		console.log(`✨ Animating ${shuffled.length} letters for word: ${wordId || "intro"}`);
+	}
+
+	// Section index to wordId mapping
+	const sectionWordMap: Record<number, string> = {
+		1: "about",
+		2: "forge",
+		3: "contact",
+	};
+
+	// Track which section was last active (to avoid re-animating on same section)
+	let lastAnimatedSection: number | null = null;
+
+	// Listen for section-enter events - animate on every scroll
+	document.addEventListener("section-enter", (e: any) => {
+		const { index } = e.detail;
+
+		// Don't re-animate if we're still on the same section
+		if (index === lastAnimatedSection) return;
+		lastAnimatedSection = index;
+
+		// Section 0 (intro) - animate default letters
+		if (index === 0) {
+			animateWord();
+		}
+
+		// Other sections - animate their specific word
+		const wordId = sectionWordMap[index];
+		if (wordId) {
+			animateWord(wordId);
+		}
+	});
+
+	// Run intro animation on load (fallback for section 0)
+	function initIntro() {
+		if (lastAnimatedSection === null) {
+			// Small delay to let section-enter event fire first
+			setTimeout(() => {
+				if (lastAnimatedSection === null) {
+					animateWord();
+					lastAnimatedSection = 0;
+				}
+			}, 200);
+		}
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initIntro);
+	} else {
+		initIntro();
+	}
+
+	// Reset on Astro page transitions
+	document.addEventListener("astro:after-swap", () => {
+		lastAnimatedSection = null;
+		// Reset all letter boxes
+		document.querySelectorAll(".letter-box").forEach((box) => {
+			box.classList.remove("revealed");
+		});
+	});
+</script>

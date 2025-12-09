@@ -1,0 +1,606 @@
+---
+import "@fontsource-variable/inter";
+import "@fontsource-variable/jetbrains-mono";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource/rubik-mono-one";
+import { ViewTransitions } from "astro:transitions";
+import AnimatedLines from "@/components/AnimatedLines.astro";
+import BaseHead from "@/components/BaseHead.astro";
+import SkipLink from "@/components/SkipLink.astro";
+import ThemeProvider from "@/components/ThemeProvider.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import { siteConfig } from "@/site-config";
+import type { SiteMeta } from "@/types";
+
+interface Props {
+	meta: SiteMeta;
+	sectionCount?: number;
+}
+
+const {
+	meta: { articleDate, description = siteConfig.description, ogImage, title },
+	sectionCount = 4,
+} = Astro.props;
+
+// Generate section indicator buttons
+const sections = Array.from({ length: sectionCount }, (_, i) => i);
+---
+
+<html class="scroll-smooth" lang={siteConfig.lang}>
+	<head>
+		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
+		<ViewTransitions />
+	</head>
+	<body
+		class="relative h-screen overflow-hidden bg-bgColorInverse p-4 text-sm font-light leading-[2rem] sm:p-8 sm:text-base sm:leading-[2rem]"
+	>
+		<div class="noise"></div>
+		<ThemeProvider />
+		<AnimatedLines />
+		<SkipLink />
+		<ThemeToggle />
+		<main x-data id="main" class="h-full origin-center tracking-wider">
+			<div id="depth-container" class="depth-container rounded-2xl bg-bgColor">
+				<!-- Section indicators -->
+				<div id="section-indicators" class="section-indicators">
+					{
+						sections.map((i) => (
+							<button
+								data-section={i}
+								class:list={["indicator", { active: i === 0 }]}
+								aria-label={`Go to section ${i + 1}`}
+							/>
+						))
+					}
+				</div>
+
+				<!-- Sections wrapper with perspective -->
+				<div id="sections-wrapper" class="sections-wrapper">
+					<slot />
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	[x-cloak] {
+		display: none !important;
+	}
+
+	/* Depth container */
+	.depth-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		perspective: 1200px;
+		perspective-origin: 50% 50%;
+	}
+
+	.sections-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		transform-style: preserve-3d;
+	}
+
+	/* Depth section base styles */
+	.depth-section {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: flex-start;
+		justify-content: flex-start;
+		transform-style: preserve-3d;
+		transition:
+			transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+			filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+		will-change: transform, opacity, filter;
+		backface-visibility: hidden;
+	}
+
+	/* Section states */
+	.depth-section {
+		/* Default: in front (not yet seen) */
+		transform: translateZ(400px) scale(1.3);
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.depth-section.active {
+		/* Current section */
+		transform: translateZ(0) scale(1);
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.depth-section.behind {
+		/* Already seen, receded */
+		transform: translateZ(-600px) scale(0.7);
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	/* Section inner for scrollable content */
+	.depth-section-inner {
+		width: 100%;
+		height: 100%;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: hsl(var(--border-divider) / 0.3) transparent;
+	}
+
+	.depth-section-inner::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	.depth-section-inner::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.depth-section-inner::-webkit-scrollbar-thumb {
+		background-color: hsl(var(--border-divider) / 0.3);
+		border-radius: 4px;
+	}
+
+	/* Section indicators */
+	.section-indicators {
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		z-index: 100;
+	}
+
+	@media (min-width: 640px) {
+		.section-indicators {
+			right: 2rem;
+		}
+	}
+
+	.indicator {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		border: 2px solid currentColor;
+		background: transparent;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		opacity: 0.4;
+	}
+
+	.indicator:hover {
+		opacity: 0.7;
+	}
+
+	.indicator.active {
+		opacity: 1;
+		background: currentColor;
+	}
+
+	/* Chromatic aberration - subtle blur during depth transitions */
+	.depth-section.chromatic-out {
+		animation: section-blur-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	.depth-section.chromatic-in {
+		animation: section-blur-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	@keyframes section-blur-out {
+		0% {
+			filter: none;
+		}
+		30% {
+			filter: blur(1px);
+		}
+		100% {
+			filter: none;
+		}
+	}
+
+	@keyframes section-blur-in {
+		0% {
+			filter: blur(2px);
+		}
+		70% {
+			filter: blur(0.5px);
+		}
+		100% {
+			filter: none;
+		}
+	}
+
+	/* Chromatic text effects - target common elements */
+	.chromatic-out [data-logo-scale] svg,
+	.chromatic-out h1,
+	.chromatic-out h2,
+	.chromatic-out .section-title {
+		animation: text-chromatic-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	.chromatic-in [data-logo-scale] svg,
+	.chromatic-in h1,
+	.chromatic-in h2,
+	.chromatic-in .section-title {
+		animation: text-chromatic-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	/* Subtler chromatic on body text */
+	.chromatic-out p,
+	.chromatic-out li,
+	.chromatic-out a {
+		animation: text-chromatic-subtle-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	.chromatic-in p,
+	.chromatic-in li,
+	.chromatic-in a {
+		animation: text-chromatic-subtle-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	@keyframes text-chromatic-out {
+		/* Receding: red pulls back (up+left), cyan pushes forward (down+right) */
+		0% {
+			filter: drop-shadow(0 0 0 transparent);
+		}
+		15% {
+			filter: drop-shadow(-6px -3px 0 rgba(255, 0, 50, 0.9))
+				drop-shadow(6px 3px 0 rgba(0, 255, 255, 0.9));
+		}
+		35% {
+			filter: drop-shadow(-14px -8px 0 rgba(255, 0, 50, 0.85))
+				drop-shadow(14px 8px 0 rgba(0, 255, 255, 0.85));
+		}
+		60% {
+			filter: drop-shadow(-10px -6px 0 rgba(255, 0, 50, 0.6))
+				drop-shadow(10px 6px 0 rgba(0, 255, 255, 0.6));
+		}
+		100% {
+			filter: drop-shadow(-3px -2px 0 rgba(255, 0, 50, 0.2))
+				drop-shadow(3px 2px 0 rgba(0, 255, 255, 0.2));
+		}
+	}
+
+	@keyframes text-chromatic-in {
+		/* Emerging: starts with depth separation, converges to focal plane */
+		0% {
+			filter: drop-shadow(16px 10px 0 rgba(255, 0, 50, 1))
+				drop-shadow(-16px -10px 0 rgba(0, 255, 255, 1));
+		}
+		25% {
+			filter: drop-shadow(10px 6px 0 rgba(255, 0, 50, 0.85))
+				drop-shadow(-10px -6px 0 rgba(0, 255, 255, 0.85));
+		}
+		50% {
+			filter: drop-shadow(5px 3px 0 rgba(255, 0, 50, 0.6))
+				drop-shadow(-5px -3px 0 rgba(0, 255, 255, 0.6));
+		}
+		75% {
+			filter: drop-shadow(2px 1px 0 rgba(255, 0, 50, 0.3))
+				drop-shadow(-2px -1px 0 rgba(0, 255, 255, 0.3));
+		}
+		100% {
+			filter: drop-shadow(0 0 0 transparent);
+		}
+	}
+
+	/* Subtle chromatic for body text - with depth */
+	@keyframes text-chromatic-subtle-out {
+		0% {
+			text-shadow: none;
+		}
+		20% {
+			text-shadow:
+				-2px -1px 0 rgba(255, 0, 50, 0.6),
+				2px 1px 0 rgba(0, 255, 255, 0.6);
+		}
+		50% {
+			text-shadow:
+				-4px -2px 0 rgba(255, 0, 50, 0.5),
+				4px 2px 0 rgba(0, 255, 255, 0.5);
+		}
+		100% {
+			text-shadow:
+				-1px -1px 0 rgba(255, 0, 50, 0.15),
+				1px 1px 0 rgba(0, 255, 255, 0.15);
+		}
+	}
+
+	@keyframes text-chromatic-subtle-in {
+		0% {
+			text-shadow:
+				5px 3px 0 rgba(255, 0, 50, 0.7),
+				-5px -3px 0 rgba(0, 255, 255, 0.7);
+		}
+		40% {
+			text-shadow:
+				2px 1px 0 rgba(255, 0, 50, 0.5),
+				-2px -1px 0 rgba(0, 255, 255, 0.5);
+		}
+		70% {
+			text-shadow:
+				1px 0 0 rgba(255, 0, 50, 0.25),
+				-1px 0 0 rgba(0, 255, 255, 0.25);
+		}
+		100% {
+			text-shadow: none;
+		}
+	}
+</style>
+
+<script>
+	class DepthNavigator {
+		private container!: HTMLElement;
+		private sections!: HTMLElement[];
+		private indicators!: HTMLElement[];
+		private currentIndex = 0;
+		private isTransitioning = false;
+		private scrollAccumulator = 0;
+		private scrollThreshold = 100;
+		private lastScrollTime = 0;
+		private scrollDecayRate = 50;
+		private visitedSections = new Set<number>();
+		private scrollDecayInterval: number | null = null;
+
+		// Bound event handlers for cleanup
+		private boundHandleWheel: (e: WheelEvent) => void;
+		private boundHandleKeydown: (e: KeyboardEvent) => void;
+		private boundHandleTouchStart: (e: TouchEvent) => void;
+		private boundHandleTouchMove: (e: TouchEvent) => void;
+		private touchStartY = 0;
+
+		constructor() {
+			// Bind handlers once so we can remove them later
+			this.boundHandleWheel = this.handleWheel.bind(this);
+			this.boundHandleKeydown = this.handleKeydown.bind(this);
+			this.boundHandleTouchStart = this.handleTouchStart.bind(this);
+			this.boundHandleTouchMove = this.handleTouchMove.bind(this);
+
+			const container = document.getElementById("depth-container");
+			if (!container) return;
+
+			this.container = container;
+			this.sections = Array.from(document.querySelectorAll(".depth-section"));
+			this.indicators = Array.from(document.querySelectorAll(".indicator"));
+
+			if (this.sections.length === 0) return;
+
+			this.init();
+		}
+
+		private getInitialSectionIndex(): number {
+			// Check if there's a hash in the URL that matches a section ID
+			const hash = window.location.hash.slice(1); // Remove the '#'
+			if (hash) {
+				const targetSection = this.sections.findIndex((section) => section.id === hash);
+				if (targetSection !== -1) {
+					console.log(`🎯 Found hash #${hash}, navigating to section ${targetSection}`);
+					return targetSection;
+				}
+			}
+			return 0;
+		}
+
+		private handleTouchStart(e: TouchEvent) {
+			this.touchStartY = e.touches[0].clientY;
+		}
+
+		private handleTouchMove(e: TouchEvent) {
+			const touchY = e.touches[0].clientY;
+			const deltaY = this.touchStartY - touchY;
+			this.touchStartY = touchY;
+			this.handleScrollDelta(deltaY * 2);
+		}
+
+		private handleKeydown(e: KeyboardEvent) {
+			if (e.key === "ArrowDown" || e.key === "PageDown") {
+				e.preventDefault();
+				this.navigate(1);
+			} else if (e.key === "ArrowUp" || e.key === "PageUp") {
+				e.preventDefault();
+				this.navigate(-1);
+			}
+		}
+
+		public destroy() {
+			if (this.container) {
+				this.container.removeEventListener("wheel", this.boundHandleWheel);
+				this.container.removeEventListener("touchstart", this.boundHandleTouchStart);
+				this.container.removeEventListener("touchmove", this.boundHandleTouchMove);
+			}
+			document.removeEventListener("keydown", this.boundHandleKeydown);
+			if (this.scrollDecayInterval) {
+				clearInterval(this.scrollDecayInterval);
+			}
+		}
+
+		private init() {
+			const initialIndex = this.getInitialSectionIndex();
+
+			// Set initial states
+			this.sections.forEach((section, i) => {
+				section.classList.remove("active", "behind");
+				if (i === initialIndex) {
+					section.classList.add("active");
+				} else if (i < initialIndex) {
+					section.classList.add("behind");
+				}
+			});
+
+			// Update indicators for initial state
+			this.indicators.forEach((indicator, i) => {
+				indicator.classList.toggle("active", i === initialIndex);
+			});
+
+			this.currentIndex = initialIndex;
+
+			// Dispatch section-enter for all sections up to and including the initial one
+			// This ensures Word animations trigger for all "passed" sections
+			for (let i = 0; i <= initialIndex; i++) {
+				this.visitedSections.add(i);
+				document.dispatchEvent(
+					new CustomEvent("section-enter", {
+						detail: { index: i, isFirstVisit: true },
+					})
+				);
+			}
+
+			// Bind events
+			this.container.addEventListener("wheel", this.boundHandleWheel, { passive: false });
+			this.container.addEventListener("touchstart", this.boundHandleTouchStart, { passive: true });
+			this.container.addEventListener("touchmove", this.boundHandleTouchMove, { passive: true });
+
+			// Indicator clicks
+			this.indicators.forEach((indicator, i) => {
+				indicator.addEventListener("click", () => this.goToSection(i));
+			});
+
+			// Keyboard navigation
+			document.addEventListener("keydown", this.boundHandleKeydown);
+
+			// Scroll decay
+			this.scrollDecayInterval = window.setInterval(() => {
+				if (Date.now() - this.lastScrollTime > this.scrollDecayRate) {
+					this.scrollAccumulator *= 0.9;
+					if (Math.abs(this.scrollAccumulator) < 1) {
+						this.scrollAccumulator = 0;
+					}
+				}
+			}, 16);
+
+			console.log(
+				"🎯 Depth Navigator initialized with",
+				this.sections.length,
+				"sections",
+				"at index",
+				initialIndex
+			);
+		}
+
+		private handleWheel(e: WheelEvent) {
+			e.preventDefault();
+			this.handleScrollDelta(e.deltaY);
+		}
+
+		private handleScrollDelta(deltaY: number) {
+			if (this.isTransitioning) return;
+
+			const currentSection = this.sections[this.currentIndex];
+			const scrollableInner = currentSection.querySelector(".depth-section-inner") as HTMLElement;
+
+			// Check if current section has scrollable content
+			if (scrollableInner) {
+				const { scrollTop, scrollHeight, clientHeight } = scrollableInner;
+				const isAtTop = scrollTop <= 0;
+				const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
+
+				// If scrolling down and not at bottom, or scrolling up and not at top
+				// Let the section scroll normally
+				if ((deltaY > 0 && !isAtBottom) || (deltaY < 0 && !isAtTop)) {
+					scrollableInner.scrollTop += deltaY;
+					this.scrollAccumulator = 0;
+					return;
+				}
+			}
+
+			// Accumulate scroll for section transition
+			this.lastScrollTime = Date.now();
+			this.scrollAccumulator += deltaY;
+
+			// Check if we've accumulated enough scroll to transition
+			if (this.scrollAccumulator > this.scrollThreshold) {
+				this.navigate(1);
+				this.scrollAccumulator = 0;
+			} else if (this.scrollAccumulator < -this.scrollThreshold) {
+				this.navigate(-1);
+				this.scrollAccumulator = 0;
+			}
+		}
+
+		private navigate(direction: number) {
+			const newIndex = this.currentIndex + direction;
+			if (newIndex < 0 || newIndex >= this.sections.length) return;
+			this.goToSection(newIndex);
+		}
+
+		private goToSection(index: number) {
+			if (index === this.currentIndex || this.isTransitioning) return;
+			if (index < 0 || index >= this.sections.length) return;
+
+			this.isTransitioning = true;
+			const direction = index > this.currentIndex ? 1 : -1;
+			const previousSection = this.sections[this.currentIndex];
+			const newSection = this.sections[index];
+
+			console.log(`📍 Navigating from section ${this.currentIndex} to ${index}`);
+
+			// Apply chromatic aberration effect
+			previousSection.classList.add("chromatic-out");
+			newSection.classList.add("chromatic-in");
+
+			// Update section classes
+			this.sections.forEach((section, i) => {
+				section.classList.remove("active", "behind");
+
+				if (i < index) {
+					section.classList.add("behind");
+				} else if (i === index) {
+					section.classList.add("active");
+				}
+			});
+
+			// Update indicators
+			this.indicators.forEach((indicator, i) => {
+				indicator.classList.toggle("active", i === index);
+			});
+
+			// Reset scroll position of incoming section
+			const scrollableInner = newSection.querySelector(".depth-section-inner") as HTMLElement;
+			if (scrollableInner) {
+				scrollableInner.scrollTop = direction > 0 ? 0 : scrollableInner.scrollHeight;
+			}
+
+			this.currentIndex = index;
+
+			// Dispatch section-enter event for Word animations
+			const isFirstVisit = !this.visitedSections.has(index);
+			this.visitedSections.add(index);
+			document.dispatchEvent(
+				new CustomEvent("section-enter", {
+					detail: { index, isFirstVisit },
+				})
+			);
+
+			// Wait for transition to complete
+			setTimeout(() => {
+				this.isTransitioning = false;
+				this.sections.forEach((section) => {
+					section.classList.remove("chromatic-out", "chromatic-in");
+				});
+			}, 800);
+		}
+	}
+
+	let navigator: DepthNavigator | null = null;
+
+	function initNavigator() {
+		// Clean up existing navigator if any
+		if (navigator) {
+			navigator.destroy();
+			navigator = null;
+		}
+		navigator = new DepthNavigator();
+	}
+
+	// Initialize on page load
+	document.addEventListener("DOMContentLoaded", initNavigator);
+
+	// Reinitialize after Astro view transitions
+	document.addEventListener("astro:after-swap", initNavigator);
+</script>

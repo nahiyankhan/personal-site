@@ -1,0 +1,706 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+---
+
+<PageLayout meta={{ title: "Depth Navigation Prototype" }}>
+	<div id="depth-container" class="depth-container">
+		<!-- Section indicators -->
+		<div id="section-indicators" class="section-indicators">
+			<button data-section="0" class="indicator active" aria-label="Go to section 1"></button>
+			<button data-section="1" class="indicator" aria-label="Go to section 2"></button>
+			<button data-section="2" class="indicator" aria-label="Go to section 3"></button>
+			<button data-section="3" class="indicator" aria-label="Go to section 4"></button>
+		</div>
+
+		<!-- Sections wrapper with perspective -->
+		<div id="sections-wrapper" class="sections-wrapper">
+			<!-- Section 1: Intro-like -->
+			<section id="section-0" class="depth-section active" data-index="0">
+				<div class="section-inner">
+					<div class="section-content">
+						<h1 class="section-title">DEPTH</h1>
+						<p class="section-subtitle">scroll to explore the z-axis</p>
+						<div class="scroll-hint">
+							<span>↓</span>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Section 2: About-like (taller, scrollable) -->
+			<section id="section-1" class="depth-section" data-index="1">
+				<div class="section-inner scrollable">
+					<div class="section-content tall-content">
+						<h2 class="section-title-sm">ABOUT</h2>
+						<p class="baseline-text">
+							This is a taller section that requires internal scrolling. When you scroll within this
+							section, it behaves normally.
+						</p>
+						<p class="baseline-text">
+							But when you reach the bottom and keep scrolling down, this section will recede into
+							the background...
+						</p>
+						<div class="spacer"></div>
+						<p class="baseline-text">...and the next section will come forward from behind.</p>
+						<div class="spacer"></div>
+						<p class="baseline-text">
+							The depth effect creates a sense of navigating through layers, like flipping through a
+							deck of cards in 3D space.
+						</p>
+						<div class="spacer"></div>
+						<p class="baseline-text">Keep scrolling to see the transition happen...</p>
+						<div class="spacer-sm"></div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Section 3: Visual section -->
+			<section id="section-2" class="depth-section" data-index="2">
+				<div class="section-inner">
+					<div class="section-content">
+						<h2 class="section-title">FORGE</h2>
+						<p class="section-subtitle">experiments & prototypes</p>
+						<div class="grid-preview">
+							<div class="preview-card"></div>
+							<div class="preview-card"></div>
+							<div class="preview-card"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Section 4: Contact-like -->
+			<section id="section-3" class="depth-section" data-index="3">
+				<div class="section-inner">
+					<div class="section-content">
+						<h2 class="section-title">CONTACT</h2>
+						<p class="section-subtitle">say hi</p>
+						<div class="contact-links">
+							<a href="#" class="contact-link">email</a>
+							<a href="#" class="contact-link">github</a>
+							<a href="#" class="contact-link">linkedin</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</PageLayout>
+
+<style>
+	/* Hide the default scrollable content from Base layout */
+	:global(#scrollable-content) {
+		overflow: hidden !important;
+	}
+
+	.depth-container {
+		position: fixed;
+		inset: 0;
+		overflow: hidden;
+		perspective: 1200px;
+		perspective-origin: 50% 50%;
+	}
+
+	.sections-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		transform-style: preserve-3d;
+	}
+
+	.depth-section {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transform-style: preserve-3d;
+		transition:
+			transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+			filter 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+		will-change: transform, opacity, filter;
+		backface-visibility: hidden;
+	}
+
+	/* Section states */
+	.depth-section {
+		/* Default: in front (not yet seen) */
+		transform: translateZ(400px) scale(1.3);
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.depth-section.active {
+		/* Current section */
+		transform: translateZ(0) scale(1);
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.depth-section.behind {
+		/* Already seen, receded */
+		transform: translateZ(-600px) scale(0.7);
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	/* Chromatic aberration - subtle blur during depth transitions */
+	.depth-section.chromatic-out {
+		animation: section-blur-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	.depth-section.chromatic-in {
+		animation: section-blur-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	@keyframes section-blur-out {
+		0% {
+			filter: none;
+		}
+		30% {
+			filter: blur(1px);
+		}
+		100% {
+			filter: none;
+		}
+	}
+
+	@keyframes section-blur-in {
+		0% {
+			filter: blur(2px);
+		}
+		70% {
+			filter: blur(0.5px);
+		}
+		100% {
+			filter: none;
+		}
+	}
+
+	.section-inner {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem;
+	}
+
+	.section-inner.scrollable {
+		overflow-y: auto;
+		align-items: flex-start;
+		scrollbar-width: thin;
+		scrollbar-color: hsl(var(--border-divider) / 0.3) transparent;
+	}
+
+	.section-inner.scrollable::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	.section-inner.scrollable::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.section-inner.scrollable::-webkit-scrollbar-thumb {
+		background-color: hsl(var(--border-divider) / 0.3);
+		border-radius: 4px;
+	}
+
+	.section-content {
+		max-width: 800px;
+		text-align: center;
+	}
+
+	.tall-content {
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+		text-align: left;
+	}
+
+	.section-title {
+		font-family: "Rubik Mono One", monospace;
+		font-size: clamp(3rem, 15vw, 10rem);
+		line-height: 1;
+		letter-spacing: -0.02em;
+		margin-bottom: 1rem;
+		transition: text-shadow 0.3s ease-out;
+	}
+
+	.section-title-sm {
+		font-family: "Rubik Mono One", monospace;
+		font-size: clamp(2rem, 8vw, 4rem);
+		line-height: 1;
+		letter-spacing: -0.02em;
+		margin-bottom: 2rem;
+		transition: text-shadow 0.3s ease-out;
+	}
+
+	/* Chromatic text effect during transitions */
+	.chromatic-out .section-title,
+	.chromatic-out .section-title-sm {
+		animation: text-chromatic-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	.chromatic-in .section-title,
+	.chromatic-in .section-title-sm {
+		animation: text-chromatic-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	/* Subtler chromatic on body text */
+	.chromatic-out .section-subtitle,
+	.chromatic-out .baseline-text,
+	.chromatic-out .contact-link {
+		animation: text-chromatic-subtle-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	.chromatic-in .section-subtitle,
+	.chromatic-in .baseline-text,
+	.chromatic-in .contact-link {
+		animation: text-chromatic-subtle-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	}
+
+	@keyframes text-chromatic-out {
+		/* Receding: red pulls back (up+left), cyan pushes forward (down+right) */
+		0% {
+			text-shadow: none;
+		}
+		15% {
+			text-shadow:
+				-6px -3px 0 rgba(255, 0, 50, 0.9),
+				6px 3px 0 rgba(0, 255, 255, 0.9),
+				-3px -6px 0 rgba(255, 0, 50, 0.4),
+				3px 6px 0 rgba(0, 255, 255, 0.4);
+		}
+		35% {
+			text-shadow:
+				-14px -8px 0 rgba(255, 0, 50, 0.85),
+				14px 8px 0 rgba(0, 255, 255, 0.85),
+				-8px -14px 0 rgba(255, 0, 50, 0.35),
+				8px 14px 0 rgba(0, 255, 255, 0.35);
+		}
+		60% {
+			text-shadow:
+				-10px -6px 0 rgba(255, 0, 50, 0.6),
+				10px 6px 0 rgba(0, 255, 255, 0.6),
+				-5px -10px 0 rgba(255, 0, 50, 0.25),
+				5px 10px 0 rgba(0, 255, 255, 0.25);
+		}
+		100% {
+			text-shadow:
+				-3px -2px 0 rgba(255, 0, 50, 0.2),
+				3px 2px 0 rgba(0, 255, 255, 0.2);
+		}
+	}
+
+	@keyframes text-chromatic-in {
+		/* Emerging: starts with depth separation, converges to focal plane */
+		0% {
+			text-shadow:
+				16px 10px 0 rgba(255, 0, 50, 1),
+				-16px -10px 0 rgba(0, 255, 255, 1),
+				10px 18px 0 rgba(255, 0, 50, 0.5),
+				-10px -18px 0 rgba(0, 255, 255, 0.5);
+		}
+		25% {
+			text-shadow:
+				10px 6px 0 rgba(255, 0, 50, 0.85),
+				-10px -6px 0 rgba(0, 255, 255, 0.85),
+				6px 12px 0 rgba(255, 0, 50, 0.4),
+				-6px -12px 0 rgba(0, 255, 255, 0.4);
+		}
+		50% {
+			text-shadow:
+				5px 3px 0 rgba(255, 0, 50, 0.6),
+				-5px -3px 0 rgba(0, 255, 255, 0.6),
+				3px 6px 0 rgba(255, 0, 50, 0.25),
+				-3px -6px 0 rgba(0, 255, 255, 0.25);
+		}
+		75% {
+			text-shadow:
+				2px 1px 0 rgba(255, 0, 50, 0.3),
+				-2px -1px 0 rgba(0, 255, 255, 0.3);
+		}
+		100% {
+			text-shadow: none;
+		}
+	}
+
+	/* Subtle chromatic for body text - with depth */
+	@keyframes text-chromatic-subtle-out {
+		0% {
+			text-shadow: none;
+		}
+		20% {
+			text-shadow:
+				-2px -1px 0 rgba(255, 0, 50, 0.6),
+				2px 1px 0 rgba(0, 255, 255, 0.6);
+		}
+		50% {
+			text-shadow:
+				-4px -2px 0 rgba(255, 0, 50, 0.5),
+				4px 2px 0 rgba(0, 255, 255, 0.5);
+		}
+		100% {
+			text-shadow:
+				-1px -1px 0 rgba(255, 0, 50, 0.15),
+				1px 1px 0 rgba(0, 255, 255, 0.15);
+		}
+	}
+
+	@keyframes text-chromatic-subtle-in {
+		0% {
+			text-shadow:
+				5px 3px 0 rgba(255, 0, 50, 0.7),
+				-5px -3px 0 rgba(0, 255, 255, 0.7);
+		}
+		40% {
+			text-shadow:
+				2px 1px 0 rgba(255, 0, 50, 0.5),
+				-2px -1px 0 rgba(0, 255, 255, 0.5);
+		}
+		70% {
+			text-shadow:
+				1px 0 0 rgba(255, 0, 50, 0.25),
+				-1px 0 0 rgba(0, 255, 255, 0.25);
+		}
+		100% {
+			text-shadow: none;
+		}
+	}
+
+	.section-subtitle {
+		font-size: 1rem;
+		opacity: 0.7;
+		margin-bottom: 2rem;
+	}
+
+	.baseline-text {
+		font-size: 1rem;
+		line-height: 2rem;
+		margin-bottom: 2rem;
+		opacity: 0.9;
+	}
+
+	.spacer {
+		height: 30vh;
+	}
+
+	.spacer-sm {
+		height: 15vh;
+	}
+
+	.scroll-hint {
+		position: absolute;
+		bottom: 4rem;
+		left: 50%;
+		transform: translateX(-50%);
+		animation: bounce 2s infinite;
+	}
+
+	.scroll-hint span {
+		font-size: 2rem;
+		opacity: 0.5;
+	}
+
+	@keyframes bounce {
+		0%,
+		100% {
+			transform: translateX(-50%) translateY(0);
+		}
+		50% {
+			transform: translateX(-50%) translateY(10px);
+		}
+	}
+
+	/* Section indicators */
+	.section-indicators {
+		position: fixed;
+		right: 2rem;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		z-index: 100;
+	}
+
+	.indicator {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		border: 2px solid currentColor;
+		background: transparent;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		opacity: 0.4;
+	}
+
+	.indicator:hover {
+		opacity: 0.7;
+	}
+
+	.indicator.active {
+		opacity: 1;
+		background: currentColor;
+	}
+
+	/* Grid preview for Forge section */
+	.grid-preview {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		margin-top: 2rem;
+	}
+
+	.preview-card {
+		aspect-ratio: 1;
+		background: hsl(var(--theme-text) / 0.1);
+		border-radius: 0.5rem;
+		border: 1px solid hsl(var(--border-divider) / 0.3);
+	}
+
+	/* Contact links */
+	.contact-links {
+		display: flex;
+		gap: 2rem;
+		justify-content: center;
+		margin-top: 2rem;
+	}
+
+	.contact-link {
+		font-size: 1rem;
+		text-decoration: underline;
+		text-underline-offset: 4px;
+		opacity: 0.7;
+		transition: opacity 0.2s;
+	}
+
+	.contact-link:hover {
+		opacity: 1;
+	}
+
+	/* Debug info */
+	.debug-info {
+		position: fixed;
+		bottom: 1rem;
+		left: 1rem;
+		font-family: monospace;
+		font-size: 0.75rem;
+		opacity: 0.5;
+		z-index: 100;
+	}
+
+	@media (max-width: 640px) {
+		.section-indicators {
+			right: 1rem;
+		}
+
+		.section-inner {
+			padding: 1rem;
+		}
+
+		.grid-preview {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>
+
+<script>
+	class DepthNavigator {
+		private container: HTMLElement;
+		private sections: HTMLElement[];
+		private indicators: HTMLElement[];
+		private currentIndex = 0;
+		private isTransitioning = false;
+		private scrollAccumulator = 0;
+		private scrollThreshold = 100; // pixels of scroll needed to trigger transition
+		private lastScrollTime = 0;
+		private scrollDecayRate = 50; // ms between scroll decay
+
+		constructor() {
+			this.container = document.getElementById("depth-container")!;
+			this.sections = Array.from(document.querySelectorAll(".depth-section"));
+			this.indicators = Array.from(document.querySelectorAll(".indicator"));
+
+			this.init();
+		}
+
+		private init() {
+			// Set initial states
+			this.sections.forEach((section, i) => {
+				section.classList.remove("active", "behind");
+				if (i === 0) {
+					section.classList.add("active");
+				} else if (i < 0) {
+					section.classList.add("behind");
+				}
+			});
+
+			// Bind events
+			this.container.addEventListener("wheel", this.handleWheel.bind(this), { passive: false });
+
+			// Touch support
+			let touchStartY = 0;
+			this.container.addEventListener(
+				"touchstart",
+				(e) => {
+					touchStartY = e.touches[0].clientY;
+				},
+				{ passive: true }
+			);
+
+			this.container.addEventListener(
+				"touchmove",
+				(e) => {
+					const touchY = e.touches[0].clientY;
+					const deltaY = touchStartY - touchY;
+					touchStartY = touchY;
+
+					this.handleScrollDelta(deltaY * 2); // Amplify touch scroll
+				},
+				{ passive: true }
+			);
+
+			// Indicator clicks
+			this.indicators.forEach((indicator, i) => {
+				indicator.addEventListener("click", () => this.goToSection(i));
+			});
+
+			// Keyboard navigation
+			document.addEventListener("keydown", (e) => {
+				if (e.key === "ArrowDown" || e.key === "PageDown") {
+					e.preventDefault();
+					this.navigate(1);
+				} else if (e.key === "ArrowUp" || e.key === "PageUp") {
+					e.preventDefault();
+					this.navigate(-1);
+				}
+			});
+
+			// Scroll decay
+			setInterval(() => {
+				if (Date.now() - this.lastScrollTime > this.scrollDecayRate) {
+					this.scrollAccumulator *= 0.9;
+					if (Math.abs(this.scrollAccumulator) < 1) {
+						this.scrollAccumulator = 0;
+					}
+				}
+			}, 16);
+
+			console.log("🎯 Depth Navigator initialized with", this.sections.length, "sections");
+		}
+
+		private handleWheel(e: WheelEvent) {
+			e.preventDefault();
+			this.handleScrollDelta(e.deltaY);
+		}
+
+		private handleScrollDelta(deltaY: number) {
+			if (this.isTransitioning) return;
+
+			const currentSection = this.sections[this.currentIndex];
+			const scrollableInner = currentSection.querySelector(
+				".section-inner.scrollable"
+			) as HTMLElement;
+
+			// Check if current section has scrollable content
+			if (scrollableInner) {
+				const { scrollTop, scrollHeight, clientHeight } = scrollableInner;
+				const isAtTop = scrollTop <= 0;
+				const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
+
+				// If scrolling down and not at bottom, or scrolling up and not at top
+				// Let the section scroll normally
+				if ((deltaY > 0 && !isAtBottom) || (deltaY < 0 && !isAtTop)) {
+					scrollableInner.scrollTop += deltaY;
+					this.scrollAccumulator = 0;
+					return;
+				}
+			}
+
+			// Accumulate scroll for section transition
+			this.lastScrollTime = Date.now();
+			this.scrollAccumulator += deltaY;
+
+			// Check if we've accumulated enough scroll to transition
+			if (this.scrollAccumulator > this.scrollThreshold) {
+				this.navigate(1);
+				this.scrollAccumulator = 0;
+			} else if (this.scrollAccumulator < -this.scrollThreshold) {
+				this.navigate(-1);
+				this.scrollAccumulator = 0;
+			}
+		}
+
+		private navigate(direction: number) {
+			const newIndex = this.currentIndex + direction;
+			if (newIndex < 0 || newIndex >= this.sections.length) return;
+
+			this.goToSection(newIndex);
+		}
+
+		private goToSection(index: number) {
+			if (index === this.currentIndex || this.isTransitioning) return;
+			if (index < 0 || index >= this.sections.length) return;
+
+			this.isTransitioning = true;
+			const direction = index > this.currentIndex ? 1 : -1;
+			const previousSection = this.sections[this.currentIndex];
+			const newSection = this.sections[index];
+
+			console.log(`📍 Navigating from section ${this.currentIndex} to ${index}`);
+
+			// Apply chromatic aberration effect
+			previousSection.classList.add("chromatic-out");
+			newSection.classList.add("chromatic-in");
+
+			// Update section classes
+			this.sections.forEach((section, i) => {
+				section.classList.remove("active", "behind");
+
+				if (i < index) {
+					// Sections before current - receded
+					section.classList.add("behind");
+				} else if (i === index) {
+					// Current section - active
+					section.classList.add("active");
+				}
+				// Sections after current - default state (in front)
+			});
+
+			// Update indicators
+			this.indicators.forEach((indicator, i) => {
+				indicator.classList.toggle("active", i === index);
+			});
+
+			// Reset scroll position of incoming section if it's scrollable
+			const scrollableInner = newSection.querySelector(".section-inner.scrollable") as HTMLElement;
+			if (scrollableInner) {
+				// If going forward, start at top; if going back, start at bottom
+				scrollableInner.scrollTop = direction > 0 ? 0 : scrollableInner.scrollHeight;
+			}
+
+			this.currentIndex = index;
+
+			// Wait for transition to complete, then clean up chromatic classes
+			setTimeout(() => {
+				this.isTransitioning = false;
+				// Remove chromatic classes after animation completes
+				this.sections.forEach((section) => {
+					section.classList.remove("chromatic-out", "chromatic-in");
+				});
+			}, 800);
+		}
+	}
+
+	// Initialize on page load
+	document.addEventListener("DOMContentLoaded", () => {
+		new DepthNavigator();
+	});
+
+	// Reinitialize after Astro transitions
+	document.addEventListener("astro:after-swap", () => {
+		new DepthNavigator();
+	});
+</script>

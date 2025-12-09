@@ -2,7 +2,7 @@
 // Component for animated background lines with random opacity changes
 ---
 
-<div id="animated-lines" class="pointer-events-none fixed inset-0 z-0"></div>
+<div id="animated-lines" class="pointer-events-none fixed inset-0 z-50"></div>
 
 <script>
 	// Audio reactivity state
@@ -21,6 +21,15 @@
 		// Clear existing lines on re-init
 		container.innerHTML = "";
 
+		// Chromatic color palette for subtle RGB tints
+		const chromaticColors = [
+			{ color: "rgba(255, 50, 80, 0.6)", weight: 0.15 },    // Red/pink tint
+			{ color: "rgba(0, 255, 255, 0.5)", weight: 0.15 },    // Cyan tint
+			{ color: "rgba(255, 0, 255, 0.4)", weight: 0.08 },    // Magenta tint
+			{ color: "rgba(80, 200, 255, 0.45)", weight: 0.12 },  // Light cyan
+			{ color: "rgba(255, 100, 150, 0.35)", weight: 0.10 }, // Soft pink
+		];
+
 		// Create line elements
 		const lines: HTMLElement[] = [];
 		for (let i = 0; i < totalLines; i++) {
@@ -31,14 +40,28 @@
 			line.style.right = "0";
 			line.style.height = `${lineThickness}px`;
 			line.style.top = `${i * lineHeight}px`;
-			line.style.backgroundColor = `hsl(var(--border-divider) / 1)`;
 			line.style.transition = "none";
-			line.style.opacity = "0.15";
+			line.style.opacity = "0";
 
 			// Randomly apply visual effects (subtle)
 			const rand = Math.random();
+			const rand2 = (i * 0.37) % 1.0; // Deterministic variation
 
-			// 25% chance: chromatic aberration (will be increased when music plays)
+			// ~40% of lines get subtle chromatic color tints
+			let lineColor = `hsl(var(--border-divider) / 1)`;
+			let colorChance = 0;
+			for (const { color, weight } of chromaticColors) {
+				colorChance += weight;
+				if (rand2 < colorChance && lineColor === `hsl(var(--border-divider) / 1)`) {
+					lineColor = color;
+				}
+			}
+			line.style.backgroundColor = lineColor;
+
+			// Store original color for later reference
+			line.dataset.originalColor = lineColor;
+
+			// 25% chance: chromatic aberration drop-shadow (will be increased when music plays)
 			if (rand < 0.25) {
 				line.style.filter =
 					"drop-shadow(1px 0 0 rgba(255, 0, 0, 0.5)) drop-shadow(-1px 0 0 rgba(0, 255, 255, 0.5))";
@@ -47,6 +70,16 @@
 			container.appendChild(line);
 			lines.push(line);
 		}
+
+		// Dynamic chromatic colors for music reactivity
+		const dynamicChromaticColors = [
+			"rgba(255, 50, 80, 0.7)",   // Red/pink
+			"rgba(0, 255, 255, 0.6)",   // Cyan
+			"rgba(255, 0, 255, 0.5)",   // Magenta
+			"rgba(80, 200, 255, 0.55)", // Light cyan
+			"rgba(255, 100, 150, 0.5)", // Soft pink
+			"rgba(255, 200, 50, 0.45)", // Amber accent
+		];
 
 		// Function to update chromatic effects based on music
 		function updateChromaticEffects() {
@@ -77,6 +110,12 @@
 						if (audioIntensity > 0.7) {
 							line.style.filter += ` drop-shadow(0 0 ${audioIntensity * 3}px rgba(255, 0, 255, 0.3))`;
 						}
+
+						// Occasionally shift line color on high intensity for extra dynamism
+						if (audioIntensity > 0.6 && Math.random() < 0.02) {
+							const colorIndex = Math.floor(Math.random() * dynamicChromaticColors.length);
+							line.style.backgroundColor = dynamicChromaticColors[colorIndex];
+						}
 					} else if (!line.style.filter.includes("drop-shadow")) {
 						line.style.filter = "none";
 					}
@@ -84,6 +123,10 @@
 			} else if (audioIntensity < 0.05) {
 				// Reset to original state when music intensity is very low
 				lines.forEach((line, index) => {
+					// Restore original color
+					const originalColor = line.dataset.originalColor || `hsl(var(--border-divider) / 1)`;
+					line.style.backgroundColor = originalColor;
+
 					const rand = (index * 0.73) % 1.0; // Deterministic pseudo-random
 					if (rand < 0.25) {
 						line.style.filter =

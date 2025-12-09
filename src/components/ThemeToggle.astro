@@ -1,0 +1,25 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="fixed right-0 top-0 z-10 h-12 w-12 rounded-full sm:h-16 sm:w-16">
+	<a
+		class="flex h-full w-full items-center justify-center rounded-full border bg-bgColor transition-all [&::after]:absolute [&::after]:h-12 [&::after]:w-12 [&::after]:origin-center [&::after]:rounded-full [&::after]:border [&::after]:border-transparent [&::after]:duration-300 [&::after]:content-[''] hover:[&::after]:scale-75 hover:[&::after]:border-divider dark:hover:[&::after]:border-divider [&::after]:sm:h-16 [&::after]:sm:w-16"
+		type="button"
+		x-data
+		@click="$store.theme.toggleMode()"
+	>
+		<Icon
+			aria-hidden="true"
+			class="h-5 w-5 transition-all duration-300 dark:hidden sm:h-7 sm:w-7"
+			focusable="false"
+			name="solar:moon-bold-duotone"
+		/>
+		<Icon
+			aria-hidden="true"
+			class="hidden h-5 w-5 transition-all duration-300 dark:block sm:h-7 sm:w-7"
+			focusable="false"
+			name="solar:sun-bold-duotone"
+		/>
+	</a>
+</div>
