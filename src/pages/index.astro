@@ -1,20 +1,38 @@
 ---
 import About from "@/components/About.astro";
-import Forge from "@/components/Forge.astro";
 import Contact from "@/components/Contact.astro";
-import Experiences from "@/components/Experiences.astro";
+import Forge from "@/components/Forge.astro";
 import Intro from "@/components/Intro.astro";
-import Projects from "@/components/Projects.astro";
 import Footer from "@/components/layout/Footer.astro";
-import PageLayout from "@/layouts/Base.astro";
+import DepthLayout from "@/layouts/DepthLayout.astro";
 ---
 
-<PageLayout meta={{ title: "Home" }}>
-	<Intro />
-	<About />
-	<Forge />
-	<!-- <Experiences /> -->
-	<!-- <Projects /> -->
-	<Contact />
-	<Footer />
-</PageLayout>
+<DepthLayout meta={{ title: "Home" }} sectionCount={4}>
+	<!-- Section 0: Intro -->
+	<section class="depth-section active" data-index="0">
+		<div class="depth-section-inner">
+			<Intro />
+		</div>
+	</section>
+
+	<!-- Section 1: About -->
+	<section class="depth-section" data-index="1">
+		<div class="depth-section-inner">
+			<About />
+		</div>
+	</section>
+
+	<!-- Section 2: Forge -->
+	<section class="depth-section" data-index="2">
+		<div class="depth-section-inner">
+			<Forge />
+		</div>
+	</section>
+
+	<!-- Section 3: Contact + Footer -->
+	<section class="depth-section" data-index="3">
+		<div class="depth-section-inner">
+			<Contact />
+		</div>
+	</section>
+</DepthLayout>

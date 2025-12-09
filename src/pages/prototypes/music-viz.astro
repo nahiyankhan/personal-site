@@ -1,73 +1,126 @@
 ---
 import AudioWaveVisualizer from "@/components/AudioWaveVisualizer.astro";
 import MusicPlayer from "@/components/MusicPlayer.astro";
-import SquareLayout from "@/layouts/SquareLayout.astro";
+import PrototypeLayout from "@/layouts/PrototypeLayout.astro";
 ---
 
-<SquareLayout meta={{ title: "Music Visualizer" }}>
-	<div class="fixed inset-0 flex items-center justify-center">
+<PrototypeLayout 
+	meta={{ title: "Music Visualizer" }} 
+	title="Music Visualizer"
+	demoHeight="70vh"
+	demoStyle="immersive"
+>
+	<div slot="demo" class="demo-wrapper">
 		<AudioWaveVisualizer />
-	</div>
-
-	<div class="pointer-events-none fixed inset-0 flex items-center justify-center">
-		<div class="pointer-events-auto">
+		<div class="player-container">
 			<MusicPlayer />
 		</div>
 	</div>
 
-	<div slot="overlay" class="fixed left-16 top-8 z-50">
-		<a href="/" class="back-button" transition:name="back-button">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="16"
-				height="16"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-			>
-				<line x1="19" y1="12" x2="5" y2="12"></line>
-				<polyline points="12 19 5 12 12 5"></polyline>
-			</svg>
-			<span>back</span>
-		</a>
-	</div>
-</SquareLayout>
+	<!-- Content section -->
+	<article class="prototype-content">
+		<h2>About</h2>
+		<p>
+			An audio-reactive visualization built with WebGL shaders. The visualizer responds to music 
+			in real-time, analyzing different frequency bands to create dynamic visual effects.
+		</p>
+
+		<h2>Technical Details</h2>
+		<p>
+			The visualization uses a multi-pass rendering pipeline inspired by Shadertoy:
+		</p>
+		<ul>
+			<li><strong>Pass 1 (Geometry):</strong> Generates audio-reactive shapes based on bass, mid, and high frequencies</li>
+			<li><strong>Pass 2 (Dot Matrix):</strong> Applies a stylized dot matrix effect to the geometry</li>
+			<li><strong>Pass 3 (Post-FX):</strong> Adds chromatic aberration, vignette, and camera shake effects</li>
+		</ul>
+
+		<h3>Audio Analysis</h3>
+		<p>
+			The Web Audio API provides frequency data through an FFT (Fast Fourier Transform), which is 
+			split into three bands:
+		</p>
+		<ul>
+			<li><strong>Bass (0-10 bins):</strong> Drives expanding circle rings</li>
+			<li><strong>Mids (10-50 bins):</strong> Controls mid-frequency circle patterns</li>
+			<li><strong>Highs (50-100 bins):</strong> Animates fractal patterns</li>
+		</ul>
+
+		<h3>Color Theming</h3>
+		<p>
+			Each track has a unique color theme defined in HSV color space. The hue shifts dynamically 
+			based on audio intensity, creating a cohesive visual experience that matches the music's energy.
+		</p>
+
+		<h2>Controls</h2>
+		<ul>
+			<li><strong>Play/Pause:</strong> Start or stop the music and visualization</li>
+			<li><strong>Shuffle:</strong> Switch to a random track from the playlist</li>
+			<li><strong>Volume:</strong> Click to show volume slider, double-click to mute/unmute</li>
+		</ul>
+	</article>
+</PrototypeLayout>
 
 <style>
-	.back-button {
+	.demo-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 70vh;
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem 1.5rem;
-		background: hsl(var(--theme-bg) / 1);
-		backdrop-filter: blur(10px);
-		border-radius: 9999px;
+		justify-content: center;
+	}
+
+	.player-container {
+		position: absolute;
+		bottom: 2rem;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 10;
+	}
+
+	.prototype-content {
 		color: hsl(var(--theme-text));
-		text-decoration: none;
-		font-size: 0.875rem;
-		transition: all 0.3s ease;
-		opacity: 1;
-		isolation: isolate;
 	}
 
-	.back-button:hover {
-		box-shadow:
-			0 10px 15px -3px rgb(0 0 0 / 0.3),
-			0 4px 6px -4px rgb(0 0 0 / 0.2);
-		transform: translateY(-1px);
+	.prototype-content h2 {
+		font-size: 1.5rem;
+		font-weight: 700;
+		margin-top: 2rem;
+		margin-bottom: 1rem;
 	}
 
-	.back-button:active {
-		transform: translateY(0);
+	.prototype-content h2:first-child {
+		margin-top: 0;
+	}
+
+	.prototype-content h3 {
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin-top: 1.5rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.prototype-content p {
+		margin-bottom: 1rem;
+		line-height: 1.75;
+	}
+
+	.prototype-content ul {
+		margin-bottom: 1rem;
+		padding-left: 1.5rem;
+		list-style-type: disc;
+	}
+
+	.prototype-content li {
+		margin-bottom: 0.5rem;
+		line-height: 1.75;
 	}
 
 	@media (max-width: 640px) {
-		.back-button {
-			padding: 0.5rem 1rem;
-			font-size: 0.8125rem;
+		.player-container {
+			bottom: 1rem;
 		}
 	}
 </style>

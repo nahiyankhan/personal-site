@@ -2,7 +2,7 @@
 // Component for animated background lines with random opacity changes
 ---
 
-<div id="animated-lines" class="pointer-events-none fixed inset-0 z-0"></div>
+<div id="animated-lines" class="pointer-events-none fixed inset-0 z-50"></div>
 
 <script>
 	// Audio reactivity state
@@ -33,7 +33,7 @@
 			line.style.top = `${i * lineHeight}px`;
 			line.style.backgroundColor = `hsl(var(--border-divider) / 1)`;
 			line.style.transition = "none";
-			line.style.opacity = "0.15";
+			line.style.opacity = "0";
 
 			// Randomly apply visual effects (subtle)
 			const rand = Math.random();
