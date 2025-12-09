@@ -8,6 +8,7 @@ import AnimatedLines from "@/components/AnimatedLines.astro";
 import BaseHead from "@/components/BaseHead.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
 import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
 
@@ -37,6 +38,7 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		<ThemeProvider />
 		<AnimatedLines />
 		<SkipLink />
+		<ThemeToggle />
 		<main x-data id="main" class="h-full origin-center tracking-wider">
 			<div id="depth-container" class="depth-container rounded-2xl bg-bgColor">
 				<!-- Section indicators -->
@@ -343,9 +345,23 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		private scrollThreshold = 100;
 		private lastScrollTime = 0;
 		private scrollDecayRate = 50;
-		private visitedSections: Set<number> = new Set();
+		private visitedSections = new Set<number>();
+		private scrollDecayInterval: number | null = null;
+
+		// Bound event handlers for cleanup
+		private boundHandleWheel: (e: WheelEvent) => void;
+		private boundHandleKeydown: (e: KeyboardEvent) => void;
+		private boundHandleTouchStart: (e: TouchEvent) => void;
+		private boundHandleTouchMove: (e: TouchEvent) => void;
+		private touchStartY = 0;
 
 		constructor() {
+			// Bind handlers once so we can remove them later
+			this.boundHandleWheel = this.handleWheel.bind(this);
+			this.boundHandleKeydown = this.handleKeydown.bind(this);
+			this.boundHandleTouchStart = this.handleTouchStart.bind(this);
+			this.boundHandleTouchMove = this.handleTouchMove.bind(this);
+
 			const container = document.getElementById("depth-container");
 			if (!container) return;
 
@@ -358,43 +374,87 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 			this.init();
 		}
 
+		private getInitialSectionIndex(): number {
+			// Check if there's a hash in the URL that matches a section ID
+			const hash = window.location.hash.slice(1); // Remove the '#'
+			if (hash) {
+				const targetSection = this.sections.findIndex((section) => section.id === hash);
+				if (targetSection !== -1) {
+					console.log(`🎯 Found hash #${hash}, navigating to section ${targetSection}`);
+					return targetSection;
+				}
+			}
+			return 0;
+		}
+
+		private handleTouchStart(e: TouchEvent) {
+			this.touchStartY = e.touches[0].clientY;
+		}
+
+		private handleTouchMove(e: TouchEvent) {
+			const touchY = e.touches[0].clientY;
+			const deltaY = this.touchStartY - touchY;
+			this.touchStartY = touchY;
+			this.handleScrollDelta(deltaY * 2);
+		}
+
+		private handleKeydown(e: KeyboardEvent) {
+			if (e.key === "ArrowDown" || e.key === "PageDown") {
+				e.preventDefault();
+				this.navigate(1);
+			} else if (e.key === "ArrowUp" || e.key === "PageUp") {
+				e.preventDefault();
+				this.navigate(-1);
+			}
+		}
+
+		public destroy() {
+			if (this.container) {
+				this.container.removeEventListener("wheel", this.boundHandleWheel);
+				this.container.removeEventListener("touchstart", this.boundHandleTouchStart);
+				this.container.removeEventListener("touchmove", this.boundHandleTouchMove);
+			}
+			document.removeEventListener("keydown", this.boundHandleKeydown);
+			if (this.scrollDecayInterval) {
+				clearInterval(this.scrollDecayInterval);
+			}
+		}
+
 		private init() {
+			const initialIndex = this.getInitialSectionIndex();
+
 			// Set initial states
 			this.sections.forEach((section, i) => {
 				section.classList.remove("active", "behind");
-				if (i === 0) {
+				if (i === initialIndex) {
 					section.classList.add("active");
+				} else if (i < initialIndex) {
+					section.classList.add("behind");
 				}
 			});
 
-			// Mark section 0 as visited and dispatch event after a short delay
-			setTimeout(() => {
-				this.markSectionVisited(0);
-			}, 100);
+			// Update indicators for initial state
+			this.indicators.forEach((indicator, i) => {
+				indicator.classList.toggle("active", i === initialIndex);
+			});
+
+			this.currentIndex = initialIndex;
+
+			// Dispatch section-enter for all sections up to and including the initial one
+			// This ensures Word animations trigger for all "passed" sections
+			for (let i = 0; i <= initialIndex; i++) {
+				this.visitedSections.add(i);
+				document.dispatchEvent(
+					new CustomEvent("section-enter", {
+						detail: { index: i, isFirstVisit: true },
+					})
+				);
+			}
 
 			// Bind events
-			this.container.addEventListener("wheel", this.handleWheel.bind(this), { passive: false });
-
-			// Touch support
-			let touchStartY = 0;
-			this.container.addEventListener(
-				"touchstart",
-				(e) => {
-					touchStartY = e.touches[0].clientY;
-				},
-				{ passive: true }
-			);
-
-			this.container.addEventListener(
-				"touchmove",
-				(e) => {
-					const touchY = e.touches[0].clientY;
-					const deltaY = touchStartY - touchY;
-					touchStartY = touchY;
-					this.handleScrollDelta(deltaY * 2);
-				},
-				{ passive: true }
-			);
+			this.container.addEventListener("wheel", this.boundHandleWheel, { passive: false });
+			this.container.addEventListener("touchstart", this.boundHandleTouchStart, { passive: true });
+			this.container.addEventListener("touchmove", this.boundHandleTouchMove, { passive: true });
 
 			// Indicator clicks
 			this.indicators.forEach((indicator, i) => {
@@ -402,18 +462,10 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 			});
 
 			// Keyboard navigation
-			document.addEventListener("keydown", (e) => {
-				if (e.key === "ArrowDown" || e.key === "PageDown") {
-					e.preventDefault();
-					this.navigate(1);
-				} else if (e.key === "ArrowUp" || e.key === "PageUp") {
-					e.preventDefault();
-					this.navigate(-1);
-				}
-			});
+			document.addEventListener("keydown", this.boundHandleKeydown);
 
 			// Scroll decay
-			setInterval(() => {
+			this.scrollDecayInterval = window.setInterval(() => {
 				if (Date.now() - this.lastScrollTime > this.scrollDecayRate) {
 					this.scrollAccumulator *= 0.9;
 					if (Math.abs(this.scrollAccumulator) < 1) {
@@ -422,24 +474,13 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 				}
 			}, 16);
 
-			console.log("🎯 Depth Navigator initialized with", this.sections.length, "sections");
-		}
-
-		private markSectionVisited(index: number) {
-			const isFirstVisit = !this.visitedSections.has(index);
-			this.visitedSections.add(index);
-
-			// Dispatch event for section enter
-			const event = new CustomEvent("section-enter", {
-				detail: {
-					index,
-					isFirstVisit,
-					section: this.sections[index],
-				},
-			});
-			document.dispatchEvent(event);
-
-			console.log(`📍 Section ${index} entered (first visit: ${isFirstVisit})`);
+			console.log(
+				"🎯 Depth Navigator initialized with",
+				this.sections.length,
+				"sections",
+				"at index",
+				initialIndex
+			);
 		}
 
 		private handleWheel(e: WheelEvent) {
@@ -519,19 +560,22 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 				indicator.classList.toggle("active", i === index);
 			});
 
-			// Reset scroll position of incoming section - always start from top
+			// Reset scroll position of incoming section
 			const scrollableInner = newSection.querySelector(".depth-section-inner") as HTMLElement;
 			if (scrollableInner) {
-				scrollableInner.scrollTop = 0;
+				scrollableInner.scrollTop = direction > 0 ? 0 : scrollableInner.scrollHeight;
 			}
 
 			this.currentIndex = index;
 
-			// Mark section as visited after transition starts
-			// Delay slightly so the section is visible when reveal animation plays
-			setTimeout(() => {
-				this.markSectionVisited(index);
-			}, 200);
+			// Dispatch section-enter event for Word animations
+			const isFirstVisit = !this.visitedSections.has(index);
+			this.visitedSections.add(index);
+			document.dispatchEvent(
+				new CustomEvent("section-enter", {
+					detail: { index, isFirstVisit },
+				})
+			);
 
 			// Wait for transition to complete
 			setTimeout(() => {
@@ -543,13 +587,20 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		}
 	}
 
-	// Initialize on page load
-	document.addEventListener("DOMContentLoaded", () => {
-		new DepthNavigator();
-	});
+	let navigator: DepthNavigator | null = null;
 
-	// Reinitialize after Astro transitions
-	document.addEventListener("astro:after-swap", () => {
-		new DepthNavigator();
-	});
+	function initNavigator() {
+		// Clean up existing navigator if any
+		if (navigator) {
+			navigator.destroy();
+			navigator = null;
+		}
+		navigator = new DepthNavigator();
+	}
+
+	// Initialize on page load
+	document.addEventListener("DOMContentLoaded", initNavigator);
+
+	// Reinitialize after Astro view transitions
+	document.addEventListener("astro:after-swap", initNavigator);
 </script>

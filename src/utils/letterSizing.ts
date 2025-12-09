@@ -19,9 +19,11 @@ export interface LetterSize {
 
 function getResponsiveValues() {
 	const isMobile = window.innerWidth < 640;
+	// Body padding (p-4/p-8) + intro-logo padding (px-4/px-8)
+	// Mobile: 16*2 + 16*2 = 64px, Desktop: 32*2 + 32*2 = 128px
 	return {
 		gridUnit: isMobile ? 16 : 32,
-		horizontalPadding: isMobile ? 32 : 64,
+		horizontalPadding: isMobile ? 64 : 128,
 	};
 }
 
@@ -104,4 +106,3 @@ export function initLetterSizing(config: LetterSizingConfig): () => void {
 		window.removeEventListener("resize", handleResize);
 	};
 }
-

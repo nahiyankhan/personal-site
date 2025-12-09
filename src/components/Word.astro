@@ -15,7 +15,22 @@ import TSvg from "@/assets/letters/t.svg?raw";
 import USvg from "@/assets/letters/u.svg?raw";
 import YSvg from "@/assets/letters/y.svg?raw";
 
-type LetterType = "a" | "b" | "c" | "e" | "f" | "g" | "h" | "i" | "k" | "n" | "o" | "r" | "t" | "u" | "y";
+type LetterType =
+	| "a"
+	| "b"
+	| "c"
+	| "e"
+	| "f"
+	| "g"
+	| "h"
+	| "i"
+	| "k"
+	| "n"
+	| "o"
+	| "r"
+	| "t"
+	| "u"
+	| "y";
 
 interface Props {
 	letters: LetterType[];
@@ -47,7 +62,10 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 <div class="word-container" data-word-id={wordId}>
 	{
 		letters.map((letter, i) => (
-			<div class:list={["letter-box", wordId ? `letter-box-${wordId}` : ""]} data-index={startIndex + i}>
+			<div
+				class:list={["letter-box", wordId ? `letter-box-${wordId}` : ""]}
+				data-index={startIndex + i}
+			>
 				<Fragment set:html={letterMap[letter]} />
 			</div>
 		))
@@ -131,16 +149,25 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 		return shuffled;
 	}
 
+	function resetWord(wordId?: string) {
+		const selector = wordId ? `.letter-box-${wordId}` : ".letter-box:not([class*='letter-box-'])";
+		const boxes = document.querySelectorAll(selector);
+		boxes.forEach((box) => {
+			box.classList.remove("revealed");
+		});
+	}
+
 	function animateWord(wordId?: string) {
 		const selector = wordId ? `.letter-box-${wordId}` : ".letter-box:not([class*='letter-box-'])";
 		const boxes = Array.from(document.querySelectorAll(selector));
 		if (!boxes.length) return;
 
-		// Only animate boxes that haven't been revealed yet
-		const unrevealed = boxes.filter((box) => !box.classList.contains("revealed"));
-		if (!unrevealed.length) return;
+		// Reset all letters first so animation can replay
+		boxes.forEach((box) => {
+			box.classList.remove("revealed");
+		});
 
-		const shuffled = shuffleArray(unrevealed);
+		const shuffled = shuffleArray(boxes);
 
 		// Letters glitch in one by one
 		shuffled.forEach((box, i) => {
@@ -161,35 +188,37 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 		3: "contact",
 	};
 
-	// Track which words have been animated
-	const animatedWords = new Set<string>();
+	// Track which section was last active (to avoid re-animating on same section)
+	let lastAnimatedSection: number | null = null;
 
-	// Listen for section-enter events
+	// Listen for section-enter events - animate on every scroll
 	document.addEventListener("section-enter", (e: any) => {
-		const { index, isFirstVisit } = e.detail;
+		const { index } = e.detail;
+
+		// Don't re-animate if we're still on the same section
+		if (index === lastAnimatedSection) return;
+		lastAnimatedSection = index;
 
 		// Section 0 (intro) - animate default letters
-		if (index === 0 && isFirstVisit) {
+		if (index === 0) {
 			animateWord();
-			animatedWords.add("intro");
 		}
 
 		// Other sections - animate their specific word
 		const wordId = sectionWordMap[index];
-		if (wordId && isFirstVisit && !animatedWords.has(wordId)) {
+		if (wordId) {
 			animateWord(wordId);
-			animatedWords.add(wordId);
 		}
 	});
 
 	// Run intro animation on load (fallback for section 0)
 	function initIntro() {
-		if (!animatedWords.has("intro")) {
+		if (lastAnimatedSection === null) {
 			// Small delay to let section-enter event fire first
 			setTimeout(() => {
-				if (!animatedWords.has("intro")) {
+				if (lastAnimatedSection === null) {
 					animateWord();
-					animatedWords.add("intro");
+					lastAnimatedSection = 0;
 				}
 			}, 200);
 		}
@@ -203,7 +232,7 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 
 	// Reset on Astro page transitions
 	document.addEventListener("astro:after-swap", () => {
-		animatedWords.clear();
+		lastAnimatedSection = null;
 		// Reset all letter boxes
 		document.querySelectorAll(".letter-box").forEach((box) => {
 			box.classList.remove("revealed");
