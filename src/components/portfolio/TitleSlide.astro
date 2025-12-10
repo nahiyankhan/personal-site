@@ -1,0 +1,206 @@
+---
+import Word from "@/components/Word.astro";
+---
+
+<div class="relative flex h-full w-full flex-col justify-between p-8 sm:p-12 lg:p-16">
+	<!-- Top left: NAHIYAN KHAN -->
+	<div id="portfolio-title" class="logo-hidden relative flex flex-col items-start" data-logo-scale>
+		<!-- NAHIYAN - 7 letters -->
+		<Word letters={["n", "a", "h", "i", "y", "a", "n"]} wordId="portfolio-title" />
+		<!-- KHAN - 4 letters -->
+		<div class="mt-2 sm:mt-4">
+			<Word letters={["k", "h", "a", "n"]} startIndex={7} wordId="portfolio-title" />
+		</div>
+	</div>
+
+	<!-- Bottom left: Portfolio • 2025 -->
+	<div class="portfolio-subtitle">
+		<p class="text-lg font-light tracking-wide sm:text-xl lg:text-2xl">
+			<span class="subtitle-word">Nahiyan</span>
+			<span class="subtitle-word">Khan</span>
+		</p>
+		<p class="text-lg font-light tracking-wide sm:text-xl lg:text-2xl">
+			<span class="subtitle-word">Portfolio</span>
+			<span class="subtitle-word mx-2 opacity-50">•</span>
+			<span class="subtitle-word">2025</span>
+		</p>
+	</div>
+</div>
+
+<script>
+	import { calculateLetterSize, applyLetterSize, debounce } from "@/utils/letterSizing";
+
+	const LETTERS_COUNT = 7; // NAHIYAN (longest row)
+	const WORD_ID = "portfolio-title";
+
+	function updateTitleSize() {
+		const titleElement = document.getElementById("portfolio-title");
+		if (!titleElement) return;
+
+		// Calculate size for edge-to-edge layout (minimal padding)
+		const size = calculateLetterSize(LETTERS_COUNT, { edgeToEdge: true });
+		applyLetterSize("portfolio-title", size);
+
+		// Remove hidden class after sizing is applied
+		titleElement.classList.remove("logo-hidden");
+	}
+
+	// Shuffle array for random letter reveal order
+	function shuffleArray<T>(array: T[]): T[] {
+		const shuffled = [...array];
+		for (let i = shuffled.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+		}
+		return shuffled;
+	}
+
+	function animateTitle() {
+		const boxes = Array.from(document.querySelectorAll(`.letter-box-${WORD_ID}`));
+		if (!boxes.length) return;
+
+		// Reset all letters first
+		boxes.forEach((box) => box.classList.remove("revealed"));
+
+		const shuffled = shuffleArray(boxes);
+
+		// Letters glitch in one by one
+		shuffled.forEach((box, i) => {
+			const delay = 300 + i * 150 + Math.random() * 100;
+			setTimeout(() => box.classList.add("revealed"), delay);
+		});
+
+		// Animate subtitle words after letters finish (with glitch effect)
+		const subtitleWords = Array.from(document.querySelectorAll(".subtitle-word"));
+		if (subtitleWords.length) {
+			const totalLetterTime = 300 + shuffled.length * 150 + 200;
+			subtitleWords.forEach((word, i) => {
+				const delay = totalLetterTime + i * 120 + Math.random() * 80;
+				setTimeout(() => {
+					word.classList.add("glitch-in");
+				}, delay);
+			});
+		}
+
+		console.log(`✨ Animating ${shuffled.length} letters for portfolio title`);
+	}
+
+	const handleResize = debounce(() => {
+		updateTitleSize();
+	}, 150);
+
+	// Track if we've animated on this page load
+	let hasAnimated = false;
+
+	// Listen for section-enter to trigger animation
+	document.addEventListener("section-enter", (e: any) => {
+		const { index } = e.detail;
+		// Animate when entering section 0 (title slide)
+		if (index === 0 && !hasAnimated) {
+			hasAnimated = true;
+			animateTitle();
+		}
+	});
+
+	// Initialize on load
+	function initTitle() {
+		updateTitleSize();
+		hasAnimated = false;
+	}
+
+	// Run sizing immediately
+	updateTitleSize();
+
+	// Also run on DOMContentLoaded as a fallback
+	document.addEventListener("DOMContentLoaded", initTitle);
+
+	window.addEventListener("resize", handleResize);
+
+	document.addEventListener("astro:after-swap", () => {
+		hasAnimated = false;
+		initTitle();
+	});
+
+	document.addEventListener("astro:before-preparation", () => {
+		window.removeEventListener("resize", handleResize);
+	});
+</script>
+
+<style>
+	#portfolio-title {
+		position: relative;
+		--letter-height: 64px;
+		--letter-width: 73px;
+	}
+
+	@media (min-width: 640px) {
+		#portfolio-title {
+			--letter-height: 96px;
+			--letter-width: 110px;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		#portfolio-title {
+			--letter-height: 128px;
+			--letter-width: 147px;
+		}
+	}
+
+	/* Hide until JS calculates correct size to prevent size jump */
+	#portfolio-title.logo-hidden {
+		visibility: hidden;
+	}
+
+	/* Subtitle word animation */
+	.subtitle-word {
+		opacity: 0;
+		display: inline-block;
+	}
+
+	.subtitle-word.glitch-in {
+		animation: subtitleGlitchIn 0.6s steps(5, end) forwards;
+	}
+
+	@keyframes subtitleGlitchIn {
+		0%,
+		15% {
+			opacity: 0;
+			transform: translate(0, 0);
+			filter: none;
+		}
+		16%,
+		30% {
+			opacity: 0.6;
+			transform: translate(-2px, -1px);
+			filter: drop-shadow(-3px 1px 0 rgba(255, 0, 50, 0.8))
+				drop-shadow(3px -1px 0 rgba(0, 255, 255, 0.8));
+		}
+		31%,
+		45% {
+			opacity: 0;
+			transform: translate(1px, 1px);
+			filter: none;
+		}
+		46%,
+		60% {
+			opacity: 1;
+			transform: translate(1px, -1px);
+			filter: drop-shadow(2px 0 0 rgba(255, 0, 50, 0.6))
+				drop-shadow(-2px 0 0 rgba(0, 255, 255, 0.6));
+		}
+		61%,
+		80% {
+			opacity: 1;
+			transform: translate(-1px, 0);
+			filter: drop-shadow(-1px 0 0 rgba(255, 0, 50, 0.3))
+				drop-shadow(1px 0 0 rgba(0, 255, 255, 0.3));
+		}
+		81%,
+		100% {
+			opacity: 1;
+			transform: translate(0, 0);
+			filter: none;
+		}
+	}
+</style>

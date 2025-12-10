@@ -1,0 +1,31 @@
+---
+import TitleSlide from "@/components/portfolio/TitleSlide.astro";
+import PortfolioLayout from "@/layouts/PortfolioLayout.astro";
+---
+
+<PortfolioLayout meta={{ title: "Portfolio" }} sectionCount={3}>
+	<!-- Section 0: Title Slide -->
+	<section class="depth-section active" data-index="0">
+		<div class="depth-section-inner">
+			<TitleSlide />
+		</div>
+	</section>
+
+	<!-- Section 1: Projects -->
+	<section class="depth-section" data-index="1">
+		<div class="depth-section-inner">
+			<div class="flex h-full w-full items-center justify-center">
+				<h2 class="text-4xl font-bold tracking-tight">Projects</h2>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section 2: Contact -->
+	<section class="depth-section" data-index="2">
+		<div class="depth-section-inner">
+			<div class="flex h-full w-full items-center justify-center">
+				<h2 class="text-4xl font-bold tracking-tight">Get in Touch</h2>
+			</div>
+		</div>
+	</section>
+</PortfolioLayout>

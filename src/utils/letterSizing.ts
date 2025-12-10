@@ -10,6 +10,7 @@ interface LetterSizingConfig {
 	elementId: string;
 	letterCount: number;
 	onResize?: () => void;
+	options?: LetterSizeOptions;
 }
 
 export interface LetterSize {
@@ -17,19 +18,31 @@ export interface LetterSize {
 	width: number;
 }
 
-function getResponsiveValues() {
+export interface LetterSizeOptions {
+	// Custom horizontal padding (overrides default)
+	horizontalPadding?: number;
+	// Use edge-to-edge layout (minimal padding)
+	edgeToEdge?: boolean;
+}
+
+function getResponsiveValues(options?: LetterSizeOptions) {
 	const isMobile = window.innerWidth < 640;
 	// Body padding (p-4/p-8) + intro-logo padding (px-4/px-8)
 	// Mobile: 16*2 + 16*2 = 64px, Desktop: 32*2 + 32*2 = 128px
+	const defaultPadding = isMobile ? 64 : 128;
+	// Edge-to-edge: minimal padding for full-bleed layouts
+	const edgeToEdgePadding = isMobile ? 32 : 64;
+
 	return {
 		gridUnit: isMobile ? 16 : 32,
-		horizontalPadding: isMobile ? 64 : 128,
+		horizontalPadding:
+			options?.horizontalPadding ?? (options?.edgeToEdge ? edgeToEdgePadding : defaultPadding),
 	};
 }
 
 // Calculate letter dimensions based on viewport and letter count
-export function calculateLetterSize(letterCount: number): LetterSize {
-	const { gridUnit, horizontalPadding } = getResponsiveValues();
+export function calculateLetterSize(letterCount: number, options?: LetterSizeOptions): LetterSize {
+	const { gridUnit, horizontalPadding } = getResponsiveValues(options);
 	const viewportWidth = window.innerWidth;
 	let units = 2;
 	const totalGapWidth = (letterCount - 1) * LETTER_GAP;
@@ -83,10 +96,10 @@ export function applyLetterSize(elementId: string, size: LetterSize): void {
 
 // Full initialization with event listeners
 export function initLetterSizing(config: LetterSizingConfig): () => void {
-	const { elementId, letterCount, onResize } = config;
+	const { elementId, letterCount, onResize, options } = config;
 
 	function updateSize() {
-		const size = calculateLetterSize(letterCount);
+		const size = calculateLetterSize(letterCount, options);
 		applyLetterSize(elementId, size);
 		onResize?.();
 	}
