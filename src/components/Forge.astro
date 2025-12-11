@@ -1,8 +1,72 @@
 ---
 import { Image } from "astro:assets";
-import musicVizImage from "@/assets/music-viz.png";
-import Subtitle from "./Subtitle.astro";
+import type { ImageMetadata } from "astro";
 import Word from "./Word.astro";
+
+// Type definitions for forge items
+type ImagePreview = {
+	type: "image";
+	src: ImageMetadata;
+	alt: string;
+};
+
+type VideoPreview = {
+	type: "video";
+	src: string;
+	webm?: string;
+};
+
+type ForgeItem = {
+	href: string;
+	title: string;
+	description: string;
+	transitionName: string;
+	preview: ImagePreview | VideoPreview;
+};
+
+// Define forge items - supports both image and video previews
+const forgeItems: ForgeItem[] = [
+	{
+		href: "/prototypes/fluid-tile-grid",
+		title: "fluid tile grid",
+		description: "prototype of a fluid grid. react. framer motion.",
+		transitionName: "fluid-tile-grid-preview",
+		preview: {
+			type: "video",
+			src: "/videos/grid-loading.mp4",
+		},
+	},
+	{
+		href: "/prototypes/bitcoin-solari",
+		title: "bitcoin solari",
+		description: "visualization of Block's bitcoin treasury holdings. open source.",
+		transitionName: "bitcoin-solari-preview",
+		preview: {
+			type: "video",
+			src: "/videos/bitcoin-solari.mp4",
+		},
+	},
+	{
+		href: "/prototypes/music-viz",
+		title: "music visualizer",
+		description: "audio-reactive animations. from the portfolio editing floor.",
+		transitionName: "music-viz-preview",
+		preview: {
+			type: "video",
+			src: "/videos/music-viz.mp4",
+		},
+	},
+	{
+		href: "/prototypes/taste-explorer",
+		title: "taste explorer",
+		description: "an infinite random map of our collective taste.",
+		transitionName: "taste-explorer-preview",
+		preview: {
+			type: "video",
+			src: "/videos/taste-explorer-panning.mp4",
+		},
+	},
+];
 ---
 
 <div>
@@ -10,35 +74,45 @@ import Word from "./Word.astro";
 		<div id="forge-logo" class="relative" data-logo-scale>
 			<Word letters={["f", "o", "r", "g", "e"]} wordId="forge" />
 		</div>
-		<!-- <div class="relative inline-flex w-[fit-content]">
-			<div class="baseline-on-grid text-sm">a.k.a tinker town where things break.</div>
-		</div> -->
 	</div>
 
-	<div class="grid px-4 pb-16 sm:px-8 sm:pb-0">
-		<!-- <Subtitle title="current-experiments" /> -->
-
+	<div class="mt-4 grid px-4 pb-16 sm:px-8 sm:pb-0">
 		<div class="mb-4 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-4 sm:gap-8">
-			<div class="space-y-4">
-				<a
-					href="/prototypes/music-viz"
-					class="border-current/10 hover:border-current/30 block overflow-hidden rounded-lg border transition-all"
-					transition:name="music-viz-preview"
-				>
-					<Image src={musicVizImage} alt="Music Visualizer Preview" class="h-auto w-full" />
-				</a>
-				<div class="flex flex-col">
-					<a
-						href="/prototypes/music-viz"
-						class="baseline-on-grid !mb-0 inline-block text-sm underline decoration-dotted underline-offset-4 hover:decoration-solid"
-					>
-						music visualizer
-					</a>
-					<p class="baseline-on-grid text-sm">
-						audio-reactive animations. from the portfolio editing floor.
-					</p>
-				</div>
-			</div>
+			{
+				forgeItems.map((item) => (
+					<div class="space-y-4">
+						<a
+							href={item.href}
+							class="forge-preview-link border-current/10 hover:border-current/30 block overflow-hidden rounded-lg border transition-all"
+							transition:name={item.transitionName}
+						>
+							{item.preview.type === "image" ? (
+								<Image
+									src={(item.preview as ImagePreview).src}
+									alt={(item.preview as ImagePreview).alt}
+									class="h-auto w-full"
+								/>
+							) : (
+								<video autoplay loop muted playsinline class="h-auto w-full">
+									{(item.preview as VideoPreview).webm && (
+										<source src={(item.preview as VideoPreview).webm} type="video/webm" />
+									)}
+									<source src={(item.preview as VideoPreview).src} type="video/mp4" />
+								</video>
+							)}
+						</a>
+						<div class="flex flex-col">
+							<a
+								href={item.href}
+								class="baseline-on-grid !mb-0 inline-block text-sm underline decoration-dotted underline-offset-4 hover:decoration-solid"
+							>
+								{item.title}
+							</a>
+							<p class="baseline-on-grid text-sm">{item.description}</p>
+						</div>
+					</div>
+				))
+			}
 		</div>
 	</div>
 </div>

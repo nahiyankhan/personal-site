@@ -9,14 +9,14 @@ import DepthLayout from "@/layouts/DepthLayout.astro";
 
 <DepthLayout meta={{ title: "Home" }} sectionCount={4}>
 	<!-- Section 0: Intro -->
-	<section class="depth-section active" data-index="0">
+	<section class="depth-section active" data-index="0" id="intro">
 		<div class="depth-section-inner">
 			<Intro />
 		</div>
 	</section>
 
 	<!-- Section 1: About -->
-	<section class="depth-section" data-index="1">
+	<section class="depth-section" data-index="1" id="about">
 		<div class="depth-section-inner">
 			<About />
 		</div>
@@ -30,7 +30,7 @@ import DepthLayout from "@/layouts/DepthLayout.astro";
 	</section>
 
 	<!-- Section 3: Contact + Footer -->
-	<section class="depth-section" data-index="3">
+	<section class="depth-section" data-index="3" id="contact">
 		<div class="depth-section-inner">
 			<Contact />
 		</div>

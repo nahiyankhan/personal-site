@@ -1,0 +1,114 @@
+---
+import PrototypeLayout from "@/layouts/PrototypeLayout.astro";
+---
+
+<PrototypeLayout
+	meta={{ title: "Taste Explorer" }}
+	title="Taste Explorer"
+	demoHeight="70vh"
+	demoStyle="immersive"
+>
+	<div slot="demo" class="demo-wrapper">
+		<video autoplay loop muted playsinline class="demo-video">
+			<source src="/videos/taste-explorer-panning.mp4" type="video/mp4" />
+		</video>
+	</div>
+
+	<!-- Content section -->
+	<article class="prototype-content">
+		<h2>About</h2>
+		<p>
+			An infinite random map of our collective taste. A collaborative tool where designers can
+			upload images they find tasteful, creating a vast, ever-expanding visual landscape of
+			aesthetic inspiration.
+		</p>
+
+		<h2>Technical Details</h2>
+		<p>
+			Built with PixiJS for high-performance 2D rendering, enabling smooth panning and zooming
+			across an infinite canvas of curated imagery.
+		</p>
+		<ul>
+			<li>
+				<strong>Infinite canvas:</strong> Seamless exploration across an unbounded visual space
+			</li>
+			<li>
+				<strong>S3 backend:</strong> Images stored and served via Amazon S3 for reliable,
+				scalable delivery
+			</li>
+			<li>
+				<strong>PixiJS rendering:</strong> GPU-accelerated graphics for buttery smooth 60fps
+				interactions
+			</li>
+			<li>
+				<strong>Random placement:</strong> Images scattered across the infinite plane, creating
+				serendipitous discoveries
+			</li>
+		</ul>
+
+		<h2>Concept</h2>
+		<p>
+			Taste Explorer is built on the idea that collective curation reveals patterns in aesthetic
+			preference. By allowing designers to contribute images they find beautiful, interesting, or
+			inspiring, the map becomes a living document of visual culture—a place to wander and
+			discover unexpected connections between disparate sources of inspiration.
+		</p>
+	</article>
+</PrototypeLayout>
+
+<style>
+	.demo-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 70vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.demo-video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.prototype-content {
+		color: hsl(var(--theme-text));
+	}
+
+	.prototype-content h2 {
+		font-size: 1.5rem;
+		font-weight: 700;
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	.prototype-content h2:first-child {
+		margin-top: 0;
+	}
+
+	.prototype-content p {
+		margin-bottom: 1rem;
+		line-height: 1.75;
+	}
+
+	.prototype-content ul {
+		margin-bottom: 1rem;
+		padding-left: 1.5rem;
+		list-style-type: disc;
+	}
+
+	.prototype-content li {
+		margin-bottom: 0.5rem;
+		line-height: 1.75;
+	}
+
+	@media (max-width: 640px) {
+		.demo-wrapper {
+			min-height: 50vh;
+		}
+	}
+</style>
+
