@@ -525,11 +525,15 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		private currentIndex = 0;
 		private isTransitioning = false;
 		private scrollAccumulator = 0;
-		private scrollThreshold = 100;
+		private scrollThreshold = 200; // Higher threshold = more resistance
 		private lastScrollTime = 0;
 		private scrollDecayRate = 50;
 		private visitedSections = new Set<number>();
 		private scrollDecayInterval: number | null = null;
+
+		// Edge resistance - require sustained scrolling at edge before section switch
+		private atEdgeSince = 0;
+		private edgeResistanceTime = 150; // ms to hold at edge before accumulating
 
 		// Bound event handlers for cleanup
 		private boundHandleWheel: (e: WheelEvent) => void;
@@ -697,13 +701,36 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 				const isAtTop = scrollTop <= 0;
 				const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
 
+				// Determine if we're at an edge trying to leave
+				const tryingToLeaveTop = deltaY < 0 && isAtTop;
+				const tryingToLeaveBottom = deltaY > 0 && isAtBottom;
+
 				// If scrolling down and not at bottom, or scrolling up and not at top
 				// Let the section scroll normally
 				if ((deltaY > 0 && !isAtBottom) || (deltaY < 0 && !isAtTop)) {
 					scrollableInner.scrollTop += deltaY;
 					this.scrollAccumulator = 0;
+					this.atEdgeSince = 0; // Reset edge timer when scrolling content
 					return;
 				}
+
+				// At an edge - apply resistance before allowing section transition
+				if (tryingToLeaveTop || tryingToLeaveBottom) {
+					const now = Date.now();
+
+					// Start edge timer if just arrived at edge
+					if (this.atEdgeSince === 0) {
+						this.atEdgeSince = now;
+					}
+
+					// Don't accumulate until user has been at edge for a bit
+					if (now - this.atEdgeSince < this.edgeResistanceTime) {
+						return;
+					}
+				}
+			} else {
+				// No scrollable content, reset edge timer
+				this.atEdgeSince = 0;
 			}
 
 			// Accumulate scroll for section transition
@@ -714,9 +741,11 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 			if (this.scrollAccumulator > this.scrollThreshold) {
 				this.navigate(1);
 				this.scrollAccumulator = 0;
+				this.atEdgeSince = 0;
 			} else if (this.scrollAccumulator < -this.scrollThreshold) {
 				this.navigate(-1);
 				this.scrollAccumulator = 0;
+				this.atEdgeSince = 0;
 			}
 		}
 
