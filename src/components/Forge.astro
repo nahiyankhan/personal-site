@@ -1,8 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import musicVizImage from "@/assets/music-viz.png";
-import Subtitle from "./Subtitle.astro";
+import { getCollection } from "astro:content";
 import Word from "./Word.astro";
+
+// Query all non-draft forge items, sorted by date (newest first)
+const forgeItems = await getCollection("forge", ({ data }) => !data.draft);
+const sortedItems = forgeItems.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <div>
@@ -19,26 +22,34 @@ import Word from "./Word.astro";
 		<!-- <Subtitle title="current-experiments" /> -->
 
 		<div class="mb-4 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-4 sm:gap-8">
-			<div class="space-y-4">
-				<a
-					href="/prototypes/music-viz"
-					class="border-current/10 hover:border-current/30 block overflow-hidden rounded-lg border transition-all"
-					transition:name="music-viz-preview"
-				>
-					<Image src={musicVizImage} alt="Music Visualizer Preview" class="h-auto w-full" />
-				</a>
-				<div class="flex flex-col">
-					<a
-						href="/prototypes/music-viz"
-						class="baseline-on-grid !mb-0 inline-block text-sm underline decoration-dotted underline-offset-4 hover:decoration-solid"
-					>
-						music visualizer
-					</a>
-					<p class="baseline-on-grid text-sm">
-						audio-reactive animations. from the portfolio editing floor.
-					</p>
-				</div>
-			</div>
+			{
+				sortedItems.map((item) => (
+					<div class="space-y-4">
+						{item.data.coverImage && (
+							<a
+								href={`/forge/${item.slug}`}
+								class="border-current/10 hover:border-current/30 block overflow-hidden rounded-lg border transition-all"
+								transition:name={`${item.slug}-preview`}
+							>
+								<Image
+									src={item.data.coverImage}
+									alt={`${item.data.title} Preview`}
+									class="h-auto w-full"
+								/>
+							</a>
+						)}
+						<div class="flex flex-col">
+							<a
+								href={`/forge/${item.slug}`}
+								class="baseline-on-grid !mb-0 inline-block text-sm underline decoration-dotted underline-offset-4 hover:decoration-solid"
+							>
+								{item.data.title.toLowerCase()}
+							</a>
+							<p class="baseline-on-grid text-sm">{item.data.description.toLowerCase()}</p>
+						</div>
+					</div>
+				))
+			}
 		</div>
 	</div>
 </div>

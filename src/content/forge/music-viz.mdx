@@ -1,0 +1,44 @@
+---
+title: "Music Visualizer"
+description: "An audio-reactive visualization using WebGL shaders. Multi-pass rendering with geometry, dot matrix, and post-processing effects."
+date: 2024-12-01
+coverImage: "../../assets/music-viz.png"
+demoHeight: "70vh"
+demoStyle: "immersive"
+demoComponent: "MusicVizDemo"
+tags: ["webgl", "audio", "shaders", "visualization"]
+---
+
+## About
+
+An audio-reactive visualization built with WebGL shaders. The visualizer responds to music 
+in real-time, analyzing different frequency bands to create dynamic visual effects.
+
+## Technical Details
+
+The visualization uses a multi-pass rendering pipeline inspired by Shadertoy:
+
+- **Pass 1 (Geometry):** Generates audio-reactive shapes based on bass, mid, and high frequencies
+- **Pass 2 (Dot Matrix):** Applies a stylized dot matrix effect to the geometry
+- **Pass 3 (Post-FX):** Adds chromatic aberration, vignette, and camera shake effects
+
+### Audio Analysis
+
+The Web Audio API provides frequency data through an FFT (Fast Fourier Transform), which is 
+split into three bands:
+
+- **Bass (0-10 bins):** Drives expanding circle rings
+- **Mids (10-50 bins):** Controls mid-frequency circle patterns
+- **Highs (50-100 bins):** Animates fractal patterns
+
+### Color Theming
+
+Each track has a unique color theme defined in HSV color space. The hue shifts dynamically 
+based on audio intensity, creating a cohesive visual experience that matches the music's energy.
+
+## Controls
+
+- **Play/Pause:** Start or stop the music and visualization
+- **Shuffle:** Switch to a random track from the playlist
+- **Volume:** Click to show volume slider, double-click to mute/unmute
+
