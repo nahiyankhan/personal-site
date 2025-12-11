@@ -1,0 +1,104 @@
+---
+import HiveBackground from "@/components/HiveBackground.astro";
+import PrototypeLayout from "@/layouts/PrototypeLayout.astro";
+---
+
+<PrototypeLayout
+	meta={{ title: "Brownian Motion" }}
+	title="Brownian Motion"
+	demoHeight="70vh"
+	demoStyle="embedded"
+>
+	<div slot="demo" class="demo-wrapper">
+		<HiveBackground
+			mode="chaos"
+			particleColor="#888"
+			shapeParticleColor="rgba(136, 136, 136, 0.8)"
+			chaosParticleSize={4}
+			shapeParticleSize={2}
+			minParticles={100}
+			maxParticles={400}
+			particleArea={4000}
+		/>
+	</div>
+
+	<!-- Content section -->
+	<article class="prototype-content">
+		<h2>About</h2>
+		<p>
+			A particle simulation that cycles through multiple formations: chaotic brownian motion, grid,
+			circle, wave, and spiral.
+		</p>
+
+		<h2>Technical Details</h2>
+		<ul>
+			<li>
+				<strong>Chaos mode:</strong> Particles attracted to random targets within a radius, with velocity
+				damping and circular boundary constraints
+			</li>
+			<li>
+				<strong>Shape modes:</strong> Each particle stores pre-calculated target positions for grid,
+				circle, wave, and spiral formations
+			</li>
+			<li>
+				<strong>Smooth transitions:</strong> Individual interpolation speeds per particle create organic
+				settling when forming shapes
+			</li>
+			<li>
+				<strong>Canvas rendering:</strong> 60fps animation using requestAnimationFrame with dynamic particle
+				count (100-400) based on viewport
+			</li>
+		</ul>
+	</article>
+</PrototypeLayout>
+
+<style>
+	.demo-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 70vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		background: hsl(var(--theme-bg-inverse) / 1);
+	}
+
+	.prototype-content {
+		color: hsl(var(--theme-text));
+	}
+
+	.prototype-content h2 {
+		font-size: 1.5rem;
+		font-weight: 700;
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	.prototype-content h2:first-child {
+		margin-top: 0;
+	}
+
+	.prototype-content p {
+		margin-bottom: 1rem;
+		line-height: 1.75;
+	}
+
+	.prototype-content ul {
+		margin-bottom: 1rem;
+		padding-left: 1.5rem;
+		list-style-type: disc;
+	}
+
+	.prototype-content li {
+		margin-bottom: 0.5rem;
+		line-height: 1.75;
+	}
+
+	@media (max-width: 640px) {
+		.demo-wrapper {
+			min-height: 50vh;
+		}
+	}
+</style>

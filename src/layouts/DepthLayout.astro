@@ -628,10 +628,13 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 
 			this.currentIndex = initialIndex;
 
-			// Set initial URL hash to reflect current section
+			// Set initial URL hash to reflect current section (clear hash for root/intro section)
 			const initialSection = this.sections[initialIndex];
 			if (initialSection?.id) {
 				history.replaceState(null, "", `#${initialSection.id}`);
+			} else {
+				// Clear hash for sections without ID (like intro/root)
+				history.replaceState(null, "", window.location.pathname);
 			}
 
 			// Dispatch section-enter for all sections up to and including the initial one
@@ -734,9 +737,13 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 
 			console.log(`📍 Navigating from section ${this.currentIndex} to ${index}`);
 
-			// Update URL hash to reflect current section
-			if (updateHash && newSection.id) {
-				history.replaceState(null, "", `#${newSection.id}`);
+			// Update URL hash to reflect current section (clear hash for root/intro section)
+			if (updateHash) {
+				if (newSection.id) {
+					history.replaceState(null, "", `#${newSection.id}`);
+				} else {
+					history.replaceState(null, "", window.location.pathname);
+				}
 			}
 
 			// Apply chromatic aberration effect

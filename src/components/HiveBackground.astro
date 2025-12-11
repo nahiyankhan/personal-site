@@ -1,0 +1,367 @@
+---
+// HiveBackground - Brownian motion particle visualization
+// Particles can form various shapes or dissolve into chaos
+
+interface Props {
+	mode?: "chaos" | "grid" | "circle" | "wave" | "spiral";
+	particleColor?: string;
+	shapeParticleColor?: string;
+	chaosParticleSize?: number;
+	shapeParticleSize?: number;
+	minParticles?: number;
+	maxParticles?: number;
+	particleArea?: number;
+}
+
+const {
+	mode = "chaos",
+	particleColor = "#999",
+	shapeParticleColor = "rgba(136, 136, 136, 0.8)",
+	chaosParticleSize = 4,
+	shapeParticleSize = 2,
+	minParticles = 100,
+	maxParticles = 400,
+	particleArea = 4000,
+} = Astro.props;
+
+const shapes = ["chaos", "grid", "circle", "wave", "spiral"];
+---
+
+<div 
+	class="hive-container"
+	data-mode={mode}
+	data-particle-color={particleColor}
+	data-shape-particle-color={shapeParticleColor}
+	data-chaos-particle-size={chaosParticleSize}
+	data-shape-particle-size={shapeParticleSize}
+	data-min-particles={minParticles}
+	data-max-particles={maxParticles}
+	data-particle-area={particleArea}
+	data-shapes={JSON.stringify(shapes)}
+>
+	<canvas class="hive-canvas"></canvas>
+	<div class="shape-controls">
+		{shapes.map((shape) => (
+			<button 
+				class={`shape-btn ${shape === mode ? 'active' : ''}`} 
+				data-shape={shape}
+				aria-label={`Switch to ${shape}`}
+			>
+				{shape}
+			</button>
+		))}
+	</div>
+</div>
+
+<style>
+	.hive-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.hive-canvas {
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+
+	.shape-controls {
+		position: absolute;
+		bottom: 1.5rem;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 0.25rem;
+		background: rgba(0, 0, 0, 0.5);
+		padding: 0.25rem;
+		border-radius: 2rem;
+		backdrop-filter: blur(8px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.shape-btn {
+		background: transparent;
+		border: none;
+		color: rgba(255, 255, 255, 0.5);
+		padding: 0.4rem 0.75rem;
+		border-radius: 1.5rem;
+		font-family: 'JetBrains Mono Variable', monospace;
+		font-size: 0.65rem;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.shape-btn:hover {
+		color: rgba(255, 255, 255, 0.8);
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.shape-btn.active {
+		background: rgba(255, 255, 255, 0.15);
+		color: white;
+	}
+</style>
+
+<script>
+	type ShapeMode = "chaos" | "grid" | "circle" | "wave" | "spiral";
+
+	interface Particle {
+		x: number;
+		y: number;
+		vx: number;
+		vy: number;
+		index: number;
+		easeSpeed: number;
+		// Chaos mode properties
+		radius: number;
+		targetX: number;
+		targetY: number;
+		// Target positions for each shape
+		targets: Record<ShapeMode, { x: number; y: number }>;
+	}
+
+	class HiveBackground {
+		private container: HTMLElement;
+		private canvas: HTMLCanvasElement;
+		private ctx: CanvasRenderingContext2D;
+		private particles: Particle[] = [];
+		private animationFrameId: number | null = null;
+		private mode: ShapeMode;
+		private shapes: ShapeMode[];
+		private particleColor: string;
+		private shapeParticleColor: string;
+		private chaosParticleSize: number;
+		private shapeParticleSize: number;
+		private minParticles: number;
+		private maxParticles: number;
+		private particleArea: number;
+		private shapeButtons: NodeListOf<Element>;
+		private center = { x: 0, y: 0 };
+
+		constructor(container: HTMLElement) {
+			this.container = container;
+			this.canvas = container.querySelector('.hive-canvas') as HTMLCanvasElement;
+			const ctx = this.canvas.getContext('2d');
+			if (!ctx) throw new Error('Could not get 2d context');
+			this.ctx = ctx;
+
+			// Read config from data attributes
+			this.mode = (container.dataset.mode as ShapeMode) || "chaos";
+			this.shapes = JSON.parse(container.dataset.shapes || '["chaos", "grid"]');
+			this.particleColor = container.dataset.particleColor || "#999";
+			this.shapeParticleColor = container.dataset.shapeParticleColor || "rgba(136, 136, 136, 0.8)";
+			this.chaosParticleSize = Number(container.dataset.chaosParticleSize) || 4;
+			this.shapeParticleSize = Number(container.dataset.shapeParticleSize) || 2;
+			this.minParticles = Number(container.dataset.minParticles) || 100;
+			this.maxParticles = Number(container.dataset.maxParticles) || 400;
+			this.particleArea = Number(container.dataset.particleArea) || 4000;
+			this.shapeButtons = container.querySelectorAll('.shape-btn');
+
+			this.init();
+		}
+
+		private init() {
+			this.resize();
+			this.updateActiveButton();
+			window.addEventListener('resize', () => this.resize());
+			
+			// Shape buttons
+			this.shapeButtons.forEach((btn) => {
+				btn.addEventListener('click', () => {
+					const shape = (btn as HTMLElement).dataset.shape as ShapeMode;
+					if (shape) {
+						this.setShape(shape);
+					}
+				});
+			});
+
+			this.animate();
+		}
+
+		private setShape(shape: ShapeMode) {
+			this.mode = shape;
+			this.container.dataset.mode = this.mode;
+			this.updateActiveButton();
+		}
+
+		private updateActiveButton() {
+			this.shapeButtons.forEach((btn) => {
+				const shape = (btn as HTMLElement).dataset.shape;
+				btn.classList.toggle('active', shape === this.mode);
+			});
+		}
+
+		private resize() {
+			const rect = this.container.getBoundingClientRect();
+			this.canvas.width = rect.width;
+			this.canvas.height = rect.height;
+			this.center = {
+				x: this.canvas.width / 2,
+				y: this.canvas.height / 2,
+			};
+			this.initializeParticles();
+		}
+
+		private initializeParticles() {
+			const screenArea = this.canvas.width * this.canvas.height;
+			const totalParticles = Math.min(
+				Math.max(Math.floor(screenArea / this.particleArea), this.minParticles),
+				this.maxParticles
+			);
+
+			const aspectRatio = this.canvas.width / this.canvas.height;
+			const cols = Math.ceil(Math.sqrt(totalParticles * aspectRatio));
+			const rows = Math.ceil(cols / aspectRatio);
+			const NUM_PARTICLES = cols * rows;
+
+			const cx = this.canvas.width / 2;
+			const cy = this.canvas.height / 2;
+			const maxRadius = Math.min(cx, cy) * 0.85;
+
+			this.particles = [];
+
+			const PADDING = Math.min(40, Math.max(20, Math.min(this.canvas.width, this.canvas.height) * 0.05));
+
+			for (let i = 0; i < NUM_PARTICLES; i++) {
+				const row = Math.floor(i / cols);
+				const col = i % cols;
+
+				// Chaos initial position - spawn within radius from center (like original)
+				const chaosRadius = Math.min(this.canvas.width, this.canvas.height) * 0.3;
+				const randomAngle = Math.random() * Math.PI * 2;
+				const randomDistance = Math.random() * chaosRadius;
+				const chaosX = cx + Math.cos(randomAngle) * randomDistance;
+				const chaosY = cy + Math.sin(randomAngle) * randomDistance;
+
+				// Grid positions
+				const gridX = PADDING + (col / (cols - 1)) * (this.canvas.width - PADDING * 2);
+				const gridY = PADDING + (row / (rows - 1)) * (this.canvas.height - PADDING * 2);
+
+				// Circle positions - distribute evenly around concentric rings
+				const ringCount = Math.ceil(Math.sqrt(NUM_PARTICLES / Math.PI));
+				const ring = Math.floor(Math.sqrt(i / Math.PI));
+				const particlesInRing = Math.max(1, Math.floor(2 * Math.PI * ring));
+				const indexInRing = i - Math.floor(Math.PI * ring * ring);
+				const angle = (indexInRing / particlesInRing) * Math.PI * 2;
+				const ringRadius = (ring / ringCount) * maxRadius;
+				const circleX = cx + Math.cos(angle) * ringRadius;
+				const circleY = cy + Math.sin(angle) * ringRadius;
+
+				// Wave positions - sine wave across width
+				const waveX = PADDING + (i / NUM_PARTICLES) * (this.canvas.width - PADDING * 2);
+				const waveAmplitude = (this.canvas.height - PADDING * 2) * 0.35;
+				const waveFrequency = 3;
+				const waveY = cy + Math.sin((i / NUM_PARTICLES) * Math.PI * 2 * waveFrequency) * waveAmplitude;
+
+				// Spiral positions
+				const spiralTurns = 5;
+				const t = i / NUM_PARTICLES;
+				const spiralAngle = t * Math.PI * 2 * spiralTurns;
+				const spiralRadius = t * maxRadius;
+				const spiralX = cx + Math.cos(spiralAngle) * spiralRadius;
+				const spiralY = cy + Math.sin(spiralAngle) * spiralRadius;
+
+				this.particles.push({
+					x: chaosX,
+					y: chaosY,
+					vx: 0,
+					vy: 0,
+					index: i,
+					easeSpeed: 0.03 + Math.random() * 0.02,
+					radius: chaosRadius,
+					targetX: chaosX,
+					targetY: chaosY,
+					targets: {
+						chaos: { x: chaosX, y: chaosY },
+						grid: { x: gridX, y: gridY },
+						circle: { x: circleX, y: circleY },
+						wave: { x: waveX, y: waveY },
+						spiral: { x: spiralX, y: spiralY },
+					},
+				});
+			}
+		}
+
+		private animate() {
+			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+			for (const particle of this.particles) {
+				if (this.mode === "chaos") {
+					// Original chaos behavior - random target within radius
+					const randomAngle = Math.random() * Math.PI * 2;
+					const randomDistance = Math.random() * particle.radius;
+					particle.targetX = this.center.x + Math.cos(randomAngle) * randomDistance;
+					particle.targetY = this.center.y + Math.sin(randomAngle) * randomDistance;
+
+					// Random jitter
+					particle.vx += (Math.random() - 0.5) * 0.05;
+					particle.vy += (Math.random() - 0.5) * 0.05;
+
+					// Attraction toward random target
+					particle.vx += (particle.targetX - particle.x) * 0.008;
+					particle.vy += (particle.targetY - particle.y) * 0.008;
+					
+					// Damping
+					particle.vx *= 0.99;
+					particle.vy *= 0.99;
+					
+					particle.x += particle.vx;
+					particle.y += particle.vy;
+
+					// Circular boundary from center
+					const dx = particle.x - this.center.x;
+					const dy = particle.y - this.center.y;
+					const distance = Math.sqrt(dx * dx + dy * dy);
+					if (distance > particle.radius) {
+						const angle = Math.atan2(dy, dx);
+						particle.x = this.center.x + Math.cos(angle) * particle.radius;
+						particle.y = this.center.y + Math.sin(angle) * particle.radius;
+						particle.vx *= -0.5;
+						particle.vy *= -0.5;
+					}
+				} else {
+					// Shape mode - ease to target positions
+					const target = particle.targets[this.mode];
+					const dx = target.x - particle.x;
+					const dy = target.y - particle.y;
+					
+					// Reset velocity when switching to shape mode
+					particle.vx *= 0.9;
+					particle.vy *= 0.9;
+					
+					particle.x += dx * particle.easeSpeed;
+					particle.y += dy * particle.easeSpeed;
+				}
+
+				// Draw particle
+				this.ctx.beginPath();
+				this.ctx.arc(
+					particle.x,
+					particle.y,
+					this.mode === "chaos" ? this.chaosParticleSize : this.shapeParticleSize,
+					0,
+					Math.PI * 2
+				);
+				this.ctx.fillStyle = this.mode === "chaos" ? this.particleColor : this.shapeParticleColor;
+				this.ctx.fill();
+			}
+
+			this.animationFrameId = requestAnimationFrame(() => this.animate());
+		}
+
+		public destroy() {
+			if (this.animationFrameId) {
+				cancelAnimationFrame(this.animationFrameId);
+			}
+			window.removeEventListener('resize', () => this.resize());
+		}
+	}
+
+	// Initialize all hive containers on the page
+	document.querySelectorAll('.hive-container').forEach((container) => {
+		new HiveBackground(container as HTMLElement);
+	});
+</script>
