@@ -76,6 +76,16 @@ const forgeItems: ForgeItem[] = [
 			src: "/videos/chaos-dots.mp4",
 		},
 	},
+	{
+		href: "/prototypes/tokens-viz",
+		title: "tokens visualization",
+		description: "interactive token visualization with multiple viewing modes and search.",
+		transitionName: "tokens-viz-preview",
+		preview: {
+			type: "video",
+			src: "/videos/tokens-cover.mp4",
+		},
+	},
 ];
 ---
 
@@ -87,10 +97,8 @@ const forgeItems: ForgeItem[] = [
 		<p class="mt-2 text-sm opacity-70">tinker town</p>
 	</div>
 
-	<div class="mt-4 grid px-4 pb-16 sm:px-8 sm:pb-0">
-		<div
-			class="mb-4 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-3 sm:gap-6 md:grid-cols-4 lg:grid-cols-6"
-		>
+	<div class="mt-4 grid px-4 pb-16 sm:px-8 sm:pb-24">
+		<div class="mb-4 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-3 sm:gap-6 md:grid-cols-4">
 			{
 				forgeItems.map((item) => (
 					<div class="space-y-4">

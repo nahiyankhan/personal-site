@@ -1,0 +1,136 @@
+---
+import PrototypeLayout from "@/layouts/PrototypeLayout.astro";
+---
+
+<PrototypeLayout
+	meta={{ title: "Tokens Visualization" }}
+	title="Tokens Visualization"
+	demoHeight="70vh"
+	demoStyle="immersive"
+>
+	<div slot="demo" class="demo-wrapper">
+		<video autoplay loop muted playsinline class="demo-video">
+			<source src="/videos/tokens-cover.mp4" type="video/mp4" />
+		</video>
+	</div>
+
+	<!-- Content section -->
+	<article class="prototype-content">
+		<h2>About</h2>
+		<p>
+			An interactive visualization tool for exploring and understanding tokens. Features multiple
+			viewing modes and powerful search capabilities for navigating complex token data.
+		</p>
+
+		<h2>Features</h2>
+
+		<h3>Multiple Viewing Modes</h3>
+		<div class="video-section">
+			<video controls class="feature-video">
+				<source src="/videos/tokens-modes.mp4" type="video/mp4" />
+			</video>
+			<p>
+				Switch between different visualization modes to explore token data from various
+				perspectives. Each mode offers unique insights into the token structure and relationships.
+			</p>
+		</div>
+
+		<h3>Advanced Search</h3>
+		<div class="video-section">
+			<video controls class="feature-video">
+				<source src="/videos/tokens-search.mp4" type="video/mp4" />
+			</video>
+			<p>
+				Quickly find and filter tokens with an intuitive search interface. Navigate large datasets
+				efficiently and locate specific tokens with ease.
+			</p>
+		</div>
+
+		<h2>Technical Details</h2>
+		<p>
+			Built with modern web technologies to provide a smooth and responsive user experience.
+		</p>
+		<ul>
+			<li><strong>Interactive visualizations:</strong> Real-time rendering and updates</li>
+			<li><strong>Responsive design:</strong> Optimized for both desktop and mobile devices</li>
+			<li><strong>Performance optimized:</strong> Efficient handling of large token datasets</li>
+		</ul>
+	</article>
+</PrototypeLayout>
+
+<style>
+	.demo-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		min-height: 70vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.demo-video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.prototype-content {
+		color: hsl(var(--theme-text));
+	}
+
+	.prototype-content h2 {
+		font-size: 1.5rem;
+		font-weight: 700;
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	.prototype-content h2:first-child {
+		margin-top: 0;
+	}
+
+	.prototype-content h3 {
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin-top: 1.5rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.prototype-content p {
+		margin-bottom: 1rem;
+		line-height: 1.75;
+	}
+
+	.prototype-content ul {
+		margin-bottom: 1rem;
+		padding-left: 1.5rem;
+		list-style-type: disc;
+	}
+
+	.prototype-content li {
+		margin-bottom: 0.5rem;
+		line-height: 1.75;
+	}
+
+	.video-section {
+		margin-bottom: 2rem;
+	}
+
+	.feature-video {
+		width: 100%;
+		max-width: 800px;
+		height: auto;
+		border-radius: 0.5rem;
+		margin-bottom: 1rem;
+		border: 1px solid hsl(var(--theme-text) / 0.1);
+	}
+
+	@media (max-width: 640px) {
+		.demo-wrapper {
+			min-height: 50vh;
+		}
+	}
+</style>
+
