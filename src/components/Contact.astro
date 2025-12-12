@@ -25,12 +25,12 @@ import Footer from "./layout/Footer.astro";
 			<ul>
 				{
 					socialLinks.map(({ friendlyName, link, name }) => (
-						<li class="flex">
-							<a class="link relative flex underline" href={link} target="_blank">
-								<div class="full justify-left mt-2">
+						<li class="mt-2 flex">
+							<a class="link relative flex items-center underline" href={link} target="_blank">
+								<div class="full justify-left">
 									<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
 								</div>
-								<p class="baseline-on-grid pl-4 text-sm">{friendlyName}</p>
+								<p class="pl-4 text-sm">{friendlyName}</p>
 							</a>
 						</li>
 					))
