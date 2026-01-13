@@ -1,0 +1,189 @@
+---
+import "@fontsource-variable/inter";
+import "@fontsource-variable/jetbrains-mono";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource/rubik-mono-one";
+import { ViewTransitions } from "astro:transitions";
+import BaseHead from "@/components/BaseHead.astro";
+import ThemeProvider from "@/components/ThemeProvider.astro";
+import { siteConfig } from "@/site-config";
+import type { SiteMeta } from "@/types";
+
+interface Props {
+	meta: SiteMeta;
+}
+
+const {
+	meta: { articleDate, description = siteConfig.description, ogImage, title },
+} = Astro.props;
+---
+
+<html lang={siteConfig.lang}>
+	<head>
+		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
+		<ViewTransitions />
+	</head>
+	<body>
+		<ThemeProvider />
+
+		<header class="case-header">
+			<a href="/#forge" class="back-link">
+				<span>&larr;</span>
+				<span>back</span>
+			</a>
+			<div class="section-indicator" id="section-indicator">01</div>
+		</header>
+
+		<main class="case-container" id="case-container">
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--slate-0: 0deg 0% 100%;
+		--slate-10: 233deg 100% 96%;
+		--slate-20: 233deg 28% 81%;
+		--slate-30: 233deg 22% 41%;
+		--slate-40: 250deg 11% 26%;
+		--slate-50: 250deg 9% 17%;
+		--slate-60: 247deg 8% 12%;
+	}
+
+	:root[data-theme="light"] {
+		--theme-bg: 42deg 17% 80%;
+		--theme-bg-inverse: var(--slate-60);
+		--theme-text: var(--slate-60);
+		--border-divider: var(--slate-60);
+	}
+
+	:root[data-theme="dark"] {
+		--theme-bg: var(--slate-60);
+		--theme-bg-inverse: 42deg 17% 80%;
+		--theme-text: 42deg 17% 80%;
+		--border-divider: 42deg 17% 80%;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		height: 100dvh;
+		overflow: hidden;
+		background: hsl(var(--theme-bg));
+		color: hsl(var(--theme-text));
+		font-family: "Inter Variable", system-ui, sans-serif;
+		font-weight: 200;
+		font-size: 1rem;
+		line-height: 2rem;
+		letter-spacing: 0.025em;
+	}
+
+	.case-header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 100;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 1rem;
+		pointer-events: none;
+	}
+
+	@media (min-width: 640px) {
+		.case-header {
+			padding: 2rem 2rem;
+		}
+	}
+
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.875rem;
+		opacity: 0.5;
+		text-decoration: none;
+		color: inherit;
+		pointer-events: auto;
+		transition: opacity 0.2s ease;
+		letter-spacing: 0.05em;
+	}
+
+	.back-link:hover {
+		opacity: 1;
+	}
+
+	.section-indicator {
+		font-family: "JetBrains Mono Variable", monospace;
+		font-size: 0.75rem;
+		opacity: 0.3;
+		letter-spacing: 0.1em;
+	}
+
+	.case-container {
+		height: 100dvh;
+		overflow-y: scroll;
+		scroll-snap-type: y mandatory;
+		scrollbar-width: none;
+	}
+
+	.case-container::-webkit-scrollbar {
+		display: none;
+	}
+
+	.case-container section {
+		min-height: 100dvh;
+		scroll-snap-align: start;
+		scroll-snap-stop: always;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 5rem 1rem 3rem;
+		border-bottom: 1px solid hsl(var(--border-divider) / 0.1);
+	}
+
+	@media (min-width: 640px) {
+		.case-container section {
+			padding: 6rem 2rem 4rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.case-container section {
+			padding: 6rem 4rem 4rem;
+		}
+	}
+</style>
+
+<script>
+	function initCaseScroll() {
+		const container = document.getElementById('case-container');
+		const indicator = document.getElementById('section-indicator');
+		const sections = container?.querySelectorAll('section');
+
+		if (!container || !indicator || !sections) return;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const index = Array.from(sections).indexOf(entry.target as HTMLElement);
+						indicator.textContent = String(index + 1).padStart(2, '0');
+					}
+				});
+			},
+			{ root: container, threshold: 0.5 }
+		);
+
+		sections.forEach((section) => observer.observe(section));
+	}
+
+	initCaseScroll();
+	document.addEventListener('astro:after-swap', initCaseScroll);
+</script>
