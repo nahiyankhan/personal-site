@@ -57,13 +57,21 @@ const letterMap: Record<LetterType, string> = {
 };
 
 const { letters, startIndex = 0, wordId } = Astro.props;
+
+// Intro (no wordId) starts hidden for reveal animation
+// Other sections start visible
+const isIntro = !wordId;
 ---
 
 <div class="word-container" data-word-id={wordId}>
 	{
 		letters.map((letter, i) => (
 			<div
-				class:list={["letter-box", wordId ? `letter-box-${wordId}` : ""]}
+				class:list={[
+					"letter-box",
+					wordId ? `letter-box-${wordId}` : "",
+					{ "needs-reveal": isIntro },
+				]}
 				data-index={startIndex + i}
 			>
 				<Fragment set:html={letterMap[letter]} />
@@ -84,6 +92,11 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 		max-width: 218px;
 		max-height: 192px;
 		flex-shrink: 0;
+		opacity: 1; /* Visible by default */
+	}
+
+	/* Intro letters start hidden until revealed */
+	.letter-box.needs-reveal {
 		opacity: 0;
 	}
 
@@ -93,8 +106,8 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 		display: block;
 	}
 
-	/* Letter glitches in */
-	.letter-box.revealed {
+	/* Full reveal animation - for intro first load */
+	.letter-box.revealing {
 		animation: glitchIn 0.8s steps(6, end) forwards;
 	}
 
@@ -137,6 +150,115 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 			filter: none;
 		}
 	}
+
+	/* Glitch blink - intentionally laggy, heavy chromatic aberration */
+	.letter-box.blinking {
+		animation: glitchBlink 1.6s steps(16, end) forwards;
+	}
+
+	@keyframes glitchBlink {
+		/* Holding... */
+		0%,
+		6% {
+			opacity: 1;
+			transform: translate(0, 0);
+			filter: none;
+		}
+		/* Violent tear out */
+		7%,
+		9% {
+			opacity: 0.6;
+			transform: translate(-6px, 2px);
+			filter: drop-shadow(-8px 3px 0 #ff0032) drop-shadow(8px -3px 0 #00ffff);
+		}
+		10%,
+		15% {
+			opacity: 0;
+			transform: translate(4px, -2px);
+			filter: none;
+		}
+		/* Long stuck frame - nothing */
+		16%,
+		28% {
+			opacity: 0;
+			transform: translate(0, 0);
+			filter: none;
+		}
+		/* Trying to load... fails */
+		29%,
+		32% {
+			opacity: 0.2;
+			transform: translate(-8px, 4px);
+			filter: drop-shadow(-10px 4px 0 #ff0032) drop-shadow(10px -4px 0 #00ffff);
+		}
+		33%,
+		38% {
+			opacity: 0;
+			transform: translate(3px, -1px);
+			filter: none;
+		}
+		/* Another stuck frame */
+		39%,
+		48% {
+			opacity: 0;
+			transform: translate(0, 0);
+			filter: none;
+		}
+		/* Partial recovery - heavy aberration */
+		49%,
+		54% {
+			opacity: 0.4;
+			transform: translate(-5px, -3px);
+			filter: drop-shadow(-12px 5px 0 #ff0032) drop-shadow(12px -5px 0 #00ffff);
+		}
+		55%,
+		58% {
+			opacity: 0.7;
+			transform: translate(4px, 2px);
+			filter: drop-shadow(8px -3px 0 #ff0032) drop-shadow(-8px 3px 0 #00ffff);
+		}
+		/* Drops again */
+		59%,
+		65% {
+			opacity: 0;
+			transform: translate(-2px, 1px);
+			filter: none;
+		}
+		/* Fighting back */
+		66%,
+		72% {
+			opacity: 0.5;
+			transform: translate(-4px, -2px);
+			filter: drop-shadow(-9px 4px 0 #ff0032) drop-shadow(9px -4px 0 #00ffff);
+		}
+		73%,
+		76% {
+			opacity: 0.8;
+			transform: translate(3px, 1px);
+			filter: drop-shadow(6px -2px 0 #ff0032) drop-shadow(-6px 2px 0 #00ffff);
+		}
+		/* Almost there - still aberrated */
+		77%,
+		85% {
+			opacity: 1;
+			transform: translate(-2px, 0);
+			filter: drop-shadow(-4px 2px 0 #ff0032) drop-shadow(4px -2px 0 #00ffff);
+		}
+		/* Settle with lingering aberration */
+		86%,
+		92% {
+			opacity: 1;
+			transform: translate(0, 0);
+			filter: drop-shadow(-2px 1px 0 rgba(255, 0, 50, 0.5)) drop-shadow(2px -1px 0 rgba(0, 255, 255, 0.5));
+		}
+		/* Finally clean */
+		93%,
+		100% {
+			opacity: 1;
+			transform: translate(0, 0);
+			filter: none;
+		}
+	}
 </style>
 
 <script>
@@ -149,36 +271,47 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 		return shuffled;
 	}
 
-	function resetWord(wordId?: string) {
-		const selector = wordId ? `.letter-box-${wordId}` : ".letter-box:not([class*='letter-box-'])";
-		const boxes = document.querySelectorAll(selector);
-		boxes.forEach((box) => {
-			box.classList.remove("revealed");
-		});
-	}
-
-	function animateWord(wordId?: string) {
+	// Full reveal animation - letters pop in one by one
+	function revealWord(wordId?: string) {
 		const selector = wordId ? `.letter-box-${wordId}` : ".letter-box:not([class*='letter-box-'])";
 		const boxes = Array.from(document.querySelectorAll(selector));
 		if (!boxes.length) return;
 
-		// Reset all letters first so animation can replay
-		boxes.forEach((box) => {
-			box.classList.remove("revealed");
-		});
-
 		const shuffled = shuffleArray(boxes);
 
-		// Letters glitch in one by one
 		shuffled.forEach((box, i) => {
 			const delay = 300 + i * 150 + Math.random() * 100;
 
 			setTimeout(() => {
-				box.classList.add("revealed");
+				box.classList.remove("needs-reveal");
+				box.classList.add("revealing");
+				// Clean up after animation
+				setTimeout(() => box.classList.remove("revealing"), 800);
 			}, delay);
 		});
 
-		console.log(`✨ Animating ${shuffled.length} letters for word: ${wordId || "intro"}`);
+		console.log(`✨ Revealing ${shuffled.length} letters for word: ${wordId || "intro"}`);
+	}
+
+	// Glitch blink - random letters do a quick glitch
+	function blinkWord(wordId?: string) {
+		const selector = wordId ? `.letter-box-${wordId}` : ".letter-box:not([class*='letter-box-'])";
+		const boxes = Array.from(document.querySelectorAll(selector));
+		if (!boxes.length) return;
+
+		// Pick 2-4 random letters to blink
+		const numToBlink = Math.floor(Math.random() * 3) + 2;
+		const shuffled = shuffleArray(boxes).slice(0, numToBlink);
+
+		shuffled.forEach((box) => {
+			// Random delay for each blink
+			const delay = Math.random() * 500;
+
+			setTimeout(() => {
+				box.classList.add("blinking");
+				setTimeout(() => box.classList.remove("blinking"), 1600);
+			}, delay);
+		});
 	}
 
 	// Section index to wordId mapping
@@ -188,36 +321,45 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 		3: "contact",
 	};
 
-	// Track which section was last active (to avoid re-animating on same section)
+	// Track state
+	let introRevealed = false;
 	let lastAnimatedSection: number | null = null;
 
-	// Listen for section-enter events - animate on every scroll
+	// Listen for section-enter events
 	document.addEventListener("section-enter", (e: any) => {
-		const { index } = e.detail;
+		const { index, isFirstVisit } = e.detail;
 
 		// Don't re-animate if we're still on the same section
 		if (index === lastAnimatedSection) return;
 		lastAnimatedSection = index;
 
-		// Section 0 (intro) - animate default letters
+		// Section 0 (intro)
 		if (index === 0) {
-			animateWord();
+			if (!introRevealed && isFirstVisit) {
+				// First time seeing intro - full reveal
+				revealWord();
+				introRevealed = true;
+			} else {
+				// Revisit - just blink
+				blinkWord();
+			}
+			return;
 		}
 
-		// Other sections - animate their specific word
+		// Other sections - always just blink (they're already visible)
 		const wordId = sectionWordMap[index];
 		if (wordId) {
-			animateWord(wordId);
+			blinkWord(wordId);
 		}
 	});
 
-	// Run intro animation on load (fallback for section 0)
+	// Run intro animation on load
 	function initIntro() {
-		if (lastAnimatedSection === null) {
-			// Small delay to let section-enter event fire first
+		if (!introRevealed) {
 			setTimeout(() => {
-				if (lastAnimatedSection === null) {
-					animateWord();
+				if (!introRevealed) {
+					revealWord();
+					introRevealed = true;
 					lastAnimatedSection = 0;
 				}
 			}, 200);
@@ -232,10 +374,45 @@ const { letters, startIndex = 0, wordId } = Astro.props;
 
 	// Reset on Astro page transitions
 	document.addEventListener("astro:after-swap", () => {
+		introRevealed = false;
 		lastAnimatedSection = null;
-		// Reset all letter boxes
-		document.querySelectorAll(".letter-box").forEach((box) => {
-			box.classList.remove("revealed");
+		// Reset intro letters to hidden state
+		document.querySelectorAll(".letter-box:not([class*='letter-box-'])").forEach((box) => {
+			box.classList.add("needs-reveal");
+			box.classList.remove("revealing", "blinking");
 		});
 	});
+
+	// Ambient random blinks at random intervals
+	function scheduleRandomBlink() {
+		// Random interval between 0.8-2.5 seconds
+		const delay = 800 + Math.random() * 1700;
+
+		setTimeout(() => {
+			// Only blink if intro has been revealed
+			if (introRevealed) {
+				// Get all visible letter boxes (not currently animating)
+				const allBoxes = Array.from(
+					document.querySelectorAll(".letter-box:not(.needs-reveal):not(.revealing):not(.blinking)")
+				);
+
+				if (allBoxes.length > 0) {
+					// Pick 1-2 random letters to blink
+					const numToBlink = Math.floor(Math.random() * 2) + 1;
+					const shuffled = shuffleArray(allBoxes).slice(0, numToBlink);
+
+					shuffled.forEach((box) => {
+						box.classList.add("blinking");
+						setTimeout(() => box.classList.remove("blinking"), 1600);
+					});
+				}
+			}
+
+			// Schedule next blink
+			scheduleRandomBlink();
+		}, delay);
+	}
+
+	// Start ambient blinks after intro reveal
+	setTimeout(scheduleRandomBlink, 3000);
 </script>
