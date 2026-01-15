@@ -177,12 +177,15 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		bottom: 1rem;
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		gap: 0;
 		z-index: 100;
+		/* Match theme toggle width */
+		width: 26px;
 		/* Inverse background - light on dark, dark on light */
 		background: hsl(var(--theme-bg-inverse) / 0.95);
 		backdrop-filter: blur(8px);
-		padding: 6px 4px;
+		padding: 8px 0;
 		border: 1px solid hsl(var(--border-divider) / 0.4);
 		border-radius: 8px;
 		/* Subtle inset shadow for depth */
@@ -196,15 +199,16 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		.section-indicators {
 			right: 1rem;
 			bottom: 1rem;
-			padding: 8px 6px;
+			width: 38px;
+			padding: 10px 0;
 		}
 	}
 
 	.indicator {
-		/* LED segment shape - horizontal bar for vertical layout */
-		width: 16px;
-		height: 6px;
-		border-radius: 3px;
+		/* LED circle indicator */
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
 		background: hsl(var(--border-divider) / 0.15);
 		cursor: pointer;
 		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -219,9 +223,9 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 
 	@media (min-width: 640px) {
 		.indicator {
-			width: 24px;
-			height: 8px;
-			border-radius: 4px;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
 			margin: 5px 0;
 		}
 	}
@@ -231,7 +235,7 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		content: "";
 		position: absolute;
 		inset: 1px;
-		border-radius: 2px;
+		border-radius: 50%;
 		background: transparent;
 		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 	}
@@ -248,28 +252,28 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 			rgba(0, 0, 0, 0.15) 1px,
 			rgba(0, 0, 0, 0.15) 2px
 		);
-		border-radius: 3px;
+		border-radius: 50%;
 		pointer-events: none;
 		opacity: 0.5;
 	}
 
 	@media (min-width: 640px) {
 		.indicator::before {
-			border-radius: 3px;
+			border-radius: 50%;
 		}
 		.indicator::after {
-			border-radius: 4px;
+			border-radius: 50%;
 		}
 	}
 
 	.indicator:hover {
 		background: hsl(var(--border-divider) / 0.35);
-		/* Chromatic aberration on hover - horizontal offset */
+		/* Chromatic aberration on hover */
 		box-shadow:
 			-1px 0 0 rgba(255, 50, 80, 0.4),
 			1px 0 0 rgba(0, 255, 255, 0.4),
 			0 0 8px hsl(var(--border-divider) / 0.2);
-		transform: scaleX(1.1);
+		transform: scale(1.2);
 	}
 
 	.indicator:hover::before {
