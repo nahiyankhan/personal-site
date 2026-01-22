@@ -90,57 +90,89 @@ const forgeItems: ForgeItem[] = [
 ---
 
 <div>
-	<div class="relative flex flex-col items-start px-4 py-4 sm:px-8 sm:py-8">
+	<div class="relative flex flex-col items-start px-4 py-4 sm:px-8 sm:pb-16 sm:pt-8">
 		<div id="forge-logo" class="relative" data-logo-scale>
 			<Word letters={["f", "o", "r", "g", "e"]} wordId="forge" />
 		</div>
-		<p class="mt-2 text-sm opacity-70">tinker town</p>
+		<!-- <p class="mt-2 text-sm opacity-70">tinker town</p> -->
 	</div>
 
 	<div class="mt-4 grid px-4 pb-16 sm:px-8 sm:pb-32">
-		<div class="mb-4 grid grid-cols-1 gap-4 sm:mb-8 sm:grid-cols-3 sm:gap-6 md:grid-cols-4">
-			{
-				forgeItems.map((item) => (
-					<div class="space-y-4">
-						<a
-							href={item.href}
-							class="forge-preview-link border-current/10 hover:border-current/30 block overflow-hidden rounded-lg border transition-all"
-							transition:name={item.transitionName}
-						>
-							{item.preview.type === "image" ? (
-								<Image
-									src={(item.preview as ImagePreview).src}
-									alt={(item.preview as ImagePreview).alt}
-									class="h-auto w-full"
-								/>
-							) : (
-								<video autoplay loop muted playsinline class="h-auto w-full">
-									{(item.preview as VideoPreview).webm && (
-										<source src={(item.preview as VideoPreview).webm} type="video/webm" />
-									)}
-									<source src={(item.preview as VideoPreview).src} type="video/mp4" />
-								</video>
-							)}
-						</a>
-						<div class="flex flex-col">
+		<!-- Experiments Section -->
+		<div class="mb-8 sm:mb-12">
+			<h3 class="mb-6 text-2xl font-semibold uppercase tracking-wider">tinkers</h3>
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6 md:grid-cols-4">
+				{
+					forgeItems.map((item) => (
+						<div class="space-y-2">
 							<a
 								href={item.href}
-								class="baseline-on-grid !mb-0 inline-block text-sm underline decoration-dotted underline-offset-4 hover:decoration-solid"
+								class="forge-preview-link border-current/10 hover:border-current/30 block overflow-hidden rounded-lg border transition-all"
+								transition:name={item.transitionName}
 							>
-								{item.title}
+								{item.preview.type === "image" ? (
+									<Image
+										src={(item.preview as ImagePreview).src}
+										alt={(item.preview as ImagePreview).alt}
+										class="h-auto w-full"
+									/>
+								) : (
+									<video autoplay loop muted playsinline class="h-auto w-full">
+										{(item.preview as VideoPreview).webm && (
+											<source src={(item.preview as VideoPreview).webm} type="video/webm" />
+										)}
+										<source src={(item.preview as VideoPreview).src} type="video/mp4" />
+									</video>
+								)}
 							</a>
-							<p class="baseline-on-grid text-sm">{item.description}</p>
+							<div class="flex flex-col">
+								<a
+									href={item.href}
+									class="baseline-on-grid !mb-0 inline-block text-sm underline decoration-dotted underline-offset-4 hover:decoration-solid"
+								>
+									{item.title}
+								</a>
+								<p class="baseline-on-grid text-sm">{item.description}</p>
+							</div>
 						</div>
-					</div>
-				))
-			}
+					))
+				}
+			</div>
 		</div>
+
+		<!-- Cases Section -->
+		<!-- <div>
+			<h3 class="mb-6 text-2xl font-semibold uppercase tracking-wider">Cases</h3>
+			<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6 md:grid-cols-4">
+				<div class="space-y-2">
+					<a
+						href="/cases/template"
+						class="border-current/10 hover:border-current/30 aspect-[16/10] block overflow-hidden rounded-lg border transition-all"
+					>
+						<div
+							class="bg-current/5 flex h-full w-full items-center justify-center text-xs opacity-30"
+						>
+							preview
+						</div>
+					</a>
+					<div class="flex flex-col">
+						<a
+							href="/cases/template"
+							class="baseline-on-grid !mb-0 inline-block text-sm underline decoration-dotted underline-offset-4 hover:decoration-solid"
+						>
+							case study template
+						</a>
+						<p class="baseline-on-grid text-sm">scroll-snap case study structure</p>
+					</div>
+				</div>
+			</div>
+		</div> -->
 	</div>
 </div>
 
 <script>
 	import { initLetterSizing } from "@/utils/letterSizing";
 
-	// FORGE = 5 letters
-	initLetterSizing({ elementId: "forge-logo", letterCount: 5 });
+	// Use 7 letters to match NAHIYANKHAN sizing
+	initLetterSizing({ elementId: "forge-logo", letterCount: 7 });
 </script>

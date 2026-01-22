@@ -41,6 +41,8 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		<ThemeToggle />
 		<main x-data id="main" class="h-full origin-center tracking-wider">
 			<div id="depth-container" class="depth-container rounded-2xl bg-bgColor">
+				<!-- CRT screen overlay effects -->
+				<div class="crt-overlay"></div>
 				<!-- Section indicators -->
 				<div id="section-indicators" class="section-indicators">
 					{
@@ -76,6 +78,59 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		overflow: hidden;
 		perspective: 1200px;
 		perspective-origin: 50% 50%;
+	}
+
+	/* CRT overlay - vignette + scanlines + screen curve illusion */
+	.crt-overlay {
+		position: absolute;
+		inset: -2px;
+		pointer-events: none;
+		z-index: 50;
+		border-radius: inherit;
+		/* Vignette - darker edges */
+		background: radial-gradient(
+			ellipse 70% 60% at 50% 50%,
+			transparent 0%,
+			transparent 50%,
+			rgba(0, 0, 0, 0.08) 70%,
+			rgba(0, 0, 0, 0.25) 90%,
+			rgba(0, 0, 0, 0.5) 100%
+		);
+		/* Screen curvature shadow */
+		box-shadow:
+			inset 0 0 80px rgba(0, 0, 0, 0.4),
+			inset 0 0 20px rgba(0, 0, 0, 0.2);
+	}
+
+	/* Subtle scanlines */
+	.crt-overlay::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: repeating-linear-gradient(
+			0deg,
+			transparent 0px,
+			transparent 2px,
+			rgba(0, 0, 0, 0.03) 2px,
+			rgba(0, 0, 0, 0.03) 4px
+		);
+		border-radius: inherit;
+		opacity: 0.5;
+	}
+
+	/* Screen reflection/glare */
+	.crt-overlay::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			165deg,
+			rgba(255, 255, 255, 0.03) 0%,
+			transparent 30%,
+			transparent 70%,
+			rgba(255, 255, 255, 0.02) 100%
+		);
+		border-radius: inherit;
 	}
 
 	.sections-wrapper {
@@ -145,19 +200,22 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		border-radius: 4px;
 	}
 
-	/* Section indicators - Vintage VU Meter Style */
+	/* Section indicators - Circle LED Style */
 	.section-indicators {
 		position: absolute;
 		right: 1rem;
 		bottom: 1rem;
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		gap: 0;
 		z-index: 100;
+		/* Match theme toggle width */
+		width: 26px;
 		/* Inverse background - light on dark, dark on light */
 		background: hsl(var(--theme-bg-inverse) / 0.95);
 		backdrop-filter: blur(8px);
-		padding: 6px 4px;
+		padding: 8px 0;
 		border: 1px solid hsl(var(--border-divider) / 0.4);
 		border-radius: 8px;
 		/* Subtle inset shadow for depth */
@@ -171,15 +229,16 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		.section-indicators {
 			right: 1rem;
 			bottom: 1rem;
-			padding: 8px 6px;
+			width: 38px;
+			padding: 10px 0;
 		}
 	}
 
 	.indicator {
-		/* LED segment shape - horizontal bar for vertical layout */
-		width: 16px;
-		height: 6px;
-		border-radius: 3px;
+		/* LED circle indicator */
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
 		background: hsl(var(--border-divider) / 0.15);
 		cursor: pointer;
 		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -194,9 +253,9 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 
 	@media (min-width: 640px) {
 		.indicator {
-			width: 24px;
-			height: 8px;
-			border-radius: 4px;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
 			margin: 5px 0;
 		}
 	}
@@ -206,7 +265,7 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		content: "";
 		position: absolute;
 		inset: 1px;
-		border-radius: 2px;
+		border-radius: 50%;
 		background: transparent;
 		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 	}
@@ -223,28 +282,28 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 			rgba(0, 0, 0, 0.15) 1px,
 			rgba(0, 0, 0, 0.15) 2px
 		);
-		border-radius: 3px;
+		border-radius: 50%;
 		pointer-events: none;
 		opacity: 0.5;
 	}
 
 	@media (min-width: 640px) {
 		.indicator::before {
-			border-radius: 3px;
+			border-radius: 50%;
 		}
 		.indicator::after {
-			border-radius: 4px;
+			border-radius: 50%;
 		}
 	}
 
 	.indicator:hover {
 		background: hsl(var(--border-divider) / 0.35);
-		/* Chromatic aberration on hover - horizontal offset */
+		/* Chromatic aberration on hover */
 		box-shadow:
 			-1px 0 0 rgba(255, 50, 80, 0.4),
 			1px 0 0 rgba(0, 255, 255, 0.4),
 			0 0 8px hsl(var(--border-divider) / 0.2);
-		transform: scaleX(1.1);
+		transform: scale(1.2);
 	}
 
 	.indicator:hover::before {
@@ -264,7 +323,7 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 			rgba(0, 255, 255, 0.7) 100%
 		);
 		border-color: rgba(255, 255, 255, 0.2);
-		/* Strong chromatic aberration glow - horizontal */
+		/* Strong chromatic aberration glow */
 		box-shadow:
 			-2px 0 0 rgba(255, 50, 80, 0.8),
 			2px 0 0 rgba(0, 255, 255, 0.8),

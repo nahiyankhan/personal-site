@@ -1,0 +1,269 @@
+---
+import CaseLayout from "@/layouts/CaseLayout.astro";
+---
+
+<CaseLayout meta={{ title: "Case Study Template" }}>
+	<!-- Section 1: Hero -->
+	<section>
+		<span class="label">Case Study</span>
+		<h1>Project Title</h1>
+		<p class="subtitle">A short, punchy description of what this is.</p>
+	</section>
+
+	<!-- Section 2: The Work -->
+	<section>
+		<div class="media-frame">
+			<div class="media-placeholder">video / demo</div>
+		</div>
+	</section>
+
+	<!-- Section 3: Context -->
+	<section>
+		<span class="label">Context</span>
+		<p class="body-text">
+			One or two sentences that frame what we were solving.
+			Not a wall of text. Just enough to understand the stakes.
+		</p>
+		<div class="meta-row">
+			<div class="meta-item">
+				<span class="meta-label">Role</span>
+				<span class="meta-value">Design Engineer Lead</span>
+			</div>
+			<div class="meta-item">
+				<span class="meta-label">Timeline</span>
+				<span class="meta-value">Q3 2024</span>
+			</div>
+			<div class="meta-item">
+				<span class="meta-label">Team</span>
+				<span class="meta-value">3 engineers, 1 PM</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section 4: Decision -->
+	<section class="split">
+		<div class="split-text">
+			<span class="label">Decision</span>
+			<h2>The technical bet</h2>
+			<p class="body-text">
+				Describe a key call you made. What was the tradeoff?
+				Why did you choose this path?
+			</p>
+		</div>
+		<div class="split-media">
+			<div class="media-placeholder">supporting visual</div>
+		</div>
+	</section>
+
+	<!-- Section 5: Iteration -->
+	<section class="split reverse">
+		<div class="split-text">
+			<span class="label">Iteration</span>
+			<h2>What changed</h2>
+			<p class="body-text">
+				Another beat. Could be an iteration, a pivot,
+				or a moment of insight.
+			</p>
+		</div>
+		<div class="split-media">
+			<div class="media-placeholder">before / after</div>
+		</div>
+	</section>
+
+	<!-- Section 6: Outcome -->
+	<section class="centered">
+		<span class="label">Outcome</span>
+		<div class="stats">
+			<div class="stat">
+				<span class="stat-value">40%</span>
+				<span class="stat-label">faster</span>
+			</div>
+			<div class="stat">
+				<span class="stat-value">2x</span>
+				<span class="stat-label">engagement</span>
+			</div>
+			<div class="stat">
+				<span class="stat-value">shipped</span>
+				<span class="stat-label">production</span>
+			</div>
+		</div>
+		<p class="body-text">A final thought. What did this mean?</p>
+	</section>
+
+	<!-- Section 7: End -->
+	<section class="centered end">
+		<a href="/#forge" class="end-link">view more work &rarr;</a>
+	</section>
+</CaseLayout>
+
+<style>
+	/* Labels */
+	.label {
+		display: block;
+		font-family: "JetBrains Mono Variable", monospace;
+		font-size: 0.6875rem;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		opacity: 0.4;
+		margin-bottom: 1.5rem;
+	}
+
+	/* Typography */
+	h1 {
+		font-size: clamp(2rem, 8vw, 4rem);
+		font-weight: 200;
+		line-height: 1.1;
+		letter-spacing: -0.02em;
+		margin-bottom: 1rem;
+	}
+
+	h2 {
+		font-size: clamp(1.25rem, 4vw, 2rem);
+		font-weight: 200;
+		line-height: 1.2;
+		letter-spacing: -0.01em;
+		margin-bottom: 1rem;
+	}
+
+	.subtitle {
+		font-size: 1rem;
+		opacity: 0.6;
+		max-width: 36ch;
+	}
+
+	.body-text {
+		font-size: 1rem;
+		line-height: 2rem;
+		max-width: 48ch;
+		opacity: 0.8;
+	}
+
+	/* Media */
+	.media-frame {
+		width: 100%;
+		max-width: 900px;
+	}
+
+	.media-placeholder {
+		aspect-ratio: 16 / 10;
+		border: 1px solid hsl(var(--border-divider) / 0.15);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: "JetBrains Mono Variable", monospace;
+		font-size: 0.75rem;
+		letter-spacing: 0.05em;
+		opacity: 0.3;
+	}
+
+	/* Meta */
+	.meta-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem 3rem;
+		margin-top: 3rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid hsl(var(--border-divider) / 0.1);
+	}
+
+	.meta-item {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.meta-label {
+		font-family: "JetBrains Mono Variable", monospace;
+		font-size: 0.625rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		opacity: 0.4;
+	}
+
+	.meta-value {
+		font-size: 0.875rem;
+	}
+
+	/* Split layout */
+	.split {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+		align-items: center;
+	}
+
+	@media (min-width: 768px) {
+		.split {
+			grid-template-columns: 1fr 1fr;
+			gap: 4rem;
+		}
+
+		.split.reverse .split-text {
+			order: 2;
+		}
+
+		.split.reverse .split-media {
+			order: 1;
+		}
+	}
+
+	.split-media {
+		width: 100%;
+	}
+
+	/* Centered */
+	.centered {
+		align-items: center;
+		text-align: center;
+	}
+
+	.centered .body-text {
+		text-align: center;
+	}
+
+	/* Stats */
+	.stats {
+		display: flex;
+		gap: 3rem;
+		margin: 2rem 0;
+	}
+
+	.stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.stat-value {
+		font-size: clamp(1.5rem, 5vw, 2.5rem);
+		font-weight: 200;
+		letter-spacing: -0.02em;
+	}
+
+	.stat-label {
+		font-family: "JetBrains Mono Variable", monospace;
+		font-size: 0.625rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		opacity: 0.4;
+	}
+
+	/* End */
+	.end {
+		min-height: 50dvh !important;
+	}
+
+	.end-link {
+		font-size: 0.875rem;
+		color: inherit;
+		opacity: 0.5;
+		text-decoration: none;
+		letter-spacing: 0.05em;
+		transition: opacity 0.2s ease;
+	}
+
+	.end-link:hover {
+		opacity: 1;
+	}
+</style>
