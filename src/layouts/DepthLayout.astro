@@ -8,7 +8,7 @@ import AnimatedLines from "@/components/AnimatedLines.astro";
 import BaseHead from "@/components/BaseHead.astro";
 import SkipLink from "@/components/SkipLink.astro";
 import ThemeProvider from "@/components/ThemeProvider.astro";
-import ThemeToggle from "@/components/ThemeToggle.astro";
+import TerminalStatusBar from "@/components/TerminalStatusBar.astro";
 import { siteConfig } from "@/site-config";
 import type { SiteMeta } from "@/types";
 
@@ -21,9 +21,6 @@ const {
 	meta: { articleDate, description = siteConfig.description, ogImage, title },
 	sectionCount = 4,
 } = Astro.props;
-
-// Generate section indicator buttons
-const sections = Array.from({ length: sectionCount }, (_, i) => i);
 ---
 
 <html class="scroll-smooth" lang={siteConfig.lang}>
@@ -38,28 +35,18 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		<ThemeProvider />
 		<AnimatedLines />
 		<SkipLink />
-		<ThemeToggle />
 		<main x-data id="main" class="h-full origin-center tracking-wider">
 			<div id="depth-container" class="depth-container rounded-2xl bg-bgColor">
 				<!-- CRT screen overlay effects -->
 				<div class="crt-overlay"></div>
-				<!-- Section indicators -->
-				<div id="section-indicators" class="section-indicators">
-					{
-						sections.map((i) => (
-							<button
-								data-section={i}
-								class:list={["indicator", { active: i === 0 }]}
-								aria-label={`Go to section ${i + 1}`}
-							/>
-						))
-					}
-				</div>
 
 				<!-- Sections wrapper with perspective -->
 				<div id="sections-wrapper" class="sections-wrapper">
 					<slot />
 				</div>
+
+				<!-- Terminal Status Bar -->
+				<TerminalStatusBar sectionCount={sectionCount} />
 			</div>
 		</main>
 	</body>
@@ -253,231 +240,6 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		border-radius: 4px;
 	}
 
-	/* Section indicators - Circle LED Style */
-	.section-indicators {
-		position: absolute;
-		right: 1rem;
-		bottom: 1rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0;
-		z-index: 100;
-		/* Match theme toggle width */
-		width: 26px;
-		/* Inverse background - light on dark, dark on light */
-		background: hsl(var(--theme-bg-inverse) / 0.95);
-		backdrop-filter: blur(8px);
-		padding: 8px 0;
-		border: 1px solid hsl(var(--border-divider) / 0.4);
-		border-radius: 8px;
-		/* Subtle inset shadow for depth */
-		box-shadow:
-			inset 1px 1px 3px rgba(0, 0, 0, 0.15),
-			inset -1px -1px 2px rgba(255, 255, 255, 0.03),
-			0 1px 3px rgba(0, 0, 0, 0.15);
-	}
-
-	@media (min-width: 640px) {
-		.section-indicators {
-			right: 1rem;
-			bottom: 1rem;
-			width: 38px;
-			padding: 10px 0;
-		}
-	}
-
-	.indicator {
-		/* LED circle indicator */
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: hsl(var(--border-divider) / 0.15);
-		cursor: pointer;
-		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-		position: relative;
-		margin: 4px 0;
-		/* Subtle border for definition */
-		border: 1px solid hsl(var(--border-divider) / 0.1);
-		/* Base chromatic shadow - very subtle */
-		box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-		filter: invert(1);
-	}
-
-	@media (min-width: 640px) {
-		.indicator {
-			width: 10px;
-			height: 10px;
-			border-radius: 50%;
-			margin: 5px 0;
-		}
-	}
-
-	/* Inner glow element for LED effect */
-	.indicator::before {
-		content: "";
-		position: absolute;
-		inset: 1px;
-		border-radius: 50%;
-		background: transparent;
-		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	/* Scanline overlay */
-	.indicator::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background: repeating-linear-gradient(
-			0deg,
-			transparent 0px,
-			transparent 1px,
-			rgba(0, 0, 0, 0.15) 1px,
-			rgba(0, 0, 0, 0.15) 2px
-		);
-		border-radius: 50%;
-		pointer-events: none;
-		opacity: 0.5;
-	}
-
-	@media (min-width: 640px) {
-		.indicator::before {
-			border-radius: 50%;
-		}
-		.indicator::after {
-			border-radius: 50%;
-		}
-	}
-
-	.indicator:hover {
-		background: hsl(var(--border-divider) / 0.35);
-		/* Chromatic aberration on hover */
-		box-shadow:
-			-1px 0 0 rgba(255, 50, 80, 0.4),
-			1px 0 0 rgba(0, 255, 255, 0.4),
-			0 0 8px hsl(var(--border-divider) / 0.2);
-		transform: scale(1.2);
-	}
-
-	.indicator:hover::before {
-		background: linear-gradient(
-			90deg,
-			rgba(255, 50, 80, 0.1) 0%,
-			hsl(var(--border-divider) / 0.2) 50%,
-			rgba(0, 255, 255, 0.1) 100%
-		);
-	}
-
-	.indicator.active {
-		background: linear-gradient(
-			90deg,
-			rgba(255, 50, 80, 0.7) 0%,
-			rgba(255, 100, 150, 0.9) 30%,
-			rgba(0, 255, 255, 0.7) 100%
-		);
-		border-color: rgba(255, 255, 255, 0.2);
-		/* Strong chromatic aberration glow */
-		box-shadow:
-			-2px 0 0 rgba(255, 50, 80, 0.8),
-			2px 0 0 rgba(0, 255, 255, 0.8),
-			-4px 0 6px rgba(255, 50, 80, 0.4),
-			4px 0 6px rgba(0, 255, 255, 0.4),
-			0 0 12px rgba(255, 100, 200, 0.5),
-			0 0 20px rgba(255, 100, 200, 0.2);
-		animation: led-pulse 2s ease-in-out infinite;
-		filter: invert(0);
-	}
-
-	.indicator.active::before {
-		background: linear-gradient(
-			90deg,
-			rgba(255, 200, 220, 0.4) 0%,
-			rgba(255, 255, 255, 0.6) 50%,
-			rgba(200, 255, 255, 0.4) 100%
-		);
-	}
-
-	/* Passed sections stay off - same as inactive */
-	.indicator.passed {
-		background: hsl(var(--border-divider) / 0.15);
-		box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-	}
-
-	.indicator.passed::before {
-		background: transparent;
-	}
-
-	/* LED pulse animation */
-	@keyframes led-pulse {
-		0%,
-		100% {
-			box-shadow:
-				-2px 0 0 rgba(255, 50, 80, 0.8),
-				2px 0 0 rgba(0, 255, 255, 0.8),
-				-4px 0 6px rgba(255, 50, 80, 0.4),
-				4px 0 6px rgba(0, 255, 255, 0.4),
-				0 0 12px rgba(255, 100, 200, 0.5),
-				0 0 20px rgba(255, 100, 200, 0.2);
-		}
-		50% {
-			box-shadow:
-				-2px 0 0 rgba(255, 50, 80, 0.9),
-				2px 0 0 rgba(0, 255, 255, 0.9),
-				-5px 0 8px rgba(255, 50, 80, 0.5),
-				5px 0 8px rgba(0, 255, 255, 0.5),
-				0 0 16px rgba(255, 100, 200, 0.6),
-				0 0 28px rgba(255, 100, 200, 0.3);
-		}
-	}
-
-	/* Light bulb flicker animation on switch */
-	.indicator.flickering {
-		animation: led-flicker 0.4s ease-out forwards;
-	}
-
-	@keyframes led-flicker {
-		0% {
-			opacity: 0.3;
-			filter: brightness(0.5);
-		}
-		10% {
-			opacity: 1;
-			filter: brightness(1.5);
-		}
-		20% {
-			opacity: 0.4;
-			filter: brightness(0.6);
-		}
-		30% {
-			opacity: 1;
-			filter: brightness(1.3);
-		}
-		40% {
-			opacity: 0.6;
-			filter: brightness(0.8);
-		}
-		50% {
-			opacity: 1;
-			filter: brightness(1.4);
-		}
-		60% {
-			opacity: 0.8;
-			filter: brightness(0.9);
-		}
-		70% {
-			opacity: 1;
-			filter: brightness(1.2);
-		}
-		85% {
-			opacity: 0.95;
-			filter: brightness(1.05);
-		}
-		100% {
-			opacity: 1;
-			filter: brightness(1);
-		}
-	}
-
 	/* Chromatic aberration - subtle blur during depth transitions */
 	.depth-section.chromatic-out {
 		animation: section-blur-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -633,7 +395,6 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 	class DepthNavigator {
 		private container!: HTMLElement;
 		private sections!: HTMLElement[];
-		private indicators!: HTMLElement[];
 		private currentIndex = 0;
 		private isTransitioning = false;
 		private scrollAccumulator = 0;
@@ -642,6 +403,7 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		private scrollDecayRate = 50;
 		private visitedSections = new Set<number>();
 		private scrollDecayInterval: number | null = null;
+		private boundStatusBarNav: (e: Event) => void;
 
 		// Bound event handlers for cleanup
 		private boundHandleWheel: (e: WheelEvent) => void;
@@ -656,13 +418,13 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 			this.boundHandleKeydown = this.handleKeydown.bind(this);
 			this.boundHandleTouchStart = this.handleTouchStart.bind(this);
 			this.boundHandleTouchMove = this.handleTouchMove.bind(this);
+			this.boundStatusBarNav = this.handleStatusBarNav.bind(this);
 
 			const container = document.getElementById("depth-container");
 			if (!container) return;
 
 			this.container = container;
 			this.sections = Array.from(document.querySelectorAll(".depth-section"));
-			this.indicators = Array.from(document.querySelectorAll(".indicator"));
 
 			if (this.sections.length === 0) return;
 
@@ -703,6 +465,14 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 			}
 		}
 
+		// Handle navigation from status bar indicator clicks
+		private handleStatusBarNav(e: Event) {
+			const section = (e as CustomEvent).detail?.section;
+			if (typeof section === "number") {
+				this.goToSection(section);
+			}
+		}
+
 		public destroy() {
 			if (this.container) {
 				this.container.removeEventListener("wheel", this.boundHandleWheel);
@@ -710,6 +480,7 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 				this.container.removeEventListener("touchmove", this.boundHandleTouchMove);
 			}
 			document.removeEventListener("keydown", this.boundHandleKeydown);
+			document.removeEventListener("status-bar-nav", this.boundStatusBarNav);
 			if (this.scrollDecayInterval) {
 				clearInterval(this.scrollDecayInterval);
 			}
@@ -718,23 +489,13 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		private init() {
 			const initialIndex = this.getInitialSectionIndex();
 
-			// Set initial states
+			// Set initial states (content hidden during boot)
 			this.sections.forEach((section, i) => {
 				section.classList.remove("active", "behind");
 				if (i === initialIndex) {
 					section.classList.add("active");
 				} else if (i < initialIndex) {
 					section.classList.add("behind");
-				}
-			});
-
-			// Update indicators for initial state with VU meter effect
-			this.indicators.forEach((indicator, i) => {
-				indicator.classList.remove("active", "passed");
-				if (i === initialIndex) {
-					indicator.classList.add("active");
-				} else if (i < initialIndex) {
-					indicator.classList.add("passed");
 				}
 			});
 
@@ -749,26 +510,13 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 				history.replaceState(null, "", window.location.pathname);
 			}
 
-			// Dispatch section-enter for all sections up to and including the initial one
-			// This ensures Word animations trigger for all "passed" sections
-			for (let i = 0; i <= initialIndex; i++) {
-				this.visitedSections.add(i);
-				document.dispatchEvent(
-					new CustomEvent("section-enter", {
-						detail: { index: i, isFirstVisit: true },
-					})
-				);
-			}
-
 			// Bind events
 			this.container.addEventListener("wheel", this.boundHandleWheel, { passive: false });
 			this.container.addEventListener("touchstart", this.boundHandleTouchStart, { passive: true });
 			this.container.addEventListener("touchmove", this.boundHandleTouchMove, { passive: true });
 
-			// Indicator clicks
-			this.indicators.forEach((indicator, i) => {
-				indicator.addEventListener("click", () => this.goToSection(i));
-			});
+			// Listen for status bar navigation
+			document.addEventListener("status-bar-nav", this.boundStatusBarNav);
 
 			// Keyboard navigation
 			document.addEventListener("keydown", this.boundHandleKeydown);
@@ -782,6 +530,14 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 					}
 				}
 			}, 16);
+
+			// Dispatch section-enter for initial section
+			this.visitedSections.add(this.currentIndex);
+			document.dispatchEvent(
+				new CustomEvent("section-enter", {
+					detail: { index: this.currentIndex, isFirstVisit: true },
+				})
+			);
 
 			console.log(
 				"🎯 Depth Navigator initialized with",
@@ -873,25 +629,6 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 				}
 			});
 
-			// Update indicators with passed state for VU meter effect
-			this.indicators.forEach((indicator, i) => {
-				indicator.classList.remove("active", "passed");
-				if (i === index) {
-					indicator.classList.add("active");
-					// Add flicker effect
-					indicator.classList.remove("flickering");
-					// Force reflow to restart animation
-					void indicator.offsetWidth;
-					indicator.classList.add("flickering");
-					// Remove flickering class after animation completes
-					setTimeout(() => {
-						indicator.classList.remove("flickering");
-					}, 400);
-				} else if (i < index) {
-					indicator.classList.add("passed");
-				}
-			});
-
 			// Reset scroll position of incoming section
 			const scrollableInner = newSection.querySelector(".depth-section-inner") as HTMLElement;
 			if (scrollableInner) {
@@ -900,7 +637,7 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 
 			this.currentIndex = index;
 
-			// Dispatch section-enter event for Word animations
+			// Dispatch section-enter event for Word animations and status bar quips
 			const isFirstVisit = !this.visitedSections.has(index);
 			this.visitedSections.add(index);
 			document.dispatchEvent(

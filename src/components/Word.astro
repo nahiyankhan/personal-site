@@ -353,24 +353,8 @@ const isIntro = !wordId;
 		}
 	});
 
-	// Run intro animation on load
-	function initIntro() {
-		if (!introRevealed) {
-			setTimeout(() => {
-				if (!introRevealed) {
-					revealWord();
-					introRevealed = true;
-					lastAnimatedSection = 0;
-				}
-			}, 200);
-		}
-	}
-
-	if (document.readyState === "loading") {
-		document.addEventListener("DOMContentLoaded", initIntro);
-	} else {
-		initIntro();
-	}
+	// Intro animation is now triggered by section-enter event from DepthLayout
+	// which only fires after boot-complete, so we don't need initIntro() anymore
 
 	// Reset on Astro page transitions
 	document.addEventListener("astro:after-swap", () => {

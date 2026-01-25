@@ -1,0 +1,556 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	sectionCount: number;
+}
+
+const { sectionCount } = Astro.props;
+const sections = Array.from({ length: sectionCount }, (_, i) => i);
+---
+
+<div class="terminal-status-bar" x-data x-cloak>
+	<!-- Section Indicators -->
+	<div class="status-indicators">
+		{
+			sections.map((i) => (
+				<button
+					data-section={i}
+					class:list={["status-indicator", { active: i === 0 }]}
+					aria-label={`Go to section ${i + 1}`}
+				/>
+			))
+		}
+	</div>
+
+	<!-- Divider -->
+	<div class="status-divider"></div>
+
+	<!-- Terminal Output -->
+	<div class="terminal-output-container" aria-live="polite">
+		<span class="terminal-prompt">&gt;</span>
+		<span id="terminal-output" class="terminal-output"></span>
+		<span class="terminal-cursor"></span>
+	</div>
+
+	<!-- Divider -->
+	<div class="status-divider"></div>
+
+	<!-- Theme Toggle -->
+	<button
+		class="status-theme-toggle"
+		type="button"
+		x-data
+		@click="$store.theme.toggleMode()"
+		aria-label="Toggle theme"
+	>
+		<Icon
+			aria-hidden="true"
+			class="toggle-icon toggle-icon-moon"
+			focusable="false"
+			name="solar:moon-bold-duotone"
+		/>
+		<Icon
+			aria-hidden="true"
+			class="toggle-icon toggle-icon-sun"
+			focusable="false"
+			name="solar:sun-bold-duotone"
+		/>
+	</button>
+</div>
+
+<style>
+	.terminal-status-bar {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 40px;
+		z-index: 100;
+
+		/* Match content background */
+		background: hsl(var(--theme-bg) / 0.95);
+		backdrop-filter: blur(8px);
+		border-top: 1px solid hsl(var(--border-divider) / 0.4);
+
+		/* Inset shadow for depth */
+		box-shadow:
+			inset 0 2px 4px rgba(0, 0, 0, 0.15),
+			inset 0 -1px 2px rgba(255, 255, 255, 0.03);
+
+		/* Layout */
+		display: flex;
+		align-items: center;
+		padding: 0 1rem;
+		gap: 12px;
+
+		/* Monospace for terminal feel */
+		font-family: "JetBrains Mono Variable", monospace;
+		font-size: 11px;
+		letter-spacing: 0.02em;
+	}
+
+	@media (min-width: 640px) {
+		.terminal-status-bar {
+			height: 48px;
+			padding: 0 1.5rem;
+			font-size: 12px;
+		}
+	}
+
+	/* Scanline overlay */
+	.terminal-status-bar::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: repeating-linear-gradient(
+			0deg,
+			transparent 0px,
+			transparent 2px,
+			rgba(0, 0, 0, 0.06) 2px,
+			rgba(0, 0, 0, 0.06) 3px
+		);
+		pointer-events: none;
+		opacity: 0.5;
+	}
+
+	/* Section Indicators - Horizontal */
+	.status-indicators {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 6px;
+	}
+
+	@media (min-width: 640px) {
+		.status-indicators {
+			gap: 8px;
+		}
+	}
+
+	.status-indicator {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: hsl(var(--border-divider) / 0.25);
+		cursor: pointer;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
+		border: 1px solid hsl(var(--border-divider) / 0.15);
+		box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+	}
+
+	@media (min-width: 640px) {
+		.status-indicator {
+			width: 10px;
+			height: 10px;
+		}
+	}
+
+	/* Inner glow element for LED effect */
+	.status-indicator::before {
+		content: "";
+		position: absolute;
+		inset: 1px;
+		border-radius: 50%;
+		background: transparent;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	/* Scanline overlay on indicator */
+	.status-indicator::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: repeating-linear-gradient(
+			0deg,
+			transparent 0px,
+			transparent 1px,
+			rgba(0, 0, 0, 0.15) 1px,
+			rgba(0, 0, 0, 0.15) 2px
+		);
+		border-radius: 50%;
+		pointer-events: none;
+		opacity: 0.5;
+	}
+
+	.status-indicator:hover {
+		background: hsl(var(--border-divider) / 0.4);
+		box-shadow: 0 0 8px hsl(var(--border-divider) / 0.3);
+		transform: scale(1.15);
+	}
+
+	.status-indicator.active {
+		background: rgb(34, 197, 94);
+		border-color: rgba(34, 197, 94, 0.4);
+		box-shadow:
+			0 0 6px rgba(34, 197, 94, 0.6),
+			0 0 12px rgba(34, 197, 94, 0.3);
+		animation: led-pulse 2s ease-in-out infinite;
+	}
+
+	.status-indicator.active::before {
+		background: radial-gradient(circle at center, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+	}
+
+	.status-indicator.passed {
+		background: hsl(var(--border-divider) / 0.15);
+		box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+	}
+
+	.status-indicator.passed::before {
+		background: transparent;
+	}
+
+	/* LED flicker animation on switch */
+	.status-indicator.flickering {
+		animation: led-flicker 0.4s ease-out forwards;
+	}
+
+	@keyframes led-pulse {
+		0%,
+		100% {
+			box-shadow:
+				0 0 6px rgba(34, 197, 94, 0.6),
+				0 0 12px rgba(34, 197, 94, 0.3);
+		}
+		50% {
+			box-shadow:
+				0 0 8px rgba(34, 197, 94, 0.8),
+				0 0 16px rgba(34, 197, 94, 0.4);
+		}
+	}
+
+	@keyframes led-flicker {
+		0% {
+			opacity: 0.3;
+			filter: brightness(0.5);
+		}
+		10% {
+			opacity: 1;
+			filter: brightness(1.5);
+		}
+		20% {
+			opacity: 0.4;
+			filter: brightness(0.6);
+		}
+		30% {
+			opacity: 1;
+			filter: brightness(1.3);
+		}
+		40% {
+			opacity: 0.6;
+			filter: brightness(0.8);
+		}
+		50% {
+			opacity: 1;
+			filter: brightness(1.4);
+		}
+		60% {
+			opacity: 0.8;
+			filter: brightness(0.9);
+		}
+		70% {
+			opacity: 1;
+			filter: brightness(1.2);
+		}
+		85% {
+			opacity: 0.95;
+			filter: brightness(1.05);
+		}
+		100% {
+			opacity: 1;
+			filter: brightness(1);
+		}
+	}
+
+	/* Divider */
+	.status-divider {
+		width: 1px;
+		height: 16px;
+		background: hsl(var(--border-divider) / 0.3);
+	}
+
+	@media (min-width: 640px) {
+		.status-divider {
+			height: 20px;
+		}
+	}
+
+	/* Terminal Output */
+	.terminal-output-container {
+		flex: 1;
+		overflow: hidden;
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
+		color: hsl(var(--theme-text));
+	}
+
+	.terminal-prompt {
+		opacity: 0.6;
+		margin-right: 0.5em;
+		flex-shrink: 0;
+	}
+
+	.terminal-output {
+		/* No flex: 1 - let it size to content so cursor follows */
+	}
+
+	.terminal-cursor {
+		display: inline-block;
+		width: 0.6em;
+		height: 1.1em;
+		background: currentColor;
+		animation: cursor-blink 0.7s step-end infinite;
+		vertical-align: text-bottom;
+		margin-left: 2px;
+		opacity: 0.9;
+	}
+
+	/* Solid cursor while typing */
+	.terminal-cursor.typing {
+		animation: none;
+		opacity: 0.9;
+	}
+
+	@keyframes cursor-blink {
+		0%,
+		50% {
+			opacity: 0.9;
+		}
+		51%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+	/* Theme Toggle - Inline */
+	.status-theme-toggle {
+		width: 28px;
+		height: 28px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		border-radius: 6px;
+		background: transparent;
+		border: none;
+		transition: all 0.2s;
+		position: relative;
+	}
+
+	@media (min-width: 640px) {
+		.status-theme-toggle {
+			width: 32px;
+			height: 32px;
+		}
+	}
+
+	.status-theme-toggle:hover {
+		background: hsl(var(--border-divider) / 0.2);
+	}
+
+	.status-theme-toggle .toggle-icon {
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+		color: hsl(var(--theme-text));
+	}
+
+	@media (min-width: 640px) {
+		.status-theme-toggle .toggle-icon {
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	/* Moon icon - visible in light mode */
+	.toggle-icon-moon {
+		opacity: 1;
+		transform: rotate(0deg) scale(1);
+	}
+
+	:global([data-theme="dark"]) .toggle-icon-moon {
+		opacity: 0;
+		transform: rotate(-90deg) scale(0.3);
+	}
+
+	/* Sun icon - visible in dark mode */
+	.toggle-icon-sun {
+		opacity: 0;
+		transform: rotate(90deg) scale(0.3);
+	}
+
+	:global([data-theme="dark"]) .toggle-icon-sun {
+		opacity: 1;
+		transform: rotate(0deg) scale(1);
+	}
+</style>
+
+<script>
+	// Section quips - random selection per visit
+	const sectionQuips: Record<number, string[]> = {
+		0: [
+			"welcome to the mainframe",
+			"all systems nominal",
+			"hello, world",
+			"initializing human interface",
+		],
+		1: [
+			"loading professional history",
+			"experience buffer full",
+			"decrypting work files",
+			"accessing personnel records",
+		],
+		2: [
+			"entering the workshop",
+			"experiments loading",
+			"chaos.dll initialized",
+			"creative subroutines online",
+		],
+		3: [
+			"opening communication channels",
+			"awaiting transmission",
+			"ready to receive",
+			"connection established",
+		],
+	};
+
+	function getRandomQuip(sectionIndex: number): string {
+		const quips = sectionQuips[sectionIndex] || sectionQuips[0];
+		return quips[Math.floor(Math.random() * quips.length)];
+	}
+
+	// Typewriter state
+	let currentTypewriterId = 0;
+
+	// Typewriter effect with cursor control
+	async function typewriterEffect(
+		element: HTMLElement,
+		text: string,
+		charDelay: number = 18
+	): Promise<void> {
+		// Each call gets a unique ID - if ID changes mid-typing, stop
+		const myId = ++currentTypewriterId;
+
+		const cursor = document.querySelector(".terminal-cursor") as HTMLElement;
+
+		// Stop cursor blink during typing
+		if (cursor) {
+			cursor.classList.add("typing");
+		}
+
+		element.textContent = "";
+		for (let i = 0; i < text.length; i++) {
+			// Abort if a newer typewriter started
+			if (myId !== currentTypewriterId) {
+				return;
+			}
+			element.textContent += text[i];
+			// Add slight randomness for more organic feel
+			const jitter = Math.random() * 15 - 5;
+			await new Promise((r) => setTimeout(r, charDelay + jitter));
+		}
+
+		// Resume cursor blink when done (only if we're still the active typewriter)
+		if (cursor && myId === currentTypewriterId) {
+			cursor.classList.remove("typing");
+		}
+	}
+
+	// Sleep helper
+	function sleep(ms: number): Promise<void> {
+		return new Promise((r) => setTimeout(r, ms));
+	}
+
+	// Check for reduced motion preference
+	function prefersReducedMotion(): boolean {
+		return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+	}
+
+	// Track if initial message has been shown
+	let initialMessageShown = false;
+
+	// Handle section changes
+	function handleSectionEnter(e: CustomEvent): void {
+		const { index } = e.detail;
+		const outputEl = document.getElementById("terminal-output");
+
+		if (!outputEl) return;
+
+		// Update indicators
+		const indicators = document.querySelectorAll(".status-indicator");
+		indicators.forEach((indicator, i) => {
+			indicator.classList.remove("active", "passed", "flickering");
+			if (i === index) {
+				indicator.classList.add("active");
+				indicator.classList.add("flickering");
+				setTimeout(() => indicator.classList.remove("flickering"), 400);
+			} else if (i < index) {
+				indicator.classList.add("passed");
+			}
+		});
+
+		if (!initialMessageShown) {
+			// First load - just set text directly, no typewriter
+			initialMessageShown = true;
+			outputEl.textContent = "all systems nominal";
+		} else {
+			// Subsequent navigation - typewriter effect
+			const charDelay = prefersReducedMotion() ? 5 : 18;
+			const quip = getRandomQuip(index);
+			typewriterEffect(outputEl, quip, charDelay);
+		}
+	}
+
+	// Handle indicator clicks
+	function setupIndicatorClicks(): void {
+		const indicators = document.querySelectorAll(".status-indicator");
+		indicators.forEach((indicator) => {
+			indicator.addEventListener("click", () => {
+				const section = parseInt(indicator.getAttribute("data-section") || "0", 10);
+				// Dispatch event that DepthNavigator listens for
+				document.dispatchEvent(
+					new CustomEvent("status-bar-nav", {
+						detail: { section },
+					})
+				);
+			});
+		});
+	}
+
+	// Track initialization to prevent double-init
+	let initialized = false;
+	let listenerAdded = false;
+
+	// Initialize
+	function init(): void {
+		if (initialized) return;
+		initialized = true;
+		setupIndicatorClicks();
+
+		// Only add listener once
+		if (!listenerAdded) {
+			document.addEventListener("section-enter", handleSectionEnter as EventListener);
+			listenerAdded = true;
+		}
+	}
+
+	// Reset on page transitions
+	function reset(): void {
+		initialized = false;
+		initialMessageShown = false;
+		currentTypewriterId++; // Cancel any in-progress typewriter
+	}
+
+	// Initialize on page load
+	document.addEventListener("DOMContentLoaded", init);
+
+	// Reinitialize after Astro view transitions
+	document.addEventListener("astro:page-load", () => {
+		reset();
+		init();
+	});
+</script>
