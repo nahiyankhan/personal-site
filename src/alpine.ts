@@ -21,6 +21,11 @@ interface Settings {
   toggle: () => void;
 }
 
+interface TerminalStore {
+  booted: boolean;
+  booting: boolean;
+}
+
 export default (Alpine: Alpine) => {
   Alpine.plugin(persist)
   Alpine.plugin(intersect)
@@ -65,4 +70,9 @@ export default (Alpine: Alpine) => {
   Alpine.store('container', {
     width: 0
   })
+
+  Alpine.store('terminal', {
+    booted: false,
+    booting: false,
+  } as TerminalStore)
 }
