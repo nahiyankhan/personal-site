@@ -67,7 +67,7 @@ const {
 			<div class="flex flex-col" id="minimap-slides"></div>
 		</aside>
 
-		<main class="case-container snap-y snap-mandatory h-dvh overflow-y-scroll" id="case-container">
+		<main class="case-container h-dvh overflow-y-scroll" id="case-container">
 			<slot />
 		</main>
 	</body>
@@ -154,6 +154,8 @@ const {
 	}
 
 	.case-container {
+		scroll-snap-type: y mandatory;
+		overscroll-behavior: contain;
 		scrollbar-width: none;
 	}
 
@@ -241,6 +243,45 @@ const {
 			}
 		});
 
+		// Navigate to a specific slide
+		function goToSlide(index: number) {
+			if (index >= 0 && index < sections.length) {
+				sections[index].scrollIntoView({ behavior: "smooth" });
+			}
+		}
+
+		// Keyboard navigation
+		function handleKeydown(e: KeyboardEvent) {
+			// Don't capture if user is typing in an input
+			if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+			switch (e.key) {
+				case "ArrowDown":
+				case "ArrowRight":
+				case "PageDown":
+				case " ": // Space
+					e.preventDefault();
+					goToSlide(currentIndex + 1);
+					break;
+				case "ArrowUp":
+				case "ArrowLeft":
+				case "PageUp":
+					e.preventDefault();
+					goToSlide(currentIndex - 1);
+					break;
+				case "Home":
+					e.preventDefault();
+					goToSlide(0);
+					break;
+				case "End":
+					e.preventDefault();
+					goToSlide(sections.length - 1);
+					break;
+			}
+		}
+
+		document.addEventListener("keydown", handleKeydown);
+
 		// Track current section
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -261,8 +302,16 @@ const {
 		);
 
 		sections.forEach((section) => observer.observe(section));
+
+		// Cleanup function for view transitions
+		return () => {
+			document.removeEventListener("keydown", handleKeydown);
+		};
 	}
 
-	initCaseScroll();
-	document.addEventListener("astro:after-swap", initCaseScroll);
+	let cleanup = initCaseScroll();
+	document.addEventListener("astro:after-swap", () => {
+		cleanup?.();
+		cleanup = initCaseScroll();
+	});
 </script>
