@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import portrait from "@/assets/nk_portrait.jpg";
 import { socialLinks } from "@/site-config";
 import { Icon } from "astro-icon/components";
 import Subtitle from "./Subtitle.astro";
@@ -22,18 +24,47 @@ import Footer from "./layout/Footer.astro";
 		<div class="px-4 sm:px-8">
 			<Subtitle title="say-hi" />
 
-			<ul>
+			<div class="mt-4 flex flex-col items-start gap-4 sm:gap-8">
+				<!-- <div class="flex-shrink-0">
+					<Image
+						src={portrait}
+						alt="Portrait"
+						class="h-48 w-48 rounded-2xl object-cover sm:h-64 sm:w-64"
+					/>
+				</div> -->
+
+				<ul class="flex flex-col">
+					{
+						socialLinks
+							.filter(({ name }) => name === "mdi:linkedin" || name === "mdi:github")
+							.map(({ friendlyName, link, name }) => (
+								<li class="mt-2 flex">
+									<a class="link relative flex items-center underline" href={link} target="_blank">
+										<div class="full justify-left">
+											<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
+										</div>
+										<p class="pl-4 text-sm">{friendlyName}</p>
+									</a>
+								</li>
+							))
+					}
+				</ul>
+			</div>
+
+			<ul class="mt-6">
 				{
-					socialLinks.map(({ friendlyName, link, name }) => (
-						<li class="mt-2 flex">
-							<a class="link relative flex items-center underline" href={link} target="_blank">
-								<div class="full justify-left">
-									<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
-								</div>
-								<p class="pl-4 text-sm">{friendlyName}</p>
-							</a>
-						</li>
-					))
+					socialLinks
+						.filter(({ name }) => name !== "mdi:linkedin" && name !== "mdi:github")
+						.map(({ friendlyName, link, name }) => (
+							<li class="mt-2 flex">
+								<a class="link relative flex items-center underline" href={link} target="_blank">
+									<div class="full justify-left">
+										<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
+									</div>
+									<p class="pl-4 text-sm">{friendlyName}</p>
+								</a>
+							</li>
+						))
 				}
 			</ul>
 		</div>
