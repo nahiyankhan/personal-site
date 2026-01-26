@@ -2,18 +2,18 @@
 import CaseLayout from "@/layouts/CaseLayout.astro";
 ---
 
-<CaseLayout meta={{ title: "Case Study Template" }}>
+<CaseLayout meta={{ title: "Dashboard Refresh" }}>
 	<!-- Section 1: Hero -->
 	<section data-title="Intro">
 		<span class="label">Case Study</span>
-		<h1>Project Title</h1>
-		<p class="subtitle">A short, punchy description of what this is.</p>
+		<h1>Dashboard Refresh</h1>
+		<p class="subtitle">Making a data-heavy analytics dashboard actually usable again.</p>
 	</section>
 
 	<!-- Section 2: The Work -->
 	<section data-title="The Work">
 		<div class="media-frame">
-			<div class="media-placeholder">video / demo</div>
+			<div class="media-placeholder">dashboard walkthrough</div>
 		</div>
 	</section>
 
@@ -21,21 +21,22 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 	<section data-title="Context">
 		<span class="label">Context</span>
 		<p class="body-text">
-			One or two sentences that frame what we were solving.
-			Not a wall of text. Just enough to understand the stakes.
+			The dashboard loaded 47 charts on mount. Users waited 3+ seconds staring
+			at spinners. Power users had memorized keyboard shortcuts to skip the
+			parts they didn't need. Everyone else just... didn't use it.
 		</p>
 		<div class="meta-row">
 			<div class="meta-item">
 				<span class="meta-label">Role</span>
-				<span class="meta-value">Design Engineer Lead</span>
+				<span class="meta-value">Frontend Architect</span>
 			</div>
 			<div class="meta-item">
 				<span class="meta-label">Timeline</span>
-				<span class="meta-value">Q3 2024</span>
+				<span class="meta-value">10 weeks</span>
 			</div>
 			<div class="meta-item">
 				<span class="meta-label">Team</span>
-				<span class="meta-value">3 engineers, 1 PM</span>
+				<span class="meta-value">2 engineers, 1 data analyst</span>
 			</div>
 		</div>
 	</section>
@@ -44,14 +45,15 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 	<section data-title="Decision" class="split">
 		<div class="split-text">
 			<span class="label">Decision</span>
-			<h2>The technical bet</h2>
+			<h2>Progressive loading, virtualized lists</h2>
 			<p class="body-text">
-				Describe a key call you made. What was the tradeoff?
-				Why did you choose this path?
+				We moved to server components for the shell and streamed in chart
+				data. Tables with 10k+ rows got virtualized. Only what's visible
+				renders. The rest waits.
 			</p>
 		</div>
 		<div class="split-media">
-			<div class="media-placeholder">supporting visual</div>
+			<div class="media-placeholder">loading sequence</div>
 		</div>
 	</section>
 
@@ -59,14 +61,15 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 	<section data-title="Iteration" class="split reverse">
 		<div class="split-text">
 			<span class="label">Iteration</span>
-			<h2>What changed</h2>
+			<h2>Finding the critical path</h2>
 			<p class="body-text">
-				Another beat. Could be an iteration, a pivot,
-				or a moment of insight.
+				User research revealed 80% of sessions touched only 3 widgets.
+				We made those load first, instant. Everything else became
+				progressive—there if you scroll, invisible if you don't.
 			</p>
 		</div>
 		<div class="split-media">
-			<div class="media-placeholder">before / after</div>
+			<div class="media-placeholder">heatmap data</div>
 		</div>
 	</section>
 
@@ -75,19 +78,22 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 		<span class="label">Outcome</span>
 		<div class="stats">
 			<div class="stat">
-				<span class="stat-value">40%</span>
-				<span class="stat-label">faster</span>
+				<span class="stat-value">400ms</span>
+				<span class="stat-label">time to interactive</span>
 			</div>
 			<div class="stat">
-				<span class="stat-value">2x</span>
-				<span class="stat-label">engagement</span>
+				<span class="stat-value">+15</span>
+				<span class="stat-label">NPS increase</span>
 			</div>
 			<div class="stat">
-				<span class="stat-value">shipped</span>
-				<span class="stat-label">production</span>
+				<span class="stat-value">3x</span>
+				<span class="stat-label">daily active users</span>
 			</div>
 		</div>
-		<p class="body-text">A final thought. What did this mean?</p>
+		<p class="body-text">
+			Users stopped complaining about performance. They started asking for
+			new features. That's when you know you've won.
+		</p>
 	</section>
 
 	<!-- Section 7: End -->

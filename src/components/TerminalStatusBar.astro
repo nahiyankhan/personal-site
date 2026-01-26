@@ -24,17 +24,17 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 	</div>
 
 	<!-- Divider -->
-	<div class="status-divider"></div>
+	<div class="status-divider" aria-hidden="true">│</div>
 
 	<!-- Terminal Output -->
 	<div class="terminal-output-container" aria-live="polite">
-		<span class="terminal-prompt">&gt;</span>
+		<span class="terminal-prompt">$</span>
 		<span id="terminal-output" class="terminal-output"></span>
 		<span class="terminal-cursor"></span>
 	</div>
 
 	<!-- Divider -->
-	<div class="status-divider"></div>
+	<div class="status-divider" aria-hidden="true">│</div>
 
 	<!-- Theme Toggle -->
 	<button
@@ -266,14 +266,15 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 
 	/* Divider */
 	.status-divider {
-		width: 1px;
-		height: 16px;
-		background: hsl(var(--border-divider) / 0.3);
+		color: hsl(var(--border-divider) / 0.3);
+		font-size: 20px;
+		line-height: 1;
+		user-select: none;
 	}
 
 	@media (min-width: 640px) {
 		.status-divider {
-			height: 20px;
+			font-size: 24px;
 		}
 	}
 
@@ -393,28 +394,32 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 	// Section quips - random selection per visit
 	const sectionQuips: Record<number, string[]> = {
 		0: [
-			"welcome to the mainframe",
-			"all systems nominal",
-			"hello, world",
-			"initializing human interface",
+			"█▓▒░ welcome to the mainframe ░▒▓█",
+			"[✓] all systems nominal",
+			">>> hello, world_",
+			"[████████████] 100% initialized",
+			"access.granted() → true",
 		],
 		1: [
-			"loading professional history",
-			"experience buffer full",
-			"decrypting work files",
-			"accessing personnel records",
+			"[▓▓▓▓▓░░░░░] loading exp.log",
+			"!! buffer overflow: too much experience",
+			"$ cat ~/work/history.txt",
+			"[OK] personnel.db decrypted",
+			"grep -r 'achievements' ./career/*",
 		],
 		2: [
-			"entering the workshop",
-			"experiments loading",
-			"chaos.dll initialized",
-			"creative subroutines online",
+			"⚡ entering.workshop.exe",
+			"[∞] chaos_mode=enabled",
+			"(╯°□°）╯︵ ┻━┻ experiments.running()",
+			"[███ ▓▓▓ ░░░] creative.sys loading",
+			"./run_prototype.sh --experimental",
 		],
 		3: [
-			"opening communication channels",
-			"awaiting transmission",
-			"ready to receive",
-			"connection established",
+			"<<<>>> comm channels: [OPEN]",
+			"[◉_◉] awaiting.transmission...",
+			"✉ inbox.listen(port:3000)",
+			"[█] connection.established → 200 OK",
+			"$ nc -l nahiyan.dev 1337",
 		],
 	};
 
@@ -423,10 +428,46 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		return quips[Math.floor(Math.random() * quips.length)];
 	}
 
+	// Glitch characters for random corruption
+	const glitchChars = "!<>-_\\/[]{}—=+*^?#________";
+
+	// Randomly corrupt text with glitch characters
+	function glitchText(text: string, intensity: number = 0.1): string {
+		return text
+			.split("")
+			.map((char) => {
+				if (Math.random() < intensity) {
+					return glitchChars[Math.floor(Math.random() * glitchChars.length)];
+				}
+				return char;
+			})
+			.join("");
+	}
+
+	// Sleep helper
+	function sleep(ms: number): Promise<void> {
+		return new Promise((r) => setTimeout(r, ms));
+	}
+
+	// Apply temporary glitch effect
+	async function applyGlitchEffect(element: HTMLElement, duration: number = 200): Promise<void> {
+		const original = element.textContent || "";
+		const frames = 8;
+		const frameTime = duration / frames;
+
+		for (let i = 0; i < frames; i++) {
+			const intensity = Math.sin((i / frames) * Math.PI) * 0.3; // Bell curve
+			element.textContent = glitchText(original, intensity);
+			await sleep(frameTime);
+		}
+
+		element.textContent = original;
+	}
+
 	// Typewriter state
 	let currentTypewriterId = 0;
 
-	// Typewriter effect with cursor control
+	// Typewriter effect with cursor control and glitches
 	async function typewriterEffect(
 		element: HTMLElement,
 		text: string,
@@ -449,9 +490,25 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 				return;
 			}
 			element.textContent += text[i];
+
+			// Random glitch during typing
+			if (Math.random() < 0.05) {
+				// 5% chance
+				const temp = element.textContent;
+				element.textContent = glitchText(temp, 0.3);
+				await sleep(50);
+				element.textContent = temp;
+			}
+
 			// Add slight randomness for more organic feel
 			const jitter = Math.random() * 15 - 5;
 			await new Promise((r) => setTimeout(r, charDelay + jitter));
+		}
+
+		// Brief glitch at the end
+		if (myId === currentTypewriterId && Math.random() < 0.3) {
+			await sleep(100);
+			await applyGlitchEffect(element, 150);
 		}
 
 		// Resume cursor blink when done (only if we're still the active typewriter)
@@ -460,14 +517,29 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		}
 	}
 
-	// Sleep helper
-	function sleep(ms: number): Promise<void> {
-		return new Promise((r) => setTimeout(r, ms));
-	}
-
 	// Check for reduced motion preference
 	function prefersReducedMotion(): boolean {
 		return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+	}
+
+	// Boot sequence with ASCII
+	async function bootSequence(outputEl: HTMLElement): Promise<void> {
+		const bootMessages = [
+			"[BOOT] initializing...",
+			"[▓▓▓░░░░░░░] 30%",
+			"[▓▓▓▓▓▓░░░░] 60%",
+			"[▓▓▓▓▓▓▓▓▓▓] 100%",
+			"[OK] system.ready()",
+		];
+
+		for (const msg of bootMessages) {
+			outputEl.textContent = msg;
+			await sleep(150);
+			// Add mini glitch between messages
+			if (Math.random() < 0.5) {
+				await applyGlitchEffect(outputEl, 80);
+			}
+		}
 	}
 
 	// Track if initial message has been shown
@@ -494,9 +566,16 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		});
 
 		if (!initialMessageShown) {
-			// First load - just set text directly, no typewriter
+			// First load - boot sequence then set text
 			initialMessageShown = true;
-			outputEl.textContent = "all systems nominal";
+			if (!prefersReducedMotion()) {
+				bootSequence(outputEl).then(async () => {
+					await sleep(200);
+					outputEl.textContent = "[✓] all systems nominal";
+				});
+			} else {
+				outputEl.textContent = "[✓] all systems nominal";
+			}
 		} else {
 			// Subsequent navigation - typewriter effect
 			const charDelay = prefersReducedMotion() ? 5 : 18;
@@ -505,12 +584,20 @@ const sections = Array.from({ length: sectionCount }, (_, i) => i);
 		}
 	}
 
-	// Handle indicator clicks
+	// Handle indicator clicks with glitch effect
 	function setupIndicatorClicks(): void {
 		const indicators = document.querySelectorAll(".status-indicator");
+		const outputEl = document.getElementById("terminal-output");
+
 		indicators.forEach((indicator) => {
-			indicator.addEventListener("click", () => {
+			indicator.addEventListener("click", async () => {
 				const section = parseInt(indicator.getAttribute("data-section") || "0", 10);
+
+				// Quick glitch on output before transition
+				if (outputEl && outputEl.textContent) {
+					await applyGlitchEffect(outputEl, 100);
+				}
+
 				// Dispatch event that DepthNavigator listens for
 				document.dispatchEvent(
 					new CustomEvent("status-bar-nav", {

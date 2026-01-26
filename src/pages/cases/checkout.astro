@@ -2,18 +2,18 @@
 import CaseLayout from "@/layouts/CaseLayout.astro";
 ---
 
-<CaseLayout meta={{ title: "Case Study Template" }}>
+<CaseLayout meta={{ title: "Reimagining Checkout" }}>
 	<!-- Section 1: Hero -->
 	<section data-title="Intro">
 		<span class="label">Case Study</span>
-		<h1>Project Title</h1>
-		<p class="subtitle">A short, punchy description of what this is.</p>
+		<h1>Reimagining Checkout</h1>
+		<p class="subtitle">Reducing friction in a 5-step purchase flow that was bleeding conversions.</p>
 	</section>
 
 	<!-- Section 2: The Work -->
 	<section data-title="The Work">
 		<div class="media-frame">
-			<div class="media-placeholder">video / demo</div>
+			<div class="media-placeholder">checkout flow demo</div>
 		</div>
 	</section>
 
@@ -21,21 +21,22 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 	<section data-title="Context">
 		<span class="label">Context</span>
 		<p class="body-text">
-			One or two sentences that frame what we were solving.
-			Not a wall of text. Just enough to understand the stakes.
+			Cart abandonment sat at 68%. Users were dropping off at step 3 of 5,
+			right before payment. The existing flow was built incrementally over
+			years—shipping, billing, payment, review, confirm—each step its own page load.
 		</p>
 		<div class="meta-row">
 			<div class="meta-item">
 				<span class="meta-label">Role</span>
-				<span class="meta-value">Design Engineer Lead</span>
+				<span class="meta-value">Lead Design Engineer</span>
 			</div>
 			<div class="meta-item">
 				<span class="meta-label">Timeline</span>
-				<span class="meta-value">Q3 2024</span>
+				<span class="meta-value">8 weeks</span>
 			</div>
 			<div class="meta-item">
 				<span class="meta-label">Team</span>
-				<span class="meta-value">3 engineers, 1 PM</span>
+				<span class="meta-value">2 engineers, 1 designer, 1 PM</span>
 			</div>
 		</div>
 	</section>
@@ -44,14 +45,15 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 	<section data-title="Decision" class="split">
 		<div class="split-text">
 			<span class="label">Decision</span>
-			<h2>The technical bet</h2>
+			<h2>Single page, progressive disclosure</h2>
 			<p class="body-text">
-				Describe a key call you made. What was the tradeoff?
-				Why did you choose this path?
+				We collapsed five pages into one. Each section reveals as the previous
+				completes. No page loads, no lost context. The URL updates for
+				deep-linking, but the DOM stays intact.
 			</p>
 		</div>
 		<div class="split-media">
-			<div class="media-placeholder">supporting visual</div>
+			<div class="media-placeholder">accordion states</div>
 		</div>
 	</section>
 
@@ -59,14 +61,15 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 	<section data-title="Iteration" class="split reverse">
 		<div class="split-text">
 			<span class="label">Iteration</span>
-			<h2>What changed</h2>
+			<h2>The address problem</h2>
 			<p class="body-text">
-				Another beat. Could be an iteration, a pivot,
-				or a moment of insight.
+				A/B tests showed users still hesitated at address entry. We added
+				autocomplete via Google Places API and a "same as shipping" toggle
+				that actually worked. Small things. Big impact.
 			</p>
 		</div>
 		<div class="split-media">
-			<div class="media-placeholder">before / after</div>
+			<div class="media-placeholder">before / after address</div>
 		</div>
 	</section>
 
@@ -75,19 +78,22 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 		<span class="label">Outcome</span>
 		<div class="stats">
 			<div class="stat">
+				<span class="stat-value">23%</span>
+				<span class="stat-label">conversion lift</span>
+			</div>
+			<div class="stat">
 				<span class="stat-value">40%</span>
-				<span class="stat-label">faster</span>
+				<span class="stat-label">faster completion</span>
 			</div>
 			<div class="stat">
-				<span class="stat-value">2x</span>
-				<span class="stat-label">engagement</span>
-			</div>
-			<div class="stat">
-				<span class="stat-value">shipped</span>
-				<span class="stat-label">production</span>
+				<span class="stat-value">$2.1M</span>
+				<span class="stat-label">recovered revenue</span>
 			</div>
 		</div>
-		<p class="body-text">A final thought. What did this mean?</p>
+		<p class="body-text">
+			The new flow shipped to 100% of traffic after two weeks of monitoring.
+			Mobile conversion improved even more than desktop.
+		</p>
 	</section>
 
 	<!-- Section 7: End -->

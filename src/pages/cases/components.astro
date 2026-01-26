@@ -2,18 +2,18 @@
 import CaseLayout from "@/layouts/CaseLayout.astro";
 ---
 
-<CaseLayout meta={{ title: "Case Study Template" }}>
+<CaseLayout meta={{ title: "Component Library" }}>
 	<!-- Section 1: Hero -->
 	<section data-title="Intro">
 		<span class="label">Case Study</span>
-		<h1>Project Title</h1>
-		<p class="subtitle">A short, punchy description of what this is.</p>
+		<h1>Component Library</h1>
+		<p class="subtitle">Building a design system from scratch for a team that had never had one.</p>
 	</section>
 
 	<!-- Section 2: The Work -->
 	<section data-title="The Work">
 		<div class="media-frame">
-			<div class="media-placeholder">video / demo</div>
+			<div class="media-placeholder">component explorer</div>
 		</div>
 	</section>
 
@@ -21,21 +21,22 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 	<section data-title="Context">
 		<span class="label">Context</span>
 		<p class="body-text">
-			One or two sentences that frame what we were solving.
-			Not a wall of text. Just enough to understand the stakes.
+			Twelve teams. Twelve button styles. Every feature shipped with its own
+			modal implementation. Design reviews became archaeology—digging through
+			Figma graveyards to find "the right" version of a component.
 		</p>
 		<div class="meta-row">
 			<div class="meta-item">
 				<span class="meta-label">Role</span>
-				<span class="meta-value">Design Engineer Lead</span>
+				<span class="meta-value">Design Systems Lead</span>
 			</div>
 			<div class="meta-item">
 				<span class="meta-label">Timeline</span>
-				<span class="meta-value">Q3 2024</span>
+				<span class="meta-value">6 months</span>
 			</div>
 			<div class="meta-item">
 				<span class="meta-label">Team</span>
-				<span class="meta-value">3 engineers, 1 PM</span>
+				<span class="meta-value">3 engineers, 2 designers</span>
 			</div>
 		</div>
 	</section>
@@ -44,14 +45,15 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 	<section data-title="Decision" class="split">
 		<div class="split-text">
 			<span class="label">Decision</span>
-			<h2>The technical bet</h2>
+			<h2>Headless first, tokens everywhere</h2>
 			<p class="body-text">
-				Describe a key call you made. What was the tradeoff?
-				Why did you choose this path?
+				We built unstyled primitives with Radix, then layered in our
+				design tokens. Teams could use the components as-is or customize
+				without forking. The token layer meant theming came free.
 			</p>
 		</div>
 		<div class="split-media">
-			<div class="media-placeholder">supporting visual</div>
+			<div class="media-placeholder">architecture diagram</div>
 		</div>
 	</section>
 
@@ -59,14 +61,15 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 	<section data-title="Iteration" class="split reverse">
 		<div class="split-text">
 			<span class="label">Iteration</span>
-			<h2>What changed</h2>
+			<h2>Adoption over perfection</h2>
 			<p class="body-text">
-				Another beat. Could be an iteration, a pivot,
-				or a moment of insight.
+				The first version had 8 components. We shipped it anyway. Teams
+				started using it, filing issues, requesting features. The backlog
+				became our roadmap. Perfect was the enemy of used.
 			</p>
 		</div>
 		<div class="split-media">
-			<div class="media-placeholder">before / after</div>
+			<div class="media-placeholder">adoption graph</div>
 		</div>
 	</section>
 
@@ -75,19 +78,22 @@ import CaseLayout from "@/layouts/CaseLayout.astro";
 		<span class="label">Outcome</span>
 		<div class="stats">
 			<div class="stat">
-				<span class="stat-value">40%</span>
-				<span class="stat-label">faster</span>
+				<span class="stat-value">60%</span>
+				<span class="stat-label">faster delivery</span>
 			</div>
 			<div class="stat">
-				<span class="stat-value">2x</span>
-				<span class="stat-label">engagement</span>
+				<span class="stat-value">12</span>
+				<span class="stat-label">teams onboarded</span>
 			</div>
 			<div class="stat">
-				<span class="stat-value">shipped</span>
-				<span class="stat-label">production</span>
+				<span class="stat-value">94%</span>
+				<span class="stat-label">component coverage</span>
 			</div>
 		</div>
-		<p class="body-text">A final thought. What did this mean?</p>
+		<p class="body-text">
+			A year later, the library powers every product surface.
+			New engineers ship their first feature in days, not weeks.
+		</p>
 	</section>
 
 	<!-- Section 7: End -->
