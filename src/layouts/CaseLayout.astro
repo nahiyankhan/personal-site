@@ -23,24 +23,58 @@ const {
 		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 		<ViewTransitions />
 	</head>
-	<body>
+	<body class="h-dvh overflow-hidden font-sans text-base font-extralight leading-8 tracking-wide">
 		<ThemeProvider />
 
-		<header class="case-header">
-			<a href="/#forge" class="back-link">
+		<header
+			class="z-100 pointer-events-none fixed left-0 right-0 top-0 flex items-center justify-between p-4 sm:p-8"
+		>
+			<a
+				href="/#forge"
+				class="pointer-events-auto inline-flex items-center gap-2 text-sm tracking-wider text-current no-underline opacity-50 transition-opacity duration-200 hover:opacity-100"
+			>
 				<span>&larr;</span>
 				<span>back</span>
 			</a>
-			<div class="section-indicator" id="section-indicator">01</div>
+			<div class="pointer-events-auto flex items-center gap-4">
+				<div class="text-xs tracking-widest opacity-30" id="section-indicator">01</div>
+				<button
+					class="cursor-pointer border-none bg-transparent p-1 text-current opacity-30 transition-opacity duration-200 hover:opacity-100"
+					id="minimap-toggle"
+					aria-label="Toggle minimap"
+				>
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+					>
+						<rect x="1" y="1" width="5" height="5" rx="1"></rect>
+						<rect x="10" y="1" width="5" height="5" rx="1"></rect>
+						<rect x="1" y="10" width="5" height="5" rx="1"></rect>
+						<rect x="10" y="10" width="5" height="5" rx="1"></rect>
+					</svg>
+				</button>
+			</div>
 		</header>
 
-		<main class="case-container" id="case-container">
+		<aside
+			class="minimap-sidebar z-90 fixed bottom-0 right-0 top-[4.5rem] w-[120px] translate-x-full overflow-y-auto pb-8 backdrop-blur-md transition-transform duration-300 sm:top-24"
+			id="minimap-sidebar"
+		>
+			<div class="flex flex-col" id="minimap-slides"></div>
+		</aside>
+
+		<main class="case-container snap-y snap-mandatory h-dvh overflow-y-scroll" id="case-container">
 			<slot />
 		</main>
 	</body>
 </html>
 
 <style is:global>
+	/* CSS Variables */
 	:root {
 		--slate-0: 0deg 0% 100%;
 		--slate-10: 233deg 100% 96%;
@@ -65,71 +99,61 @@ const {
 		--border-divider: 42deg 17% 80%;
 	}
 
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-
+	/* Variable-dependent styles */
 	body {
-		height: 100dvh;
-		overflow: hidden;
 		background: hsl(var(--theme-bg));
 		color: hsl(var(--theme-text));
-		font-family: "Inter Variable", system-ui, sans-serif;
-		font-weight: 200;
-		font-size: 1rem;
-		line-height: 2rem;
-		letter-spacing: 0.025em;
 	}
 
-	.case-header {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 100;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 1rem 1rem;
-		pointer-events: none;
+	.minimap-sidebar {
+		background: hsl(var(--theme-bg) / 0.95);
+		scrollbar-width: none;
+		border-radius: 0.75rem 0 0 0.75rem;
+		overflow: hidden;
 	}
 
-	@media (min-width: 640px) {
-		.case-header {
-			padding: 2rem 2rem;
-		}
+	.minimap-sidebar::-webkit-scrollbar {
+		display: none;
 	}
 
-	.back-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.875rem;
-		opacity: 0.5;
-		text-decoration: none;
-		color: inherit;
-		pointer-events: auto;
-		transition: opacity 0.2s ease;
-		letter-spacing: 0.05em;
+	.minimap-sidebar.open {
+		transform: translateX(0);
 	}
 
-	.back-link:hover {
+	.minimap-item {
+		border-color: hsl(var(--border-divider) / 0.1);
+		border-left: 1px solid hsl(var(--border-divider) / 0.1);
+	}
+
+	.minimap-item:first-child {
+		border-radius: 0.75rem 0 0 0;
+	}
+
+	.minimap-item:last-child {
+		border-radius: 0 0 0 0.75rem;
+	}
+
+	.minimap-item > div {
+		opacity: 0.4;
+	}
+
+	.minimap-item:hover {
+		opacity: 1 !important;
+		background: hsl(var(--theme-text));
+		color: black;
+	}
+
+	.minimap-item:hover > div {
+		color: black;
 		opacity: 1;
 	}
 
-	.section-indicator {
-		font-family: "JetBrains Mono Variable", monospace;
-		font-size: 0.75rem;
-		opacity: 0.3;
-		letter-spacing: 0.1em;
+	.minimap-item.active > div {
+		color: white;
+		opacity: 1;
 	}
 
 	.case-container {
-		height: 100dvh;
-		overflow-y: scroll;
-		scroll-snap-type: y mandatory;
 		scrollbar-width: none;
 	}
 
@@ -163,18 +187,73 @@ const {
 
 <script>
 	function initCaseScroll() {
-		const container = document.getElementById('case-container');
-		const indicator = document.getElementById('section-indicator');
-		const sections = container?.querySelectorAll('section');
+		const container = document.getElementById("case-container");
+		const indicator = document.getElementById("section-indicator");
+		const sections = container?.querySelectorAll("section");
+		const minimapToggle = document.getElementById("minimap-toggle");
+		const minimapSidebar = document.getElementById("minimap-sidebar");
+		const minimapSlides = document.getElementById("minimap-slides");
 
 		if (!container || !indicator || !sections) return;
 
+		let currentIndex = 0;
+		const thumbs: HTMLElement[] = [];
+
+		// Build minimap items
+		if (minimapSlides) {
+			minimapSlides.innerHTML = "";
+			sections.forEach((section, i) => {
+				const item = document.createElement("div");
+				item.className =
+					"minimap-item py-8 px-4 cursor-pointer border-t transition-all duration-200";
+				if (i === 0) item.classList.add("active");
+				if (i === sections.length - 1) item.classList.add("border-b");
+
+				const title = section.getAttribute("data-title") || `Slide ${i + 1}`;
+
+				item.innerHTML = `
+					<div class="text-[0.625rem] leading-none pb-1 tracking-wider">${String(i + 1).padStart(2, "0")}</div>
+					<div class="text-sm font-normal tracking-wide">${title}</div>
+				`;
+
+				item.addEventListener("click", () => {
+					section.scrollIntoView({ behavior: "smooth" });
+				});
+
+				minimapSlides.appendChild(item);
+				thumbs.push(item);
+			});
+		}
+
+		// Toggle minimap
+		minimapToggle?.addEventListener("click", () => {
+			minimapSidebar?.classList.toggle("open");
+		});
+
+		// Close minimap when clicking outside
+		document.addEventListener("click", (e) => {
+			if (
+				minimapSidebar?.classList.contains("open") &&
+				!minimapSidebar.contains(e.target as Node) &&
+				!minimapToggle?.contains(e.target as Node)
+			) {
+				minimapSidebar.classList.remove("open");
+			}
+		});
+
+		// Track current section
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
 						const index = Array.from(sections).indexOf(entry.target as HTMLElement);
-						indicator.textContent = String(index + 1).padStart(2, '0');
+						currentIndex = index;
+						indicator.textContent = String(index + 1).padStart(2, "0");
+
+						// Update active thumb
+						thumbs.forEach((thumb, i) => {
+							thumb.classList.toggle("active", i === index);
+						});
 					}
 				});
 			},
@@ -185,5 +264,5 @@ const {
 	}
 
 	initCaseScroll();
-	document.addEventListener('astro:after-swap', initCaseScroll);
+	document.addEventListener("astro:after-swap", initCaseScroll);
 </script>
